@@ -1,0 +1,37 @@
+define(['settings'],
+function (Settings) {
+  "use strict";
+
+  return new Settings({
+
+    elasticsearch: "/facesix/proxy/es",
+    
+    default_route     : '/dashboard/file/default.json',
+    
+    kibana_index: "{{{kibanaIndexName}}}",
+
+    relative_path: '',
+
+    panel_names: [
+      'histogram',
+      'map',
+      'goal',
+      'table',
+      'filtering',
+      'timepicker',
+      'text',
+      'hits',
+      'column',
+      'trends',
+      'bettermap',
+      'query',
+      'terms',
+      'stats',
+      'sparklines',
+      'pivot',
+      'explore',
+      'search',
+      'clustering'
+    ]
+  });
+});

@@ -1,0 +1,917 @@
+{{#partial "page"}}
+  <div id="page-content-wrapper" class=" "  style="position: relative;">
+	<div class="container-fluid">
+		<h4 class="acc-sec-title"></h4>		
+		<div class="col-md-12" id=" ">
+			<div class="row log-table-head dd-log-head">
+				<div class="lth-left">
+					<span><i class="fa fa-newspaper-o"></i> Report </span>		
+				 <i class="fa fa-angle-right" aria-hidden="true"></i>
+					<span title="{{customername}}"><div id=""></div>{{customername}}</span>	
+				</div>
+				<div class="GeneratePdf">
+					<a class="btn btn-sm mobilehideS addhide hidden-sm hidden-md" title="Screenshot" href="javascript:generate()"  id="savepdf" ><i class="fa fa-camera"></i></a> 
+					<!-- <a class="btn btn-sm" title="Alerts" href="/facesix/gwalerts?sid={{sid}}&cid={{cid}}"><i class="fa fa-bell-o"></i></a> -->
+					<button class=" btn btn-sm toggleBtns collapsed" title="Show/Hide Report" style="background: none; position: relative; margin-top: -8px;" data-toggle="collapse" data-target="#togglePdfGen"><i class="fa fa-eye-slash faa-vertical animated" aria-hidden="true"></i></button>
+				</div> 
+			</div>
+		</div>
+		{{#if GatewayFinder}}			
+		<div class="col-md-12">
+	        <ul class="ui-tabs-nav">
+				<li class="active"><a href="/facesix/gwreports?cid={{cid}}&sid={{sid}}&spid={{spid}}" class="btn btn-sm">Device Report</a></li>
+				<li class=""><a href="/facesix/web/beacon/reports?cid={{cid}}&sid={{sid}}&spid={{spid}}"  class="btn btn-sm">Tag Report</a></li> 
+			</ul>
+		</div>
+		{{/if}}
+					      
+ 		<!--  Toggle Section  -->
+	  	
+	  	<div class="collapse " id="togglePdfGen" >
+		  	<div class="" >
+		  		<div class="col-lg-12 col-md-12 col-sm-12 ">
+                    <div class="panel panel-default"  style="box-shadow:5px 6px 5px #cdd9ef;">
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-lg-1"> </div>
+									<div style="float:left; width:100%;">
+										<div style="margin-bottom: 20px;"></div>
+								<form role="form" action="/facesix/rest/gatewayreport/format" method="get" target="_blank">
+								<div class="leftclass">
+								<div class="w50" style="margin-left: 13px;">
+								<div class="form-group disp-inline">
+											<span >Time</span>
+											<select class="form-control stylenew" name="time" id="time">
+												<option value="4h" selected>4 Hours</option>
+												<option value="6h">6 Hours</option>
+												<option value="8h">8 Hours</option>	
+												<option value="12h">12 Hours</option> 
+											</select>
+										</div>
+										
+										<div class="form-group disp-inline align-top" style="margin-top:40px;">
+											<span for="">Floor Name</span>
+											<select class="form-control stylenew" name="floorname" id="floorname"  disabled>
+												<option value="all">ALL</option>								
+											</select>
+											<p id="smallLoadingFloor" style="margin-top:-26px;margin-left:156px;"></p>
+										</div>
+										<div  style="display:none">
+											<input type="text" class="form-control" name="cid" id="cid" value="{{cid}}">
+										</div>
+										
+										</div>
+										<div class="w50">
+										
+										
+										<div class="form-group disp-inline" >
+											<span>Filter Type</span>
+											<select class="form-control csslast" name="filtertype" id="filtertype">
+												<!--  <option selected="" value="default">Default</option>  -->
+												<option value="venue" selected>Venue</option>
+												<option value="floor">Floor</option>
+												<option value="location">Location</option>	 
+												<option id="devIn" value="deviceInfo">Device Info</option>							
+											</select>
+										</div>
+										
+										<div class="form-group disp-inline aln-top" style="margin-top:40px;">
+											<span>Location</span>
+											<select class="form-control csslast" name="location" id="location" disabled>
+											<option value="all">ALL</option>									
+											</select>
+										<p id="smallLoading" style="margin-top:-26px;margin-left:156px;"></p>
+										</div>
+										</div>
+										<div class="w50">
+										<!-- 
+										<div class="form-group disp-inline" >
+											<span for="">Device Status</span>
+											<select class="form-control csslast" name="devStatus" id="devStatus"  disabled>
+												<option value="all">ALL</option>
+												<option value="inactive">Inactive</option>
+												<option value="active">Active</option>	
+												 			
+											</select>
+										</div>
+										 -->
+										 <div class="form-group disp-inline align-vn" >
+											<span style="margin-left: 0px;" for="">Venue Name</span>
+											<select class="form-control stylenew" name="venuename" id="venuename"  >
+												<!-- <option value="all">ALL</option> -->			
+											</select>
+										</div>
+										
+										
+											<div class="form-group disp-inline buttonst" style="">
+											<select class="form-control" name="fileformat" id="fileformat">
+												<option value="html">HTML</option>
+												<option class="addhide hidden-sm hidden-md" value="pdf">PDF</option>
+												<option class="addhide hidden-sm hidden-md" value="csv">CSV</option>
+											</select>
+										<button type="submit" class="btn btn-primary btn3d btn-config" id="but">Customized Report</button>
+										</div>
+										</div>
+										
+									
+										</div>
+										<div> 
+				 						</div>
+										</div>
+								</form>
+                                <!-- /.col-lg-6 (nested) -->
+                                <div class="col-lg-1"> </div>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <div class="clearfix"></div>
+		  	</div>
+		  </div>
+ 
+        
+        
+        <!-- Report Filter Form Start -->
+	  	<div class="addReport col-md-12">
+		  	<div class="panel panel-default"  style="box-shadow:5px 6px 5px #cdd9ef;">
+		  	    <div class="removeElements"> 
+			  	    <br />
+			  		<div class="col-lg-4 col-md-4 col-sm-6">
+			  			<div class="form-group">
+						    <label for="email">Venue Name:</label>
+						    <select class="form-control stylenew" name="venuenames" id="venuenames"   >
+								<!-- <option value="all">ALL</option> -->
+							</select>
+					  	</div>	
+			  		</div>
+			  	</div>
+		  		<!-- <div class="col-lg-4 col-md-4 col-sm-6">
+		  			<div class="form-group">
+					    <label for="email">Floor Name:</label>
+					    <select class="form-control stylenew" name="floornames" id="floornames"   disabled >
+							<option value="all">ALL</option>
+						</select>
+				  	</div>	
+		  		</div>
+		  		<div class="col-lg-4 col-md-4 col-sm-6">
+		  			<div class="form-group">
+					    <label for="email">Location:</label>
+					    <select class="form-control stylenew" name="locations" id="locations"  disabled >
+							<option value="all">ALL</option>
+						</select>
+				  	</div>	
+		  		</div>
+		  		 -->
+		  		<!-- <div class="col-lg-3 col-md-3 col-sm-6">
+		  			<div class="form-group">
+					   <button class="btn btn-sm btn-primary" id="reloadReport">Generate Report</button>
+				  	</div>	
+		  		</div>
+		  		 -->
+		  		<div class="clearfix"></div> 
+		  		<div class="" style="background: #fff;"> 
+		  			<style>
+			  			#printableArea .venus-chart-common{
+			  				box-shadow: none;
+			  				border: none;
+		  				    background: #eef2f6;
+			  			}
+			  		</style>
+	  				<div class="" id="printableArea" style="background: #fff; padding-top: 15px;"> 
+			  			<div id="defaultGraph">
+			  				
+						  	
+						  	<div class="col-md-12 col-sm-12">
+						  		<div class="venus-chart1 venus-chart-common" >
+									<div class="chart1">
+										<div class="netflowData select-filter-Plan venue-filter">
+											<select class="txrxswap" >
+												<option selcted>Venue Downlink/Uplink Speed</option>
+												<option value="Tx">Uplink Speed</option>
+												<option value="Rx">Downlink Speed</option>
+											</select>
+										</div>
+										<div class="chart1Section">
+											<div id="fd_chart2"></div>
+										</div>
+									</div>
+								</div> 
+						  		
+						  	</div>
+						  	<div class="col-md-6 col-sm-6">
+						  		<div class="venus-chart1 venus-chart-common" >
+									<div class="chart1">
+										<div class="netflowData select-filter-Plan venue-filter">
+											<label>Floor vs Traffic</label>
+										</div>
+										<div class="chart1Section">
+											<div id="FloorTraffic" class="text-center "></div>
+										</div>
+									</div>
+								</div> 
+						  	
+						  	</div>
+						  	<div class="col-md-6 col-sm-6">
+						  		<div class="venus-chart1 venus-chart-common" ">
+									<div class="chart1">
+										<div class="netflowData select-filter-Plan venue-filter">
+											<label>Connected Clients Type</label>
+										</div>
+										<div class="chart1Section">
+											<div id="vdChart1"></div>
+										</div>
+									</div>
+								</div>
+						  		
+						  	</div>
+						  	
+						  	<!-- <div class="col-md-6 col-sm-6">
+					  			<div class="venus-chart1 venus-chart-common" >
+									<div class="chart1">
+										<div class="netflowData select-filter-Plan venue-filter">
+											<label>Radio vs Traffic</label>
+											<div class="select-filter-Plan display-inline pull-right">
+												<select style="margin-top: -7px;margin-right: 5px;" class="form-control display-inline selectTime" data-action="/netflow">
+													<option selected="" value="5">Last 5 Minutes </option>
+													<option value="15">15 Minutes </option>
+													<option value="30">30 Minutes </option>
+													<option value="60">60 Minutes </option>
+													<option value="120">120 Minutes </option>
+												</select>
+											</div>
+										</div>
+										<div class="chart1Section">
+											<div id="tagTypes" class="text-center "></div>
+										</div>
+									</div>
+								</div>
+								 
+						  	</div> -->
+						  	
+						  	<div class="col-md-6 col-sm-6">
+						  		<div class="venus-chart1 venus-chart-common" >
+									<div class="chart1">
+										<div class="netflowData select-filter-Plan venue-filter">
+											<label>HeatMap Clients</label>
+										</div>
+										<div class="chart1Section">
+											<div id="dd-chart5" class="text-center "></div>
+										</div>
+									</div>
+								</div> 
+						  		
+						  	</div>
+						  	
+						  	<div class="col-md-6 col-sm-6">
+						  		<div class="venus-chart1 venus-chart-common" >
+									<div class="chart1">
+										<div class="netflowData select-filter-Plan venue-filter">
+											<label>Heatmap Graph</label>
+										</div>
+										<div class="chart1Section ">
+											<div id="dd-chart10" class="text-center hide_x_axis"></div>
+										</div>
+									</div>
+								</div> 
+						  		
+						  	</div>
+						  	<div class="clearfix"></div> 
+						  	
+			  			</div>
+			  			
+		  				<!-- Graph Location Types -->
+			  			<div id="graph_location" class="graphFilterType">
+			  			
+			  				<div class="col-md-12 col-sm-12">
+						  		<div class="venus-chart1 venus-chart-common" >
+									<div class="chart1">
+										<div class="netflowData select-filter-Plan venue-filter">
+											<select class="location_uplink_downlink" >
+												<option selcted>Location Downlink/Uplink Speed</option>
+												<option value="Tx">Uplink Speed</option>
+												<option value="Rx">Downlink Speed</option>
+											</select> 
+										</div>
+										<div class="chart1Section">
+											<div id="location_txrx" class="text-center ui_charts"></div>
+										</div>
+									</div>
+								</div>  
+						  	</div>   
+						  	
+						  	<!-- <div class="col-md-12 col-sm-6">
+						  		<div class="venus-chart1 venus-chart-common" >
+									<div class="chart1">
+										<div class="netflowData select-filter-Plan venue-filter">
+											<label>Active Clients</label>
+										</div>
+										<div class="chart1Section">
+											<div id="location_active_clients" class="text-center ui_charts"></div>
+										</div>
+									</div>
+								</div>  
+						  	</div> -->
+						  	
+			  	 			 <div class="col-md-12 col-sm-6">
+						  		<div class="venus-chart1 venus-chart-common" >
+									<div class="chart1">
+										<div class="netflowData select-filter-Plan venue-filter">
+											<label>2G</label>
+										</div>
+										<div class="chart1Section">
+											<div id="location_2g" class="text-center ui_charts"></div>
+										</div>
+									</div>
+								</div>  
+						  	</div>
+						  	
+						  	<div class="col-md-12 col-sm-6">
+						  		<div class="venus-chart1 venus-chart-common" >
+									<div class="chart1">
+										<div class="netflowData select-filter-Plan venue-filter">
+											<label>5G</label>
+										</div>
+										<div class="chart1Section">
+											<div id="location_5g" class="text-center ui_charts"></div>
+										</div>
+									</div>
+								</div>  
+						  	</div> 
+						  	
+			  				
+						  	
+						  	<div class="col-md-12 col-sm-12" id="location_cpu_graph_option">
+						  		<div class="venus-chart1 venus-chart-common" >
+									<div class="chart1">
+										<div class="netflowData select-filter-Plan venue-filter">
+											<label>CPU Utilization</label>
+										</div>
+										<div class="chart1Section">
+											<div id="location_cpu_utilazation" class="text-center ui_charts"></div>
+										</div>
+									</div>
+								</div> 
+						  		
+						  	</div>
+						  	
+						  	<div class="col-md-12 col-sm-12" id="location_memory_graph_option">
+						  		<div class="venus-chart1 venus-chart-common" >
+									<div class="chart1">
+										<div class="netflowData select-filter-Plan venue-filter">
+											<label>Memory Utilization</label>
+										</div>
+										<div class="chart1Section">
+											<div id="location_memory_utilazation" class="text-center ui_charts"></div>
+										</div>
+									</div>
+								</div> 
+						  		
+						  	</div>
+						  	
+			  	 			<div class="clearfix"></div> 
+			  			</div> 
+				  	
+				  		
+		  				<!-- Graph Floor Types -->
+			  			<div id="graph_floor" class="graphFilterType">
+			  			
+			  				<div class="col-md-12 col-sm-12">
+						  		<div class="venus-chart1 venus-chart-common" >
+									<div class="chart1">
+										<div class="netflowData select-filter-Plan venue-filter">
+											<select class="floor_uplink_downlink" >
+												<option selcted>Floor Downlink/Uplink Speed</option>
+												<option value="Tx">Uplink Speed</option>
+												<option value="Rx">Downlink Speed</option>
+											</select> 
+										</div>
+										<div class="chart1Section">
+											<div id="floor_txrx" class="text-center ui_charts"></div>
+										</div>
+									</div>
+								</div>  
+						  	</div>
+						  <!-- 	<div class="col-md-12 col-sm-6">
+						  		<div class="venus-chart1 venus-chart-common" >
+									<div class="chart1">
+										<div class="netflowData select-filter-Plan venue-filter">
+											<label>Active Clients</label>
+										</div>
+										<div class="chart1Section">
+											<div id="floor_active_clients" class="text-center ui_charts"></div>
+										</div>
+									</div>
+								</div>  
+						  	</div> -->
+			  				<div class="col-md-12 col-sm-6">
+						  		<div class="venus-chart1 venus-chart-common" >
+									<div class="chart1">
+										<div class="netflowData select-filter-Plan venue-filter">
+											<label>2G</label>
+										</div>
+										<div class="chart1Section">
+											<div id="floor_2g" class="text-center ui_charts"></div>
+										</div>
+									</div>
+								</div>  
+						  	</div>
+						  	
+						  	<div class="col-md-12 col-sm-6">
+						  		<div class="venus-chart1 venus-chart-common" >
+									<div class="chart1">
+										<div class="netflowData select-filter-Plan venue-filter">
+											<label>5G</label>
+										</div>
+										<div class="chart1Section">
+											<div id="floor_5g" class="text-center ui_charts"></div>
+										</div>
+									</div>
+								</div>  
+						  	</div>
+						  	
+						  	
+						  	
+						  	
+			  				
+			  				<div class="clearfix"></div> 
+			  			</div>
+			  			
+			  			<!-- Graph Venue Types -->
+			  			<div id="graph_venue" class="graphFilterType">
+			  			
+			  				<div class="col-md-12 col-sm-12">
+						  		<div class="venus-chart1 venus-chart-common" >
+									<div class="chart1">
+										<div class="netflowData select-filter-Plan venue-filter">
+											<select class="venue_uplink_downlink" >
+												<option selcted>Venue Downlink/Uplink Speed</option>
+												<option value="Tx">Uplink Speed</option>
+												<option value="Rx">Downlink Speed</option>
+											</select> 
+										</div>
+										<div class="chart1Section">
+											<div id="venue_txrx" class="text-center ui_charts"></div>
+										</div>
+									</div>
+								</div>  
+						  	</div>
+						  	
+						  <!-- 	<div class="col-md-12 col-sm-6">
+						  		<div class="venus-chart1 venus-chart-common" >
+									<div class="chart1">
+										<div class="netflowData select-filter-Plan venue-filter">
+											<label>Active Clients</label>
+										</div>
+										<div class="chart1Section">
+											<div id="venue_active_clients" class="text-center ui_charts"></div>
+										</div>
+									</div>
+								</div>  
+						  	</div> -->
+			  			   <div class="col-md-12 col-sm-6">
+						  		<div class="venus-chart1 venus-chart-common" >
+									<div class="chart1">
+										<div class="netflowData select-filter-Plan venue-filter">
+											<label>2G</label>
+										</div>
+										<div class="chart1Section">
+											<div id="venue_2g" class="text-center ui_charts"></div>
+										</div>
+									</div>
+								</div>  
+						  	</div>
+						  	
+						  	<div class="col-md-12 col-sm-6">
+						  		<div class="venus-chart1 venus-chart-common" >
+									<div class="chart1">
+										<div class="netflowData select-filter-Plan venue-filter">
+											<label>5G</label>
+										</div>
+										<div class="chart1Section">
+											<div id="venue_5g" class="text-center ui_charts"></div>
+										</div>
+									</div>
+								</div>  
+						  	</div>
+						  	
+						  	
+						  	
+						  	
+			  				
+			  				<div class="clearfix"></div> 
+			  			</div>
+			  			
+			  			 
+			  	</div>
+		  	</div>
+		  	
+		  	</div>
+		  		
+	   		<!--  Device list  -->
+	   		<!-- {{#if INACTIVE_WRITE}}
+			<div class="row">
+				<div class="col-md-12 padding-device padding-right-0" style="margin-left:-9px">
+					<div class="chart-box table-chart-box"></div>
+				</div>	
+			</div>
+			 {{/if}} -->
+		</div>
+	  	<!-- Report Filter Form End -->
+	  	
+	  	
+ 		
+<!-- js -->
+<link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/css/c3.css"/>
+<script src="/facesix/static/qubercomm/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/jquery_validate_min_js.js" type="text/javascript"></script> 
+<script src="https://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.nicescroll.min.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/d3.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/c3.js"></script>
+
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/common.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/handlebars.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/script.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/gw_report.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/snap.svg-min.js"></script>
+<script src="/facesix/static/qubercomm/js/jqpanzoom.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/d3.v3.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/underscore-min.js"></script>
+<link src="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="/facesix/static/qcom/js/angular.min.js"></script>
+<script src="/facesix/static/qcom/js/angular-route.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/css/style.css"/> 
+<script src="/facesix/static/qubercomm/js/html2canvas.js"></script> 
+<div id="my_mm" style="height: 1mm; display: none"></div>
+ 
+<script id="chartbox-beacon-template" type="text/x-handlebars-template">
+	
+	<div class="device-coon-desc">
+		<i class="fa fa-mixcloud" aria-hidden="true"></i>
+		<label>Device Info</label>
+		<span class="table-page" data-table-name="dashboard-table">\{{#if show_previous_button}}<i class="fa fa-caret-left acl-tablePreviousPage"></i>\{{/if}}&nbsp;\{{#if show_next_button}}<i class="fa fa-caret-right acl-tableNextPage"></i>\{{/if}}</span>
+		<select class="tablelength" id="tablelength" data-target="#dashboard-table">
+			<option value="5">5</option>
+			<option value="10">10</option>
+			<option value="25">25</option>
+			<option value="50" selected>50</option>
+			<option value="100">100</option>
+		</select>			
+	</div>
+
+	<div class="tableSection">
+		<table class="table dashboard-table" id="dashboard-table" data-current-page="\{{current_page}}" data-row-limit="50">
+			<thead>
+				<tr>
+					<th onclick="sort_table('spotid', 0, asc1); asc1 *= -1; asc2 = 1; asc3 = 1;" class="width-40"># <i class="fa fa-arrow-up"></i></th>
+					<th>Location Name <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 1, asc1); asc1 *= -1; asc2 = 1; asc3 = 1;">UID <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 2, asc1); asc1 *= -1; asc2 = 1; asc3 = 1;">Device Uptime <i class="fa fa-arrow-up"></i></th>
+				    <th onclick="sort_table('spotid', 3, asc1); asc1 *= -1; asc2 = 1; asc3 = 1;">Application Uptime <i class="fa fa-arrow-up"></i></th>
+					 
+				</tr>
+			</thead>
+			<tbody id="spotid">
+				\{{#each data}}
+				<tr class="tr_aclrow" id="aclrow" mac-id="\{{mac_address}}" ap="\{{ap}}" uid="" cid="\{{cid}}">
+				 	<td>\{{index}}</td>
+					<td>\{{locationname}}</td>
+					<td>\{{uid}}</td>
+					<td>\{{deviceUptime}}</td>
+					<td>\{{appUptime}}</td>
+			
+				</tr>
+				\{{/each}}
+			</tbody>
+
+		</table>
+	</div>	
+	
+</script>
+<style>
+.w50 { float:left; width:32%;}
+.form-control { height:30px!important; font-size:12px;}
+
+.stylenew{
+	width:220px;
+	margin-top: -26px;
+	margin-left: 111px;
+}
+
+.csslast{
+	width:220px;
+	margin-top: -26px;
+	margin-left: 90px;
+}
+
+#title{
+margin-left: 74px;
+}
+
+.buttonst{
+	width:220px;
+	margin-top:30px;
+	margin-left: 95px;
+
+}
+#fileformat{
+    width: auto;
+    margin-top: 33px;
+    margin-left: -90px;
+    padding:5px;
+}
+#but{
+	margin-left: 20px;
+    margin-top: -55px;
+}
+@media screen and (max-width: 768px){
+.w50 { float: left;
+        width: 136px;
+    margin-left: 86px !important;}
+.form-control { height:30px!important; font-size:12px;}
+
+.stylenew{
+width:170px;
+margin-top: -26px;
+margin-left: 111px;
+margin-bottom: 50px;
+
+}
+
+.csslast{
+width: 135px;
+    margin-top: 2px;
+    margin-left: 0px;
+    margin-bottom: 50px;
+}
+
+#title{
+margin-left: 87px;
+}
+
+.buttonst{
+width:220px;
+margin-top:30px;
+margin-left:147px;
+
+}
+#fileformat{
+	width: auto;
+    margin-top: 47px;
+    margin-left: -144px;
+    padding:5px;
+}
+.align-top{
+	margin-top: -21px !important;
+	margin-bottom: 103px !important;
+}
+.aln-top{
+	margin-top: -25px !important;
+	margin-bottom: 103px !important;
+}
+#smallLoading{
+	margin-top: -75px !important;
+    margin-left: 50px !important;
+    margin-bottom: -70px !important;
+}
+#smallLoadingFloor{
+	margin-top: -75px !important;
+    margin-left: 50px !important;
+    margin-bottom: -70px !important;
+}
+#tagType_chosen, #tagname_chosen{
+         margin-left: -40px !important;
+         padding: 0 40px !important;
+    }
+     #but {
+         margin-left: -143px;
+    	 margin-top: 27px;
+    }
+     .buttonst {
+         margin-top: -10px;
+         margin-left: 145px;
+         margin-bottom: 30px;
+    }
+}
+
+
+@media only screen 
+and (min-device-width : 769px) 
+and (max-device-width : 1024px){
+.w50 { float: left;
+        width: 136px;
+    margin-left: 158px !important;}
+.form-control { height:30px!important; font-size:12px;}
+
+.stylenew{
+width:170px;
+margin-top: -26px;
+margin-left: 111px;
+margin-bottom: 25px;
+
+}
+
+.csslast{
+width:170px;
+margin-top: -26px;
+margin-left: 110px;
+}
+
+#title{
+margin-left: 87px;
+}
+
+.buttonst{
+width:220px;
+margin-top:30px;
+margin-left:147px;
+
+}
+.leftclass{
+    margin-left: -142px;
+}
+.align-vn{
+	margin-top: 18px;
+}
+#fileformat{
+	width: auto;
+    margin-top: 47px;
+    margin-left: -33px;
+    padding:5px;
+}
+#but {
+     margin-left: -10px;
+     margin-top: 30px;
+    }
+.buttonst {
+     margin-top: -77px;
+    margin-left: 437px;
+    margin-bottom: 30px;
+}
+#page-content-wrapper {
+    margin-top: -70px !important;
+    padding: 70px 0px 0px 75px;
+}
+}
+.venus-chart-common{
+	height: auto;
+	min-height: 355px;
+}
+.chart1Section{
+	padding-bottom: 5px;
+}
+
+@media screen and (max-width: 480px){
+	.stylenew{
+	    width: 100%;
+   		float: none;
+   		margin-left: 0;
+   		margin-top: 0;
+	}
+}
+@media screen and (min-width: 992px) and (max-width: 1199px){
+	
+	.w50 { float: left;
+        width: 136px;
+    margin-left: 158px !important;}
+.form-control { height:30px!important; font-size:12px;}
+
+.stylenew{
+width:170px;
+margin-top: -26px;
+margin-left: 111px;
+margin-bottom: 25px;
+
+}
+
+.csslast{
+width:170px;
+margin-top: -26px;
+margin-left: 110px;
+}
+
+#title{
+margin-left: 87px;
+}
+
+.buttonst{
+width:220px;
+margin-top:30px;
+margin-left:147px;
+
+}
+.leftclass{
+    margin-left: -142px;
+}
+.align-vn{
+	margin-top: 120px;
+    margin-left: -590px;	
+}
+#fileformat{
+	width: auto;
+    margin-top: 47px;
+    margin-left: -33px;
+    padding:5px;
+}
+#but {
+     margin-left: -10px;
+     margin-top: 30px;
+    }
+.buttonst {
+     margin-top: -77px;
+    margin-left: -150px;
+    margin-bottom: 30px;
+}
+#page-content-wrapper {
+    margin-top: -70px !important;
+    padding: 70px 0px 0px 75px;
+}
+}
+
+body.customizedReportEnabled .removeElements{
+	display: none;
+}
+.c3-chart-arc path {
+	stroke: #eef2f6;
+}
+.smallLoader {
+  border: 2px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 2px solid blue;
+  border-right: 2px solid green;
+  border-bottom: 2px solid red;
+  border-left: 2px solid pink;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+<!-- loader box -->
+<link rel="stylesheet" href="/facesix/static/geo/css/loader.css">
+<div class="loader_box" style="display: none;">	
+	<div class="loader"></div>
+	<h4 class="text-center">Exporting Reports...</h4>
+</div>
+
+<div class="loader_box loaderbox_camera" style="display: none;">	
+	<div class="loader"></div>
+	<h4 class="text-center">Please wait...</h4>
+</div>
+
+<script>
+var showme = $('#fileformat').val();
+
+$(document).ready(function(){
+	$('#devIn').hide();
+
+});
+
+
+$('#fileformat').on('change',function(){
+
+var fileType = $('#fileformat').val();
+var hideme = $('#filtertype').val();
+//console.log(fileType)
+
+if(fileType == "html"){
+	$('#devIn').hide();
+} else {
+	$('#devIn').show();
+}
+
+if($('#filtertype').val() == 'deviceInfo'){
+  	document.getElementById("filtertype").value = "venue";
+  	document.getElementById("floorname").disabled = true;
+  	document.getElementById("time").disabled = false;
+  	}
+  	
+
+  		
+})
+
+</script>
+
+{{/partial}}
+
+{{>qubercomm/nav-top}}
+{{>qubercomm/nav-left}}
+{{>qubercomm/wrapper}}

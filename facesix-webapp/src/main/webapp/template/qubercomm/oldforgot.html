@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Qubercomm</title>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="google-site-verification" content="" />
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">  
+
+	<!-- Favicons -->
+	<link rel="shortcut icon" href="/facesix/static/qubercomm/images/fav.png">
+
+	<!-- Js Links -->
+	<script src="/facesix/static/qubercomm/js/jquery-2.1.4.min.js"></script>
+	<script src="/facesix/static/qubercomm/js/bootstrap.min.js"></script>  
+	<script src="/facesix/static/qubercomm/js/parallax.min.js"></script>  
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/facesix/static/qubercomm/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/facesix/static/qubercomm/css/fonts.css"><!-- / template styles -->
+	<link rel="stylesheet" href="/facesix/static/qubercomm/css/font-awesome.css"><!-- / template styles -->
+	<link rel="stylesheet" href="/facesix/static/qubercomm/css/style.css"> <!-- / template styles -->
+
+</style>
+</head>
+<body class="mob-bg">
+<section id="contact_banner" class="relative">
+	<div class="LoginSection">
+		<div class="top-header">
+			<nav class="navbar">
+				<div class="container-fluid">
+					<div class="navbar-header navbar-right">
+						<a class="navbar-brand home-logo" href="/facesix/goodbye">
+							<img src="/facesix/static/qubercomm/images/header/logo-home.png" alt="Qubercomm">
+						</a>
+					</div>
+				</div>
+			</nav>
+		</div>
+		<div class="banner-content contactSection relative">
+			<div class="container">
+				<div class="contact-form">
+					<h4><i class="fa fa-unlock-alt" aria-hidden="true"></i> Forgot Password ?</h4></br>
+					<div class="row">
+						<div class="col-md-6 col-sm-7 col-xs-12">							
+							<h5> Can't sign in <i class="fa fa-question" aria-hidden="true"></i></h5></br>
+							<div class="address-text">
+								   <p><i class="fa fa-pencil" aria-hidden="true"></i> Enter your email address below and</br>
+								      we will send you the reset instructions</br></br>
+								   <p> <i class="fa fa-envelope"></i> A verfication code will be sent to you.</br>
+								        once you received the verification code then</br>
+								        you will be able to choose a new name and password.
+								   </p>
+							</div>
+						</div>
+						<div class="col-md-6 col-sm-5 col-xs-12">
+							<form id="contactusForm" role="form" action="/facesix/web/account/fgnotify" method="post">
+								<div class="disp-inline">
+									<input type="text" name="name" id="name" value="{{fsobject.name}}" class="form-control disp-block valign" placeholder="User Name">
+								</div>
+								<div class="form-inline">
+									<div class="form-group">
+										<input type="email" name="email" id="email" value="{{fsobject.email}}" class="form-control mr-fc valign " placeholder="Email Address">
+									</div>
+									<div class="form-group">
+										<input type="text" id="pno" name="pno" value="{{fsobject.pno}}" class="form-control valign" placeholder="Contact Number">
+									</div>
+								</div>
+								<textarea type="text" name="Cdesc" id="Cdesc" " value="{{fsobject.desc}}" class="form-control valign" placeholder="Message"></textarea>
+								<div class="login-btns text-center">
+									<button type="submit" id="submit1" class="btn btn-default btn-login">Submit</button>
+								</div>
+								
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>		
+			<div class="footer footer-section">
+			<div class="container-fluid">
+				<p class="text-muted">Copyright © 2016 Qubercomm.com All rights reserved.</p>
+				<div class="footer-link pull-right">
+					<ul class="list-unstyled">
+						<li>
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+							<a href="/facesix/contact">Contact Us</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Banner ends -->
+    <script src="/facesix/static/qubercomm/js/jquery_validate_min_js.js" type="text/javascript"></script>
+    <script src="/facesix/static/qubercomm/js/form-validations.js" type="text/javascript"></script>
+	<script src="/facesix/static/qubercomm/js/script.js"></script>
+</body>
+</html>

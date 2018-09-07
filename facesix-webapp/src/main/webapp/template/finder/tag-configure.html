@@ -1,0 +1,378 @@
+{{#partial "page"}}
+  <div id="page-con-wrapper" class="acc-sec">
+	<div class="container-fluid">
+		<h4 class="acc-sec-title"></h4>		
+		<div class="col-md-12 venue-details" >
+			<div class="view-details" >
+				<ul>
+					<li class="displayBlockName">
+					<img src="/facesix/static/qubercomm/images/networkconfig/connected.png" alt="" id="quberImg">
+						<label class="venue-name" style="margin-left: 41px;">Configuration Settings </label>
+					<span>
+					<label>
+					<a class="btn btn-default btn-config btn-theme" style="height:34px;">
+					<input type="file" name="file" id="upload-file-selector"
+						id="fileSelect" accept=".txt" />
+  							<i class="fa fa-download faa-vertical animated" aria-hidden="true" title="Import"></i>
+						</a>
+						</label>
+						</span>
+						<span>
+						<label>
+						<a class="btn btn-default btn-config btn-theme" style="height:34px;">
+						 	<i class="fa fa-upload faa-vertical animated" id="exportJSON" aria-hidden="true" title="Export"></i>
+						</a>
+						</label>
+						</span> 
+					</li>
+					
+				</ul>
+			</div>		
+      	</div>		
+					      
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description"
+	content="facesix : elastic data express to aggregate accelerate search analyze articulate analytics on data">
+<meta name="author" content="semaifour inc">
+<link
+	href="/facesix/static/bower_components/bootstrap/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<!-- Custom Fonts -->
+<link
+	href="/facesix/static/bower_components/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.1/css/buttons.dataTables.min.css">    
+	 <!-- <script src="/facesix/static/js/json-editor/jsoneditor.js"></script> -->
+</head>
+<div id="wrapper">
+            <div class="row" >
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+
+						<div class="panel-heading">
+						
+						{{#if message}}
+							<label>{{message.message}}</label>
+						{{/if}}
+							<font color="RED" ></font>
+						</div>
+
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-lg-1"> </div>
+				<div style="float:left; width:100%;">
+				<form role="form" action="/facesix/web/beacon/save?macaddr={{device.macaddr}}&cid={{cid}}&sid={{sid}}&spid={{spid}}" method="post" id="configform" >
+					<div style="float:left; width:100%; padding-top:20px;">
+						<div class="form-group disp-inline">
+							<span for="">Tag UID</span>
+							<input class="form-control disp-block valign" style="width: 250px"	name="uuid" id="uuid"  placeholder="Tag UID" value="{{device.macaddr}}" readonly>
+						</div>
+						  		<div class="form-group  disp-inline" style="">
+						  		<span for="" style="margin-left: 30px;">Publisher ID</span> 
+                                         	<select class="form-control" name="type" id="type"  style="width: 250px; z-index: 9999;position: absolute;left: 315px;margin-top:15px;">
+												{{#if cid}}
+												<option value="Customer">Customer</option>
+												{{/if}}
+												{{#if sid}}
+										 		<option value="Venue">Venue</option>
+										 		{{/if}}
+										 		{{#if spid}}
+												<option value="Floor">Floor </option>
+												{{/if}}
+												{{#each beacondevice}}
+												<option value="{{uid}}">{{name}}</option>
+												{{/each}}
+												{{#if serverId}}
+												<option value="{{serverId}}">{{serverName}}</option>
+												{{/if}}											
+											</select> 
+                                        </div>
+      
+						<!-- <div><a href="#" class="push_button blue submitDelete submit1" style=" float:left;margin-top:30px;margin-left:10px;" >Auto configure BLE Tag</a></div>
+						 -->
+							<!-- <div class="form-group  disp-inline" style="margin-top:35px;">
+								<button class="btn btn-primary btn-theme mobilehideS" id="importJSON" type="button" onclick="importfile();">Import</button>
+								<input type="file" id="hidfile" name="hidefile" style="display:none;" accept="application/json">
+								
+							</div> -->			
+										
+					</div>
+				<!-- edited code for conf tab -->
+				
+				<style>
+				.disp-inline { float:left; width:250px; margin-left:10px;}
+				.tabgrp { border:2px solid #e3e3e3; padding:15px; float:left; width:100%; margin-bottom:10px; }
+				.tab { float:left; width:100%; font-size: 14px; line-height: 1.42857143; color: #333;}
+				.tabtn { float:left; width:150px; padding:7px 5px 2px 5px; cursor:pointer; text-align:center;
+							background-color: #008DD2;color: #333; margin-right:1px;     
+							border-top-right-radius: 10px; border-top-left-radius: 10px;
+							border: 1px solid #008DD2;
+						}
+				.tabc { display:none; border: 1px solid #008DD2;padding: 25px 10px 10px 10px; float:left; width:100%; background:#fff; }
+				.active { color:#fff;}
+				.mygrp { float:left; width:100%; margin-bottom:5px;}
+				.mylable {color: grey;font-size: 12px; margin: 5px; display: inline-block; width:100px; float:left;}
+				.myinput {margin-right: 10px; display: inline-block;margin-bottom: 5px; width:250px; float:left;}
+				.num4 { width:75px;}	
+				#allfromdata label{
+				    display: inline-block !important;
+				}
+				.cbmany { width:700px;}
+				.cbmany span{ float:left; width:50px; font-size:13px;}
+				.cbmany input { padding: 0;  margin:0;  vertical-align: middle;  position: relative;}
+				
+				.w50 { float:left; width:50%; max-width:450px;}
+				.form-control { height:30px!important; font-size:12px;} 
+				.switch {
+				  margin-bottom: 0px;
+				}
+				.switch:focus,
+				.switch:hover,
+				.switch:visited,
+				.switch:active {
+				  outline: 0 !important;
+				}
+				.switch input[type=checkbox] { display:none;}
+				.switch input[type=checkbox]:checked + span {
+				  -webkit-box-shadow: #00ccff 0px 0px 0px 8px inset;
+				  -moz-box-shadow: #00ccff 0px 0px 0px 8px inset;
+				  box-shadow: #00ccff 0px 0px 0px 8px inset;
+				  border-color: #00ccff;
+				  -webkit-transition: border 0.4s, box-shadow 0.4s, background-color 1.2s;
+				  -moz-transition: border 0.4s, box-shadow 0.4s, background-color 1.2s;
+				  -o-transition: border 0.4s, box-shadow 0.4s, background-color 1.2s;
+				  transition: border 0.4s, box-shadow 0.4s, background-color 1.2s;
+				}
+				.switch input[type=checkbox]:checked + span:before {
+				  left: auto;
+				  right: 0 !important;
+				}
+				.switch span {
+				  border: 1px solid #ddd;
+				  -webkit-border-radius: 100px;
+				  -moz-border-radius: 100px;
+				  -o-border-radius: 100px;
+				  border-radius: 100px;
+				  background-color: #f9f9f9;
+				  height: 14px;
+				  width: 28px;
+				  cursor: pointer;
+				  display: inline-block;
+				  -webkit-box-sizing: content-box;
+				  -moz-box-sizing: content-box;
+				  box-sizing: content-box;
+				  position: relative;
+				}
+				.switch span:before {
+				  background-color: #f9f9f9;
+				  content: '';
+				  -webkit-border-radius: 100px;
+				  -moz-border-radius: 100px;
+				  -o-border-radius: 100px;
+				  border-radius: 100px;
+				  width: 14px;
+				  height: 14px;
+				  position: absolute;
+				  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+				  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+				  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+				  left: 0;
+				}
+				.search {
+				  position: relative;
+				  padding-left: 0px !important;
+				  padding: 0px !important;
+				}
+				</style>
+				
+				
+				<div class="medium-12 columns" style="margin-top:30px; margin-bottom:100px;">
+				<div class="well well-sm" id="allfromdata">
+				
+				<h3><div id="h32gr">BLE Tag</div></h3>
+				<div id="div2gr"></div>
+				<button onclick="addtab('#hid2gr','#div2gr',1);" type="button" title="Add row" class="btn btn-default json-editor-btn-add "><i class="fa fa-plus"></i> row</button>
+				<button onclick="deltab('#div2gr');" type="button" title="Delete Last row" class="btn btn-default json-editor-btn-delete " style=""><i class="fa fa-times"></i> Last row</button>
+				
+				</div>
+				</div>
+														
+				<!-- edited code for conf tab -->
+				<div style="margin-bottom: 50px"><input type="hidden" id="deconfig" class="form-control" name="conf"  value='{{device.template}}'></div>
+				<!-- <div id='editor_holder' class='medium-12 columns devbar'></div> -->
+				{{#if SYS_WRITE}}
+				<button type="button" class="btn btn-default btn-config btn-theme width-120" id="valsubmit" style="margin-left: 10px">Submit</button>									
+				 {{/if}}	
+				<input type="button" class="btn btn-default btn-config btn-theme width-120"	onclick="javascript:window.location.href='/facesix/web/beacon/list?sid={{sid}}&spid={{spid}}&cid={{cid}}'" value="Cancel" style="margin-left: 3px"></input>
+               		
+			</form>
+		</div>
+                                <!-- /.col-lg-6 (nested) -->
+                                <div class="col-lg-1"> </div>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+	<!-- <script src="/facesix/static/qubercomm/js/dev-edit.js"></script> -->
+ 
+  <div class="savearea" id="reposition-modal" class="reposition-modal" style="display:none;position:fixed;margin-left: -6px;">
+			<div class="left-section">
+				<label>Are you sure you want to configure with beacon default values</label>
+			</div>
+			<div class="rightsection">
+				<ul class="list-unstyled">
+					<li id="cancelDelete">
+						<label>
+							
+						</label>
+						<span >
+							Cancel
+						</span>
+					</li>
+					<li id="beaconconfig">
+						<label>
+						</label>
+						<span class="color2" >
+							OK
+						</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+ 		
+ 		
+ 
+ 	<style>
+	
+.push_button {
+	position: relative;
+	width:155px;
+	height:40px;
+	text-align:center;
+	box-shadow: 0 0 0 0 #A84155;
+  border-radius: 5px;
+  background-size:cover;
+  background-repeat: no-repeat;
+  color:#fff;
+	text-decoration:none;
+	line-height:43px;
+	font-family:'Oswald', Helvetica;
+	display: block;
+	margin: 28px 15px;
+	-webkit-animation: pulse 2.25s infinite cubic-bezier(0.1, 0, 0, 1);
+  -moz-animation: pulse 2.25s infinite cubic-bezier(0.1, 0, 0, 1);
+  -ms-animation: pulse 2.25s infinite cubic-bezier(0.1, 0, 0, 1);
+  animation: pulse 2.25s infinite cubic-bezier(0.1, 0, 0, 1);
+}
+@-webkit-keyframes pulse {to {box-shadow: 0 0 0 10px rgba(232, 76, 61, 0);}}
+@-moz-keyframes pulse {to {box-shadow: 0 0 0 10px rgba(232, 76, 61, 0);}}
+@-ms-keyframes pulse {to {box-shadow: 0 0 0 10px rgba(232, 76, 61, 0);}}
+@keyframes pulse {to {box-shadow: 0 0 0 10px rgba(232, 76, 61, 0);}}
+
+.red {
+	text-shadow:-1px -1px 0 #A84155;
+	background: #D25068;
+	border:1px solid #D25068;
+	
+	background-image:-webkit-linear-gradient(top, #F66C7B, #D25068);
+	background-image:-moz-linear-gradient(top, #F66C7B, #D25068);
+	background-image:-ms-linear-gradient(top, #F66C7B, #D25068);
+	background-image:-o-linear-gradient(top, #F66C7B, #D25068);
+	background-image:linear-gradient(to bottom, #F66C7B, #D25068);
+	
+	
+}
+.red:hover {
+	background: #F66C7B;
+	background-image:-webkit-linear-gradient(top, #D25068, #F66C7B);
+	background-image:-moz-linear-gradient(top, #D25068, #F66C7B);
+	background-image:-ms-linear-gradient(top, #D25068, #F66C7B);
+	background-image:-o-linear-gradient(top, #D25068, #F66C7B);
+	background-image:linear-gradient(top, #D25068, #F66C7B);
+	color:#fff; text-decoration:none;
+}
+.blue {
+	text-shadow:-1px -1px 0 #2C7982;
+	background: #3EACBA;
+	border:1px solid #379AA4;
+	background-image:-webkit-linear-gradient(top, #48C6D4, #3EACBA);
+	background-image:-moz-linear-gradient(top, #48C6D4, #3EACBA);
+	background-image:-ms-linear-gradient(top, #48C6D4, #3EACBA);
+	background-image:-o-linear-gradient(top, #48C6D4, #3EACBA);
+	background-image:linear-gradient(top, #48C6D4, #3EACBA);
+	}
+
+.blue:hover {
+	background: #48C6D4;
+	background-image:-webkit-linear-gradient(top, #3EACBA, #48C6D4);
+	background-image:-moz-linear-gradient(top, #3EACBA, #48C6D4);
+	background-image:-ms-linear-gradient(top, #3EACBA, #48C6D4);
+	background-image:-o-linear-gradient(top, #3EACBA, #48C6D4);
+	background-image:linear-gradient(top, #3EACBA, #48C6D4);
+	color:#fff; text-decoration:none;
+}
+
+</style>
+<!-- ***********2G radio Form************ -->
+
+
+		
+<!-- js -->
+
+<script src="/facesix/static/qubercomm/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/jquery_validate_min_js.js" type="text/javascript"></script>
+
+<script src="https://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.nicescroll.min.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/common.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/handlebars.min.js"></script>
+<script type="text/javascript" src="/facesix/static/finder/js/script.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/snap.svg-min.js"></script>
+<script src="/facesix/static/qubercomm/js/jqpanzoom.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/d3.v3.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/underscore-min.js"></script>
+<link src="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="/facesix/static/qcom/js/angular.min.js"></script>
+<script src="/facesix/static/qcom/js/angular-route.min.js"></script>
+<link rel="stylesheet" href="/facesix/static/qubercomm/css/style.css">
+<!--
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.mobile-events.js"></script> 
+<script src="/facesix/static/qubercomm/js/form-validations.js" type="text/javascript"></script> -->
+<script type="text/javascript" src="/facesix/static/finder/js/tagconfigure.js"></script>
+<script type='text/javascript'>
+var srvrdta = "{{device.template}}";
+</script>
+<div id="onloadata"></div>
+
+
+<!-- BIG loader -->
+<link rel="stylesheet" href="/facesix/static/geo/css/loader.css">
+<div class="loader_box" style="display: none;">	
+	<div class="loader"></div>
+	<h4 class="text-center">Processing</h4>
+</div>
+<!--  $(".loader_box").show();  -->
+<!-- Big oader -->
+
+{{/partial}}
+
+{{>qubercomm/nav-top}}
+{{>qubercomm/nav-left}}
+{{>device-edit-headerscript}}
+{{>qubercomm/wrapper}}

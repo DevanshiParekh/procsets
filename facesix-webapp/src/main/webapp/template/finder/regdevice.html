@@ -1,0 +1,216 @@
+{{#partial "page"}}
+
+
+<div id="page-content-wrapper" class="acc-sec">
+	<div class="container-fluid">
+		<h4 class="acc-sec-title"></h4>
+		<div class="col-md-12 venue-details" >
+			<div class="view-details">
+				<div class="col-md-10 col-sm-10 col-xs-10"><ul>
+					<li class="displayBlockName"><img
+						src="/facesix/static/qubercomm/images/q-cgf-ble.png" alt=""
+						id="" style="width:80px;margin-left:-10px;"> <label class="venue-name" id="fimob" style="margin-left:-12px;">Registered Device Configuration</label></li>
+				</ul></div>
+				{{#if INACTIVE_WRITE}}
+				<div class="col-md-2 display-inline">
+				<a href="" class="btn btn-primary btn3d btn-config-venue addhide pull-right deleteAll" style="margin-right:0px;"><i
+					class="fa fa-trash"></i> Delete All</a>
+				</div>
+				{{/if}}
+				<div style="margin-bottom: 10px"></div>
+			</div>
+		</div>
+	</div>
+
+	<style>
+.view-details ul li { margin-right: 0px;}
+.view-details ul li .venue-name{ border-bottom: 0px solid #2496d8; font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
+.pulse {
+	position: relative;
+	text-align:center;
+	box-shadow: 0 0 0 0 #A84155;
+	border-radius: 5px;
+	background-size:cover;
+	background: #000;
+	background-repeat: no-repeat;
+	color:#fff;
+	text-decoration:none;
+	margin:auto;cursor:pointer;
+	display: block;
+	-webkit-animation: pulse 2.25s infinite cubic-bezier(0.1, 0, 0, 1);
+	-moz-animation: pulse 2.25s infinite cubic-bezier(0.1, 0, 0, 1);
+	-ms-animation: pulse 2.25s infinite cubic-bezier(0.1, 0, 0, 1);
+	animation: pulse 2.25s infinite cubic-bezier(0.1, 0, 0, 1);
+	 width: 30%;
+}
+@-webkit-keyframes pulse {to {box-shadow: 0 0 0 10px rgba(232, 76, 61, 0);}}
+@-moz-keyframes pulse {to {box-shadow: 0 0 0 10px rgba(232, 76, 61, 0);}}
+@-ms-keyframes pulse {to {box-shadow: 0 0 0 10px rgba(232, 76, 61, 0);}}
+@keyframes pulse {to {box-shadow: 0 0 0 10px rgba(232, 76, 61, 0);}}
+
+.selected{ 
+background-color: rgba(211,211,211,.7);
+color: black;
+}
+table{
+cursor: default;
+}
+</style>
+
+	<br><br>
+	<div  style="padding:10px 30px;">
+		<div class="col-md-15 reg-hide padding-device padding-right-0">
+			<div class="chart-box reg-table-chart-box" style="margin-top: -40px;margin-left:11px;margin-right:13px;"></div>
+		</div>		
+		</div>
+	</div>
+
+	<div class="savearea" id="reposition-mode" class="reposition-mode" style="display:none;position:fixed;">
+	<div class="savearea_bottom">
+			<div class="left-section">
+				<label>Are you sure you want to delete this UID?</label>
+			</div>
+			<div class="rightsection">
+				<ul class="list-unstyled">
+					<li id="cancelDelete">
+						<label>
+							
+						</label>
+						<span >
+							Cancel
+						</span>
+					</li>
+					<li id="deleteItem">
+						<label>
+						</label>
+						<span class="color2" >
+							OK
+						</span>
+					</li>
+				</ul>
+			</div>
+			</div>
+		</div>
+		<div class="saveareaone" id="reposition-mode" class="reposition-mode" style="display:none;position:fixed;">
+	<div class="saveareaone_bottom">
+			<div class="left-section">
+				<label>Are you sure you want to delete ALL REGISTERED UID?</label>
+			</div>
+			<div class="rightsection">
+				<ul class="list-unstyled">
+					<li id="cancelAll">
+						<label>
+							
+						</label>
+						<span >
+							Cancel
+						</span>
+					</li>
+					<li id="deleteAllUid">
+						<label>
+						</label>
+						<span class="color2" >
+							OK
+						</span>
+					</li>
+				</ul>
+			</div>
+			</div>
+		</div>
+<!-- js -->
+<script src="/facesix/static/qubercomm/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/jquery_validate_min_js.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/form-validations.js" type="text/javascript"></script>
+<script src="https://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.mobile-events.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/common.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/handlebars.min.js"></script>
+<script src="/facesix/static/finder/js/regdevice.js" type="text/javascript"></script>
+<script type="text/javascript" src="/facesix/static/finder/js/script.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/snap.svg-min.js"></script>
+<script src="/facesix/static/qubercomm/js/jqpanzoom.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/d3.v3.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/underscore-min.js"></script>
+<link rel="stylesheet" type="text/css" href="/facesix/static/finder/css/style.css"/>
+
+<script id="chartbox-register-template" type="text/x-handlebars-template">
+	
+	<div class="device-coon-desc">
+		<i class="fa fa-bookmark" aria-hidden="true"></i>
+		<label>Registered  devices to cloud</label>
+		<span class="table-page" data-table-name="register-table"><i class="fa fa-refresh reg-refreshTable"" aria-hidden="true"></i>\{{#if show_previous_button}}<i class="fa fa-caret-left reg-tablePreviousPage"></i>\{{/if}}&nbsp;\{{#if show_next_button}}<i class="fa fa-caret-right reg-tableNextPage"></i>\{{/if}}</span>
+					
+	</div>
+
+	<div class="tableSection">
+			<div class="panel-heading">
+                            
+                        </div>
+		<table class="table register-table" id="register-table" data-current-page="\{{current_page}}" data-row-limit="10">
+			<thead>
+				<tr class="sel_tbl1">
+					<th onclick="sort_table('regid', 0, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(0)" class="width-40"># <i class="fa fa-arrow-up"></i></th>
+				    <th onclick="sort_table('regid', 1, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(1)">Name <i class="fa fa-arrow-up"></i></th>					
+					<th onclick="sort_table('regid', 2, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(2)">UID <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('regid', 3, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(3)">Configured? <i class="fa fa-arrow-up"></i></th>
+					{{#if SYS_WRITE}}
+					<th class="addhide">Action <i class="fa fa-arrow-up"></i></th>
+					<th class="addhide">Delete <i class="fa fa-arrow-up"></i></th>
+					{{/if}}
+		
+				</tr>
+			</thead>
+			<tbody id="regid">
+				\{{#each data}}
+				<tr class="tr_aclrow" id="aclrow" mac-id="\{{mac_address}}" ap="\{{ap}}" uid="{{uid}}" cid="\{{cid}}">
+					<td style="color: black;">\{{index}}</td>
+					<td style="color: black;">\{{dev_name}}</td>
+					<td style="color: black;">\{{mac_address}}</td>
+					<td style="color: black;">\{{status}}</td>
+ 					{{#if SYS_WRITE}}
+					<td class="addhide">
+					<span>
+		               <a href="/facesix/web/finder/device/configure?uid=\{{mac_address}}&cid={{cid}}&sid={{sid}}&spid={{spid}}&param=1" title="Configure"><i class="fa fa-cog fa-2x" style="color:black"></i></a>
+		               </span>
+					</td>
+					{{/if}}
+					{{#if SYS_WRITE}}
+					<td class="addhide">
+					<span>
+		               <a class="submitDelete submit1" href="/facesix/rest/beacon/device/delete?uid=\{{mac_address}}&cid={{cid}}" title="Delete">
+							<i class="fa fa-trash fa-2x"></i>
+						</a>
+		            </span>
+				</td>
+				{{/if}}
+				</tr>
+				\{{/each}}
+			</tbody>
+
+		</table>
+	</div>	
+	
+</script>
+
+</div>
+<!-- loader -->
+<link rel="stylesheet" href="/facesix/static/geo/css/loader.css">
+<div class="loader_box" style="display: none;">	
+	<div class="loader"></div>
+	<h4 class="text-center"> Deleting ...</h4>
+</div>
+<div class="loader_boxone" style="display: none;">	
+	<div class="loaderone"></div>
+	<h4 class="text-center"> Loading Devices...</h4>
+</div>
+    <!-- /.row -->
+        
+{{/partial}}
+
+{{>qubercomm/nav-top}}
+{{>qubercomm/nav-left}}
+{{>qubercomm/wrapper}}

@@ -1,0 +1,1 @@
+java -Dfs.app=facesix -Dfs.env=prod -jar ../target/facesix-webapp-0.1.0.war com.semaifour.facesix.boot.Application >> /var/log/facesix/facesix.log

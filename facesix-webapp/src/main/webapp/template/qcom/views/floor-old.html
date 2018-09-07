@@ -1,0 +1,246 @@
+<section class="content" ng-if="floorlist">
+    <div class="container-fluid">
+        <div class="floor-list">
+            <div class="viewvenue">
+                <div class="card-view">
+                    <div class="heading">
+                        <div class="title">
+                            QuberComm Technologies Floor View
+                        </div>
+                        <div class="responsive-menu">
+                            <div class="responsive-icon" open="dropdown1"><i class="fa fa-ellipsis-v"></i></div>
+                            <ul class="dropdown" id="dropdown1">
+                                <li><a href="#/addfloor"><i class="fa fa-plus"></i> Add Floor</a></li>
+                                <li><a href="#/editfloor"><i class="fa fa-edit"></i> Edit Floor</a></li>
+                                <li><a href="#/delfloor"><i class="fa fa-trash"></i> Delete Floor</a></li>
+                            </ul>
+                        </div>
+                        <div class="form-group search note-show">
+                            <input type="text" class="form-control" />
+                            <label><i class="fa fa-search"></i></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group search note-hidden">
+                    <input type="text" class="form-control" />
+                    <label><i class="fa fa-search"></i></label>
+                </div>
+                <div class="floorlist">
+                    <div class="pt10">
+                        <div class="card-view">
+                            <div class="heading border">
+                                <div class="title theme">
+                                    Floor 1
+                                </div>
+                                <div class="card-menu fr">
+                                    <ul>
+                                        <li><a href="#/editfloor"><i class="fa fa-edit"></i></a></li>
+                                        <li><a href="" ng-click="showFloorDashboard()"><i class="fa fa-line-chart"></i></a></li>
+
+                                        <li><a href="#/delfloor"><i class="fa fa-trash"></i></a></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-progress">
+                                    <img src="/facesix/static/qcom/img/ground.png" />
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+</section>
+
+<section class="content" ng-if="floordashboard">
+    <div class="container-fluid">
+        <div class="floor-dashboard">
+            <div class="card-view">
+                <div class="heading">
+                    <div class="title">
+                        Floor1 Dashboard
+                    </div>
+                    <div class="responsive-menu">
+                        <div class="responsive-icon" open="dropdown1"><i class="fa fa-ellipsis-v"></i></div>
+                        <ul class="dropdown" id="dropdown1">
+                            <li><a href="#/editfloor"><i class="fa fa-edit"></i> Edit Floor</a></li>
+                            <li><a href="#/deviceconfig"><i class="fa fa-edit"></i> Device Configuration</a></li>
+                            <li><a href="#/nwconfig"><i class="fa fa-edit"></i> Network Configuration</a></li>
+                            <li><a href="#/topology"><i class="fa fa-edit"></i> Network Topology</a></li>
+                            <li><a href="#/ap"><i class="fa fa-bar-chart"></i> Device Dashboard</a></li>
+                            <li><a href="#/switch"><i class="fa fa-bar-chart"></i> Switch Dashboard</a></li>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card-body offsetrl">
+                <div class="col-md-7">
+                    <div class="card-view bt2">
+                        <div class="heading border">
+                            <div class="title theme">
+                                Downlink & Uplink Speed
+                            </div>
+                        </div>
+                        <div class="body uplink">
+                            <div class="w50">
+                                <canvas id="bar" class="chart chart-bar" chart-data="bardata" chart-labels="barlabels" chart-series="barseries" chart-colours="barcolours" chart-options="baroptions">
+                                </canvas>
+                                <h5 class="tc">Downlink Speed</h5>
+                            </div>
+                            <div class="w50">
+                                <canvas id="bar" class="chart chart-bar" chart-data="bardata" chart-labels="barlabels" chart-series="barseries" chart-colours="barcolours" chart-options="baroptions">
+                                </canvas>
+                                <h5 class="tc">Uplink Speed</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-view bt2">
+                        <div class="heading border">
+                            <div class="title theme">
+                                Network Activity
+                            </div>
+                        </div>
+                        <div class="body card-progress">
+                            <img src="/facesix/static/qcom/img/ground.png" />
+                        </div>
+                    </div>
+                    <div class="card-view bt2">
+                        <div class="heading border">
+                            <div class="title theme">
+                                Summary
+                            </div>
+                        </div>
+                        <div class="body htspl">
+                            <ul class="card-body-ul">
+                                <li>
+                                    <label>
+                                        Qubercloud gateway wlan stats upload success
+                                    </label>
+                                    <label class="date">2016-09-24 11:29:42.562</label>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-view bt2">
+                        <div class="heading border">
+                            <div class="title theme">
+                                Alert
+                            </div>
+                        </div>
+                        <div class="body htspl">
+                            <ul class="card-body-ul">
+                                <li>
+                                    <label>
+                                        Qubercloud gateway wlan stats upload success
+                                    </label>
+                                    <label class="date">2016-09-24 11:29:42.562</label>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="card-view bt2">
+                        <div class="heading border">
+                            <div class="title theme">
+                                Type Of Device & System Health
+                            </div>
+                        </div>
+                        <div class="body">
+                            <div class="tc w75">
+                                <canvas id="doughnut" class="chart chart-doughnut" chart-data="data" chart-labels="labels" chart-legend="true" chart-colours="dougcolours"></canvas>
+
+                            </div>
+                            <div class="tc w25">
+                                <div class="card-progress">
+                                    <canvas class="chart" width="100" height="100" roundprogress data="value.data" label="value.label" color="value.color" linewidth="7" total="value.total"></canvas>
+                                </div>
+                                <div class="card-progress mt10">
+                                    <canvas class="chart" width="100" height="100" roundprogress data="value.data" label="health.label" color="health.color" linewidth="7" total="health.total"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="card-view bt2">
+                        <div class="heading border">
+                            <div class="title theme">
+                                Netflow
+                            </div>
+                        </div>
+                        <div class="body">
+                            <canvas id="line" class="chart chart-line" chart-data="linedata.data" chart-labels="linedata.label" chart-series="linedata.series" chart-options="options" chart-colours="linedata.colours" chart-legend="true"></canvas>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="card-view bt2">
+                        <div class="heading border">
+                            <div class="title theme">
+                                Venue Tx vs Rx
+                            </div>
+                        </div>
+                        <div class="body">
+                            <canvas id="line" class="chart chart-line" chart-data="linedata.data" chart-labels="linedata.label" chart-series="linedata.series" chart-options="options" chart-colours="linedata.colours" chart-legend="true"></canvas>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="card-view bt2">
+                        <div class="heading border">
+                            <div class="title theme">
+                                Device Connected
+                            </div>
+                        </div>
+                        <div class="body">
+                            <canvas id="doughnut" class="chart chart-doughnut" chart-data="data" chart-labels="labels" chart-legend="true" chart-colours="dougcolours"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="network">
+    <div class="container">
+        <div class="title">
+        <h6>Network Tree - 4 Devices</h6>
+        <ul>
+            <li><a href=""><i class="fa fa-line-chart"></i></a></li>
+            <li><a href=""><i class="fa fa-cogs"></i></a></li>
+            <li><a href=""><i class="fa fa-sticky-note-o"></i></a></li>
+            <li><a href=""><i class="fa fa-power-off"></i></a></li>
+        </ul>
+    </div>
+        <div class="body">
+            <ul>
+                <li>
+                    <div class="arrow" open="net01"><i class="fa fa-chevron-down"></i></div>
+                    <a href=""><i class="fa fa-server"></i> <span>Server</span> <span class="status label label-success"></span></a>
+                    <ul id="net01">
+                        <li>
+                            <a href=""><i class="fa fa-toggle-on"></i> <span>Switch</span> <span class="status label label-warning"></span></a>
+                            <ul>
+                                <li>
+                                    <a href=""><i class="fa fa-rss"></i> <span>AP</span> <span class="status label label-success"></span></a>
+                                    <ul>
+                                        <li>
+                                            <a href=""><i class="fa fa-signal"></i> <span>TB</span> <span class="status label label-success"></span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

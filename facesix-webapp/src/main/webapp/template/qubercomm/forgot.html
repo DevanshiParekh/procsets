@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html class="mob-bg">
+<head>
+	{{#if customer.customerName}}
+    	<title>{{customer.customerName}}</title>
+    {{else}}
+   		<title>Qubercomm | Compute Connect Cloud</title>
+    {{/if}}
+    {{#if customer.logofile}}
+      <link rel="shortcut icon" href="/facesix/static/qubercomm/images/favicon_blank.png?v=2">
+    {{else}}
+  	  <link rel="shortcut icon" href="/facesix/static/qubercomm/images/fav.png"> 
+    {{/if}}
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="google-site-verification" content="" />
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0, user-scalable=no">
+	 
+	<!-- js Links -->
+	<script src="/facesix/static/qubercomm/js/jquery-2.1.4.min.js"></script>
+	<script src="/facesix/static/qubercomm/js/bootstrap.min.js"></script>  
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/facesix/static/qubercomm/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/facesix/static/qubercomm/css/fonts.css">
+	<link rel="stylesheet" href="/facesix/static/qubercomm/css/font-awesome.css">
+	<link rel="stylesheet" href="/facesix/static/qubercomm/css/style.css">
+
+</head>
+ 
+<body class="mob-bg"  >
+	<!-- Banner -->
+<section id="contact_banner" class="relative" style="background-image: url({{#if customer.background}}/facesix/preferredBackgroundUrl?id={{customer.id}}{{else}}/facesix/static/qcom/img/QLoginPage3.jpg{{/if}});">
+	<div class="LoginSection">
+		<!-----<div class="top-header">
+			<nav class="navbar">
+				<div class="container-fluid">
+					<div class="navbar-header navbar-right">
+						<a class="navbar-brand home-logo" href="/facesix/goodbye">
+						</a>
+					</div>
+				</div>
+			</nav>
+		</div>------>
+		
+			
+				<div class="contact-form">
+					
+					<div class="row">
+				      <div class="col-md-12">
+					  			<center><a class=" home-logo" href="/facesix/{{#if customer.preferedUrlName}}{{customer.preferedUrlName}}{{else}}goodbye{{/if}}">
+							{{#if customer.logofile}}
+			              	<img src="/facesix/preferredLogoUrl?id={{customer.id}}" class="img-responsive">
+			              {{else}}
+			              	<img src="/facesix/static/qubercomm/images/header/logo.png" class="img-responsive">
+			              {{/if}}
+						</a></center>
+					  </div>
+						<div class="col-md-6 col-sm-5 col-xs-12" style="margin-top: 20px">
+							<form id="contactusForm" role="form" action="/facesix/fgnotify" method="get">
+								<div class="col-md-12 disp-inline">
+									<input type="text" name="name" id="name" value="{{fsobject.name}}" class="form-control disp-block valign" placeholder="User Name" style="width:100%!important;box-shadow:2px 3px 12px grey;">
+								</div>
+								<input type="hidden" name="url" id="name" value="{{#if customer.preferedUrlName}}{{customer.preferedUrlName}}{{/if}}" >
+									<div class="col-md-12">
+										<input type="emsail" name="email" id="email" value="{{fsobject.email}}" class="form-control mr-fc valign " placeholder="Email Address" style="width:100%!important;box-shadow:2px 3px 12px grey;">
+									</div>
+								
+									 	
+									<div class="col-md-12 ">
+										<input type="text" id="pno" name="pno" value="{{fsobject.pno}}" class="form-control valign" placeholder="Contact Number" style="width:100%!important;box-shadow:2px 3px 12px grey;">
+									</div>
+								
+								<div class="col-md-12"><textarea type="text" name="Cdesc" id="Cdesc" " value="{{fsobject.desc}}" class="form-control valign" placeholder="Message" style="width:100%!important;box-shadow:2px 3px 12px grey;"></textarea></div>
+								<div class="login-btns text-center" style="margin-right:15px!important;">
+									<button type="submit" id="submit1" class="btn btn-primary btn3d btn-config-venue" >Submit</button>
+								</div>
+								
+							</form>
+						</div>
+						
+						
+						
+								<div class="col-md-6 col-sm-7 col-xs-12 mob-alnf" style="margin-top:15px;">
+								
+					
+								
+								<h4 style="color:black;"><i class="fa fa-unlock-alt" aria-hidden="true"></i> Forgot Password ?</h4></br>							
+							<h5> Can't sign in <i class="fa fa-question" aria-hidden="true"></i></h5></br>
+							<div class="address-text">
+								   <p style="color:black;"><i class="fa fa-pencil" aria-hidden="true"></i> Enter your email address below and</br>
+								      we will send you the reset instructions</br></br>
+								   <p style="color:black;"> <i class="fa fa-envelope"></i> A verfication code will be sent to you.</br>
+								        once you received the verification code then</br>
+								        you will be able to choose a new name and password.
+								   </p>
+							</div>
+						</div>
+						
+						
+					</div>
+				</div>
+	
+		
+			<footer class="footer footer-section addhide hidden-sm hidden-md" style="padding:0px 5px;">
+			<div>
+				<span class="copyright-footer" style="color:white" >Copyright © 2018 Qubercomm.com All rights reserved.</span>
+				<span class="footer-link pull-right">
+					<ul class="list-unstyled">
+						<li>
+							<i class="fa fa-envelope" style="color:white"></i>						
+							<a href="/facesix/contact{{#if customer.preferedUrlName}}/{{customer.preferedUrlName}}{{/if}}" style="color:white">Contact Us</a>
+						</li>
+					</ul>
+				</span>
+			</div>
+		</footer>
+	</div>
+</section>
+
+<script src="/facesix/static/qubercomm/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/jquery_validate_min_js.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/form-validations.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/script.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/common.js"></script>
+
+</body>
+</html>

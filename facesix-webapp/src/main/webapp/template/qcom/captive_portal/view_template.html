@@ -1,0 +1,13 @@
+<style>
+	header{
+		display: none;
+	}
+</style>
+<div class="fixedActions" ng-if="previewMode == 'active'"> 
+	<ul>
+		<li ng-class="{active:previewModeClass == 'desktop'}"><a href ng-click="setPreviewClass('desktop')"><i class="fa fa-desktop" aria-hidden="true"></i></a></li>
+		<li ng-class="{active:previewModeClass == 'tablet'}"><a href ng-click="setPreviewClass('tablet')"><i class="fa fa-tablet" aria-hidden="true"></i></a></li>
+		<li ng-class="{active:previewModeClass == 'mobile'}"><a href ng-click="setPreviewClass('mobile')"><i class="fa fa-mobile" aria-hidden="true"></i></a></li>
+	</ul>
+</div>
+<div ng-include="template"></div>    

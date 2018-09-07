@@ -1,0 +1,562 @@
+<div id="loginFormContainer" class="{[{previewMode}]}">
+<form id="form_builder" class="previewModeScreen {[{previewModeClass}]}"> 
+<style>
+	img{
+		max-width: 100%;
+	}
+	.radio_alter{
+		padding: 15px;
+		background: #f6f6f6;
+		border-top: 1px solid #dddddd;
+		
+	}
+	.radio_alter label{
+		position: relative;
+		width: 18px;
+		height: 18px;
+		border-radius: 100%; 
+		border: 2px solid {[{activeSkinColor.color1}]}; 
+		vertical-align: middle;
+		margin: 0;
+	} 
+	.radio_alter label input{
+		display: block;
+	    position: absolute;
+	    margin: 0;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    z-index: 99;
+	    cursor: pointer;
+	    opacity: 0;
+	}
+	.radio_alter label input ~ i{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		border-radius: 100%;
+		background: {[{activeSkinColor.color2}]};
+		border: 2px solid #fff;
+		opacity: 0;
+	}
+	.radio_alter label input:checked ~ i{
+		opacity: 1;
+	}
+	.radio_alter span{
+		vertical-align: middle;
+		margin-left: 10px;
+	}
+	.termsconditions{
+		display: table;
+		width: 100%;
+	}
+	.termsconditions > div{
+		display: table-cell;
+		vertical-align: middle;
+	}
+	.termsconditions p{ 
+	}
+	.extra_popup .fileSingle input[type="radio"], .extra_popup .fileSingle input[type="checkbox"] {    
+	    display: block;
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    margin: 0;
+	    border-radius: 0;
+	    z-index: 1;
+	    opacity: 0;
+	    cursor: pointer;    
+	}
+</style>
+<style>
+.popupp {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.popupp .popuptext {
+    visibility: hidden;
+    width: 160px;
+    background-color: #d3e8f5; /* 596a5 #d3e8f5*/
+    color: #000;
+    text-align: center;
+    border-radius: 6px;
+    padding: 25px 0;
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    margin-top: -176px;
+    margin-left: 200px;
+   
+}
+/* Popup arrow */
+.popupp .popuptext::after {
+    
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -40px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popupp .show {
+    visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+    from {opacity: 0;} 
+    to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity:1;}
+}
+</style> 
+<div id="login-form-wrapper" class=""  > 
+	<div id="login-form-wrapper-inner">
+	<style ng-if="backgroundImg != ''">
+		#login-form-wrapper{
+			background-image: url({[{backgroundImg}]});
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: center center;
+		}
+	</style>
+	<div class="login-form-center" id="login-form-center">
+		<div class="login-form-wrp">
+			<div class="sortable-row" as-sortable="sortableOptions" data-ng-model="formValues"> 
+				    
+                   <div ng-repeat="item in formValues" as-sortable-item class="themeMode"> 
+                  		
+                   	<div as-sortable-item-handle > 
+                   		<style >
+                   		
+                   			#field-{[{item.id}]}{
+                   				padding-top: {[{item.w_paddingTop}]}px;
+                    			padding-bottom: {[{item.w_paddingBottom}]}px;
+                    			padding-left: {[{item.w_paddingLeft}]}px;
+                    			padding-right: {[{item.w_paddingRight}]}px;
+                    			margin-top: {[{item.w_marginTop}]}px;
+                    			margin-bottom: {[{item.w_marginBottom}]}px;
+                    			margin-left: {[{item.w_marginLeft}]}px;
+                    			margin-right: {[{item.w_marginRight}]}px;
+                    			border-width: {[{item.w_borderWidth}]}px;
+                    			border-radius: {[{item.w_borderRadius}]}px;
+                    			border-color: {[{item.w_borderColor}]};
+                    			border-style: {[{item.w_borderStyle}]}; 
+                    			background-color: {[{item.w_bgColor}]}; 
+                    			text-align: {[{item.align}]}; 
+                   			}
+                   			#fieldInner-{[{item.id}]}{
+                    			padding-top: {[{item.paddingTop}]}px;
+                    			padding-bottom: {[{item.paddingBottom}]}px;
+                    			padding-left: {[{item.paddingLeft}]}px;
+                    			padding-right: {[{item.paddingRight}]}px;
+                    			margin-top: {[{item.marginTop}]}px;
+                    			margin-bottom: {[{item.marginBottom}]}px;
+                    			margin-left: {[{item.marginLeft}]}px;
+                    			margin-right: {[{item.marginRight}]}px;
+                    			border-width: {[{item.borderWidth}]}px;
+                    			border-radius: {[{item.borderRadius}]}px;
+                    			border-color: {[{item.borderColor}]};
+                    			border-style: {[{item.borderStyle}]}; 
+                    			background-color: {[{item.bgColor}]};
+                    			color: {[{item.textColor}]};  
+                    			font-size: {[{item.font_size}]}px;
+                    			text-align: {[{item.align}]}; 
+                   			}
+                   		</style> 
+                   		<style ng-if="item.field_width != ''">
+                   			#fieldInner-{[{item.id}]}{
+                   				width: {[{item.field_width}]}px; 
+                   			}
+                   		</style>
+                   		<style ng-if="item.field_height != ''">
+                   			#fieldInner-{[{item.id}]}{
+                   				height: {[{item.field_height}]}px; 
+                   			}
+                   		</style>
+                   	 
+                  			 
+                   		<div class="{[{item.wrapperClass}]} single-ui-field" id="field-{[{item.id}]}" ng-click="setEditOptions(4, item)" > 
+                   			<a class="removeField" ng-click="setRemove($index)" ng-if="item.isDefault !='1' && isEditingMode == true"><i class="fa fa-times"></i></a>
+                   			<a class="editField" href="javascript:void(0)" ng-if="isEditingMode == true"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                   			<div class="removeConfirm"  ng-show="isRemove($index)" ng-if="isEditingMode == true">
+                   				<div class="ab-center">
+                  					<a class="" href ng-click="removeField(item)">Confirm</a>
+                   					<a class="" href ng-click="setRemove(100000)">Cancel</a>
+                 				</div>
+                   			</div>
+                   			
+                   			
+                   			<div ng-if="item.type == 'social'"> 
+	                    		<style>
+	                    			#field-{[{item.id}]} .social-icons {
+		                    			padding-top: {[{item.paddingTop}]}px;
+		                    			padding-bottom: {[{item.paddingBottom}]}px;
+		                    			padding-left: {[{item.paddingLeft}]}px;
+		                    			padding-right: {[{item.paddingRight}]}px;
+		                    			margin-top: {[{item.marginTop}]}px;
+		                    			margin-bottom: {[{item.marginBottom}]}px;
+		                    			margin-left: {[{item.marginLeft}]}px;
+		                    			margin-right: {[{item.marginRight}]}px;
+		                    			border-width: {[{item.borderWidth}]}px;
+		                    			border-radius: {[{item.borderRadius}]}px;
+		                    			border-color: {[{item.borderColor}]};
+		                    			border-style: {[{item.borderStyle}]}; 
+		                    			background-color: {[{item.bgColor}]};
+		                    			color: {[{item.textColor}]};  
+		                    			font-size: {[{item.font_size}]}px;
+		                    			text-align: {[{item.align}]}; 
+		                    			min-width: 30px;
+		                    			min-height: 30px;
+	                    			    display: inline-block;
+	                    			    position: relative;
+		                   			}
+		                   			.social-icons i{
+		                   				position: absolute;
+		                   				top: 50%;
+		                   				left: 50%;
+		                   				-o-transform: translate(-50%, -50%);
+		                   				-ms-transform: translate(-50%, -50%);
+		                   				-moz-transform: translate(-50%, -50%);
+		                   				-webkit-transform: translate(-50%, -50%);
+		                   				transform: translate(-50%, -50%);
+		                   			}
+		                   			#field-{[{item.id}]} .checkboxGroup{
+		                   				border-radius: {[{item.borderRadius}]}px;
+		                   				background-color: {[{item.bgColor}]}; 
+		                   				overflow: hidden;
+		                   			}
+		                   			.social-icons-wrp{
+		                   				display: inline-block;
+		                   			}
+	                    		</style>
+	                    		<style ng-if="item.field_width != ''">
+		                   			#field-{[{item.id}]} .social-icons  {
+		                   				width: {[{item.field_width}]}px; 
+		                   			}
+		                   		</style>
+		                   		<style ng-if="item.field_height != ''">
+		                   			#field-{[{item.id}]} .social-icons  {
+		                   				height: {[{item.field_height}]}px; 
+		                   			}
+		                   		</style>
+		                   		
+	                    		<div ng-repeat="fields in item.socialMedias" class="social-icons-wrp">  
+	                    			 
+	                    			 <a class="social-icons" href="javascript:void(0)" target="_blank" ng-if="fields.name == 'facebook' && fields.status == true" style="background: #4867aa;"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+	                    			 <a class="social-icons" href="javascript:void(0)" target="_blank" ng-if="fields.name == 'twitter' && fields.status == true" style="background: #1da1f2;"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+	                    			 <a class="social-icons" href="javascript:void(0)" target="_blank" ng-if="fields.name == 'googleplus' && fields.status == true" style="background: #dc473a;"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+	                    			 <a class="social-icons" href="javascript:void(0)" target="_blank" ng-if="fields.name == 'linkedin' && fields.status == true" style="background: #0274b3;"><i class="fa fa-linkedin" aria-hidden="true"></i></a> 
+	                    			 
+	                    		</div>
+                    			  
+	                    	</div>
+	                    	
+	                    	<div ng-if="item.type == 'input'">  
+	                    		<!--  <label ng-if="item.label != ''">{[{item.label}]}</label><br />  -->
+                    			<input name="{[{item.name}]}" ng-model="username" type="{[{item.inputType}]}" value="" placeholder="{[{item.placeholder}]}"  id="fieldInner-{[{item.id}]}"  /> 
+                    			
+	                    	</div> 
+	                    	<div ng-if="item.type == 'submit'">  
+	                    		<input type="{[{item.inputType}]}" value="{[{item.content}]}" id="fieldInner-{[{item.id}]}"  />  
+	                    	</div>
+	                    	
+	                    	<div ng-if="item.type == 'textarea'">  
+	                    		<!--  <label ng-if="item.label != ''">{[{item.label}]}</label><br />  -->
+	                    		<textarea value="" placeholder="{[{item.placeholder}]}" id="fieldInner-{[{item.id}]}"></textarea>   
+	                    	</div> 
+	                    	<div ng-if="item.type == 'video'">   
+	                    		<video controls ng-if="item.videoPath != ''" id="fieldInner-{[{item.id}]}">
+									<source ng-src="{[{item.videoPath | trustUrl}]}" type="video/mp4"> 
+									Your browser does not support the video tag.
+								</video> 
+	                    		<div style="text-align: center; color: #acacac; font-size: 16px; padding: 30px 0;" ng-if="item.videoPath == ''" >Please upload the video</div> 
+	                    	</div> 
+	                    	 
+	                    	
+	                    	<div ng-if="item.type == 'image'" >  
+                    			<img ng-src="{[{item.imagePath}]}" alt="" ng-if="item.imagePath != ''" id="fieldInner-{[{item.id}]}" />
+                    			<div style="text-align: center; color: #acacac; font-size: 16px;" ng-if="item.imagePath == ''" >Logo or Image</div> 
+	                    	</div>
+                    	
+                    		<div ng-if="item.type == 'text'"  > 
+                    			<p ng-if="item.inputType == 'p'" id="fieldInner-{[{item.id}]}">{[{item.content}]}</p>
+                    			<h1 ng-if="item.inputType == 'h1'" id="fieldInner-{[{item.id}]}">{[{item.content}]}</h1>
+                    			<h2 ng-if="item.inputType == 'h2'" id="fieldInner-{[{item.id}]}">{[{item.content}]}</h2>
+                    			<h3 ng-if="item.inputType == 'h3'" id="fieldInner-{[{item.id}]}">{[{item.content}]}</h3>
+                    			<h4 ng-if="item.inputType == 'h4'" id="fieldInner-{[{item.id}]}">{[{item.content}]}</h4>
+                    			<h5 ng-if="item.inputType == 'h5'" id="fieldInner-{[{item.id}]}">{[{item.content}]}</h5>
+                    			<h6 ng-if="item.inputType == 'h6'" id="fieldInner-{[{item.id}]}">{[{item.content}]}</h6>
+                    			<span ng-if="item.inputType == 'span'" id="fieldInner-{[{item.id}]}">{[{item.content}]}</span>
+                    			<label ng-if="item.inputType == 'label'" id="fieldInner-{[{item.id}]}">{[{item.content}]}</label>
+                    			<div ng-if="item.inputType == 'div'" id="fieldInner-{[{item.id}]}">{[{item.content}]}</div>
+                    			<i ng-if="item.inputType == 'i'" id="fieldInner-{[{item.id}]}">{[{item.content}]}</i>
+	                    	</div>
+	                    	
+	                    	<div ng-if="item.type == 'terms'"> 
+                    			<div class="termsconditions">
+	                    			<div>
+		                    			<div class="check_alter form_check_alter"> 
+											<input type="checkbox" ng-model="fields.status" ng-true-value="true" ng-false-value="false" ng-checked="false" id="fieldInner-{[{item.id}]}" >  
+											<i></i>
+									    </div>
+								    </div>
+								    <div>
+								   		<p ng-bind-html="item.content | trustContent" id="fieldInner-{[{item.id}]}"></p>
+								    </div>
+								    <style>
+								    	#fieldInner-{[{item.id}]} a{
+								    		color: {[{item.linkColor}]};
+								    	}
+								    </style> 
+							    </div>
+	                    	</div>
+	                    	
+	                    	<div ng-if="item.type == 'voucher'"> 
+                    			 <input name="{[{item.name}]}" ng-model="voucher" type="text" value="" placeholder="{[{item.placeholder}]}"  id="fieldInner-{[{item.id}]}"  />
+	                    	</div>
+	                    	
+	                    	<div ng-if="item.type == 'registration'"> 
+	                    		<style>
+	                    			#field-{[{item.id}]} input[type="text"],#field-{[{item.id}]} input[type="email"],#field-{[{item.id}]} input[type="password"] ,#field-{[{item.id}]} input[type="phone"]  {
+		                    			padding-top: {[{item.paddingTop}]}px;
+		                    			padding-bottom: {[{item.paddingBottom}]}px;
+		                    			padding-left: {[{item.paddingLeft}]}px;
+		                    			padding-right: {[{item.paddingRight}]}px;
+		                    			margin-top: {[{item.marginTop}]}px;
+		                    			margin-bottom: {[{item.marginBottom}]}px;
+		                    			margin-left: {[{item.marginLeft}]}px;
+		                    			margin-right: {[{item.marginRight}]}px;
+		                    			border-width: {[{item.borderWidth}]}px;
+		                    			border-radius: {[{item.borderRadius}]}px;
+		                    			border-color: {[{item.borderColor}]};
+		                    			border-style: {[{item.borderStyle}]}; 
+		                    			background-color: {[{item.bgColor}]};
+		                    			color: {[{item.textColor}]};  
+		                    			font-size: {[{item.font_size}]}px;
+		                    			text-align: {[{item.align}]}; 
+		                   			}
+		                   			#field-{[{item.id}]} .checkboxGroup{
+		                   				border-radius: {[{item.borderRadius}]}px;
+		                   				background-color: {[{item.bgColor}]}; 
+		                   				overflow: hidden;
+		                   			}
+	                    		</style>
+	                    		<style ng-if="item.field_width != ''">
+		                   			#field-{[{item.id}]} input[type="text"],#field-{[{item.id}]} input[type="email"],#field-{[{item.id}]} input[type="password"] ,#field-{[{item.id}]} input[type="phone"]  {
+		                   				width: {[{item.field_width}]}px; 
+		                   			}
+		                   		</style>
+		                   		<style ng-if="item.field_height != ''">
+		                   			#field-{[{item.id}]} input[type="text"],#field-{[{item.id}]} input[type="email"],#field-{[{item.id}]} input[type="password"] ,#field-{[{item.id}]} input[type="phone"]  {
+		                   				height: {[{item.field_height}]}px; 
+		                   			}
+		                   		</style>
+		                   		
+	                    		<div ng-repeat="fields in item.registration_fields">  
+	                    			 <input ng-if="fields.name == 'username' && fields.status == true" name="username" ng-model="username" type="text" value="" placeholder="{[{fields.placeholder}]}"  id="fieldInner-username-{[{item.id}]}"  />
+	                    			 <input ng-if="fields.name == 'email' && fields.status == true" name="email" ng-model="email" type="email" value="" placeholder="{[{fields.placeholder}]}"  id="fieldInner-email-{[{item.id}]}"  />
+	                    			 <input ng-if="fields.name == 'phone' && fields.status == true" name="phone" ng-model="email" type="text" value="" placeholder="{[{fields.placeholder}]}"  id="fieldInner-phone-{[{item.id}]}"  />
+	                    			 
+                    			  	 <!--   
+	                    			 <div ng-if="fields.name == 'gender' && fields.status == true" class="checkboxGroup">
+	                    			 	<div class="radio_alter"> 
+	                    			 		<label ng-if="fields.value == 'male'"><input type="radio" value="male" name="gender" ng-checked="true" /><i></i></label>
+	                    			 		<label ng-if="fields.value != 'male'"><input type="radio" value="male" name="gender"  /><i></i></label>
+	                    			 		<span>Male</span>
+	                    			 	</div> 
+	                    			 	<div class="radio_alter">
+	                    			 		<label ng-if="fields.value == 'female'"><input type="radio" value="male" name="gender" ng-checked="true" /><i></i></label>
+	                    			 		<label ng-if="fields.value != 'female'"><input type="radio" value="male" name="gender" /><i></i></label>
+	                    			 		<span>Female</span>
+	                    			 	</div>
+	                    			 	
+	                    			 </div>
+	                    			 -->
+	                    			 
+	                    		</div>
+                    			  
+	                    	</div>
+	                    	
+	                    	<div ng-if="item.type == 'login'"> 
+	                    		<style>
+	                    			#field-{[{item.id}]} input[type="text"],#field-{[{item.id}]} input[type="email"],#field-{[{item.id}]} input[type="password"] ,#field-{[{item.id}]} input[type="phone"]  {
+		                    			padding-top: {[{item.paddingTop}]}px;
+		                    			padding-bottom: {[{item.paddingBottom}]}px;
+		                    			padding-left: {[{item.paddingLeft}]}px;
+		                    			padding-right: {[{item.paddingRight}]}px;
+		                    			margin-top: {[{item.marginTop}]}px;
+		                    			margin-bottom: {[{item.marginBottom}]}px;
+		                    			margin-left: {[{item.marginLeft}]}px;
+		                    			margin-right: {[{item.marginRight}]}px;
+		                    			border-width: {[{item.borderWidth}]}px;
+		                    			border-radius: {[{item.borderRadius}]}px;
+		                    			border-color: {[{item.borderColor}]};
+		                    			border-style: {[{item.borderStyle}]}; 
+		                    			background-color: {[{item.bgColor}]};
+		                    			color: {[{item.textColor}]};  
+		                    			font-size: {[{item.font_size}]}px;
+		                    			text-align: {[{item.align}]}; 
+		                   			}
+		                   			#field-{[{item.id}]} .checkboxGroup{
+		                   				border-radius: {[{item.borderRadius}]}px;
+		                   				background-color: {[{item.bgColor}]}; 
+		                   				overflow: hidden;
+		                   			}
+	                    		</style>
+	                    		<style ng-if="item.field_width != ''">
+		                   			#field-{[{item.id}]} input[type="text"],#field-{[{item.id}]} input[type="email"],#field-{[{item.id}]} input[type="password"] ,#field-{[{item.id}]} input[type="phone"]  {
+		                   				width: {[{item.field_width}]}px; 
+		                   			}
+		                   		</style>
+		                   		<style ng-if="item.field_height != ''">
+		                   			#field-{[{item.id}]} input[type="text"],#field-{[{item.id}]} input[type="email"],#field-{[{item.id}]} input[type="password"] ,#field-{[{item.id}]} input[type="phone"]  {
+		                   				height: {[{item.field_height}]}px; 
+		                   			}
+		                   		</style>
+		                   		
+	                    		<div ng-repeat="fields in item.login_fields">  
+	                    			 <input ng-if="fields.name == 'username' && fields.status == true" name="username" ng-model="username" type="text" value="" placeholder="{[{fields.placeholder}]}"  id="fieldInner-username-{[{item.id}]}"  />
+	                    			 <input ng-if="fields.name == 'password' && fields.status == true" name="password" ng-model="password" type="password" value="" placeholder="{[{fields.placeholder}]}"  id="fieldInner-password-{[{item.id}]}"  /> 
+	                    			 
+	                    		</div>
+                    			  
+	                    	</div>
+	                    	
+	                    	
+	                    	<div ng-if="item.type == 'offer'"> 
+	                    		<div id="fieldInner-{[{item.id}]}" ng-bind-html="item.content | trustContent"></div> 
+	                    	</div>
+	                    	
+	                    	<div ng-if="item.type == 'add'"> 
+	                    		<div class="advertisement" ng-if="isEditingMode == true">
+	                    			 
+                    				<div id="fieldInner-{[{item.id}]}" ><div ng-bind-html="item.content | trustContent"></div></div> 
+	                    			 
+	                    		</div> 
+	                    		
+	                    		<div class="advertisement" ng-if="isEditingMode != true">
+	                    			<a ng-href="{[{item.addVertisementLink | trustUrl}]}" target="_blank">
+	                    				<div id="fieldInner-{[{item.id}]}" ><div ng-bind-html="item.content | trustContent"></div></div> 
+	                    			</a>
+	                    			
+	                    		</div> 
+	                    		
+	                    		
+	                    		<style ng-if="item.imagePath != ''">
+	                    			#field-{[{item.id}]}{
+	                    				background-image: url({[{item.imagePath}]});
+	                    				background-size: cover;
+	                    				background-position: center center;
+	                    				background-repeat: no-repeat;
+	                    			}
+	                    			#field-{[{item.id}]} div{
+	                    				background: transparent;
+	                    			}
+	                    		</style>
+	                    		<style ng-if="item.field_height != ''">
+		                   			#fieldInner-{[{item.id}]}{
+		                   				min-height: {[{item.field_height}]}px; 
+		                   				height: auto;
+	                   				    display: table;
+									    width: 100%;
+									    vertical-align: middle;
+		                   			}
+		                   			#fieldInner-{[{item.id}]} > div{
+		                   				display: table-cell;
+		                   				vertical-align: middle;
+		                   			}
+		                   		</style>
+		                   		
+	                    	</div>
+	                    	
+	                    	
+                    	</div>
+                       </div>
+                       
+                   </div>
+               </div>
+		</div>
+	</div>
+</div>
+</div>
+</form>
+</div>
+
+<div class="popup extra_popup" ng-if="filePopUp == true" ng-class="{'open':filePopUp}">
+	<div class="popup-container accountAdd " style="height: 300px;border-radius: 12px;">
+		<div class="extra-loader" ng-class="{'active': uploadLoader == true}"><i class="fa fa-spinner fa-pulse"></i></div>
+		<h3>Choose File <a href ng-click="reloadFiles()">Reload</a></h3>
+		<form ng-submit="form.$valid && appyFileFile(fileSelected)" name="form" novalidate>
+			 <p class="error" ng-if="form.$submitted && !fileSelected" style="margin-top: -15px; margin-bottom: 14px;">Please choose the file from below list</p>
+			  
+			 <div class="row" id="fileManager">
+			 		<div class="fileCon" style="margin-top: -35px; margin-left: 10px">												  						
+					</div> 					
+ 					<div class="col-ui-2" style="width: 20%">
+		 				<div class="fileSingle" style="border: outset; border-color: #9dcbd0;border-width: 2px;">
+		 					<!--  <div class="extra-loader" ng-class="{'active': filePopUp == true}"><i class="fa fa-spinner fa-pulse"></i></div>  -->
+		 					
+		 					<div class="add-new">
+	 							<a href="" onclick="myFunction()" class="popupp"
+	 							target="_blank"><i class="fa fa-plus" aria-hidden="true"></i><span>Add New File</span></a>	 							
+	 						</div>	
+	 						 						
+		 				</div>
+		 			</div>		 			
+		 			
+		 			<div class="col-ui-2" ng-repeat="file in casting" >
+		 				<div class="fileSingle"> 
+		 					<div class="fileinfo"> 
+		 						<input ng-required="!fileSelected" type="radio" name="fileSelected" ng-model="$parent.fileSelected" value="{[{file.path}]}" ><i class="selectIcon"></i>
+		 						<div class="fileThumb" style="text-align: center; background-image: url({[{file.screenshot}]})" > 
+		 						</div>
+		 						<div class="fileCon">
+		 							<h4>{[{file.name}]}</h4>	 	
+		 						</div>
+		 						
+		 						<div class="removeConfirm"  ng-show="isRemove('file-'+$index)"  >
+	                   				<div class="ab-center">
+	                  					<a class="" href ng-click="removeCasting(file.id)">Confirm</a>
+	                   					<a class="" href ng-click="setRemove(100000)">Cancel</a>
+	                 				</div>
+	                   			</div>
+		 						<div class="fm-actions text-right">
+		 							<!-- <a href="{[{file.url}]}" target="_blank" download><i class="fa fa-cloud-download" aria-hidden="true"></i><span>Download</span></a>  -->
+		 							<a href="{[{file.path}]}" target="_blank" class="fm_preview"><i class="fa fa-external-link"></i><span>Preview</span></a>
+		 							<!--  <a href="javascript:void(0);" ng-click="setRemove('file-'+$index)" class="fm_remove"><i class="fa fa-trash"></i><span>Delete</span></a> -->
+		 						</div>
+		 					</div>
+		 				</div>
+		 			</div>
+		 			
+		 		</div>
+		 		<div class="popupp"><span class="popuptext closed" id="newfilePopup" style="width: 500px; cursor: default;"><p>On clicking <b>Yes</b> you will be redirected to Casting Tab of Captive Portal.</p><p style="margin-top: 20px">Click on <b>Reload</b> to view changes. </p><p style="margin-top: 20px;margin-bottom: 7px;"> Do you want to Continue? </p><br><br>
+						<a href="" target="_blank" onclick="popup_yes()" class="btn" style="margin-left: 10px;">Yes</a>&nbsp;<a href="" class="btn" onclick="popup_no()" style="margin-left: 10px;">No</a></span></div>
+		
+		 		<div ng-if="casting.length >= 1" > 
+		 		<button type="submit" class="btn" style="margin-left: 20px; margin-bottom: -5px">Confirm Select</button>
+				</div>
+		</form> 
+		
+		<button class="btn close-btn w-auto fl" ng-click="closeNewFilePopUp()"><i class="fa fa-times"></i></button>
+	</div>
+	</div>

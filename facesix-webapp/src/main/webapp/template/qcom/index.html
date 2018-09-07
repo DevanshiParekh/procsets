@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head ng-controller="header">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" href="/facesix/static/qubercomm/images/fav.png" ng-if="favicon ==''">
+    <link rel="shortcut icon" href="/facesix/static/qubercomm/images/favicon_blank.png?v=2" ng-if="favicon !=''">
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans|Lato" rel="stylesheet">
+    <link type='text/css' rel='stylesheet' href="/facesix/static/qcom/css/style.css" />
+    <link type='text/css' rel='stylesheet' href="/facesix/static/qcom/css/ng-sortable.min.css" /> 
+   <link type='text/css' rel='stylesheet' href="/facesix/static/qcom/css/angularjs-datetime-picker.css" />
+    
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIb48XnrVG-JZvYup6AkfvNdCclhEnSwE&libraries=places"
+     async defer></script>
+    <script src="/facesix/static/qcom/js/angular.min.js"></script>
+    <script src="/facesix/static/qcom/js/angular-route.min.js"></script>
+    <script src="/facesix/static/qcom/js/Chart.js"></script>
+    <script src="/facesix/static/qcom/js/Chart.HorizontalBar.js"></script>
+    <script src="/facesix/static/qcom/js/angular-chart.js"></script>
+    <script src="/facesix/static/qcom/js/angular-strap.min.js"></script> 
+    <script src="/facesix/static/qcom/js/ng-sortable.min.js"></script>
+    <script src="/facesix/static/qcom/js/d3.min.js"></script>
+    <script src="/facesix/static/qcom/js/angularjs-datetime-picker.min.js"></script> 
+    <script src="/facesix/static/qcom/js/appbase.js"></script>
+    <script src="/facesix/static/qcom/js/service.js"></script>
+    <script src="/facesix/static/qcom/js/directive.js"></script>
+    <script src="/facesix/static/qcom/js/ctrl.js"></script>
+    <script src="/facesix/static/qcom/js/captive_portal.js"></script> 
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
+    <script src="/facesix/static/qcom/js/html2canvas.js"></script>
+    <title>{[{pageTitle}]}</title>
+<!--
+    <script src="/facesix/static/qcom/js/drawfloor.js"></script>
+    <script src="/facesix/static/qcom/js/topology.js"></script>
+    <script src="/facesix/static/qcom/js/angSunburst.js"></script>
+-->
+
+<style>
+/*---zoom---*/
+
+.zoom
+{
+text-align:center;
+height:53px;
+  display:inline-block;
+    border:0;
+  
+    position: relative;
+    -webkit-transition: all 200ms ease-in;
+    -webkit-transform: scale(1); 
+    -ms-transition: all 200ms ease-in;
+    -ms-transform: scale(1); 
+    -moz-transition: all 200ms ease-in;
+    -moz-transform: scale(1);
+    transition: all 200ms ease-in;
+    transform: scale(1);   
+
+}
+.zoom:hover,.zoom.active
+{
+
+
+    box-shadow: 0px 0px 15px #000000;
+    z-index: 2;
+    -webkit-transition: all 200ms ease-in;
+    -webkit-transform: scale(1.2);
+    -ms-transition: all 200ms ease-in;
+    -ms-transform: scale(1.2);   
+    -moz-transition: all 200ms ease-in;
+    -moz-transform: scale(1.2);
+    transition: all 200ms ease-in;
+    transform: scale(1.2);
+}
+
+</style>
+
+</head>
+    <body>
+     
+    <header style="height:58px;" ng-controller="navigation">
+        <div class="container-fluid" ng-controller="header">
+            <div class="brand">
+                {{#if ADMIN_WRITE}}
+                	<a href="/facesix/qubercloud/cloud/home" class="ui-logo"><img src="/facesix/static/qubercomm/images/header/logo.png"></a>
+               {{else if finder}}
+ 				<a class="navbar-brand logo-sec mobilehideS" href="/facesix/web/beacon/list?cid={{cid}}" class="ui-logo">
+							 <img src="/facesix/preferredLogoUrl?id={{cid}}">
+			            </a> 
+			    {{else}}
+				<a class="navbar-brand logo-sec mobilehideS" href="/facesix/web/site/list?cid={{cid}}" class="ui-logo">
+							<img src="/facesix/preferredLogoUrl?id={{cid}}">
+				</a>                
+				{{/if}}
+            </div>
+            <p id="titlesty" class="disp">{[{namedood}]}</p>
+            <div class="nav-collapse" id="mobile-nav" style="height:58px;">
+                <ul>
+                    <!--  <li ng-click="GoBack()"><a href=""><div><i class="fa fa-chevron-left"></i><span>Back</span></div></a></li> -->
+                    <!--<li><a href="#!/client"><div><img src="/facesix/static/qcom/img/office.png"/><span>Client</span></div></a></li> -->
+                    <!--  <li><a href="/facesix/web/site/list?cid="><div><i class="fa fa-map-marker"></i><span>Venue</span></div></a></li>-->
+<!--                    <li><a href="#/floor"><div><i class="fa fa-map"></i><span>Floor</span></div></a></li>-->
+                    <!--  <li><a href=""><div><img src="/facesix/static/qcom/img/pdf.png"/><span>PDF</span></div></a></li> -->
+<!--                    <li ng-click="OpenNetworkFull()"><a href=""><div><img src="/facesix/static/qcom/img/diagram.png"/><span>Network</span></div></a></li>-->
+ 						 
+ 						
+                    {{#if cid}}
+                    	<li class="zoom" title="Venue"><a href="/facesix/web/site/list?cid={{cid}}"><div><i class="fa fa-map-marker"></i><p class="indexalign">Venue</p></div></a></li>                     	
+                    {{/if}}
+                    
+                    {{#if sid}}
+                    	  <li class="zoom" title="Floor" ><a href="/facesix/web/site/portion/list?sid={{sid}}&cid={{cid}}"><div><i class="fa fa-building" ></i><p class="indexalign">Floor</p></div></a></li>                   	
+                    {{/if}}
+                 
+                    <li class="zoom" ng-repeat="role in roles" ng-if="role.MANAGEMENT_WRITE" title="User Management"  ng-class="getClass('/usermanagement')"><a href="#!/usermanagement"><div><i class="fa fa-users"></i><p class="indexalign">Users</p></div></a></li>
+                    <li class="zoom" title="User Account" ng-class="getClass('/myaccount')"><a href="#!/myaccount"><div><i class="fa fa-user"></i><p class="indexalign">Account</p></div></a></li>
+                    
+                   
+                    <li class="zoom" title="Logout"><a href="javascript:void(0);" ng-click="Logout()"><div><i class="fa fa-power-off"></i><p class="indexalign" style="margin-left: 0px">Logout</p></div></a></li>
+ 
+<!--                <li><a href=""><div><i class="fa fa-power-off"></i><span>Logout</span></div></a></li>-->
+                </ul>
+            </div>
+            
+            
+        </div>
+        
+    </header>
+    
+    <div ng-view></div>
+    <div class="network" id="newtwork01" ng-class="{'div-open':NetworkFull}">
+    <div class="container">
+        <div class="title">
+        <h6>Network Tree - 4 Devices</h6>
+        <ul>
+            <li><a href=""><i class="fa fa-line-chart"></i></a></li>
+            <li><a href=""><i class="fa fa-cogs"></i></a></li>
+            <li><a href=""><i class="fa fa-sticky-note-o"></i></a></li>
+            <li><a href=""><i class="fa fa-power-off"></i></a></li>
+        </ul>
+        
+    </div>
+        <div class="body">
+            <ul>
+                <li ng-repeat="x in Shapedata">
+                    <div class="arrow" open="net01"><i class="fa fa-chevron-down"></i></div>
+                    <a href=""><img src="/facesix/static/qcom/img/quber-icons/full/server_active.png"/> <span>SVR - {{x.value.uid}}</span></a>
+                    <ul id="net01">
+                        <li ng-repeat="y in x.children">
+                            <a href=""><img src="/facesix/static/qcom/img/quber-icons/full/switch_inactive.png"/> <span>SW - {{y.value.uid}}</span></a>
+                            <ul>
+                                <li ng-repeat="z in y.children">
+                                    <a href=""><img src="/facesix/static/qcom/img/quber-icons/full/ap_active.png"/> <span>AP - {{z.value.uid}}</span></a>
+                                    <ul>
+                                        <li ng-repeat="a in z.children">
+                                            <a href=""><img src="/facesix/static/qcom/img/quber-icons/full/sensor_inactive.png"/> <span>SN - {{a.value.uid}}</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+</div>
+</body>
+<style>
+#titlesty{
+    z-index: 9999;
+    margin-top: 13px;
+    position: sticky;
+    float: left;
+    margin-left: 15px;
+    font-size: 22px;
+}
+@media screen and (max-width: 768px){
+	.disp{
+		display: none;
+	}
+}
+</style>
+</html>

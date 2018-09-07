@@ -1,0 +1,159 @@
+<section class="content">
+    <div class="container-fluid">
+        <div class="floor-dashboard">
+            <div class="card-view">
+                <div class="heading">
+                    <div class="title">
+                        <i class="fa fa-rss"></i>{[{devboard.title}]}
+                    </div>
+                </div>
+            </div>
+            <div class="">
+                <div class="ap-view">
+                    <div class="w25">
+                        <div class="card-view bt2 splht">
+                        <div class="heading border">
+                            <div class="title theme">
+                                Connected Interfaces
+                            </div>
+                        </div>
+                        <div class="body">
+                            <canvas id="doughnut" class="chart chart-doughnut" chart-data="ConnectedInterfaces.value" chart-labels="ConnectedInterfaces.name" chart-legend="true" chart-colours="dougcolours"></canvas>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="w25">
+                        <div class="card-view bt2 splht">
+                        <div class="heading border">
+                            <div class="title theme">
+                                Active vs Block
+                            </div>
+                        </div>
+                        <div class="body">
+                            <canvas id="doughnut" class="chart chart-doughnut" chart-data="typeOfDevices.value" chart-labels="typeOfDevices.name" chart-legend="true" chart-colours="dougcolours"></canvas>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="w25 fr">
+                        <div class="card-view bt2 splht">
+                            <div class="heading border">
+                                <div class="title theme">
+                                    CPU Utilization
+                                </div>
+                            </div>
+                            <div class="body">
+                                <canvas id="doughnut" class="chart chart-doughnut" chart-data="data" chart-labels="labels" chart-legend="true" chart-colours="dougcolours"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w25 fr">
+                        <div class="card-view bt2 splht">
+                        <div class="heading border">
+                            <div class="title theme">
+                                Memory Utilization
+                            </div>
+                        </div>
+                        <div class="body">
+                            <canvas id="doughnut" class="chart chart-doughnut" chart-data="data" chart-labels="labels" chart-legend="true" chart-colours="dougcolours"></canvas>
+                        </div>
+                    </div>
+                        
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="w50">
+                        <div class="card-view bt2">
+                        <div class="heading border">
+                            <div class="title theme">
+                                Netflow
+                            </div>
+                        </div>
+                        <div class="body">
+                            <canvas id="line" class="chart chart-line" chart-data="linedata.data" chart-labels="linedata.label" chart-series="linedata.series" chart-options="options" chart-colours="linedata.colours" chart-legend="true"></canvas>
+                        </div>
+                    </div>
+                    
+                    </div>
+                    <div class="w50">
+                        <div class="card-view bt2">
+                        <div class="heading border">
+                            <div class="title theme">
+                                Venue Tx vs Rx
+                            </div>
+                        </div>
+                        <div class="body">
+                            <canvas id="line" class="chart chart-line" chart-data="dataRxTx.value" chart-labels="dataRxTx.name" chart-series="linedata.series" chart-options="options" chart-colours="linedata.colours" chart-legend="true"></canvas>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="w50">
+                        <div class="card-view bt2">
+                        <div class="heading border">
+                            <div class="title theme">
+                                Peers Connected
+                            </div>
+                        </div>
+                        <div class="body splht">
+                            <canvas id="doughnut" class="chart chart-doughnut" chart-data="dataPeers.value" chart-labels="dataPeers.name" chart-legend="true" chart-colours="dougcolours"></canvas>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="w50">
+                        <div class="card-view bt2 ">
+                        <div class="heading border">
+                            <div class="title theme">
+                                Radio vs Peers
+                            </div>
+                        </div>
+                        <div class="body splht">
+                            <canvas id="doughnut" class="chart chart-doughnut" chart-data="dataVaps.value" chart-labels="dataVaps.name" chart-legend="true" chart-colours="dougcolours"></canvas>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="card-view bt2">
+                        <div class="heading border">
+                            <div class="title theme">
+                                Type of Device
+                            </div>
+                            <button class="btn-transparent fr cursor" ng-disabled="currentPage >= activeClients.length/pageSize - 1" ng-click="currentPage=currentPage+1"><i class="fa fa-chevron-right"></i></button>
+                            <button class="btn-transparent fr cursor" ng-disabled="currentPage == 0"  ng-click="currentPage=currentPage-1"><i class="fa fa-chevron-left"></i></button>
+                            <button class="btn-transparent fr cursor" ng-click="GetDeviceData()"><i class="fa fa-refresh"></i></button>
+                        </div>
+                        <div class="body">
+                           <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>OS</th>
+                                    <th>Device Name</th>
+                                    <th>Client</th>
+                                    <th>Radio</th>
+                                    <th>AP</th>
+                                    <th>RSSi(dBm)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="x in activeClients | startFrom:currentPage*pageSize | limitTo:pageSize">
+                                    <td>{[{$index + 1}]}</td>
+                                    <td></td>
+                                    <td>{[{x.devtype}]}</td>
+                                    <td>{[{x.mac_address}]}</td>
+                                    <td>{[{x.radio}]}</td>
+                                    <td>{[{x.ap}]}</td>
+                                    <td>{[{x.rssi}]}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    
+                    </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>

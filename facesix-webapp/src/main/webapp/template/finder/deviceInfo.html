@@ -1,0 +1,229 @@
+{{#partial "page"}}
+
+<style>
+.selected{ 
+background-color: rgba(211,211,211,.7);
+color: black;
+}
+table{
+cursor: default;
+}
+@media screen and (max-width: 768px){
+	.addhide{
+		display: none;
+	}
+}
+
+.toggleBtns{
+     -o-transform: rotate(180deg);
+     -ms-transform: rotate(180deg);
+     -moz-transform: rotate(180deg);
+     -webkit-transform: rotate(180deg);
+     transform: rotate(180deg);
+     bottom: 0;
+}
+ .toggleBtns.collapsed{
+     -o-transform: none;
+     -ms-transform: none;
+     -moz-transform: none;
+     -webkit-transform: none;
+     transform: none);
+     bottom: -2px;
+}
+</style>
+
+<div id="page-content-wrapper" class="acc-sec">
+	<div class="container-fluid">
+		<h4 class="acc-sec-title"></h4>
+		<div class="col-md-12 venue-details" >
+			<div class="view-details">
+				<div class="col-md-10 col-sm-10 col-xs-10"><ul>
+					<li class="displayBlockName"><img
+						src="/facesix/static/qubercomm/images/q-cgf-ble.png" alt=""
+						id="" style="width:80px;margin-left:-10px;">
+						{{#if GatewayFinder}}		
+						 <label class="venue-name" id="fimob" style="margin-left:-12px;">Finder Device Info</label>
+						 {{else}}
+						 <label class="venue-name" id="fimob" style="margin-left:-12px;">Device Info</label>
+						 {{/if}}
+						 </li>
+				</ul></div>
+				 <div>				 
+				  <button class="btn btn-sm toggleBtns collapsed marg-eye coll addhide" title="Crash Dump History" id="toggle" onclick="crashHistory()" style="background: none;background: none; position: relative;color: #019bc2; font-size: 18px; float:right; margin-right: -7px;"><i class="fa fa-eye-slash faa-vertical animated" aria-hidden="true"></i></button>
+				  </div>
+				<div style="margin-bottom: 10px"></div>
+			</div>
+		</div>
+	</div>
+
+	
+
+	<br><br>
+	<div  style="padding:10px 30px;">
+		<div class="row">
+				<div class="col-md-12 padding-device padding-right-0 showCol" style="padding-right: 15px;">
+					<div class="chart-box table-chart-box"></div>
+				</div>	
+		<div class="col-md-12 padding-device padding-right-0 showTab" style="padding-right: 15px !important;">
+				<div class="select-filter-Plan display-inline">
+					<select class="form-control display-inline  changeTimeInfo" id="time"
+						name="time" style=""> selectTime
+						<option selected="" value="24h">Last 1 Day</option>
+						<option value="7d">Last 1 Week</option>
+						<option value="30d">Last 1 Month</option>
+						</select>
+				</div>
+				<div class="chart-box acl-table-chart-box"></div>
+			</div>
+			</div>	
+		</div>
+	</div>
+	<br><br>
+	</div>
+
+	
+<!-- js -->
+<script src="/facesix/static/qubercomm/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/jquery_validate_min_js.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/form-validations.js" type="text/javascript"></script>
+<script src="https://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.mobile-events.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/common.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/handlebars.min.js"></script>
+<script src="/facesix/static/finder/js/deviceInfo.js" type="text/javascript"></script>
+<script type="text/javascript" src="/facesix/static/finder/js/script.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/snap.svg-min.js"></script>
+<script src="/facesix/static/qubercomm/js/jqpanzoom.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/d3.v3.js"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+<script type="text/javascript" src="/facesix/static/qubercomm/js/underscore-min.js"></script>
+<link rel="stylesheet" type="text/css" href="/facesix/static/finder/css/style.css"/>
+
+<script>
+$(document).ready(function() {
+	  $('button.coll').click(function() {
+	    $(this).toogleClass("collapsed");
+	  });
+	});
+</script>
+<script id="chartbox-beacon-template" type="text/x-handlebars-template">
+	
+	<div class="device-coon-desc">
+		<i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+		<label>Device Info </label>
+		<span class="table-page" data-table-name="dashboard-table">\{{#if show_previous_button}}<i class="fa fa-caret-left acl-tablePreviousPage"></i>\{{/if}}&nbsp;\{{#if show_next_button}}<i class="fa fa-caret-right acl-tableNextPage"></i>\{{/if}}</span>
+		<select class="tablelength" id="tablelength" data-target="#dashboard-table">
+			<option value="5">5</option>
+			<option value="10">10</option>
+			<option value="25">25</option>
+			<option value="50"selected>50</option>
+			<option value="100">100</option>
+		</select>	
+		 
+	</div>
+
+	<div class="tableSection">
+		<table class="table dashboard-table" id="dashboard-table" data-current-page="\{{current_page}}" data-row-limit="50">
+			<thead id="tableSortChanged">
+				<tr class="sel_tbl1">
+					<th onclick="sort_table('beaconid', 0, asc1);  asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(0)" class="width-40"># <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('beaconid', 1, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(1)"> Location <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('beaconid', 2, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(2)"> UID <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('beaconid', 3, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(3)"> State <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('beaconid', 4, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(4)"> Device uptime <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('beaconid', 5, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(5)"> Application uptime<i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('beaconid', 6, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(6)"> Version <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('beaconid', 7, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(7)"> Build Time <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('beaconid', 8, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(8)"> TagsSeen <i class="fa fa-arrow-up"></i></th>
+					<th class="addhide"> Crash Dump <i class="fa fa-arrow-up"></i></th>
+					
+			</tr>
+			</thead>
+
+			<tbody id="beaconid" class="CheckAllWrp">
+				\{{#each data}}
+				<tr mac-id="{{mac_address}}" ap="{{ap}}" uid="" ssid="{{ssid}}">
+					<td style="color: black;">\{{index}}</td>
+					<td style="color: black;">\{{locationname}}</td>
+					<td style="color: black;">\{{uid}}</td>
+					<td style="color: black;">\{{state}}</td>
+					<td style="color: black;">\{{deviceUptime}}</td>
+					<td style="color: black;">\{{appUptime}}</td>
+					<td style="color: black;">\{{version}}</td>
+					<td style="color: black;">\{{build}}</td>
+					<td style="color: black;">\{{tagcount}}</td>
+					<td class="addhide">
+                       <button type="button" class="btn btn-primary btn3d dumphey" title="Crash Dump" onclick="crashDump('\{{fileName}}','\{{filestatus}}')" style="margin-top:0px;" \{{crashState}}>Crash Dump</button> 
+                     </td>
+				</tr>
+				\{{/each}}
+			</tbody>
+
+		</table>
+	</div>	
+	
+</script>
+<script id="chartbox-acl-template" type="text/x-handlebars-template">
+	
+	<div class="device-coon-desc">
+		<label>Crash Dump History</label>
+		<span class="table-page" data-table-name="scanner-table"><i class="fa fa-refresh acl-refreshTable" aria-hidden="true"></i>\{{#if show_previous_button}}<i class="fa fa-caret-left tablePreviousPage"></i>\{{/if}}&nbsp;\{{#if show_next_button}}<i class="fa fa-caret-right tableNextPage"></i>\{{/if}}</span>
+		<select class="tablelengthone" id="tablelengthone" data-target="#scanner-table">
+			<option value="5">5</option>
+			<option value="10">10</option>
+			<option value="25">25</option>
+			<option value="50"selected>50</option>
+			<option value="100">100</option>
+		</select>
+	</div>
+
+	<div class="tableSection">
+		<table class="table scanner-table" id="scanner-table" data-current-page="\{{current_page}}" data-row-limit="10">
+			<thead>
+				<tr class="sel_tbl2">
+					<th onclick="sort_table('blockTable', 0, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(0)" class="width-40"># <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('blockTable', 1, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(1)"> Alias <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('blockTable', 2, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(2)"> UID <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('blockTable', 3, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(3)"> Crash Time <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('blockTable', 4, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(4)"> File Name <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('blockTable', 5, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(5)"> Upload Status <i class="fa fa-arrow-up"></i></th>
+				</tr>
+			</thead>
+			<tbody id="blockTable">
+				\{{#each data}}
+				<tr class="tr_blockrow">
+					<td id="hey" style="color: black;">\{{index}}</td>
+					<td style="color: black;">\{{alias}}</td>
+					<td style="color: black;">\{{uid}}</td>
+					<td style="color: black;">\{{crashTime}}</td>
+					<td style="color: black;">\{{filename}}</td>
+					<td style="color: black;">\{{status_code}}</td>
+					
+				</tr>
+				\{{/each}}
+			</tbody>
+
+		</table>
+	</div>	
+	
+</script>
+
+</div>
+<!-- loader -->
+<link rel="stylesheet" href="/facesix/static/geo/css/loader.css">
+<div class="loader_box" style="display: none;">	
+	<div class="loader"></div>
+	<h4 class="text-center"> Loading ...</h4>
+</div>
+    <!-- /.row -->
+    
+{{/partial}}
+
+{{>qubercomm/nav-top}}
+{{>qubercomm/nav-left}}
+{{>qubercomm/wrapper}}

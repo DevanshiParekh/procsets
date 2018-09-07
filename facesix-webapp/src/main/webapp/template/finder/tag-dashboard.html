@@ -1,0 +1,548 @@
+{{#partial "page"}}
+<div id="page-content-wrapper"  class="">
+	<div class="container-fluid">
+	<div class="col-md-12 padding-right-0">
+			<div class="row log-table-head dd-log-head" style="margin-left:6px;">
+				<div class="lth-left">
+					<i class="fa fa-tags fa-lg" style="color:green"></i>	
+					{{#if spid}}
+						<span title="{{sitename}}"><div id="sname"></div></span>
+						<span><i class="fa fa-angle-right" aria-hidden="true"></i> TAG-{{fsobjects.assignedTo}}</span>
+					{{else}}
+						<span>BLE <i class="fa fa-angle-right" aria-hidden="true"></i> TAG-{{fsobjects.assignedTo}}</span>
+					{{/if}}																
+				</div>				
+				<div class="lth-right searchTAG pull-right" style="margin-right: 21px">
+					<div class="search-opt">
+						<form action="/facesix/web/beacon/list/filter" id="target">
+							<div class="form-group">
+								<div class="search-box">
+									<span class="icon" id="searchClick">
+										<i class="fa fa-search " aria-hidden="true"></i>
+									</span>
+									<input type="hidden" name="sid" value="{{sid}}">
+									<input type="hidden" name="cid" value="{{cid}}">
+									<input type="hidden" name="spid" value="{{spid}}">
+									<input type="hidden" name="macaddr" value="{{macaddr}}">
+									<input type="hidden" name="place" value="tag">
+									<input type="search" name = "name" id="click" class="form-control search-align">
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>	
+		</div>
+		{{#if INACTIVE_WRITE}}
+		<div class="col-md-12 padding-right-0 padding-md-0">
+			<div class="recent-Overview" style="margin-top: 17px;">
+			<div class="networkActWrp">
+				<div class="networkAct display-inline">
+					<label>Tag Activity Refresh</label>
+				</div>
+					<div class="uibelow">
+						<select class="form-control increment" id="tagrefresh" name="tagrefresh" >
+						<option value="1" selected="">1 sec</option>
+						</select>
+					</div>
+				</div>
+				<div class="pull-right" style="margin-top: -52px;margin-right: 18px;" title={{battery}}%>
+					<li>
+						<a class="icon-battery">
+							<input class="pull-right tagnumber" type="text" value="{{battery}}%" disabled></input>
+							<i class="{{fafa}}" style="color:{{color}};" data-toggle="tooltip"></i> 
+						</a>
+					</li>
+				</div>
+				
+			</div>
+		</div>
+		{{else}}
+		<div class="col-md-12 padding-right-0">
+			<div class="recent-Overview">
+				<div class="networkAct display-inline">
+					<label>Tag Activity</label>
+				</div>
+			</div>
+			<div class="pull-right" style="margin-top: -52px;margin-right: 18px;">
+					<li><a><i class="{{fafa}}" style="color:{{color}};font-size:5em;" data-toggle="tooltip"  title={{battery}}%></i> </a></li>
+				</div>
+				<input class="pull-right tagnumber" type="text" value="{{battery}}%" disabled></input>
+		</div>
+		{{/if}}
+		<div class="col-md-12 floorCan padmob-12 floordash-col" style="margin-bottom: 22px;">
+			<div class="panel panel-default na-panel">
+				<div class="panel-heading">
+					<ul class="list-unstyled margin-btm-0">
+					 <li class="pull-left" style="display: none;">
+						<select class="display-inline selectag" onChange="showTag(this.value);">
+							<option selected="1" value="1">Tag on </option>
+						</select>
+						</li>
+						<li class="pull-right enlarge">
+								<img src="/facesix/static/qubercomm/images/flooroverview/expand.png" alt="">
+						</li>
+					</ul>
+					<div class="clearfix"></div>
+				</div>
+				<div class="zoomOptionsInner">
+					<a href="javascript:void(0)" id="zoom-in"><img src="/facesix/static/qubercomm/images/zoom-in.png" /></a> 
+					<a href="javascript:void(0)" id="zoom-out"><img src="/facesix/static/qubercomm/images/zoom-out.png" /></a> 
+					<a href="javascript:void(0)" id="reset"><img src="/facesix/static/qubercomm/images/reset.png" /></a> 
+				</div>
+				<div class="panel-body floorsvgCont" style="padding-bottom: 30px;">
+				<div class="mapping-section" style="overflow: hidden; position: relative;">
+					<!-- <div class="slider-section">
+						<div class="slider">
+							<label class="enlarge">
+								<img src="/facesix/static/qubercomm/images/networkconfig/full.png" id="fullscreen" alt="">
+							</label>
+							<label>
+								<img src="/facesix/static/qubercomm/images/networkconfig/plus.png" class="minus zoom-in" alt="">
+							</label>
+							<input type="range" class="zoom-range" min="0" max="3" step="1.0">
+							<label>
+								<img src="/facesix/static/qubercomm/images/networkconfig/minus.png" class="plus zoom-out" alt="">
+							</label>
+						</div>
+					</div>
+					 -->
+					<!-- <div class="leftSec pull-left"></div> -->
+					<div class="maping-canvas panzoom" id="main-div" style="height:auto">
+						<div class="canvas-container">
+							<svg  class="floorsvg" id="tagplan">
+								<g class="uiFloorGroupOuter"  transform="translate(0,0)" >
+					 
+								</g>
+				    		</svg>
+						</div>
+					</div>
+					
+				</div>
+				    
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12 floortab padmob-10 floordash-col tableHide">
+				<div class="select-filter-Plan display-inline">
+					<select class="form-control display-inline  changeTime" id="time"
+						name="time" style=""> selectTime
+						<option selected="" value="12h">Last 12 Hrs</option>
+						<option value="1d">Last 1 Day</option>
+						<option value="7d">Last 7 Days</option>
+						<option value="15d">Last 15 Days</option>
+						</select>
+				</div>
+				<div class="pull-right" style="margin-top: 10px;margin-right: 2px;">
+				<a  class="" id="tagreport" style="cursor:pointer"><i class="fa fa-newspaper-o" > Report</i></a>
+				</div>
+				<div class="chart-box table-chart-box" style="margin-top: 19px;"></div>
+
+			</div>
+	</div>
+</div>
+<style>
+.hidiv { position:absolute; top:700px; padding:5px 10px; background-color: rgba(255, 255, 255, 0.8); color:#4285f4; display:none;
+ border:1px solid #ccc; font-size:12px;z-index:9999; }
+ 
+ .selectag { border:none; background:#fbfbfb; outline:none;}
+/* .person { display:none;} */
+ .slider label .plus { width:20px; height:20px; margin-left:-10px;}
+ .mapping-section { height:100%; border:none;}
+ .na-panel a{cursor:pointer; }
+ .tagnumber{
+    border: hidden !important;
+    background-color: transparent !important;
+    width: 51px !important;
+    margin-right: -72px;
+    margin-top: -38px;
+    font-size: 18px;
+    height: 45px;
+ }
+ .selected{ 
+background-color: rgba(211,211,211,.7);
+color: black;
+}
+table{
+cursor: default;
+}
+   
+
+   thead, tbody { display: block; }
+
+tbody {
+    height: auto;     
+    overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: hidden;  /* Hide the horizontal scroll */
+}
+
+thead>tr>th {
+ 		width: 240px;
+ 	}
+tbody>tr>td {
+ 		width: 240px;
+ 	}
+
+
+</style>
+<!--  <div class="hidiv">Tool Tip Info show</div>  -->
+
+<!--css-->
+<link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/css/c3.css"/>
+<link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/css/circularprogress.css"/>
+<link rel="stylesheet" type="text/css" href="/facesix/static/finder/css/style.css"/>
+
+<!--#css-->
+<!-- js -->	
+<script src="/facesix/static/qubercomm/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/bootstrap.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.nicescroll.min.js"></script>
+<script src="/facesix/static/qubercomm/js/circularprogress.jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+<script type="text/javascript" src="/facesix/static/finder/js/svg-panzoom.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/snap.svg-min.js"></script>
+<script src="/facesix/static/qubercomm/js/jqpanzoom.js" type="text/javascript"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/d3.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/c3.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/handlebars.min.js"></script>	
+<script type="text/javascript" src="/facesix/static/finder/js/tagdashboard.js"></script>
+<script type="text/javascript" src="/facesix/static/finder/js/script.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
+
+<script id="alerts-template" type="text/x-handlebars-template">
+    <div>
+        <div class="recent-heading">
+            <ul class="list-unstyled margin-btm-0">
+                <li class="dropdown profile-dash">
+                    Alerts
+                </li>
+            </ul>
+        </div>
+        <div class="recentDataSection scrollbar-inner" tabindex="0" style="overflow: hidden; outline: none;">
+			\{{#each alerts}}
+				<div class="recent-venue">
+					<div class="recent-data">
+						<p>
+							<label>\{{description}}</label>
+						</p>
+						<label class="pull-right venue-time">\{{count}}</label>
+					</div>
+				</div>
+			\{{/each}}
+        </div>
+
+    </div>
+</script>	
+
+
+<script id="chartbox-template" type="text/x-handlebars-template">
+	<div class="device-coon-desc">
+		<label>Most Visited </label>
+		<span class="table-page" data-table-name="dashboard-table"><i class="fa fa-refresh refreshTable" aria-hidden="true"></i></span>
+        <select class="tablelength" id="tablelength" data-target="#receiver-table">
+			<option value="5" selected>5</option>
+			<option value="10">10</option>
+			<option value="25">25</option>
+			<option value="50">50</option>
+			<option value="100">100</option>
+		</select>
+	</div>
+	<div class="tableSection">
+		<table class="table dashboard-table" id="dashboard-table" data-current-page="\{{current_page}}" data-row-limit="5">
+			<thead>
+				<tr class="sel_tbl1">
+					<th onclick="sort_table('spotid', 0, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(0)"># <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 2, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(1)">Name<i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 3, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(2)">Type<i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 4, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(3)">Floor Name<i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 5, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(4)">Location<i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 6, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(5)">Entry<i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 7, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(6)">Exit<i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 8, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(7)">TimeSpent <i class="fa fa-arrow-up"></i></th>
+		
+				</tr>
+			</thead>
+			<tbody id="spotid">
+				\{{#each data}}
+				<tr>
+					<td style="color: black;">\{{index}}</td>
+					<td style="color: black;">\{{assignedTo}}</td>
+					<td style="color: black;">\{{tagType}}</td>
+					<td style="color: black;">\{{floorname}}</td>
+					<td style="color: black;">\{{location}}</td>
+					<td style="color: black;">\{{entry}}</td>
+					<td style="color: black;">\{{exit}}</td>
+					<td style="color: black;">\{{elapsed}}</td>
+				</tr>
+				\{{/each}}
+			</tbody>
+		</table>
+	</div>	
+</script>
+<!-- second table -->
+<script>
+	var str = '{{sitename}}';
+	console.log(str);
+
+	if (str.length > 32) {
+		str = str.substr(0, 32)
+		str += "...";
+	}
+	
+	document.getElementById("sname").innerHTML = str;
+	console.log(str);
+
+	var str = '{{portionname}}';
+	console.log(str);
+	if (str.length > 10) {
+		str = str.substr(0, 10)
+		str += "...";
+	}
+	
+	document.getElementById("flname").innerHTML = str;
+	console.log(str);
+
+</script>
+	
+<script type="text/javascript">
+	function sel_tbl1(col){
+	var $currentTable = $('.sel_tbl1').closest('table');
+	    $currentTable.find('td').removeClass('selected');
+	    $currentTable.find('tr').each(function() {
+	        $(this).find('td').eq(col).addClass('selected');
+	    });
+}
+	$(document).ready(function(){
+		$('.uiFloorGroupOuter').html('');
+		var url = "url('/facesix/web/site/portion/planfile?spid=" + '{{spid}}'
+		url 	= url +   "') no-repeat"
+		
+		 
+		// $('#tagplan').style = url;
+		// $('#tagplan').css ('background', url);
+		$('#tagplan').css ('width', 	'{{width}}');
+		$('#tagplan').css ('height',    '{{height}}');
+		
+		 
+		var imagePath = "/facesix/web/site/portion/planfile?spid={{spid}}";
+		
+		console.log ("Height" + '{{height}}' + "Width" + '{{width}}' );			
+		var svgNew = d3.select('svg.floorsvg').selectAll('.uiFloorGroupOuter');
+		
+		var svgMap = d3.select("svg.floorsvg").selectAll('.uiFloorGroupOuter');
+		var imageFound = document.getElementById('bgImage');
+		if(imageFound == null){
+			var newImage=svgNew.insert("image")
+		    .attr({
+		        'x':0,
+		        'y':0,
+		        'xlink:href':imagePath, 
+		        'height': '{{height}}',
+		        'width':'{{width}}',
+		        'id': 'bgimage'
+		    }); 
+		    
+		}
+		
+		var width = '{{width}}';
+		var uiFloorWrpWidth = $('.canvas-container').innerWidth();
+	    var twidth = (uiFloorWrpWidth - width)/2;
+	    if(twidth > 0){
+	    	svgNew.attr('transform', 'translate(' +twidth+ ',10)'); 
+	    }
+	     
+	    $('.enlarge').click(function(){
+	    	
+	    	var svgNew = d3.select('svg.floorsvg').selectAll('.uiFloorGroupOuter');
+	        var uiFloorWrpWidth = $('.canvas-container').innerWidth();
+	        var twidth = (uiFloorWrpWidth - width)/2;
+	        if(twidth > 0){
+	        	svgNew.attr('transform', 'translate(' +twidth+ ',10)'); 
+	        }
+	    });
+	    $('#bgimage').load(function() {
+			console.log('Image Loading');
+	    }); 
+	    var beforePan
+	    beforePan = function(oldPan, newPan){ 
+	    	var	zoom = this.getSizes().realZoom;
+	    	console.log(zoom);
+	    	zoom = zoom /5;
+	    	gutterWidth = 100 * zoom;
+	      var stopHorizontal = false
+	       , sizes = this.getSizes()
+	        , stopVertical = false 
+	        , gutterHeight = 100
+	          // Computed variables
+	       
+	        , leftLimit = -((sizes.viewBox.x + sizes.viewBox.width) * sizes.realZoom) + gutterWidth  
+	        , rightLimit = sizes.width - gutterWidth - (sizes.viewBox.x * sizes.realZoom) 
+	        , topLimit = -((sizes.viewBox.y + sizes.viewBox.height) * sizes.realZoom) + gutterHeight
+	        , bottomLimit = sizes.height - gutterHeight - (sizes.viewBox.y * sizes.realZoom)
+	      customPan = {}
+	      customPan.x = Math.max(leftLimit, Math.min(rightLimit, newPan.x))
+	      customPan.y = Math.max(topLimit, Math.min(bottomLimit, newPan.y))
+	      return customPan
+	    }
+	    var panZoom;
+	    window.initialize = function () {
+	    	 panZoom = svgPanZoom('#tagplan', {
+				zoomEnabled: true,
+				zoomScaleSensitivity: .2,
+				minZoom: 1,
+				maxZoom: 100,
+				panEnabled: true,
+				contain: false,
+				controlIconsEnabled: false,
+			    fit: false,
+			    center: false,  
+			    beforePan: beforePan,
+				onZoom: function(e){ 
+					floorChange(e);
+				}
+			});
+	    }
+	    initialize();
+		document.getElementById('zoom-in').addEventListener('click', function(ev){
+		    ev.preventDefault()
+		    panZoom.zoomIn()
+		});
+		document.getElementById('zoom-out').addEventListener('click', function(ev){
+		    ev.preventDefault()
+		    panZoom.zoomOut()
+		   
+		});
+		document.getElementById('reset').addEventListener('click', function(ev){
+		    ev.preventDefault()  
+		    panZoom.destroy();
+		    initialize();
+		});
+		
+		
+		function floorChange(e){
+			var circleRadius = 10;
+			var fSize = 10;
+			fnsize = (10/e)+3; 
+			circleRadius = (10/e)+3; 
+			var newSize = e/3;
+			console.log(newSize);
+			var cyposition = 9;
+			var image = d3.select("svg.floorsvg").selectAll(".animatedImage");
+			if(newSize >= 20){
+				image.attr('width', '3px')
+				 .attr('height', '3px'); 
+			}  
+			else if(newSize >= 15){
+				image.attr('width', '6px')
+				 .attr('height', '6px'); 
+			}
+			else if(newSize >= 10){
+				image.attr('width', '8px')
+				 .attr('height', '8px'); 
+			}
+			else if(newSize >= 5){
+				image.attr('width', '10px')
+				 .attr('height', '10px'); 
+			}
+			else if(newSize >= 3){
+				image.attr('width', '15px')
+				 .attr('height', '15px'); 
+			}
+			else if(newSize >= 1){
+				image.attr('width', '20px')
+				 .attr('height', '20px'); 
+			}
+			else if(newSize >= .5){
+				image.attr('width', '20px')
+				 .attr('height', '20px'); 
+			}
+			else if(newSize >= .3){
+				image.attr('width', '40px')
+				 .attr('height', '40px'); 
+			}
+			else{
+				image.attr('width', '40px')
+				 .attr('height', '40px'); 
+			}	
+			 
+			if(newSize >= 20){
+				fnsize=1;
+				cyposition = .3;
+			} 
+			else if(newSize >= 10){
+				fnsize=2;
+				cyposition = .8;
+			}
+			else if(newSize >= 5){
+				fnsize=3;
+				cyposition = 1;
+			}
+			else if(newSize >= 2){
+				fnsize=6;
+				cyposition = 2;
+			}
+			else if(newSize >= 1){
+				fnsize=8;
+				cyposition = 3;
+			}
+			else if(newSize >= .5){
+				fnsize = 15;
+				cyposition = 5;
+			} 
+			else{
+				fnsize = 30;
+				cyposition = 9;
+			} 
+			
+			var circle = d3.select("svg.floorsvg").selectAll("circle");
+			circle.attr('r', fnsize);
+			var txt = d3.select("svg.floorsvg").selectAll("text");
+			txt.attr('font-size', fnsize+'px');
+			txt.attr('y', cyposition);
+		}
+		
+	    floornetworkConfig.svg = d3.select("svg.floorsvg").selectAll('.uiFloorGroupOuter');
+	    
+	    var t1 = '{{Gateway}}';
+	    var t2 = '{{GeoFinder}}';
+	    var t3 = '{{GatewayFinder}}';
+	    
+	    //console.log("t1" +t1 + " t2 " +t2 + " t3" +t3);	   
+	    
+	    floornetworkConfig.getDevices('{{spid}}',t1,t2,t3);
+	    /*
+	    $(document).on("mouseenter", ".person", function(e) {
+	    	var offset = $( this ).offset();
+	    	$('.hidiv').html($( this ).attr("info")).css({ 'top' : (offset.top-50) + 'px', 'left' : (offset.left-50) + 'px'}).show();
+	    }); */
+	
+	    $(document).on("mouseleave", ".person", function(e) {
+	    	$('.hidiv').html('').hide();
+	    });
+	    
+	    //setInterval(function (){floornetworkConfig.getDevices();}, TagDashboard.timeoutCount);
+	})
+
+	TagDashboard.init();
+	
+	
+	
+</script>
+
+<script>
+$(function(){
+    var $select = $(".increment");
+    for (i=0;i<=100;i+=5){
+    	if (i == 0){
+    		 $select.append($('<option></option>').val(1).html(1 +" "+"sec"))
+    	} else
+        $select.append($('<option></option>').val(i).html(i +" "+"secs"))
+    }
+});
+</script>
+
+{{/partial}}
+
+{{>qubercomm/nav-top}}
+{{>qubercomm/nav-left}}
+{{>qubercomm/wrapper}}

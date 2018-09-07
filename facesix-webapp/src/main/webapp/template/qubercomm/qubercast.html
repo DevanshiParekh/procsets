@@ -1,0 +1,244 @@
+{{#partial "page"}}
+
+
+<div id="page-content-wrapper" class="acc-sec">
+	<div class="container-fluid">
+		<h4 class="acc-sec-title"></h4>		
+		<div class="col-md-12 venue-details" >
+									<div class="view-details" >
+										<ul>
+											<li class="displayBlockName">
+											<img src="/facesix/static/qubercomm/images/networkconfig/connected.png" alt="" id="quberImg">
+												<label class="venue-name">QuberCast Settings </label>
+											</li>					         
+											
+											<li  class="powerBtn" action="kill" btn-type="kill" devtype="Server" uid="{{uid}}" style="margin-left: 55%;">
+												<label class="">
+													<a href="#">
+														<i class="fa fa-trash" aria-hidden="true"></i> 
+													</a>
+														<span class="hideMenu">Kill </span>
+												</label>
+											</li>
+											
+											<li class="powerBtn" action="refresh" btn-type="refresh" devtype="Server" uid="{{uid}}">
+												<label class="">
+													<a href="#">
+														<i class="fa fa-refresh" aria-hidden="true"></i> 
+													</a>
+														<span class="hideMenu">Reset </span>
+													
+												</label>
+											</li>
+										</ul>
+								
+								
+		<div class="col-md-10 col-sm-12 col-xs-12">
+			<form id='quber-settings' method="post"  role="form"  action="/facesix/web/qcast/profile">
+				<div class="as-section" id="sessionId">				
+					<div class="row margin0">
+						<div class="col-md-8 col-sm-12 col-xs-12 pR-0">
+							<div class="as-left">
+								
+							   <div class="form-group disp-inline"">
+									<span for="">Media Path</span>
+									<input type="text" class="form-control disp-block valign"   name="mediaPath" id="mediaPath"  value="{{quberCast.mediaPath}}" placeholder="/home/qubercomm/workspace/qcast/bin/media">
+								
+								</div>
+								
+								<div class="form-group disp-inline">
+									<span for="">Total Files</span>
+									<input type="text" class="form-control disp-block valign"   placeholder="" name="logFile" id="logFile"  value="{{quberCast.logFile}}">
+								</div>								
+								
+								 <div class="form-group disp-inline">
+										<span for="">Multicast Port</span>
+										<input type="text" class="form-control disp-block valign"   placeholder="5555 " name="multicastPort" value="{{quberCast.multicastPort}}" id="multicastPort">
+								</div>
+								
+								<div class="form-group disp-inline ">
+										<span for="">Pay Load</span>
+									<input type="text" class="form-control disp-block valign"   placeholder="" name="logLevel"  value="{{quberCast.logLevel}}" id="logLevel">
+								</div>							
+					
+								<div class="form-group disp-inline">
+									<span for="">Multicast  Address</span>
+									<input type="text" class="form-control disp-block valign"   placeholder="239.1.1.1" name="mulicastAddress"  value="{{quberCast.mulicastAddress}}" id="mulicastAddress">
+								</div>	
+								
+								<div class="form-group disp-inline">
+										<button type="submit" name="submit" id="save" value="save" class="btn btn-default btn-save btn-theme" style=" margin-top:12%;margin-left: 70%;">Save</button>
+								</div>								
+						</div>						
+						
+					</div>		
+					
+					<div class="col-md-4 col-sm-12 col-xs-12 pad0">
+						<div class="as-right">
+							<div class="uploadPic">
+								<img src='/facesix/static/qubercomm/images/home/qcast-logo.png'>
+							</div>
+						</div>
+					</div>			
+					
+			</div>
+
+			</form>
+		</div>
+	</div>
+ </div>
+</div>
+
+
+
+<div class="pad0 col-sm-3 col-md-3 sidebar LogsSection inactive" id="rightPanel" >
+			<div class="network-map-section logMapSection">		
+				<div class="network-top-section">
+					<div class="search-opt">
+						<form id="uidForm">
+							<div class="form-group">
+								<div class="serach-box">
+									<span class="icon">
+										<i class="glyphicon glyphicon-search"></i>
+									</span>
+									<input type="search" class="form-control search-align" placeholder="Search Devices..." oninput="javascript:triggerChange(event)">
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="network-heading display-inline hide">
+						
+					</div>
+					<div class="filter-opt display-inline pull-right">
+						<ul class="list-unstyled filter-opt-style">
+							<li class="search-mob-hide hide">
+								<img src="/facesix/static/qubercomm/images/networkconfig/search.png" class="search-icon" alt="">
+								Search
+							</li>
+							<li class="dropdown filter-dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+									<img src="/facesix/static/qubercomm/images/networkconfig/filter.png" alt="">
+									Filter
+									<span class="caret"></span></a>
+									<ul class="dropdown-menu filter-style">
+										<li><a href="#">Server</a></li>
+										<li><a href="#">Switch</a></li>
+										<li><a href="#">Ap</a></li>
+										<li><a href="#">Sensor</a></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="device-section">
+						<span>3 Devices</span>
+						<ul class="list-unstyled">
+						
+						<li class="powerBtn" action="qcast" btn-type="qcast" devtype="Server" uid="{{uid}}">
+							<a href="#" class="">
+								<i class="fa fa-video-camera fa-sm"  style="color: #ccc;"></i>
+							</a>
+						</li>
+							
+						<li class="powerBtn" action="qclose" btn-type="qclose" devtype="Server" uid="{{uid}}">
+							<a href="" class="location">
+								<i class="fa fa-trash" aria-hidden="true" style="color: #ccc;"></i>
+							</a>
+						</li>
+						
+						<li class="powerBtn" action="qcastReset" btn-type="qcastReset" devtype="Server" uid="{{uid}}">
+							<a href="" class="location">
+								<i class="fa fa-refresh" aria-hidden="true" style="color: #ccc;"></i>
+							</a>
+						</li>						
+			
+					<li>
+						<a href="" class="dshbrdLink">
+							<i class="fa fa-bar-chart" style="color:lightgray"></i>
+						</a>
+					</li>
+						<!-- <li>
+							<a href="" class="location">
+								<img src="/facesix/static/qubercomm/images/networkconfig/marker.png" alt="">
+							</a>
+						</li> -->
+														
+							<li class="powerBtn" action="reset" btn-type="reset" devtype="Server" uid="{{uid}}">
+								<a href="">
+									<i class=" fa fa-undo fa_style"></i>
+								</a>
+							</li>
+							<li class="powerBtn" action="reboot" btn-type="reboot" devtype="Server" uid="{{uid}}">
+								<a href="">
+									<i class="fa fa-power-off fa_style"></i>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="device-notification">
+						<ul class="list-unstyled" id="network-tree"></ul>
+					</div>
+				</div>
+			</div>
+
+
+<div class="rebootPopup qCastSavearea" style="position: fixed; display: none;">
+			<div class="left-section">
+				<label>Are you sure you want to reset the device?</label>
+			</div>
+			<div class="rightsection">
+				<ul class="list-unstyled">
+					<li id="cancelDelete">
+						<label>
+							
+						</label>
+						<span>
+							Cancel
+						</span>
+					</li>
+					<li id="deleteItem" action="reset" uid="{{uid}}">
+						<label>
+						</label>
+						<span class="color2">
+							OK
+						</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+	<img src="/facesix/static/qubercomm/images/networkicons/server_inactive.png" height="30" id="serverOffline" width="30" style="display:none">
+	<img src="/facesix/static/qubercomm/images/networkicons/switch_inactive.png" height="30" id="switchOffline" width="30" style="display:none">
+	<img src="/facesix/static/qubercomm/images/networkicons/ap_inactive.png" height="30" id="apOffline" width="30" style="display:none">
+	<img src="/facesix/static/qubercomm/images/networkicons/sensor_inactive.png" height="30" id="sensorOffline" width="30" style="display:none">
+		
+		
+		
+<!-- js -->
+<script src="/facesix/static/qubercomm/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/jquery_validate_min_js.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/form-validations.js" type="text/javascript"></script>
+<script src="https://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.mobile-events.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/common.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/handlebars.min.js"></script>
+<script src="/facesix/static/qubercomm/js/qubercast.js" type="text/javascript"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/script.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/snap.svg-min.js"></script>
+<script src="/facesix/static/qubercomm/js/jqpanzoom.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/d3.v3.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/underscore-min.js"></script>
+
+
+<script src="/facesix/static/qubercomm/js/networkcon.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/networkconfig.js" type="text/javascript"></script>
+
+{{/partial}}
+
+{{>qubercomm/nav-top}}
+{{>qubercomm/nav-left}}
+{{>qubercomm/wrapper}}

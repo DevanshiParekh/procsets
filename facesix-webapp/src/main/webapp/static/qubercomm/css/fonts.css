@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'Exo2Regular';
+    src: url('../fonts/fonts/Exo2Regular.eot');
+    src: url('../fonts/fonts/Exo2Regular.eot') format('embedded-opentype'),
+         url('../fonts/fonts/Exo2Regular.woff2') format('woff2'),
+         url('../fonts/fonts/Exo2Regular.woff') format('woff'),
+         url('../fonts/fonts/Exo2Regular.ttf') format('truetype'),
+         url('../fonts/fonts/Exo2Regular.svg#Exo2Regular') format('svg');
+}
+@font-face {
+    font-family: 'Exo2SemiBold';
+    src: url('../fonts/fonts/Exo2SemiBold.eot');
+    src: url('../fonts/fonts/Exo2SemiBold.eot') format('embedded-opentype'),
+         url('../fonts/fonts/Exo2SemiBold.woff2') format('woff2'),
+         url('../fonts/fonts/Exo2SemiBold.woff') format('woff'),
+         url('../fonts/fonts/Exo2SemiBold.ttf') format('truetype'),
+         url('../fonts/fonts/Exo2SemiBold.svg#Exo2SemiBold') format('svg');
+}
+@font-face {
+    font-family: 'Exo2Medium';
+    src: url('../fonts/fonts/Exo2Medium.eot');
+    src: url('../fonts/fonts/Exo2Medium.eot') format('embedded-opentype'),
+         url('../fonts/fonts/Exo2Medium.woff2') format('woff2'),
+         url('../fonts/fonts/Exo2Medium.woff') format('woff'),
+         url('../fonts/fonts/Exo2Medium.ttf') format('truetype'),
+         url('../fonts/fonts/Exo2Medium.svg#Exo2Medium') format('svg');
+}
+@font-face {
+    font-family: 'Exo2Bold';
+    src: url('../fonts/fonts/Exo2Bold.eot');
+    src: url('../fonts/fonts/Exo2Bold.eot') format('embedded-opentype'),
+         url('../fonts/fonts/Exo2Bold.woff2') format('woff2'),
+         url('../fonts/fonts/Exo2Bold.woff') format('woff'),
+         url('../fonts/fonts/Exo2Bold.ttf') format('truetype'),
+         url('../fonts/fonts/Exo2Bold.svg#Exo2Bold') format('svg');
+}

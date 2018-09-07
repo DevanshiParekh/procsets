@@ -1,0 +1,76 @@
+{{#partial "page"}}
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                	{{#if device.id}}
+                    <h3 class="page-header"> Modify Device Configuration : {{device.name}}</h3>
+                    {{else}}
+                    <h3 class="page-header"> New Device Configuration </h3>
+                    {{/if}}
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                      	{{#block "message"}} {{/block}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-1"> </div>
+                            
+                                <div class="col-lg-10">
+                                    <form role="form" action="/facesix/web/finder/device/save" method="post">
+                                     {{#if device.fstype}}
+                                        <input id="fstype" name="fstype" type="hidden" value="{{device.fstype}}">
+                                      {{else}}
+                                        <input id="fstype" name="fstype" type="hidden" value="default">
+                                    {{/if}}
+                                    
+                                    {{#if device.id}}
+                                        <input name="id" type="hidden" value="{{device.id}}">
+                                    {{/if}}
+                                    
+                                        <div class="form-group">
+                                            <label>Device UID</label>
+                                            <input class="form-control" name="uid" placeholder="ip or mac address" value="{{device.uid}}" {{disabled}}>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Device Name</label>
+                                            <input class="form-control" name="name" placeholder="name of the device" value="{{device.name}}">
+                                        </div>
+                                        {{#if device.conf}}
+                                        <div class="form-group">
+                                            <input type="hidden" id="dconfig" class="form-control" name="conf" value='{{device.conf}}'> </input>
+                                        </div>
+                                        <div id='editor_holder' class='medium-12 columns'></div>
+                                        {{/if}}
+                                        <button type="submit" id="submit" class="btn btn-default">Save</button> <a href="/facesix/web/finder/device/list"> Cancel </a>
+                                    </form>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                <div class="col-lg-1"> </div>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+        {{#if device.conf}}
+		<script src="/facesix/static/js/device-edit.js"></script> 
+		{{/if}}
+	
+{{/partial}}
+{{>message}}
+{{>device-edit-headerscript}}
+{{>qubercomm/nav-top}}
+{{>qubercomm/nav-left}}
+{{>qubercomm/wrapper}}

@@ -1,0 +1,1201 @@
+<section class="content cusmList" >
+    <div class="container-fluid">
+        <div class="pad375">
+            <div class="card-view">
+                <div class="heading">
+                    <div class="title">Account - Overview</div>
+                    
+                    <div class="responsive-menu">
+                        <div class="responsive-icon" open="dropdown1"><i class="fa fa-ellipsis-v"></i></div>
+                        
+                         <ul class="dropdown" id="dropdown1">
+                       
+                            <li ng-repeat="role in roles" ng-if="role.CUST_WRITE" ng-click="newCustomerOpen()"><a href="" class="list-btn"><i class="fa fa-plus"></i> Add Customer</a></li>
+                        
+                        </ul>
+                    </div>
+                    <div class="form-group search note-show">
+                        <input type="text" class="form-control" ng-model="searchText" placeholder=" Search Customer"/>
+                        <label><i class="fa fa-search"></i></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group search note-hidden">
+            <input type="text" class="form-control" />
+            <label><i class="fa fa-search"></i></label>
+        </div>
+        <div class="clearfix"></div>
+        <div class="client-list">
+            <div class="card-group">
+                 <div class="card" id="{[{x.id}]}" ng-repeat="x in accounts | filter:searchText" > 
+                 	
+                 	<div class="extra-loader"><i class="fa fa-spinner fa-pulse"></i></div>
+                    <div class="fl card-w75">
+                      <h3 style=" margin-left: 23px; margin-top: -9px;">{[{x.customerName}]}</h3>
+                          <div class="editicons" style="margin-top: -23px;margin-left: -12px; margin-bottom: 6px;">
+                             	<span ng-repeat="role in roles" ng-if="role.CUST_WRITE && x.status == 'ACTIVE'"  ng-click="singleAccount(x, x.id)"><i class="fa fa-edit"></i></span>
+                             	<span ng-repeat="role in roles" ng-if="role.CUST_WRITE && x.status == 'INACTIVE'"><i class="fa fa-edit"></i></span>
+                             	<span ng-repeat="role in roles" ng-if="role.APP_WRITE && x.status == 'ACTIVE'" ng-click=""><i class="fa fa-user"></i></span>
+                        </div>
+                        <div>
+                        <div ng-if="x.solution =='GeoLocation' || x.solution == 'Gateway' || x.solution == 'Heatmap'">
+                        <p style="margin-left: 23px;margin-top: 10px;margin-bottom: 8px;">{[{x.text}]}
+                        <div class="editicons" style="margin-top: -26px;margin-left: -12px;margin-bottom: 8px;">
+                            <a href="{[{x.link}]}"><span  ng-if="x.status == 'ACTIVE'" ><i class='{[{x.icon}]}'></i></a></span>
+                            <a href=""><span  ng-if="x.status == 'INACTIVE'" ><i class='{[{x.icon}]}'></i></a></span>
+                        </div>
+                        </p>
+                         <p style=" margin-left: 23px;">Gateway Config
+                         <div class="editicons" style="margin-top: -24px;margin-left: -12px;margin-bottom: 35px;">
+                            <a href="{[{x.spots}]}"><span  ng-if="x.status == 'ACTIVE'" ><i class='{[{x.spotsIcon}]}'></i></a></span>
+                            <a href=""><span  ng-if="x.status == 'INACTIVE'" ><i class='{[{x.spotsIcon}]}'></i></a></span>
+                        </div></p>
+                       
+                          </div>
+                          <div ng-if="x.solution=='GeoFinder'">
+                        <p style="margin-left: 23px;margin-top: 10px;margin-bottom: 8px;">{[{x.text}]}
+                        <div class="editicons" style="margin-top: -26px;margin-left: -12px;margin-bottom: 8px;">
+                            <a href="{[{x.link}]}"><span  ng-if="x.status == 'ACTIVE'" ><i class='{[{x.icon}]}'></i></a></span>
+                             <a href=""><span  ng-if="x.status == 'INACTIVE'" ><i class='{[{x.icon}]}'></i></a></span>
+                        </div>
+                        </p>
+                         <p style=" margin-left: 23px;">Finder Config
+                         <div class="editicons" style="margin-top: -24px;margin-left: -12px;margin-bottom: 35px;">
+                            <a href="{[{x.find}]}"><span  ng-if="x.status == 'ACTIVE'" ><i class='{[{x.findIcon}]}'></i></a></span>
+                            <a href=""><span  ng-if="x.status == 'INACTIVE'" ><i class='{[{x.findIcon}]}'></i></a></span>
+                        </div></p>
+                       
+                          </div>
+                           <div ng-if="x.solution=='GatewayFinder'">
+                        <p style="margin-left: 23px;margin-top: 10px;margin-bottom: 8px;">{[{x.text}]}
+                        <div class="editicons" style="margin-top: -26px;margin-left: -12px;margin-bottom: 8px;">
+                            <a href="{[{x.link}]}"><span  ng-if="x.status == 'ACTIVE'" ><i class='{[{x.icon}]}'></i></a></span>
+                            <a href=""><span  ng-if="x.status == 'INACTIVE'" ><i class='{[{x.icon}]}'></i></a></span>
+                        </div>
+                        </p>
+                         <p style=" margin-left: 23px;">Gateway Config
+                         <div class="editicons" style="margin-top: -24px;margin-left: -12px;margin-bottom:10px;">
+                            <a href="{[{x.spots}]}"><span  ng-if="x.status == 'ACTIVE'" ><i class='{[{x.spotsIcon}]}'></i></a></span>
+                            <a href=""><span  ng-if="x.status == 'INACTIVE'" ><i class='{[{x.spotsIcon}]}'></i></a></span>
+                        </div></p>
+                         <div>
+                            <p style=" margin-left: 23px;">Finder Config
+                         <div class="editicons" style="margin-top: -24px;margin-left: -12px;margin-bottom: 5px;">
+                            <a href="{[{x.find}]}"><span  ng-if="x.status == 'ACTIVE'" ><i class='{[{x.findIcon}]}'></i></a></span>
+                            <a href=""><span  ng-if="x.status == 'INACTIVE'" ><i class='{[{x.findIcon}]}'></i></a></span>
+                            
+                        </div></p>
+                           
+                            </div>
+                          </div>
+
+
+
+							<div ng-if="x.solution=='Retail'">
+								<p	style="margin-left: 23px; margin-top: 10px; margin-bottom: 8px;">{[{x.retail_text}]}
+								
+								<div class="editicons"	style="margin-top: -26px; margin-left: -12px; margin-bottom: 8px;">
+									<a href="{[{x.retail_link}]}">
+									<span ng-if="x.status == 'ACTIVE'">
+										<i class='{[{x.retail_icon}]}'></i></a></span> 
+										<a href=""><span ng-if="x.status == 'INACTIVE'">
+										<i class='{[{x.icon}]}'></i>
+										</a>
+									</span>
+								</div>
+								</p>
+								<p style="margin-left: 23px;">Gateway Config
+								<div class="editicons"
+									style="margin-top: -24px; margin-left: -12px; margin-bottom: 10px;">
+									<a href="{[{x.spots}]}"><span ng-if="x.status == 'ACTIVE'"><i
+											class='{[{x.spotsIcon}]}'></i></a></span> <a href=""><span
+										ng-if="x.status == 'INACTIVE'"><i
+											class='{[{x.spotsIcon}]}'></i></a></span>
+								</div>
+								</p>
+
+							</div>
+
+
+
+
+
+							<!-- <p ng-if="!x.totalVenue"><i class="fa fa-building"> Total Venue 0 </i></p>
+                         <p ng-if="x.totalVenue"><i class="fa fa-building"> Total Venue  {[{x.totalVenue}]}</i></p> 
+                        <p><i class="fa fa-map-marker"></i> {[{x.country}]}</p> -->
+                        <p class="ex-active"><small>Expiry Date: {[{x.serviceExpiryDate | date:'medium'}]}</small></p>
+                    </div>
+                 
+                    
+                    </div>
+                    <div class="fr tc">
+                        <div ng-if="x.solution != 'GatewayFinder'" style="margin-top: 6px;max-height: 40px;">
+                            <div style="margin-top: -33px;">
+                         
+                                <span class="label support">Support</span>
+                            </div>
+                             <label class="switch">
+                                <input type="checkbox" ng-true-value="'true'" ng-false-value="'false'" ng-model="x.qubercommAssist" disabled>
+                                <span></span>
+                            </label>
+                            <div style="margin-top:-8px">
+                                <span class="label support">Logs</span>
+                            </div>
+                             <label class="switch">
+                                <input ng-if="x.status == 'ACTIVE'" type="checkbox" ng-true-value="'true'" ng-false-value="'false'" ng-model="x.logs" ng-change= "updatelog(x)"/>
+                                <span></span>
+                            </label>
+                            <div style="margin-top:-8px">
+                                <span class="label support">VPN</span>
+                            </div>
+                             <label class="switch">
+                                <input ng-if="x.status == 'ACTIVE'" type="checkbox" ng-true-value="'true'" ng-false-value="'false'" ng-model="x.vpn" ng-change= "updateVpn(x)"/>
+                                <span></span>
+                            </label>
+                            <div class="clearfix"></div>
+                             
+                           <div>
+                                <input type="checkbox" ng-true-value="'ACTIVE'" ng-false-value="'INACTIVE'" ng-model="x.status" disabled>
+                             <span class="label label-success" ng-if="x.status == 'ACTIVE'">ACTIVE</span>
+                            <span class="label label-warning" ng-if="x.status == 'INACTIVE'">INACTIVE</span>
+                             </div>
+                        </div>
+                         
+                          <div ng-if="x.solution =='GatewayFinder'" style="margin-top: 11px;max-height: 40px;">
+                             <div style="margin-top: -37px;">
+                                <span class="label support">Support</span>
+                             </div>
+                         	 <label class="switch">
+                                <input type="checkbox" ng-true-value="'true'" ng-false-value="'false'" ng-model="x.qubercommAssist" disabled>
+                                <span></span>
+                             </label>
+                            <div style="margin-top:-8px"> 
+                                <span class="label support">Logs</span>
+                             </div>
+                            
+                             <label class="switch">
+                                <input type="checkbox" ng-true-value="'true'" ng-false-value="'false'" ng-model="x.logs" ng-change= "updatelog(x)"/>
+                                <span></span>
+                             </label>
+                             <div style="margin-top:-8px">
+                                <span class="label support">VPN</span>
+                            </div>
+                             <label class="switch">
+                                <input ng-if="x.status == 'ACTIVE'" type="checkbox" ng-true-value="'true'" ng-false-value="'false'" ng-model="x.vpn" ng-change= "updateVpn(x)"/>
+                                <span></span>
+                            </label>
+                            <div class="clearfix"></div>
+                           
+                            <div>
+                                <input type="checkbox" ng-true-value="'ACTIVE'" ng-false-value="'INACTIVE'" ng-model="x.status" disabled>
+                             	<span class="label label-success" ng-if="x.status == 'ACTIVE'">ACTIVE</span>
+                            	<span class="label label-warning" ng-if="x.status == 'INACTIVE'">INACTIVE</span>
+                             	</br>
+                            </div>
+                        </div>
+                        
+                        <!-- <div class="editicons"> n 
+                            <span ng-click="singleAccount(x)"><i class="fa fa-edit"></i></span>
+                            <span><a href="/facesix/web/site/list?cid={[{x.id}]}"><i class="fa fa-map-marker"></i></a></span>
+                        </div> -->
+                        
+                    </div>
+                </div>
+                
+            </div>
+
+        </div>
+
+    </div>
+</section>
+<div class="popup" ng-class="{'open':CreateOpen}">
+    <div class="popup-container accountAdd">
+        <div class="card-view bt2">
+            <div class="heading border">
+                <div class="title" ng-if="!EditOpen">
+                    Add New Customer
+                </div>
+                <div class="title" ng-if="EditOpen">
+                    Edit - {[{newCus.customerName}]}
+                </div>
+                <div class="fr" ng-if="!deleteTrue">
+                    
+                    <button class="btn w-auto fl" ng-click="askDeleteCustomer()" ng-if="EditOpen"><i class="fa fa-trash"></i></button>
+                    <button class="btn w-auto fl" ng-click="newCustomerOpen('close')"><i class="fa fa-times"></i></button>
+                </div>
+                <div class="fr" ng-if="deleteTrue">
+                    <div class="title">
+                        Are you sure to delete this customer?
+                    </div>
+                    <button class="btn btn-warning w-auto fl" ng-click="confirmDeleteCustomer(newCus)" ng-disabled="preloadTrue">
+                     <i class="fa fa-spinner fa-pulse"></i>
+                        <i class="fa fa-save"></i> yes</button>
+                        
+                    <button class="btn w-auto fl" ng-click="askDeleteCustomer()"><i class="fa fa-times"></i> 
+                         No
+                    </button>
+                </div>
+            </div>
+            <div class="body">
+                <div class="steps">
+                    <ul>
+                        <li ng-class="{'done': customerstep1, 'inactive': customerstep2}"><span>1</span>Info</li>
+                        <li ng-class="{'done': customerstep2, 'inactive': customerstep3}"><span>2</span>Token</li>
+                        <li ng-class="{'done': customerstep3, 'inactive': customerstep4}"><span>3</span>Licence</li>
+                        <li ng-class="{'done': customerstep4, 'inactive': customerstep5}"><span>4</span>Contact</li>
+                        <li ng-class="{'done': customerstep5, 'inactive': customerstep6}"><span>5</span>Theme</li>
+                        <li ng-class="{'done': customerstep6, 'inactive': customerstep7}" ng-if="!EditOpen"><span>6</span>Save</li>
+                        <li ng-class="{'done': customerstep7, 'inactive': customerstep7}" ng-if="EditOpen"><span>6</span>Update</li>
+                    </ul>
+                </div>
+                <hr>
+                <div ng-show="stepCus1">
+                    <form name="customerStep1" novalidate>
+                        <div class="body-content-popup">
+                        <input type="hidden" name="userAccId" ng-model="newCus.userAccId" />
+                            <div class="w50">
+                                <div class="form-group" ng-class="{'error': customerStep1.customerName.$invalid && errorMsgLable}">
+                                    <label>Name</label>
+<!--                                    <label class="errorMsg" ng-show="customerStep1.customerName.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+								   <input ng-show="EditOpen" id="customerName" username-available   type="text" class="form-control" name="customerName" ng-model="newCus.customerName" required ng-pattern="onlyText" maxlength="40">
+                                  <input ng-show="!EditOpen" id="customerName" username-available   type="text" class="form-control" name="customerName" ng-model="newCus.customerName" required ng-pattern="onlyText" maxlength="40">                	
+                                </div>
+
+                                <div class="form-group" ng-class="{'error':customerStep1.address.$invalid && errorMsgLable}">
+                                    <label>Address</label>
+<!--                                    <label class="errorMsg" ng-show="customerStep1.address.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                                    <input type="text" class="form-control" name="address" ng-model="newCus.address" required>
+                                </div>
+                                <div class="w50 form-group" ng-class="{'error':customerStep1.city.$invalid && errorMsgLable}">
+                                    <label>City</label>
+<!--                                    <label class="errorMsg" ng-show="customerStep1.city.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                                    <input id="getcity" type="text" class="form-control" name="city" ng-model="newCus.city" required ng-pattern="onlyText">
+                                </div>
+                                <div class="form-group w50" ng-class="{'error':customerStep1.postalCode.$invalid && errorMsgLable}">
+                                    <label>Postal Code</label>
+<!--                                    <label class="errorMsg" ng-show="customerStep1.postalCode.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                                    <input type="number" class="form-control" name="postalCode" ng-model="newCus.postalCode" required min="0" max="999999" string-to-number>
+                                </div>
+                                <div class="form-group" ng-class="{'error':customerStep1.state.$invalid && errorMsgLable}">
+                                    <label>State</label>
+<!--                                    <label class="errorMsg" ng-show="customerStep1.state.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                                    <input type="text" class="form-control" name="state" ng-model="newCus.state" required ng-pattern="onlyText">
+                                </div>
+                                <div class="w50 form-group" ng-class="{'error':customerStep1.country.$invalid && errorMsgLable}">
+                                    <label>Country</label>
+<!--                                    <label class="errorMsg" ng-show="customerStep1.country.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                                    <input type="text" class="form-control" name="country" ng-model="newCus.country" required ng-pattern="onlyText">
+                                </div>
+                               <div class="w50 form-group" ng-class="{'error':customerStep1.timezone.$invalid && errorMsgLable}">
+                                    <label>Time Zone</label>                                            
+                                    <select  name = "timezone" ng-model="newCus.timezone" class="form-control" required ng-pattern="regex" >
+                                    	<option value="" selected disabled>Select</option>
+                                    	<option value="{[{x.zoneId}]}" ng-repeat="x in getZone">{[{x.zoneId}]}</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="w50">
+                                <div class="form-group" ng-class="{'error':customerStep1.venueType.$invalid && errorMsgLable}">
+                                    <label>Type</label>
+<!--                                    <label class="errorMsg" ng-show="customerStep1.venueType.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                                    <select class="form-control" ng-model="newCus.venueType" name="venueType" ng-change="clearType()" required>
+                                        <option value="{[{x.value}]}" ng-repeat="x in defvalType">{[{x.name}]}</option>
+                                    </select>
+                                </div>
+                                 <div ng-if="newCus.venueType == 'Patient-Tracker' || newCus.venueType == 'Locatum' || newCus.solution == 'GatewayFinder'" class="w50 form-group" ng-class="{'error':customerStep1.tagcount.$invalid && errorMsgLable}">
+                                    <label>Max Tagcount</label>
+<!--                                    <label class="errorMsg" ng-show="customerStep1.tagcount.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                                    <input id="" type="number" class="form-control" name="tagcount" ng-model="newCus.tagcount"  required  min="0" max="500" step="10" string-to-number>
+                                </div>
+                                <div ng-if="newCus.venueType == 'Patient-Tracker' || newCus.venueType == 'Locatum' || newCus.solution == 'GatewayFinder'" class="form-group w50" ng-class="{'error':customerStep1.threshold.$invalid && errorMsgLable}">
+                                    <label>Tag Threshold</label>
+<!--                                    <label class="errorMsg" ng-show="customerStep1.threshold.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                                    <input type="number" class="form-control" name="threshold" ng-model="newCus.threshold" min="0" required	string-to-number>
+                                </div>
+                                <div class="form-group" ng-class="{'error':customerStep1.offerPackage.$invalid && errorMsgLable}">
+                                    <label>Package</label>
+<!--                                    <label class="errorMsg" ng-show="customerStep1.offerPackage.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                                    <select class="form-control" ng-model="newCus.offerPackage" name="offerPackage" required>
+                                        <option value="{[{x.value}]}" ng-repeat="x in defvalPackage">{[{x.name}]}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" ng-class="{'error':customerStep1.solution.$invalid && errorMsgLable}">
+                                    <label>Solution</label>
+<!--                                    <label class="errorMsg" ng-show="customerStep1.solution.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+									<select class="form-control" ng-model="newCus.solution"name="solution" ng-change="solutionType()" required>
+										 <option ng-if="newCus.venueType == 'Gateway'" value="{[{x.value}]}" ng-repeat="x in defvalSolution">{[{x.name}]}</option>
+										 <option ng-if="newCus.venueType == 'Gateway'" value="{[{x.value}]}" ng-repeat="x in defretailSolution">{[{x.name}]}</option>
+										 <option ng-if="newCus.venueType == 'Gateway'" value="{[{x.value}]}" ng-repeat="x in defgeoSolution">{[{x.name}]}</option>
+										 <option ng-if="newCus.venueType == 'Locatum' || newCus.venueType == 'Patient-Tracker'"value="{[{x.value}]}" ng-repeat="x in deffinderSolution">{[{x.name}]}</option>
+										 <option ng-if="newCus.venueType == 'Gateway'" value="{[{x.value}]}" ng-repeat="x in defheatmapSolution">{[{x.name}]}</option>
+										 <option value="{[{x.value}]}" ng-repeat="x in deffindergateSolution">{[{x.name}]}</option>
+									</select>
+								</div>
+                                <div ng-if="newCus.venueType == 'Gateway'" class="form-group" ng-class="{'error':customerStep1.noOfGateway.$invalid && errorMsgLable}">  
+                                    <label>No Of Gateway</label>
+<!--                                    <label class="errorMsg" ng-show="customerStep1.noOfGateway.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                                    <input type="number" string-to-number class="form-control" min="0" ng-model="newCus.noOfGateway" name="noOfGateway">
+                                </div>
+                                <!-- 
+                                <div ng-if="newCus.venueType != 'Locatum'" class="form-group" ng-class="{'error':customerStep1.preferedUrlName.$invalid && errorMsgLable}">
+                                    <label>Preferred URL Name</label> 
+                                    <input type="text" url-available class="form-control" ng-model="newCus.preferedUrlName" name="preferedUrlName" required ng-pattern="onlyText">
+                                </div>  
+                                -->                      
+                                <div ng-if="newCus.solution == 'GeoFinder' || newCus.solution == 'GatewayFinder'" class="form-group" ng-class="{'error':customerStep1.tagInact.$invalid && errorMsgLable}">
+                                    <label>Tag Inactivity Interval (Minutes)</label>
+<!--                                <label class="errorMsg" ng-show="customerStep1.tagInact.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                                    <input type="number" class="form-control" ng-model="newCus.tagInact" name="tagInact" required min="1" string-to-number>
+                                </div>   
+<!--                                 <div ng-if="newCus.venueType == 'Patient-Tracker'" class="form-group" ng-class="{'error':customerStep1.tagInact.$invalid && errorMsgLable}">
+                                    <label>Tag Inactivity Interval (Seconds)</label>
+                               <label class="errorMsg" ng-show="customerStep1.tagInact.$invalid && errorMsgLable"> <small>!Required</small></label>
+                                    <input type="number" class="form-control" ng-model="newCus.tagInact" name="tagInact" required min="15" step="5" string-to-number>
+                                </div>                                 
+ -->                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="fr tr">
+                            <button class="btn" ng-click="CusStep2()">Next <i class="fa fa-chevron-right"></i></button>
+                        </div>
+                    </form>
+                </div>
+                <div ng-show="stepCus2">
+                 	<form name="customerStep2" novalidate>
+                 		 <div class="body-content-popup">
+                               <div class="w50"> 
+                              
+	                               <div class="form-group" ng-class="{'error':customerStep2.restToken.$invalid && errorMsgLable}">  
+		                               <label  id="" >REST API Token</label>  
+		                              <br />
+		                               <code ng-show="newCus.restToken" style="padding: 5px; margin: 15px 0; background: #ffd5d5; display: inline-block; border-radius: 5px;">{[{newCus.restToken}]}</code> 
+										
+										 <input  type="text" class="form-control" ng-model="newCus.jwtrestToken" name="jwtrestToken" style="display:none">
+										 
+		                               <input ng-if="newCus.oauth == 'true'" type="text" class="form-control" ng-model="newCus.restToken" name="restToken" required>
+		                               <input ng-if="newCus.oauth == 'false'" type="text" class="form-control" ng-model="newCus.restToken" name="restToken" disabled>
+		                               <div  ng-if="newCus.oauth == 'true'">
+		      						   <a href="" ng-show="!newToken" ng-if="newCus.restToken" ng-click="AskGenerateNewToken()" class="btns btn-secondary">Create New REST API Token</a>
+		      						   
+		      						   <div  ng-if="newToken" class="cnbox"  >
+						                    <div class="title">
+						                        Are you sure to want create new REST API Token?
+						                    </div>
+						                    <button class="btn btn-warning w-auto fl" ng-click="GenerateToken(newCus)" ng-disabled="preloadTrue">
+						                     <i class="fa fa-spinner fa-pulse"></i>
+						                        <i class="fa fa-save"></i> yes</button>
+						                    <button class="btn w-auto fl" ng-click="GenerateNewTokenClose()" style="margin-left: 10px;"><i class="fa fa-times"></i> 
+						                         No
+						                    </button>
+						                </div>
+						                
+		      						   
+		      						   <a href="" ng-if="!newCus.restToken" ng-click="GenerateToken(newCus)" class="btns btn-secondary">Create REST API Token</a>
+		      						   </div>
+		 
+	                         	  </div>
+                         	  
+                         	  
+                          
+	                           <div class="form-group" ng-class="{'error':customerStep2.mqttToken.$invalid && errorMsgLable}">  
+		                               <label  id="" >MQTT API Token</label>  
+		                              <br />
+		                               <code ng-show="newCus.mqttToken" style="padding: 5px; margin: 15px 0; background: #ffd5d5; display: inline-block; border-radius: 5px;">{[{newCus.mqttToken}]}</code> 
+	
+	 									<input  type="text" class="form-control" ng-model="newCus.jwtmqttToken" name="jwtmqttToken" style="display:none">
+	 
+		                               <input ng-if="newCus.oauth == 'true'"   type="text" class="form-control" ng-model="newCus.mqttToken" name="mqttToken" required>
+		                               <input ng-if="newCus.oauth == 'false'"  type="text" class="form-control" ng-model="newCus.mqttToken" name="mqttToken" disabled>
+		                               <div  ng-if="newCus.oauth == 'true'">
+		      						   <a href="" ng-show="!newMqtt_token" ng-if="newCus.mqttToken" ng-click="AskGenerateNewMqtt_token()" class="btn btn-secondary">Create New MQTT API Token</a>
+		      						   
+		      						   <div  ng-if="newMqtt_token" class="cnbox" >
+						                    <div class="title">
+						                        Are you sure to want create new MQTT API Token?
+						                    </div>
+						                    <button class="btn btn-warning w-auto fl" ng-click="GenerateMqtt_token(newCus)" ng-disabled="preloadTrue">
+						                     <i class="fa fa-spinner fa-pulse"></i>
+						                        <i class="fa fa-save"></i> yes</button> 
+						                    <button class="btn w-auto fl" ng-click="GenerateNewMqtt_tokenClose()" style="margin-left: 10px;"><i class="fa fa-times"></i> 
+						                         No
+						                    </button>
+						                </div>
+						                
+		      						   
+		      						   <a href="" ng-if="!newCus.mqttToken" ng-click="GenerateMqtt_token(newCus)" class="btns btn-secondary">Create MQTT API Token</a>
+		      						   </div>
+		 
+	                         	  </div>
+                         	   </div> 
+                         	   <div class="w50">
+                                <div class="tc">
+                                    <div class="accountSupport">
+                                   		<!--  <img src="/facesix/static/qcom/img/alexa1.png" style="width: 50%;">  -->
+                                   		<h2>Enable Oauth</h2>
+                                   		<div class="clearfix"></div>
+                                        <label class="switch">
+                                            <input type="checkbox" ng-model="newCus.oauth" ng-change="emptyToken(newCus.oauth)" ng-true-value="'true'" ng-false-value="'false'">
+                                            <span></span>
+                                        </label>
+                                        <div class="clearfix"></div>
+                                        <label class="label label-success" ng-if="newCus.oauth == 'true'">Enabled</label>
+                                        <label class="label label-warning" ng-if="newCus.oauth == 'false'">Disabled</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                         	   
+                         </div>
+                           <div class="fl tl">
+	                            <button class="btn" ng-click="CusStep1()"><i class="fa fa-chevron-left"></i> Prev</button>
+	                        </div>
+	                        <div class="fr tr">
+	                            <button class="btn" type="submit" ng-click="CusStep3()">Next <i class="fa fa-chevron-right"></i></button>
+	                        </div>
+                 	</form>
+                
+                 	<!--   
+                    <form name="customerStep2" novalidate>
+                        <div class="body-content-popup">
+                            <div class="w50">
+                                <div class="form-group" ng-class="{'error':customerStep2.alexacerfilepath.$invalid && errorMsgLable}"> 
+                             
+                               <label ng-if="newCus.alexa == 'true'" type="button" id="get_file" onclick="document.getElementById('cer').click();">Certificate <i class="fa fa-folder-open-o" style="margin-left: 17px;"></i></label>
+                               <label ng-if="newCus.alexa == 'false'"  type="button" id="get_file" >Certificate <i class="fa fa-folder-open-o" style="margin-left: 17px;"></i></label>
+									<input type="file" name="alexacerfilepath" id="cer" class="cert" file-model="myCert" onchange="document.getElementById('alexacerfilepath').value = this.value.split('\\').pop().split('/').pop()" accept=".crt,.pem">
+      						   <input ng-if="newCus.alexa == 'true'" type="text" id="alexacerfilepath" class="form-control" ng-model="newCus.alexacerfilepath" required name="alexacerfilepath">
+      						   <input ng-if="newCus.alexa == 'false'" type="text" class="form-control" ng-model="newCus.alexacerfilepath" name="alexacerfilepath" ng-disabled="true">
+ 
+                            </div>
+                            <div class="form-group" ng-class="{'error':customerStep2.alexakeyfilepath.$invalid && errorMsgLable}"> 
+                               <label ng-if="newCus.alexa == 'true'" type="button" id="get_key"  onclick="document.getElementById('key').click();">KeyFile <i class="fa fa-folder-open-o" style="margin-left: 36px;"></i></label>
+                               <label ng-if="newCus.alexa == 'false'" type="button" id="get_key"  >KeyFile <i class="fa fa-folder-open-o" style="margin-left: 36px;"></i></label>
+									<input type="file" class="file" name="alexakeyfilepath" id="key" file-model="myFile" onchange="document.getElementById('alexakeyfilepath').value = this.value.split('\\').pop().split('/').pop()" accept=".key">
+      						   <input ng-if="newCus.alexa == 'true'" type="text"  id="alexakeyfilepath" class="form-control" ng-model="newCus.alexakeyfilepath" required name="alexakeyfilepath">
+      						   <input ng-if="newCus.alexa == 'false'" type="text"  class="form-control" ng-model="newCus.alexakeyfilepath" name="alexakeyfilepath" ng-disabled="true">
+                            </div>
+                            <div class="form-group" ng-class="{'error':customerStep2.alexaendpoint.$invalid && errorMsgLable}">
+                                <label>End Point</label> 
+                                
+                                <input ng-if="newCus.alexa == 'true'" type="text" class="form-control" ng-model="newCus.alexaendpoint" required name="alexaendpoint">
+                                <input ng-if="newCus.alexa == 'false'" type="text" class="form-control" ng-model="newCus.alexaendpoint" name="alexaendpoint" ng-disabled="true">
+                            </div>
+                            <div class="form-group" ng-class="{'error':customerStep2.alexatopic.$invalid && errorMsgLable}">
+                                <label>Topic</label>
+ 
+                                <input ng-if="newCus.alexa == 'true'" type="text" class="form-control" ng-model="newCus.alexatopic" required name="alexatopic">
+                                <input ng-if="newCus.alexa == 'false'" type="text" class="form-control" ng-model="newCus.alexatopic" name="alexatopic" ng-disabled="true">
+                            </div>
+                            </div>
+                            <div class="w50">
+                                <div class="tc">
+                                    <div class="accountSupport">
+                                   		<img src="/facesix/static/qcom/img/alexa1.png" style="width: 50%;">
+                                   		<div class="clearfix"></div>
+                                        <label class="switch">
+                                            <input type="checkbox" ng-model="newCus.alexa" ng-true-value="'true'" ng-false-value="'false'">
+                                            <span></span>
+                                        </label>
+                                        <div class="clearfix"></div>
+                                        <label class="label label-success" ng-if="newCus.alexa == 'true'">Enabled</label>
+                                        <label class="label label-warning" ng-if="newCus.alexa == 'false'">Disabled</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="fl tl">
+                            <button class="btn" ng-click="CusStep1()"><i class="fa fa-chevron-left"></i> Prev</button>
+                        </div>
+                        <div class="fr tr">
+                            <button class="btn" type="submit" ng-click="CusStep3()">Next <i class="fa fa-chevron-right"></i></button>
+                        </div>
+                    </form>
+                    
+                    -->
+                </div>
+                <div ng-show="stepCus3">
+                    <form name="customerStep3" novalidate>
+                        <div class="body-content-popup">
+                            <div class="w50">
+                                <div class="form-group" ng-class="{'error':customerStep3.serviceStartDate.$invalid && errorMsgLable}">
+                                    <label>Service Start Date</label>
+<!--                                    <label class="errorMsg" ng-show="customerStep3.serviceStartDate.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                                <input autocomplete="off"
+                                    type="text" class="form-control" data-min-date="today" ng-model="newCus.serviceStartDate" bs-datepicker data-date-format="dd/MM/yyyy" autoclose="true" ng-attr-data-template="/facesix/static/qcom/datepicker/datepicker.tpl.html" name="serviceStartDate" required>
+                                </div>
+                                <div class="form-group" ng-class="{'error':customerStep3.serviceDurationinMonths.$invalid && errorMsgLable}">
+                                    <label>Service Duration <small>in Months</small></label>
+<!--                                    <label class="errorMsg" ng-show="customerStep3.serviceDurationinMonths.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                                    <input type="number" string-to-number class="form-control" ng-model="newCus.serviceDurationinMonths" name="serviceDurationinMonths" required min="1">
+                                </div>
+                                <div class="form-group" ng-class="{'error':customerStep3.serviceExpiryDate.$invalid && errorMsgLable}">
+                                    <label>Service Expiry Date</label>
+<!--                                    <label class="errorMsg" ng-show="customerStep3.serviceExpiryDate.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                                    <input type="text" class="form-control" ng-model="newCus.serviceExpiryDate" bs-datepicker data-date-format="dd/MM/yyyy" autoclose="true" ng-attr-data-template="/facesix/static/qcom/datepicker/datepicker.tpl.html" disabled name="serviceExpiryDate" required>
+                                </div>
+                                <div class="form-group" style="display: none;">
+                                    <label>Server IP</label>
+                                    <input type="text" class="form-control" name="bleserverip" ng-model="newCus.bleserverip" readonly="readonly">
+                                </div>                              
+                            </div>
+                            <div class="w50">
+                                <div class="tc">
+                                    <div class="accountSupport">
+                                        <h2>Qubercomm Assist</h2>
+                                        <i class="icon-support"></i>
+                                        <div class="clearfix"></div>
+                                        <label class="switch">
+                                            <input type="checkbox" ng-model="newCus.qubercommAssist" ng-true-value="'true'" ng-false-value="'false'">
+                                            <span></span>
+                                        </label>
+                                        <div class="clearfix"></div>
+                                        <label class="label label-success" ng-if="newCus.qubercommAssist == 'true'">Enabled</label>
+                                        <label class="label label-warning" ng-if="newCus.qubercommAssist == 'false'">Disabled</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="fl tl">
+                            <button class="btn" ng-click="CusStep2()"><i class="fa fa-chevron-left"></i> Prev</button>
+                        </div>
+                        <div class="fr tr">
+                            <button class="btn" type="submit" ng-click="CusStep4()">Next <i class="fa fa-chevron-right"></i></button>
+                        </div>
+                    </form>
+                </div>
+               <div ng-show="stepCus4">
+                    <form name="customerStep4" novalidate>
+                    <div class="body-content-popup">
+                        <div class="w50">
+                            <div class="form-group" ng-class="{'error':customerStep4.contactPerson.$invalid && errorMsgLable}">
+                                <label>First Name</label>
+<!--                                <label class="errorMsg" ng-show="customerStep4.contactPerson.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                                <input type="text" class="form-control" ng-model="newCus.contactPerson" required name="contactPerson" ng-pattern="onlyText" maxlength="30">
+                            </div>
+                            <div class="form-group" ng-class="{'error':customerStep4.contactPersonlname.$invalid && errorMsgLable}">
+                                <label>Last Name</label>
+<!--                                <label class="errorMsg" ng-show="customerStep4.contactPersonlname.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                                <input type="text" class="form-control" ng-model="newCus.contactPersonlname" required name="contactPersonlname" ng-pattern="onlyText" maxlength="30">
+                            </div>
+                            <div class="form-group" ng-class="{'error':customerStep4.designation.$invalid && errorMsgLable}">
+                                <label>Designation</label>
+<!--                                <label class="errorMsg" ng-show="customerStep4.designation.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                                <input type="text" class="form-control" ng-model="newCus.designation" required name="designation" ng-pattern="onlyText">
+                            </div>
+                            <div class="form-group" ng-class="{'error':customerStep4.contactNumber.$invalid && errorMsgLable}">
+                                <label>Contact Number</label>
+<!--                                <label class="errorMsg" ng-show="customerStep4.contactNumber.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                                <input type="number" string-to-number class="form-control" ng-model="newCus.contactNumber" required name="contactNumber" ng-pattern="mobileValidate">
+                            </div>
+                            
+                        </div>
+                        <div class="w50">
+                            <div class="form-group" ng-class="{'error':customerStep4.mobileNumber.$invalid && errorMsgLable}">
+                                <label>Mobile Number</label>
+<!--                                <label class="errorMsg" ng-show="customerStep4.mobileNumber.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                                <input type="number" string-to-number class="form-control" ng-model="newCus.mobileNumber" required name="mobileNumber" ng-pattern="mobileValidate">
+                            </div>
+                            <div class="form-group" ng-class="{'error':customerStep4.email.$invalid && errorMsgLable}">
+                                <label>Email</label>
+<!--                                <label class="errorMsg" ng-show="customerStep4.email.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                                <input type="email" class="form-control" ng-model="newCus.email" required name="email" ng-pattern="emailValidate" ng-blur="checkEmailDuplicate(newCus.email)">
+                            </div>
+                            
+                        <div class="form-group" ng-if="!EditOpen" ng-class="{'error':customerStep4.password.$invalid && errorMsgLable}">
+                            <label>Password-alteast one special char,numeric and uppercase</label><label class="errorMsg" ng-show="customerStep4.password.$invalid && errorMsgLable"> <small>!Required</small></label>
+                            <input type="password" class="form-control" ng-model="newCus.password" ng-pattern="passwordValidate" required name="password">
+                        </div>
+                        <div class="form-group" ng-if="!EditOpen" ng-class="{'error':customerStep4.confirmPassword.$invalid && errorMsgLable}">
+                            <label>Confirm Password</label>
+                            <label class="successMsg" ng-show="newCus.password == newCus.confirmPassword && !customerStep4.confirmPassword.$pristine"><i class="fa fa-check"></i></label>
+<!--                            <label class="errorMsg" ng-show="customerStep4.confirmPassword.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                            <label class="errorMsg" ng-show="newCus.password !=newCus.confirmPassword && !customerStep4.confirmPassword.$pristine"> <small>Password Doesn't Match</small></label>
+                            <input type="password" class="form-control" ng-model="newCus.confirmPassword" required name="confirmPassword">
+                        </div>
+						
+						<div ng-if ="newCus.solution != 'Gateway' && newCus.solution != 'Heatmap'"  class="form-group" style="display: inline-block;margin-top: 13px;" ng-class="{'error':customerStep4.inactivityMail.$invalid && errorMsgLable}">
+                             <h3 style="padding-bottom: 20px;font-size: 16px;font-weight: 500;">Select services to notify when tags get inactive</h3>
+                             <label>Email</label> 
+                              <label class="switch" style="vertical-align: middle;">
+                                     <input type="checkbox" ng-model="newCus.inactivityMail" ng-true-value="'true'" ng-false-value="'false'" checked="false">
+                                     <span></span>
+                                </label> 
+                                <label class="label label-success" ng-if="newCus.inactivityMail == 'true'">Yes</label>
+                                <label class="label label-warning" ng-if="newCus.inactivityMail == 'false'">No</label>
+                                
+                                <label class="label label-warning" ng-show="!newCus.inactivityMail">No</label>
+                                
+                                
+                                <label style="padding-left: 15px;">SMS</label> 
+                              <label class="switch" style="vertical-align: middle;">
+                                     <input type="checkbox" ng-model="newCus.inactivitySMS" ng-true-value="'true'" ng-false-value="'false'" checked="false">
+                                     <span></span>
+                                </label> 
+                                <label class="label label-success" ng-if="newCus.inactivitySMS == 'true'">Yes</label>
+                                <label class="label label-warning" ng-if="newCus.inactivitySMS == 'false'">No</label>
+                                
+                                <label class="label label-warning" ng-show="!newCus.inactivitySMS">No</label>
+                         </div>
+	
+                            
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="fl tl">
+                        <button class="btn" ng-click="CusStep3()"><i class="fa fa-chevron-left"></i> Prev</button>
+                    </div>
+                    <div class="fr tr">
+                        <button class="btn" ng-click="CusStep5()" type="submit">Next <i class="fa fa-chevron-right"></i></button>
+                    </div>
+                    </form>
+                </div>
+                
+                <div ng-show="stepCus5">
+	                    <form name="customerStep5" novalidate>
+	                        <div class="body-content-popup">
+	                        
+	                            <div class="w50">
+	                                <div class="form-group" ng-class="{'error':customerStep5.logofile.$invalid && errorMsgLable}"> 
+	                                
+		                               <label  type="button" id="get_logos" onclick="document.getElementById('get_logo').click();">Logo <i class="fa fa-folder-open-o" style="margin-left: 17px;"></i></label>
+		                               <input type="file" name="get_logo" id="get_logo" class="get_logo" file-model="newCus.get_logo" onchange="document.getElementById('logofile').value = this.value.split('\\').pop().split('/').pop()" accept=".jpg,.png" style="display: none;">
+		      						 
+	      						       <input type="text" id="logofile" class="form-control" ng-model="newCus.logofile" name="logofile" placeholder="Default (Qubercomm Logo)">
+		 
+		                            </div>
+		                            
+		                             <div class="form-group"  ng-class="{'error':customerStep5.facebook.$invalid && errorMsgLable}">
+		                                <label>Facebook Link</label>  
+		                                <input type="url" class="form-control" ng-model="newCus.facebook" name="facebook"> 
+		                            </div>
+		                            <div class="form-group"  ng-class="{'error':customerStep5.twitter.$invalid && errorMsgLable}">
+		                                <label>Twitter Link</label>  
+		                                <input type="url" class="form-control" ng-model="newCus.twitter" name="twitter"> 
+		                            </div>
+		                            <div class="form-group"  ng-class="{'error':customerStep5.linkedin.$invalid && errorMsgLable}">
+		                                <label>Linkedin Link</label>  
+		                                <input type="url" class="form-control" ng-model="newCus.linkedin" name="linkedin"> 
+		                            </div>
+		                            <!--  
+		                            <div class="form-group" ng-class="{'error':customerStep5.discover_text.$invalid && errorMsgLable}">
+		                                <label>Discover Text</label>  
+		                                <input type="text" class="form-control" ng-model="newCus.discover_text" name="discover_text"> 
+		                            </div>
+		                            -->
+		                          
+		                            
+		                           
+	                            </div>
+	                            
+	                             <div class="w50">
+	                             	<div class="form-group" ng-class="{'error':customerStep5.login_bg.$invalid && errorMsgLable}"> 
+		                            
+		                                <label type="button" id="get_bg"  onclick="document.getElementById('background_image').click();">Login background <i class="fa fa-folder-open-o" style="margin-left: 36px;"></i></label>
+	                                	<input type="file" class="file" name="background_image" id="background_image" file-model="newCus.background_image" onchange="document.getElementById('background').value = this.value.split('\\').pop().split('/').pop()" accept=".jpg,.png"  style="display: none;">
+		      						   <input type="text"  id="background" class="form-control" ng-model="newCus.background"  name="background" placeholder="Default (Qubercomm Background)" >
+		      						  
+		                            </div>
+	                             	
+		                            
+	                               <div class="form-group"  ng-class="{'error':customerStep5.discover_link.$invalid && errorMsgLable}">
+		                                <label>Discover Link</label>  
+		                                <input type="url" class="form-control" ng-model="newCus.discover_link" name="discover_link"> 
+		                            </div>
+		                           <!--  <div class="form-group"  ng-class="{'error':customerStep5.support_link.$invalid && errorMsgLable}">
+		                                <label>Support Email</label>  
+		                                <input type="email" class="form-control" ng-model="newCus.support_link" name="support_link" placeholder=" Default(Qubercomm Support)"> 
+		                            </div> -->
+	                             	
+	                             </div>
+	                           
+	                            <div class="clearfix"></div>
+	                        </div>
+	                        <div class="fl tl">
+	                            <button class="btn" ng-click="CusStep4()"><i class="fa fa-chevron-left"></i> Prev</button>
+	                        </div>
+	                        <div class="fr tr">
+	                            <button class="btn" type="submit" ng-click="CusStep6()">Next <i class="fa fa-chevron-right"></i></button>
+	                        </div>
+	                    </form>
+	                </div>
+	                
+                <div ng-show="stepCus6">
+                    <div class="body-content-popup">
+                        <div class="clearfix"></div>
+                        <div class="w50" style="padding-top:20px;">
+                            <div class="form-group">
+                                <div class="CusList">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>Name:</td>
+                                                <td>{[{newCus.customerName}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Address:</td>
+                                                <td>{[{newCus.address}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Location:</td>
+                                                <td>{[{newCus.city}]},{[{newCus.country}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Timezone:</td>
+                                                <td>{[{newCus.timezone}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Postal Code:</td>
+                                                <td>{[{newCus.postalCode}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Type:</td>
+                                                <td>{[{newCus.venueType}]}</td>
+                                            </tr>
+                                            <tr ng-if="newCus.venueType == 'Patient-Tracker' || newCus.venueType == 'Locatum'">
+                                                <td>TagDetails:</td>
+                                                <td>{[{newCus.tagcount}]}</td>
+                                            </tr>
+                                            <tr ng-if="newCus.venueType == 'Patient-Tracker' || newCus.venueType == 'Locatum'">
+                                                <td>TagThreshold:</td>
+                                                <td>{[{newCus.threshold}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Package:</td>
+                                                <td>{[{newCus.offerPackage}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Solution:</td>
+                                                <td>{[{newCus.solution}]}</td>
+                                                
+                                                
+                                            </tr>
+                                            <tr ng-if="newCus.venueType == 'Gateway'">
+                                                <td>Gateway:</td>
+                                                <td>{[{newCus.noOfGateway}]}</td>
+                                            </tr>
+                                            <tr >
+                                                <td>REST API Token:</td>
+                                                <td>{[{newCus.restToken}]}</td>
+                                            </tr>
+                                            <tr >
+                                                <td>MQTT API Token:</td>
+                                                <td>{[{newCus.mqttToken}]}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                        
+                         
+		                
+                        <div class="w50" style="padding-top:20px;">
+                            <div class="form-group">
+                                <div class="CusList">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>Agreement Date:</td>
+                                                <td>{[{newCus.serviceStartDate | date}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Expiry Date:</td>
+                                                <td>{[{newCus.serviceExpiryDate | date}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Contract Period:</td>
+                                                <td>{[{newCus.serviceDurationinMonths}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Qubercomm Assist:</td>
+                                                <td>{[{newCus.qubercommAssist}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Contact Person:</td>
+                                                <td>{[{newCus.contactPerson}]} {[{newCus.contactPersonlname}]}, <small>{[{newCus.designation}]}</small></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Contact No:</td>
+                                                <td>{[{newCus.mobileNumber}]} / {[{newCus.contactNumber}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Portal:</td>
+                                                <td>{[{newCus.preferedUrlName}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tag Inactivity Interval:</td>
+                                                <td>{[{newCus.tagInact}]}</td>
+                                            </tr>
+                                            <!--  <tr>
+                                                <td>Filepath:</td>
+                                                <td>{[{newCus.alexacerfilepath}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Keyfile:</td>
+                                                <td>{[{newCus.alexakeyfilepath}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Endpoint:</td>
+                                                <td>{[{newCus.alexaendpoint}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Topic:</td>
+                                                <td>{[{newCus.alexatopic}]}</td>
+                                            </tr>
+                                             -->
+                                             <tr>
+                                                <td>Logo:</td>
+                                                <td>{[{newCus.logofile}]}</td>
+                                            </tr>
+                                            
+                                             <tr>
+                                                <td>Login background:</td>
+                                                <td>{[{newCus.background}]}</td>
+                                            </tr>
+                                             <tr>
+                                                <td>Discover Link:</td>
+                                                <td>{[{newCus.discover_link}]}</td>
+                                            </tr>
+                                             <tr>
+                                                <td>Support Email:</td>
+                                                <td>{[{newCus.support_link}]}</td>
+                                            </tr>
+                                            
+                                            
+                                             <tr>
+                                                <td>Facebook Link:</td>
+                                                <td>{[{newCus.facebook}]}</td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td>Twitter Link:</td>
+                                                <td>{[{newCus.twitter}]}</td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td>Linkedin Link:</td>
+                                                <td>{[{newCus.linkedin}]}</td>
+                                            </tr>
+                                            
+                                         
+                                            
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="fl tl">
+                        <button class="btn" ng-click="CusStep5()"><i class="fa fa-chevron-left"></i> Prev</button>
+                    </div>
+                    <div class="fr tr">
+                        <button class="btn preloader" ng-click="newClient(newCus)" ng-if="!EditOpen" ng-disabled="preloadTrue">
+                        <i class="fa fa-spinner fa-pulse"></i>
+                            Confirm
+                        </button>
+                        <button class="btn preloader" ng-click="UpdateCustomer(newCus)" ng-if="EditOpen" ng-disabled="preloadTrue">
+                        <i class="fa fa-spinner fa-pulse"></i>Update</button>
+                        <p class="successMsg">{[{successMsg}]}</p>
+                        <p class="errorMsg">{[{errorMsg}]}</p>
+                    </div>
+                </div>
+                <div ng-show="stepCus7">
+                    <div class="body-content-popup">
+                                            <p class="tc successMsg">New customer added Successfully</p>
+                    
+                        <div class="clearfix"></div>
+                        <div class="w50" style="padding-top:20px;">
+                            <div class="form-group">
+                                <div class="CusList">
+                                    <table>
+                                        <tbody>
+                                        <tr>
+                                                <td>Customer Id:</td>
+                                                <td>{[{getClientvalue.id}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Name:</td>
+                                                <td>{[{getClientvalue.customerName}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Address:</td>
+                                                <td>{[{getClientvalue.address}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Location:</td>
+                                                <td>{[{getClientvalue.city}]},{[{getClientvalue.country}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Timezone:</td>
+                                                <td>{[{getClientvalue.timezone}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Postal Code:</td>
+                                                <td>{[{getClientvalue.postalCode}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Type:</td>
+                                                <td>{[{getClientvalue.venueType}]}</td>
+                                            </tr>
+                                             <tr ng-if="newCus.venueType == 'Patient-Tracker' || newCus.venueType == 'Locatum'">
+                                                <td>TagDetails:</td>
+                                                <td>{[{getClientvalue.tagcount}]}</td>
+                                            </tr>
+                                            <tr ng-if="newCus.venueType == 'Patient-Tracker' || newCus.venueType == 'Locatum'">
+                                                <td>threshold:</td>
+                                                <td>{[{getClientvalue.threshold}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Package:</td>
+                                                <td>{[{getClientvalue.offerPackage}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Solution:</td>
+                                                <td>{[{getClientvalue.solution}]}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="w50" style="padding-top:20px;">
+                            <div class="form-group">
+                                <div class="CusList">
+                                    <table>
+                                        <tbody>
+                                        <tr ng-if="newCus.venueType == 'Gateway'">
+                                                <td>Gateway:</td>
+                                                <td>{[{getClientvalue.noOfGateway}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Agreement Date:</td>
+                                                <td>{[{getClientvalue.serviceStartDate | date}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Expiry Date:</td>
+                                                <td>{[{getClientvalue.serviceExpiryDate | date}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Contract Period:</td>
+                                                <td>{[{getClientvalue.serviceDurationinMonths}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Qubercomm Assist:</td>
+                                                <td>{[{getClientvalue.qubercommAssist}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Contact Person:</td>
+                                                <td>{[{getClientvalue.contactPerson}]} {[{getClientvalue.contactPersonlname}]}, <small>{[{getClientvalue.designation}]}</small></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Contact No:</td>
+                                                <td>{[{getClientvalue.mobileNumber}]} / {[{getClientvalue.contactNumber}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Portal:</td>
+                                                <td>{[{getClientvalue.preferedUrlName}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tag Inactivity Interval:</td>
+                                                <td>{[{getClientvalue.tagInact}]}</td>
+                                            </tr>
+                                            <!--
+                                            <tr>
+                                                <td>Filepath:</td>
+                                                <td>{[{getClientvalue.alexacerfilepath}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Keyfile:</td>
+                                                <td>{[{getClientvalue.alexakeyfilepath}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Endpoint:</td>
+                                                <td>{[{getClientvalue.alexaendpoint}]}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Topic:</td>
+                                                <td>{[{getClientvalue.alexatopic}]}</td>
+                                            </tr>
+                                             -->
+                                             <tr>
+                                                <td>Logo:</td>
+                                                <td>{[{getClientvalue.logofile}]}</td>
+                                            </tr>
+                                            
+                                             <tr>
+                                                <td>Login background:</td>
+                                                <td>{[{getClientvalue.background}]}</td>
+                                            </tr>
+                                            
+                                             <tr>
+                                                <td>Discover Link:</td>
+                                                <td>{[{getClientvalue.discover_link}]}</td>
+                                            </tr>
+                                             <tr>
+                                                <td>Support Email:</td>
+                                                <td>{[{getClientvalue.support_link}]}</td>
+                                            </tr>
+                                            
+                                             <tr>
+                                                <td>Facebook Link:</td>
+                                                <td>{[{getClientvalue.facebook}]}</td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td>Twitter Link:</td>
+                                                <td>{[{getClientvalue.twitter}]}</td>
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td>Linkedin Link:</td>
+                                                <td>{[{getClientvalue.linkedin}]}</td>
+                                            </tr>
+                                   
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <!--  <div class="fl tl">
+                   <button class="btn" ng-click="newCustomerOpen()">Skip</button>
+                    </div>
+                    <div class="fr tr">
+                        <a href="/facesix/web/site/open?cid={[{getClientvalue.id}]}" class="btn">Create Venue</a>
+                    </div> -->
+                    
+                    
+                   
+                </div>
+                
+                
+               <!--  <div ng-show="stepCus7">
+                    
+
+                    <div class="body-content-popup">
+                        <div class="clearfix"></div>
+                        <div style="padding-top:20px;">
+                            <div style="width:90%; min-width:300px; max-width:600px; margin:auto; border:1px solid rgba(183,203,216,0.7);">
+                                <div style="width:100%; height:60px; background-color:rgba(183,203,216,0.7); text-align:center; position:relative;">
+                                    <a href="https://qubercomm.com"><img style="width:auto; max-height:40px; max-width:80%; position:relative; margin-top:10px;"/></a>
+                                </div>
+                                <div style="padding:15px;">
+                                    <h3 style="font-family:sans-serif; color:grey; font-size:14px; font-weight:normal;">Hi Jack,</h3>
+                                    <p style="font-family:sans-serif; color:grey; font-size:13px; font-weight:normal; text-align:justify; line-height:18px;">Thank you for signing up with us. Your account has been created successfully. You can access your account by clicking the below link with user name and password provied with this mail.</p>
+                                    <p style="font-family:sans-serif; color:grey; font-size:13px; font-weight:normal; text-align:justify; line-height:18px;">UserName: example.gmail.com</p>
+                                    <p style="font-family:sans-serif; color:grey; font-size:13px; font-weight:normal; text-align:justify; line-height:18px;">Password: Sgruykhj</p>
+                                    <div style="padding:10px; text-align:center;">
+                                        <a href="https://cloud.qubercomm.com/clientname" style="font-family:sans-serif; color:whitesmoke; font-size:14px; font-weight:normal; text-decoration:none; padding:6px 12px; background-color:#009BC2">Login</a>
+                                    </div>
+                                    <p style="font-family:sans-serif; color:grey; font-size:13px; font-weight:normal; text-align:justify; line-height:18px;">
+                                        Thanks,
+                                        <br> Qubercomm Team
+                                    </p>
+                                    <hr>
+                                    <p style="font-family:sans-serif; color:grey; font-size:12px; font-weight:normal; text-align:justify; line-height:16px;">
+                                        if you're having trouble clicking the password reset button, copy and paste the URL below into your web browser.
+                                        <br>
+                                        <span style="font-family:sans-serif; color:#009BC2; font-size:12px; font-weight:normal; text-align:justify; line-height:16px; text-decoration:underline; display:block; padding-top:5px;">https://cloud.qubercomm.com/clientname</span>
+                                    </p>
+                                </div>
+                                <div style="width:100%; height:40px; background-color:rgba(183,203,216,0.7); text-align:center; position:relative;">
+                                    <p style="font-family:sans-serif; color:#009BC2; font-size:12px; font-weight:normal; text-align:center; line-height:16px; text-decoration:underline; display:block; padding:5px;">© 2016, Qubercomm Techonologies, All rights reserved.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     
+                    <div style="padding-top:20px;">
+                        <div class="fr tc">
+                            <button class="btn" ng-click="sendMail()">Send Email</button>
+                        </div>
+                    </div>
+                </div>
+                
+                -->
+                <div ng-show="stepCus8">
+                    <!--
+                    <div class="stepImg">
+                        <img src="asset/img/logo.png"/>
+                    </div>
+-->
+                    <div class="body-content-popup">
+                        <div class="clearfix"></div>
+                        <div style="padding-top:20px;">
+                            <p class="tc">Email Sent Successfully</p>
+                            <!--                        <p class="tc">Email Sent to the Customer</p>-->
+                            <div class="tc">
+                                <a href="#/addvenue" class="btn">Create Venue</a>
+                                <!--                            <button class="btn" ng-click="generateemail()">Generate Email</button>-->
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="tc">
+                                <p>Or</p>
+                            </div>
+                            <div class="tc">
+                                <button class="btn" ng-click="newCustomerOpen()">Skip</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="fr tr" style="opacity:0;">
+                        <button class="btn">Confirm</button>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  <style>
+  #cer {
+    display: none;
+}
+#key{
+    display: none;
+}
+#get_file,#get_logos,#get_bg {
+    background: #f9f9f9;
+    border: 1px solid dimgray;
+    padding: 2px;
+    border-radius: 5px;
+    margin: 8px;
+    cursor: pointer;
+    margin-left: 1px;
+}
+#get_key {
+    background: #f9f9f9;
+    border: 1px solid dimgray;
+    padding: 2px;
+    border-radius: 5px;
+    margin: 8px;
+    cursor: pointer;
+    margin-left: 1px;
+    
+}
+.ex-active{
+	margin-bottom: -10px !important;
+	margin-left: -12px !important;
+}
+@media screen and (max-width: 768px){
+	.ex-active{
+		margin-bottom: -5px !important;
+		margin-left: -12px !important;
+	}
+}
+  </style>
+ 

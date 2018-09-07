@@ -1,0 +1,189 @@
+{{#partial "page"}}
+
+<div class="row log-table-head dd-log-head">
+				<div class="lth-left" style="margin-left: 20px;">
+						<span>VENUE</span>		
+						<i class="fa fa-angle-right" aria-hidden="true"></i>
+						<span title="{{sitename}}"><div id="sname"></div></span>
+						<i class="fa fa-angle-right" aria-hidden="true"></i>	
+						<span title="{{portionname}}"><div id="flname"></div></span>														
+				</div>
+				
+			</div>
+			
+<img src="/facesix/static/qubercomm/images/networkicons/server_inactive.png" height="30" id="serverOffline" width="30" style="display:none">
+<img src="/facesix/static/qubercomm/images/networkicons/switch_inactive.png" height="30" id="switchOffline" width="30" style="display:none">
+<img src="/facesix/static/qubercomm/images/networkicons/ap_inactive.png" height="30" id="apOffline" width="30" style="display:none">
+<img src="/facesix/static/qubercomm/images/networkicons/sensor_inactive.png" height="30" id="sensorOffline" width="30" style="display:none">
+
+<!-- js -->
+<script src="/facesix/static/qubercomm/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/jquery_validate_min_js.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/form-validations.js" type="text/javascript"></script>
+<script src="https://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.nicescroll.min.js"></script>
+<!-- <script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.mobile-events.js"></script> -->
+<script type="text/javascript" src="/facesix/static/qubercomm/js/common.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/handlebars.min.js"></script>
+<script src="/facesix/static/qubercomm/js/qubercast.js" type="text/javascript"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/script.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/snap.svg-min.js"></script>
+<script src="/facesix/static/qubercomm/js/jqpanzoom.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/d3.v3.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/underscore-min.js"></script>
+
+
+<script src="/facesix/static/qubercomm/js/networkcon.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/networkconfig.js" type="text/javascript"></script>
+<link rel="stylesheet" href="/facesix/static/geo/css/font-awesome.css">
+<link rel="stylesheet" href="/facesix/static/geo/css/style-plot.css">
+<link rel="stylesheet" href="/facesix/static/geo/css/loader.css">
+<script async defer
+   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXhgBQKDxZzb_jEH5dRXD-1HSpwlODZkM&libraries=places&callback=initialize">
+   </script>
+<!-- <script src="/facesix/static/geo/js/fabric.min.js"></script>    -->
+<script>
+var bg_json = ''; 
+var fg_json = '';
+var spid = '{{spid}}';
+var sid = '{{sid}}';
+
+//var bg_image_url = '/facesix/web/site/portion/planfile?spid={{spid}}';
+
+var img = document.createElement('img');
+
+
+$(function(){ 
+	$('.loader_box').hide();
+	$('.completed_box').hide();
+	$('.failure_box').hide();
+});
+
+img.src='/facesix/web/site/portion/planfile?spid={{spid}}';
+</script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/plot_maps.js"></script>
+<!-- <script type="text/javascript" src="/facesix/static/geo/js/plot_canvas.js"></script>
+<script type="text/javascript" src="/facesix/static/geo/js/plot_app.js"></script>
+<script type="text/javascript" src="/facesix/static/geo/js/bootbox.min.js"></script> -->
+
+<style>
+body{font-family: 'Exo2Medium';}
+.mapbg {float:left; width:1450px; min-width:1450px; }
+#map { opacity:0.8}
+.pk,.mrker_info,.address {display:none;} 
+.mapgrp { float:left; background:#00AEEF; padding:5px 5px; margin:2px 0px 2px 5px; 
+	color:#fff;    border: 1px solid transparent;   border-radius: 2px;	}
+.mapgrp span{ font-weight:bold; width:70px; float:left; text-align:center;}
+.mapgrp .fa { font-size:20px; margin:0px 5px; float:left; }
+.clkyes{cursor:pointer; color:#fff; }
+.clkno{cursor:text; color:#ccc; }
+.map_button {z-index:99; position:absolute;top:785px;left:-24px;}
+#planimg{position:absolute; top:53%; left:50%; width: 1000px; height: 601px;z-index:0;border: 1px solid #000; 
+transform: translate(-50%, -50%); display:none;  }
+.btton_one {width:120px; float:right; padding:10px; margin-left:10px;}
+.btn-config { width:120px; float:left;}
+.map_head { padding:10px 0px;}
+</style>
+<div class="contain" id="">
+<div class="row">
+<section id="main_part_pg2">
+	<div class="sec_sty">
+		<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+		<img src="/facesix/web/site/portion/planfile?spid={{spid}}" id="planimg"> 
+		    <div class="map_sec">
+		    	<div class="map_head">
+		    		<i class="fa fa-compass fa-spin fa-lg fa-fw" style="color:#0092C8;" aria-hidden="true"></i> Geo Location
+		    		<div class="zoom_sec">
+		    			<div class="mapgrp">
+		    					<i class="fa fa-plus-square-o clkyes fa-fw" aria-hidden="true" id="op" onclick="adjOpa(0.1)"></i>
+		    					<span>Opacity</span> 
+		    					<i class="fa fa-minus-square-o clkyes fa-fw" aria-hidden="true" id="om" onclick="adjOpa(-0.1)"></i>
+		    			</div>
+		    			<div class="mapgrp">
+		    				 	<i class="fa fa-search-plus clkno" aria-hidden="true" id="zp" onclick="adjZom(1)"></i>
+		    					<span>Zoom</span>
+		    					<i class="fa fa-search-minus clkyes" aria-hidden="true" id="zm" onclick="adjZom(-1)"></i>
+		    			</div>
+		    			<div class="mapgrp">
+		    					<i class="fa fa-repeat clkyes" aria-hidden="true" id="rp" onclick="adjRot(1)"></i>
+		    					<span>Rotate</span> 
+		    					<i class="fa fa-undo clkyes" aria-hidden="true" id="rm" onclick="adjRot(-1)"></i>
+		    			</div>
+		    			
+					</div>
+		    	</div>
+		    	
+		    	<div class="dk_pac_ip">
+		    		<input id="pac-input" class="controls" type="search" placeholder="Search Box">
+		    		<!-- <span  class="n_search" type="submit"><i class="fa fa-search" aria-hidden="true"></i></span>
+		    		<span  class="n_close"><i class="fa fa-times" aria-hidden="true"></i></span> -->
+		    	</div>
+			    <div id="map"></div>				   			    
+				</div>
+		    </div>
+		</div>  
+		<div class="rr">
+			<div class="map_button"> 
+				<div class="btton_one">											
+					<button type="button" id="save_button" onclick="savePoints();" class="btn btn-default btn-config btn-theme">Save Points</button>
+				</div>
+				<div class="btton_one">
+					<button type="button" id="reset_button" onclick="resetMap();" class="btn btn-default btn-config btn-theme">Reset Points</button>
+				</div>
+			</div>
+		</div>
+	</section>	
+</div>
+
+<!-- set up the modal to start hidden and fade in and out -->
+<div id="myModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- dialog body -->
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        Message
+      </div>
+      <!-- dialog buttons -->
+      <div class="modal-footer"><button type="button" class="btn btn-primary">OK</button></div>
+    </div>
+  </div>
+</div>
+</div>
+<div class="loader_box" style="display: none;">	
+	<div class="loader"></div>
+	<h4 class="text-center">Processing</h4>
+</div>
+<script>
+	var str = '{{sitename}}';
+	console.log(str);
+	if (str.length > 16) {
+		str = str.substr(0, 16)
+		str += "...";
+	}
+	
+	document.getElementById("sname").innerHTML = str;
+	console.log(str);
+
+
+	var str = '{{portionname}}';
+	console.log(str);
+	if (str.length > 10) {
+		str = str.substr(0, 10)
+		str += "...";
+	}
+	
+	document.getElementById("flname").innerHTML = str;
+	console.log(str);
+
+</script>
+
+{{/partial}}
+
+{{>qubercomm/nav-top}}
+{{>qubercomm/nav-left}}
+{{>qubercomm/wrapper}}

@@ -1,0 +1,174 @@
+<div id="hid2gr" style="display: none;">
+	<div class="tabgrp">
+		<div class="tab" id="tabzzz">
+			<div class="tabtn tabtnzzz" id="tabtn-zzz-1">Basic</div>
+			<div class="tabtn tabtnzzz" id="tabtn-zzz-2">Advanced</div>
+
+		</div>
+
+		<div class="tabc tabczzz" id="tabc-zzz-1">
+			<div class="w50">
+				<div class="form-group mygrp">
+					<div class="mylable">Name</div>
+					<div class="myinput">
+						<input type="text" class="form-control requir" id="2gr_name_yyy"
+							name="yyy__name" placeholder="Name">
+					</div>
+				</div>
+				<div class="form-group mygrp">
+					<div class="mylable">Tag Type</div>
+					<div class="myinput">
+						<select class="form-control requir" name="yyy__tagtype" id="2gr_tagtype_yyy">
+							<option value="Doctor">Doctor</option>
+							<option value="WheelChair">Wheel Chair</option>
+							<option value="Asset">Asset</option>
+							<option value="Bed">Bed</option>
+							<option value="Ambulance">Ambulance</option>
+							<option value="MedicalKit">Medical Kit</option>
+							<option value="Heartbeat">heartbeat</option>
+							<option value="Cycle">cycle</option>
+							<option value="Truck">Truck</option>
+							<option value="Bus">Bus</option>
+							<option value="Car">Car</option>
+							<option value="Child">Child</option>
+							<option value="Female">Female</option>
+							<option value="Male">Male</option>
+							<option value="Fax">Fax</option>
+							<option value="User">User</option>
+							<option value="Library">Library</option>
+							<option value="Hotel">Hotel</option>
+							<option value="Fireextinguisher">Fire-extinguisher</option>
+							<option value="Print">Print</option>
+							<option value="Clock">Clock</option>
+							<option value="Film">Film</option>
+							<option value="Music">Music</option>
+							<option value="Levelup">Levelup</option>
+							<option value="Leveldown">Leveldown</option>
+							<option value="Trash">Trash</option>
+							<option value="Home">Home</option>
+							<option value="Videocamera">Videocamera</option>
+							<option value="Circle">Circle</option>
+							<option value="Gift">Gift</option>
+							<option value="Exit">Exit</option>
+							<option value="Key">Key</option>
+							<option value="Camera">Camera</option>
+							<option value="Phone">Phone</option>
+							<option value="Creditcard">Creditcard</option>
+							<option value="Speaker">Speaker</option>
+							<option value="Powerroom">Power room </option>
+							<option value="Toolset">Toolset</option>
+							<option value="Batteryroom">Battery room</option>
+							<option value="Computerroom">Computer room</option>
+							<option value="Kidsroom">Kids room</option>
+							<option value="TVroom">TV room</option>
+
+						</select>
+
+					</div>
+				</div>
+				<div class="form-group mygrp">
+					<div class="form-group mygrp">
+						<div class="mylable">Minor</div>
+						<div class="myinput">
+							<input type="text" class="form-control requir" id="2gr_minor_yyy"
+								name="yyy__minor" maxlength="4"
+								onkeypress="return Validate(event);" placeholder="minor">
+						</div>
+					</div>
+					<div class="form-group mygrp">
+						<div class="mylable">Major</div>
+						<div class="myinput">
+							<input type="text" class="form-control requir" id="2gr_major_yyy"
+								name="yyy__major" maxlength="4"
+								onkeypress="return Validate(event);" placeholder="major">
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+			<div class="w50">				
+				<div class="form-group mygrp">
+					<div class="mylable">Assigned To</div>
+					<div class="myinput">
+						<input type="text" class="form-control requir"
+							id="2gr_assignedto_yyy" name="yyy__assignedto"
+							placeholder="assignedto">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="tabc tabczzz" id="tabc-zzz-2">
+			<div class="w50">
+				<div class="form-group mygrp">
+					<div class="mylable">Tag UUID</div>
+					<div class="myinput" style="width: 320px;">
+						<input type="text" class="form-control requir" id="2gr_uuid_yyy"
+							name="yyy__uuid" placeholder="Tag UUID">
+					</div>
+				</div>
+				<div class="form-group mygrp">
+					<div class="mylable">Txpower</div>
+					<div class="myinput">
+						<select class="form-control requir" id="2gr_txpower_yyy" name="yyy__txpower">
+							<option selected="" value="4">4</option>
+							<option value="0">0</option>
+							<option value="-4">-4</option>
+							<option value="-8">-8</option>
+							<option value="-12">-12</option>
+							<option value="-16">-16</option>
+							<option value="-20">-20</option>
+							<option value="-30">-30</option>
+							</select>
+					</div>
+				</div>
+				<div class="form-group mygrp ">
+					<div class="mylable">Beacon Interval</div>
+					<div class="myinput">
+						<select class="form-control requir increment" id="2gr_interval_yyy" name="yyy__interval">
+						</select>
+					</div>
+				</div>
+
+			</div>
+			
+			<div class="w50">				
+
+				<div class="form-group mygrp">
+					<div class="mylable">Tag Model</div>
+					<div class="myinput">
+						<select class="form-control requir" id="2gr_tagmod_yyy" name="yyy__tagmod">
+							<option selected="" value="neck">Neck</option>
+							<option value="stck">Sticker</option>
+							<option value="label">Label</option>
+							<option value="rock">Rock</option>
+							<option value="box">Box</option>
+							<option value="key">Key</option>
+							<option value="coin">Coin</option>
+							<option value="card">Card</option>
+							</select>
+					</div>
+				</div>
+				
+				<div class="form-group mygrp">
+					<div class="mylable">Ref TxPower</div>
+					<div class="myinput">
+						<input type="text" class="form-control requir"
+							id="2gr_reftx_yyy" name="yyy__reftx"
+							placeholder="-59">
+					</div>
+				</div>							
+				
+			</div>
+
+		</div>
+	</div>
+</div>
+<script>
+$(function(){
+    var $select = $(".increment");
+    for (i=100;i<=10000;i+=100){
+        $select.append($('<option></option>').val(i).html(i))
+    }
+});
+</script>

@@ -1,0 +1,63 @@
+{{#partial "footerscript"}}      
+	 <script>
+			$(document).ready(function(){
+				
+				var deviceType = "scanner";
+				
+			 	$.ajax({
+					type : "GET",
+					url : "/facesix/rest/beacon/device/scannerList?cid={{cid}}&type="+deviceType,
+					dataType : "json",
+					success : function(data) {
+						$.each(data.scanner, function(i, obj) {
+							$('#triggersan').attr('disabled', false);
+							var div_data = "<option value="+obj.scanduration+">"+ obj.uid + "</option>";
+							$(div_data).appendTo('#scannerUid');
+						});
+					}
+				});
+			 					
+    			$("#triggersan").click(function() {
+    				var scanDuration = $('#scannerUid').val();
+    				if (scanDuration=="" || scanDuration==null || scanDuration==undefined) {
+    					scanDuration = "10";
+    				}
+    				$(".loader_box").show();
+					scan(scanDuration);
+   			 	});
+			});
+						
+			function scan(scanDuration) { 
+				$.ajax({url: "/facesix/rest/beacon/clear/scanned", type:'DELETE', success: function(data, status) {
+					console.log("scanned beacons cleared");
+				},
+    			error: function(request, status, error) {
+					console.log("failed to clear scanned beacons :"+ status);
+    			}
+    			});
+				
+				$.ajax({url: "/facesix/rest/beacon/triggerscan?suid={{suid}}&cid={{cid}}", success: function(data, status) {
+    				$("#triggersan").html("<font color=white> Scanning... "+scanDuration+" <font>");
+    				$("button").attr("disabled", "disabled");
+    				var counter = scanDuration;
+    				var timer = window.setInterval(function() {
+						$("#triggersan").html("<font color=white> Scanning... "+  counter + " <font>");
+						if (counter <= 0) {
+							//$(".loader_box").hide();
+							window.clearInterval(timer);
+							window.location = "/facesix/web/beacon/list?sid={{sid}}&spid={{spid}}&cid={{cid}}&reload=1";
+						}
+						counter = counter - 1;
+					}, 1000);
+    				 
+    			},
+    			error: function(request, status, error) {
+    				$("#triggerscanstatus").html("<font color=red> Failed to trigger scanner <font>");
+    			}
+    			});
+				
+				
+				
+			}
+		</script>
+{{/partial}}

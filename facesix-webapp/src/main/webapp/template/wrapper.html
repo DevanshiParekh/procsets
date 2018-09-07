@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description"
+	content="facesix : elastic data express to aggregate accelerate search analyze articulate analytics on data">
+<meta name="author" content="semaifour inc">
+
+<title>{{label "facesix.seotitle" "facesix: elastic data express"}}</title>
+
+<!-- Bootstrap Core CSS -->
+<link
+	href="/facesix/static/bower_components/bootstrap/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+
+<!-- MetisMenu CSS -->
+<link
+	href="/facesix/static/bower_components/metisMenu/dist/metisMenu.min.css"
+	rel="stylesheet">
+
+<!-- Timeline CSS -->
+<link href="/facesix/static/dist/css/timeline.css" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link href="/facesix/static/dist/css/sb-admin-2.css" rel="stylesheet">
+
+<!-- Morris Charts CSS -->
+<link href="/facesix/static/bower_components/morrisjs/morris.css"
+	rel="stylesheet">
+
+<!-- DataTables CSS -->
+<link
+	href="/facesix/static/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css"
+	rel="stylesheet">
+	
+<link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
+
+<!-- DataTables Responsive CSS 
+<link
+	href="/facesix/static/bower_components/datatables-responsive/css/responsive.dataTables.scss"
+	rel="stylesheet">
+-->
+<!-- Custom Fonts -->
+<link
+	href="/facesix/static/bower_components/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Foundation CSS framework (Bootstrap and jQueryUI also supported) 
+    <link rel='stylesheet' href='//cdn.jsdelivr.net/foundation/5.0.2/css/foundation.min.css'>
+    -->
+    <!-- Font Awesome icons (Bootstrap, Foundation, and jQueryUI also supported) 
+    <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css'>
+   -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.1/css/buttons.dataTables.min.css">    
+    
+   {{#block "headerscript"}} {{/block}}
+    
+    
+</head>
+
+<body>
+
+	<div id="wrapper">
+
+		<!-- Navigation -->
+		<nav class="navbar navbar-default navbar-static-top" role="navigation"
+			style="margin-bottom: 0">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<strong><a class="navbar-brand" href="/facesix">{{label "facesix.uititle" "facesix 1.0"}}</a></strong>
+			</div>
+			<!-- /.navbar-header -->
+
+			<ul class="nav navbar-top-links navbar-left">
+			<li class="dropdown" style="text-decoration:{{dashboard}}"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#"> Dashboard
+						<i class="fa fa-caret-down"></i>
+				</a>
+					<ul class="dropdown-menu dropdown-alerts">
+						<li><a href="/facesix/web/kiweb/page/dashboard">
+								<div>
+									<i class="fa fa-fw"></i> New
+								</div>
+						</a></li>
+						<li class="divider"></li>
+						<li><a href="/facesix/web/kiweb/page/dashboard/Energy-Meter-Readings">
+								<div>
+									<i class="fa fa-fw"></i> Energy Meter Reading <span
+										class="pull-right text-muted small">4 minutes ago</span>
+								</div>
+						</a></li>
+						<li class="divider"></li>
+						<li><a href="/facesix/web/kiweb/page/dashboard/Network-Dashboard">
+								<div>
+									<i class="fa fa-fw"></i> Network Dashboard <span
+										class="pull-right text-muted small">5 minutes ago</span>
+								</div>
+						</a></li>					
+					</ul> <!-- /.dropdown-alerts -->
+				</li>
+
+				<li style="text-decoration:{{discover}}"><a href="/facesix/web/kiweb/page/discover">
+						<div>
+							Discover
+						</div>
+				</a></li>
+
+				<li style="text-decoration:{{streams}}"><a href="/facesix/web/glwindow/page/streams">
+						<div>
+							Alerts
+						</div>
+				</a></li>
+
+				<li style="text-decoration:{{configuration}}"><a href="/facesix/web/device/list">
+						<div>
+							Devices
+						</div>
+				</a></li>
+				<li style="text-decoration:{{system}}"><a href="/facesix/web/glwindow/page/system/overview" >
+						<div>
+							Administration
+						</div>
+				</a></li>
+				
+				<li class="dropdown" style="text-decoration:{{{menu}}}"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#"> Menu
+						<i class="fa fa-caret-down"></i>
+				</a>
+					<ul class="dropdown-menu dropdown-alerts">
+						<li><a href="/facesix/web/entity/list">
+								<div>
+									<i class="fa fa-fw"></i> Entity Explorer
+								</div>
+						</a></li>
+						<li class="divider"></li>
+						<li><a href="/facesix/web/fsql/exe">
+								<div>
+									<i class="fa fa-fw"></i> Query Executor
+								</div>
+						</a></li>
+						<li class="divider"></li>
+						<li><a href="/facesix/web/datasource/list">
+								<div>
+									<i class="fa fa-fw"></i> Datasources
+								</div>
+						</a></li>
+						<li class="divider"></li>
+						<li><a href="/facesix/web/site/list">
+								<div>
+									<i class="fa fa-fw"></i> IoT Sites
+								</div>
+						</a></li>							
+					</ul> <!-- /.dropdown-alerts -->
+				</li>
+
+				
+			</ul>
+
+			<ul class="nav navbar-top-links navbar-right">
+				<li class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#"> <i
+						class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
+				</a>
+					<ul class="dropdown-menu dropdown-messages">
+						<li><a href="#">
+								<div>
+									<strong>John Smith</strong> <span class="pull-right text-muted">
+										<em>Yesterday</em>
+									</span>
+								</div>
+								<div>Lorem ipsum dolor sit amet, consectetur adipiscing
+									elit. Pellentesque eleifend...</div>
+						</a></li>
+						<li class="divider"></li>
+						<li><a href="#">
+								<div>
+									<strong>John Smith</strong> <span class="pull-right text-muted">
+										<em>Yesterday</em>
+									</span>
+								</div>
+								<div>Lorem ipsum dolor sit amet, consectetur adipiscing
+									elit. Pellentesque eleifend...</div>
+						</a></li>
+						<li class="divider"></li>
+						<li><a href="#">
+								<div>
+									<strong>John Smith</strong> <span class="pull-right text-muted">
+										<em>Yesterday</em>
+									</span>
+								</div>
+								<div>Lorem ipsum dolor sit amet, consectetur adipiscing
+									elit. Pellentesque eleifend...</div>
+						</a></li>
+						<li class="divider"></li>
+						<li><a class="text-center" href="#"> <strong>Read
+									All Messages</strong> <i class="fa fa-angle-right"></i>
+						</a></li>
+					</ul> <!-- /.dropdown-messages --></li>
+				<!-- /.dropdown -->
+				<li class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#"> <i class="fa fa-tasks fa-fw"></i>
+						<i class="fa fa-caret-down"></i>
+				</a>
+					<ul class="dropdown-menu dropdown-tasks">
+						<li><a href="#">
+								<div>
+									<p>
+										<strong>Task 1</strong> <span class="pull-right text-muted">40%
+											Complete</span>
+									</p>
+									<div class="progress progress-striped active">
+										<div class="progress-bar progress-bar-success"
+											role="progressbar" aria-valuenow="40" aria-valuemin="0"
+											aria-valuemax="100" style="width: 40%">
+											<span class="sr-only">40% Complete (success)</span>
+										</div>
+									</div>
+								</div>
+						</a></li>
+						<li class="divider"></li>
+						<li><a href="#">
+								<div>
+									<p>
+										<strong>Task 2</strong> <span class="pull-right text-muted">20%
+											Complete</span>
+									</p>
+									<div class="progress progress-striped active">
+										<div class="progress-bar progress-bar-info" role="progressbar"
+											aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
+											style="width: 20%">
+											<span class="sr-only">20% Complete</span>
+										</div>
+									</div>
+								</div>
+						</a></li>
+						<li class="divider"></li>
+						<li><a href="#">
+								<div>
+									<p>
+										<strong>Task 3</strong> <span class="pull-right text-muted">60%
+											Complete</span>
+									</p>
+									<div class="progress progress-striped active">
+										<div class="progress-bar progress-bar-warning"
+											role="progressbar" aria-valuenow="60" aria-valuemin="0"
+											aria-valuemax="100" style="width: 60%">
+											<span class="sr-only">60% Complete (warning)</span>
+										</div>
+									</div>
+								</div>
+						</a></li>
+						<li class="divider"></li>
+						<li><a href="#">
+								<div>
+									<p>
+										<strong>Task 4</strong> <span class="pull-right text-muted">80%
+											Complete</span>
+									</p>
+									<div class="progress progress-striped active">
+										<div class="progress-bar progress-bar-danger"
+											role="progressbar" aria-valuenow="80" aria-valuemin="0"
+											aria-valuemax="100" style="width: 80%">
+											<span class="sr-only">80% Complete (danger)</span>
+										</div>
+									</div>
+								</div>
+						</a></li>
+						<li class="divider"></li>
+						<li><a class="text-center" href="#"> <strong>See
+									All Tasks</strong> <i class="fa fa-angle-right"></i>
+						</a></li>
+					</ul> <!-- /.dropdown-tasks --></li>
+				<!-- /.dropdown -->
+				<li class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#"> <i class="fa fa-bell fa-fw"></i>
+						<i class="fa fa-caret-down"></i>
+				</a>
+					<ul class="dropdown-menu dropdown-alerts">
+						<li><a href="#">
+								<div>
+									<i class="fa fa-comment fa-fw"></i> New Comment <span
+										class="pull-right text-muted small">4 minutes ago</span>
+								</div>
+						</a></li>
+						<li class="divider"></li>
+						<li><a href="#">
+								<div>
+									<i class="fa fa-twitter fa-fw"></i> 3 New Followers <span
+										class="pull-right text-muted small">12 minutes ago</span>
+								</div>
+						</a></li>
+						<li class="divider"></li>
+						<li><a href="#">
+								<div>
+									<i class="fa fa-envelope fa-fw"></i> Message Sent <span
+										class="pull-right text-muted small">4 minutes ago</span>
+								</div>
+						</a></li>
+						<li class="divider"></li>
+						<li><a href="#">
+								<div>
+									<i class="fa fa-tasks fa-fw"></i> New Task <span
+										class="pull-right text-muted small">4 minutes ago</span>
+								</div>
+						</a></li>
+						<li class="divider"></li>
+						<li><a href="#">
+								<div>
+									<i class="fa fa-upload fa-fw"></i> Server Rebooted <span
+										class="pull-right text-muted small">4 minutes ago</span>
+								</div>
+						</a></li>
+						<li class="divider"></li>
+						<li><a class="text-center" href="#"> <strong>See
+									All Alerts</strong> <i class="fa fa-angle-right"></i>
+						</a></li>
+					</ul> <!-- /.dropdown-alerts --></li>
+				<!-- /.dropdown -->
+				<li class="dropdown"><a class="dropdown-toggle"
+					data-toggle="dropdown" href="#"> <i class="fa fa-user fa-fw"></i>
+						<i class="fa fa-caret-down"></i>
+				</a>
+					<ul class="dropdown-menu dropdown-user">
+						<li><a href="#"><i class="fa fa-user fa-fw"></i> User
+								Profile</a></li>
+						<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+						</li>
+						<li class="divider"></li>
+						<li><a href="/facesix/goodbye"><i class="fa fa-sign-out fa-fw"></i>
+								Logout</a></li>
+					</ul> <!-- /.dropdown-user --></li>
+				<!-- /.dropdown -->
+			</ul>
+			<!-- /.navbar-top-links -->
+			{{#block "navleft"}}{{/block}}
+		</nav>
+
+		<!-- /#page-wrapper -->
+
+		{{#block "page"}} {{/block}}
+
+		<!-- /#page-wrapper -->
+
+	</div>
+	<!-- /#wrapper -->
+
+	<!-- jQuery 
+	<script src="/facesix/static/bower_components/jquery/dist/jquery.min.js"></script>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	-->
+	<script src="https://code.jquery.com/jquery-1.12.3.js"></script>
+	<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>	
+	<script src="https://cdn.datatables.net/buttons/1.2.1/js/dataTables.buttons.min.js"></script>
+	
+	<!-- Bootstrap Core JavaScript -->
+	<script
+		src="/facesix/static/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+	<!-- Metis Menu Plugin JavaScript -->
+	<script
+		src="/facesix/static/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+	<!-- Morris Charts JavaScript -->
+	<script src="/facesix/static/bower_components/raphael/raphael-min.js"></script>
+	<script src="/facesix/static/bower_components/morrisjs/morris.min.js"></script>
+
+	<!-- DataTables JavaScript -->
+	<script src="/facesix/static/dist/js/sb-admin-2.js"></script>
+	
+	<script type="text/javascript" language="javascript">
+	   var height  = $(window).height();
+		height = height - (height * 0.10);
+		$('.iframewindow').css('height',  height + 'px');
+	</script>
+	
+	{{#block "footerscript"}} {{/block}}
+
+</body>
+
+</html>

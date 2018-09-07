@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Qubercomm | Compute.Connect.Cloud</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/responsiveslides.css">
+  	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+  	<script src="js/responsiveslides.min.js"></script>
+<script>
+    
+    $(function () {
+
+      $("#slider1").responsiveSlides({
+        maxwidth: 2000,
+        speed: 800
+      });
+
+      
+
+    });
+  </script>
+</head>
+
+<body class="login-screen" ng-controller="loginCtrl">
+   <div id="Content1">
+
+    <form role="form" id="loginForm" action="/facesix/qubercloud/welcome" method="post">
+    <div class="col-md-12 content">
+
+      <div class="col-md-12 lft">
+        <div class="left-bar">
+          <div class="logo"><img src="img/logo-home.png" class="img-responsive"></div>
+          <div class="login-form">
+            <div class="user-img"><img src="img/users.png" class="img-responsive"></div>
+            <form>
+             <!--
+             {{#if message}}
+					<h4 class="text-center" id="blinker"><font color="red">Invalid Credential</font></h4>
+			 {{/if}}
+			 -->
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email Address</label>
+                <input type="text" class="form-control" placeholder="Username" name="u" required autofocus/>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputPassword1">Password</label>
+                <input type="password" class="form-control" placeholder="Password" name="p" required/>
+              </div>
+
+              <button type="submit" class="btn btn-primary col-xs-12">Login to Account</button>
+               <p>Forgot Password <a href="/facesix/forgot">Click to Reset</a></p>
+             </form>
+          </div>
+        </div>
+      </div>
+          </div>
+           </div>
+
+        <div id="Content">
+		<!--<img src="img/IMAGE4.jpg"  style="height:100%; width:100%; position:relative;"> -->
+	<ul class="rslides" id="slider1">
+	      <li><img src="img/IMAGE4.jpg" alt=""></li>
+	      <li><img src="img/user_bg4.jpg" alt=""></li>
+	      <li><img src="img/background-img.jpg" alt=""></li>
+	    </ul>
+          <div>
+         <div class="img-text">
+
+           <div class="sign"><a href="/facesix/contact">Contact Us</a></div>
+         </div>
+         <div class="bl-text">
+          <h1>Connectivity of Things</h1>
+         </div>
+         <div class="blr-text">
+          <p>Our products lets you optimize your industrial opertations from where you are sitting.<br>Know exactly which processes are pulling you down and those that are keeping you up.</p>
+         </div>
+         <div class="blw-text">
+
+           <div class="play"><a href="http://qubercomm.com/" target="_blank"><img src="img/play.png"></a><span>Discover Qubercomm</span></div>
+         </div>
+        </div>
+        </div>
+   
+</body>
+</html>

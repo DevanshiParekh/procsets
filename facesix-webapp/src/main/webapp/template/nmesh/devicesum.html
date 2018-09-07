@@ -1,0 +1,226 @@
+{{#partial "page"}}
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+  <link href="/facesix/static/qubercomm/assets/c3/c3.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/assets/Bootstrap-3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/assets/Bootstrap-3.3.7/css/bootstrap-theme.min.css">
+
+  <link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/css/nmesh.css">
+  <link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/assets/DataTables-1.10.15/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/assets/Buttons-1.4.0/css/buttons.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/assets/Select-1.2.2/css/select.dataTables.min.css">
+  <link rel="stylesheet" property="stylesheet" href="/facesix/static/qubercomm/assets/font-awesome/css/font-awesome.min.css">
+  <script src="/facesix/static/qubercomm/assets/jQuery-1.12.4/jquery-1.12.4.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <br>
+    <div class="panel panel-default" id="paneldevsummary">
+      <div class="panel-heading">
+        <div class="btn-group pull-left">
+           <button  onclick="window.history.back();" class="headingbackbutton btn btn-default btn-sm">Back</button>
+        </div>
+        <div class="panel-title">
+          <h2 style="text-align: center">Device Statistics</h2>
+        </div>
+      </div>
+      <div class="panel-body devsummary">
+        <div class="row">
+          <div class="col-xs-6">
+            <h3 class="currdevice" style="text-align: center">Hall Statistics</h3>
+            <ul class="nav nav-tabs " role="tablist">
+                <li role="presentation" class='active'>
+                    <a href="#Health" aria-controls="Health" role="tab" data-toggle="tab">Client Health</a>
+                  </li>
+              <li role="presentation" >
+                <a href="#BandRatio" aria-controls="BandRatio" role="tab" data-toggle="tab">BandRatio</a>
+              </li>
+              <li role="presentation">
+                  <a href="#NetworkUsage" aria-controls="NetworkUsage" role="tab" data-toggle="tab">Network</a>
+                </li>
+                
+              <li role="presentation">
+                 
+                <a href="#CPUUsage" aria-controls="CPUUsage" role="tab" data-toggle="tab">CPU</a>
+              </li>
+              
+                
+                  <li role="presentation">
+                      <a href="#MemUsage" aria-controls="MemUsage" role="tab" data-toggle="tab">Memory</a>
+                    </li>
+            </ul>
+            <div class="tab-content">
+              <div role="tabpanel" class="tab-pane " id="BandRatio">
+                <div id="BandRatioChart"></div>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="CPUUsage">
+                <div id="CPUUsageChart"></div>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="MemUsage">
+                  <div id="MemUsageChart"></div>
+                </div>
+                <div role="tabpanel" class="tab-pane active" id="Health">
+                    <div id="HealthChart"></div>
+                  </div>
+                  <div role="tabpanel" class="tab-pane" id="NetworkUsage">
+                      <div id="NetworkUsageChart"></div>
+                    </div>
+            </div>
+          </div>
+          <div class="col-xs-6">
+              <h3  style="text-align: center;padding-top: 20px;">Device vs No of clients</h3>
+            <div id="DevicesummaryChart"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<!-- Scripts -->
+<script src="/facesix/static/qubercomm/assets/Bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script src="/facesix/static/qubercomm/assets/DataTables-1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="/facesix/static/qubercomm/assets/DataTables-1.10.15/js/dataTables.bootstrap.min.js"></script>
+<script src="/facesix/static/qubercomm/assets/Buttons-1.4.0/js/dataTables.buttons.min.js"></script>
+<script src="/facesix/static/qubercomm/assets/Select-1.2.2/js/dataTables.select.min.js"></script>
+<script src="/facesix/static/qubercomm/assets/lodash/lodash.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/assets/JSZip-2.5.0/jszip.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/assets/Buttons-1.4.0/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/assets/Buttons-1.4.0/js/buttons.flash.min.js"></script>
+<script src="/facesix/static/qubercomm/assets/d3/d3.v4.min.js" charset="utf-8"></script>
+<script src="/facesix/static/qubercomm/assets/c3/c3.js"></script>
+<script src="/facesix/static/qubercomm/nmesh/util.js"></script>
+<script src="/facesix/static/qubercomm/nmesh/dataservice.js"></script>
+<script src="/facesix/static/qubercomm/nmesh/devicesum.js"></script>
+
+<script>
+  var devicesum;
+  var dataservice = new NMeshDataService();
+  var currname = null
+  var curruid = null
+  var cid = null  
+  var timeout;
+  var refreshinterval = 5000;
+  function refreshsumdata(){
+      dataservice.getDevicesStatiscs(cid)
+      .done((result)=>{
+          if(devicesum.isValidSummaryJson(result)){
+            try{
+              devicesum.drawSummaryChart(result);
+              if(!starteddevdatarefresh){
+                  starteddevdatarefresh = true;
+                  //If no curr device supplied in url param
+                  //set the default device
+                  if(!curruid){
+                    var dev = devicesum.getDefaultDevice();
+                    curruid = dev.uid;
+                  }
+                  else
+                    checkCurrDevAvailable();
+                  
+                  if(!currname){
+                    currname = devicesum.getDeviceName(curruid);
+                  }
+
+                  $('h3.currdevice')[0].innerText = currname + ' Statistics';
+                  refreshdevicedata(curruid);
+              }
+              else
+                checkCurrDevAvailable();
+            }
+            catch(exp){
+              console.log(exp);
+              console.log('ERROR:Parsing json,'+JSON.stringify(result));
+            }
+          }
+      })
+      .fail((error)=>{
+        console.log('ERROR:'+ JSON.stringify(error));
+        //alert('Unable to get devices summary data')
+      })
+      .always(()=>{
+          setTimeout(()=>{
+              refreshsumdata();
+          },refreshinterval)
+      })
+  }
+
+  function checkCurrDevAvailable(){
+      //Check current device available now
+      //If not set default device as curr device
+      if(!devicesum.getDeviceName(curruid))
+      {
+        var dev = devicesum.getDefaultDevice();
+        curruid = dev.uid;
+        currname = devicesum.getDeviceName(curruid);
+        devicesum.onDeviceChange(null,currname, curruid);
+      }
+  }
+  
+  function refreshdevicedata(){
+      dataservice.getCurrDeviceStatiscs(curruid)
+      .done((result)=>{
+        if(devicesum.isValidDeviseJson(result))
+        try{
+          devicesum.drawDeviceCharts(result, curruid);
+        }
+        catch(exp){
+          console.log(exp);
+          console.log('ERROR:Parsing json,'+JSON.stringify(result))
+        }
+      })
+      .fail((error)=>{
+        console.log('ERROR:'+ JSON.stringify(error));
+        //alert('Unable to get device data')
+      })
+      .always(()=>{
+          timeout = setTimeout(()=>{
+            refreshdevicedata();
+          },refreshinterval)
+      })
+  }
+  
+  $(document).ready(() => {
+    cid = util.getUrlParameter('cid');
+    var uid = util.getUrlParameter('uid');
+
+    $('div#DevicesummaryChart').on('nmeshcurrdevchanged', (evt)=>{
+      
+      $('h3.currdevice')[0].innerText = evt.name+ ' Statistics';
+      if(timeout){
+        clearTimeout(timeout);
+      }
+      var bRefresh = false;
+      if(curruid != evt.uid)
+        bRefresh = true;  
+      curruid = evt.uid;
+      currname = evt.name;
+      if(bRefresh)
+        refreshdevicedata()
+    })
+    
+    curruid = util.getUrlParameter('uid');
+    cid = util.getUrlParameter('cid');
+
+    devicesum = new NMeshDeviceSummary(cid, curruid, {
+      summarychartdivid:'div#DevicesummaryChart',
+      bandchartdivid:'div#BandRatioChart',
+      cpuusagechartdivid:'div#CPUUsageChart',
+      memusagechartdivid:'div#MemUsageChart',
+      healthchartdivid:'div#HealthChart',
+      bandwidthchartdivid:'div#NetworkUsageChart',
+      //milliseconds of data shown in the time based chart
+      cpucharttimewidth:30000,
+      memcharttimewidth:30000,
+      bandwidthcharttimewidth:30000,
+    });
+    this.starteddevdatarefresh = false;
+    refreshsumdata();
+  })
+</script>
+{{/partial}}
+{{>qubercomm/nav-left}}
+{{>qubercomm/nav-top}}
+{{>qubercomm/wrapper}}

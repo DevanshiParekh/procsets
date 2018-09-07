@@ -1,0 +1,744 @@
+<section class="content cusmList">
+    <div class="container-fluid">
+        <div class="card-view">
+            <div class="heading">
+                <div class="title">Account - Overview</div>
+                {{#each fsobjects}}
+							<div class="venue-details-section row" data-venue-name="{{uid}}">
+								<div class="col-md-12 venue-details">
+								{{uid}}
+								</div>
+								</div>
+					{{/each}}
+                <div class="responsive-menu">
+<!--
+                    <div class="responsive-icon"><i class="fa fa-align-justify"></i></div>
+                    <div class="responsive-icon"><i class="fa fa-th-large"></i></div>
+-->
+                    <div class="responsive-icon" open="dropdown1"><i class="fa fa-ellipsis-v"></i></div>
+                    <ul class="dropdown" id="dropdown1">
+                        <li ng-click="newCustomerOpen()"><a href="" class="list-btn"><i class="fa fa-plus"></i> Add Customer</a></li>
+                    </ul>
+                </div>
+                <div class="form-group search note-show">
+                    <input type="text" class="form-control" ng-model="searchText"/>
+                    <label><i class="fa fa-search"></i></label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group search note-hidden">
+            <input type="text" class="form-control" />
+            <label><i class="fa fa-search"></i></label>
+        </div>
+        <div class="clearfix"></div>
+        <div class="client-list">
+            <div class="card-group">
+                    <div class="card" ng-repeat="x in accounts | filter:searchText" ng-click="singleAccount(x)">
+                        <div class="fl">
+                        <div>{{x}}</div>
+                        <h3><span ng-bind="x.id" style="display: none;"></span></h3>
+                            <h3><span ng-bind="x.customerName"></span></h3>
+                            <p><span ng-bind="x.venueType"></span></p>
+                           <p><i class="fa fa-map-marker"></i><span ng-bind="x.city"></span></p>
+                            <p><small>Expiry Date <span ng-bind="x.ServiceExpiryDate"></span></small></p>
+                            
+                        </div>
+                        <div class="fr tc">
+                            <div>
+                                <div>
+                                    <span class="label support">Support</span>
+                                </div>
+                                    <label class="switch">
+                                        <input type="checkbox" ng-true-value="true"  ng-model="x.qubercommAssist" disabled>
+                                        <span></span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <span class="label label-success" ng-if="x.qubercommAssist==true">Enabled</span>
+                                    <span class="label label-warning" ng-if="x.qubercommAssist==false">Disabled</span>
+                                </div>
+                            <div class="editicons">
+                                <span ng-click="EditCus()"><i class="fa fa-edit"></i></span>
+                                <span><a href="#/venue"><i class="fa fa-map-marker"></i></a></span>
+                            </div>
+                            
+                        </div>
+                    </div>
+            </div>
+        
+        </div>
+                
+    </div>
+</section>
+
+<div class="popup" ng-class="{'open':CreateOpen}">
+    <div class="popup-container accountAdd">
+        <div class="card-view bt2">
+            <div class="heading border">
+                <div class="title">
+                    Add New Customer
+                </div>
+                <div class="fr"><button class="btn w-auto fl" ng-click="newCustomerOpen()"><i class="fa fa-times"></i></button></div>
+            </div>
+            <div class="body">
+           <form role="form" ng-submit="saveCustomerData(newCus)"> 
+                <div class="steps">
+                    <ul>
+                        <li ng-class="{'done': customerstep1, 'inactive': customerstep2}"><span>1</span>Info</li>
+                        <li ng-class="{'done': customerstep2, 'inactive': customerstep3}"><span>2</span>Licence</li>
+                        <li ng-class="{'done': customerstep3, 'inactive': customerstep4}"><span>3</span>Contact</li>
+                        <li ng-class="{'done': customerstep4, 'inactive': customerstep5}"><span>4</span>Email</li>
+                    </ul>
+                </div>
+                <hr>
+                <div ng-show="stepCus1">
+                    <div class="w50">
+                    
+                        <div class="form-group" >
+                            <label>Name</label>
+                            <input type="text" class="form-control" ng-model="newCus.customerName" name="customerName">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" class="form-control" ng-model="newCus.address" name="address">
+                        </div> 
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" class="form-control" ng-model="newCus.city" name="city">
+                        </div>
+                        <div class="form-group">
+                            <label>Country</label>
+                            <input type="text" class="form-control" ng-model="newCus.country" name="country">
+                        </div>
+                        <div class="form-group">
+                            <label>Postal Code</label>
+                            <input type="text" class="form-control" ng-model="newCus.postalCode" name="postalCode">
+                        </div>
+
+                    </div>
+                    <div class="w50">
+                        <div class="form-group">
+                            <label>Type</label>
+                            <select class="form-control" ng-model="newCus.venueType" name="venueType">
+                                <option>Enterprises</option>
+                                <option>Sport Arena</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Package</label>
+                            <select class="form-control" ng-model="newCus.offerPackage" name="offerPackage">
+                                <option>Select</option>
+                                <option>Gateway + Public Cloud</option>
+                                <option>Gateway + Private Cloud</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Solution</label>
+                            <select class="form-control" ng-model="newCus.solution" name="solution">
+                                <option>Select</option>
+                                <option>Gateway + Location</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>No Of Gateway</label>
+                            <input type="number" class="form-control" min="0" ng-model="newCus.noOfGateway" name="noOfGateway">
+                        </div>
+                        <div class="form-group">
+                            <label>Prefered Url Name</label>
+                            <input type="text" class="form-control" ng-model="newCus.preferedUrlName" name="preferedUrlName">
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="fr tr">
+                        <button class="btn" ng-click="CusStep2()">Next <i class="fa fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div ng-show="stepCus2">
+<!--
+                    <div class="stepImg">
+                        <img src="/facesix/static/qcom/img/logo.png"/>
+                        <h2>License Terms</h2>
+                    </div>
+-->
+                    <div class="w50">
+                        <div class="form-group">
+                            <label>Service Start Date</label>
+                            <input type="date" class="form-control" ng-model="newCus.serviceStartDate" name="serviceStartDate">
+                        </div>
+                        <div class="form-group">
+                            <label>Service Duration <small>in Months</small></label>
+                            <input type="number" class="form-control" ng-model="newCus.serviceDurationinMonths" name="serviceDurationinMonths">
+                        </div>
+                        <div class="form-group">
+                            <label>Service Expiry Date</label>
+                            <input type="date" class="form-control" ng-model="newCus.serviceExpiryDate" name="serviceExpiryDate">
+                        </div>
+                    </div>
+                    <div class="w50">
+                        <div class="tc">
+                            <div class="accountSupport">
+                                <h2>Qubercomm Assist</h2>
+                                <i class="icon-support"></i>
+                                <div class="clearfix"></div>
+                                <label class="switch">
+                                        <input type="checkbox" ng-model="checkValue" ng-model="newCus.qubercommAssist" name="qubercommAssist" value="true">
+                                        <span></span>
+                                    </label>
+                                <div class="clearfix"></div>
+                                <label class="label label-success" ng-if="checkValue">Enabled</label>
+                                <label class="label label-warning" ng-if="!checkValue">Disabled</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="fl tl">
+                        <button class="btn" ng-click="CusStep1()"><i class="fa fa-chevron-left"></i> Prev</button>
+                    </div>
+                    <div class="fr tr">
+                        <button class="btn" ng-click="CusStep3()">Next <i class="fa fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div ng-show="stepCus3">
+                    <div class="w50">
+                        <div class="form-group">
+                            <label>Contact Person</label>
+                            <input type="text" class="form-control" ng-model="newCus.contactPerson" name="contactPerson">
+                        </div>
+                        <div class="form-group">
+                            <label>Designation</label>
+                            <input type="text" class="form-control" ng-model="newCus.designation" name="designation">
+                        </div> 
+                        <div class="form-group">
+                            <label>Contact Number</label>
+                            <input type="text" class="form-control" ng-model="newCus.contactNumber" name="contactNumber">
+                        </div> 
+                        <div class="form-group">
+                            <label>Mobile Number</label>
+                            <input type="text" class="form-control" ng-model="newCus.mobileNumber" name="mobileNumber">
+                        </div>
+                    </div>
+                    <div class="w50">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" class="form-control" ng-model="newCus.email" name="email">
+                        </div>
+<!--
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" class="form-control" ng-model="newCus.password">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirm Password</label>
+                            <input type="password" class="form-control" ng-model="newCus.confirmPassword">
+                        </div>
+-->
+                        <div class="form-group">
+                            <label>Role</label>
+                            <select class="form-control" ng-model="newCus.role" name="role">
+                                <option>Select</option>
+                                <option>Super Admin</option>
+                                <option>Admin</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="fl tl">
+                        <button class="btn" ng-click="CusStep2()"><i class="fa fa-chevron-left"></i> Prev</button>
+                    </div>
+                    <div class="fr tr">
+                        <button class="btn" ng-click="CusStep4()">Next <i class="fa fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                
+                <div ng-show="stepCus4">
+<!--
+                    <div class="stepImg">
+                        <img src="/facesix/static/qcom/img/logo.png"/>
+                    </div>
+-->
+                    <div class="clearfix"></div>
+                    <div class="w50" style="padding-top:20px;">
+                        <div class="form-group">
+                           <div class="CusList">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>Name:</td>
+                                            <td><span ng-bind="newCus.customerName"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Address:</td>
+                                            <td><span ng-bind="newCus.address"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Location:</td>
+                                            <td><span ng-bind="newCus.city"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Postal Code:</td>
+                                            <td><span ng-bind="newCus.postalCode"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Type:</td>
+                                            <td><span ng-bind="newCus.venueType"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Package:</td>
+                                            <td><span ng-bind="newCus.offerPackage"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Solution:</td>
+                                            <td><span ng-bind="newCus.solution"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gateway:</td>
+                                            <td><span ng-bind="newCus.noOfGateway"></span></td>
+                                        </tr>
+                                    </tbody>
+                               </table>
+                            </div>
+                        
+                        </div>
+                    </div>
+                    <div class="w50" style="padding-top:20px;">
+                        <div class="form-group">
+                           <div class="CusList">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>Agreement Date:</td>
+                                            <td><span ng-bind="newCus.serviceStartDate"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Expiry Date:</td>
+                                            <td><span ng-bind="newCus.serviceExpiryDate"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Contract Period:</td>
+                                            <td><span ng-bind="newCus.serviceDurationinMonths"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Qubercomm Assist:</td>
+                                            <td><span ng-bind="newCus.qubercommAssist"  ng-true-value="true" ng-false-value="false"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Contact Person:</td>
+                                            <td><span ng-bind="newCus.contactPerson"></span>, <small>
+                                            <span ng-bind="newCus.designation"></span></small></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Contact No:</td>
+                                            <td><span ng-bind="newCus.mobileNumber"></span> / <span ng-bind="newCus.contactNumber"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Role:</td>
+                                            <td><span ng-bind="newCus.role"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Portal:</td>
+                                            <td>http://cloud.qubercomm.com/<span ng-bind="newCus.preferedUrlName"></span></td>
+                                        </tr>
+                                    </tbody>
+                               </table>
+                            </div>
+                        
+                        </div>
+                    
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="fl tl">
+                        <button class="btn" ng-click="CusStep3()"><i class="fa fa-chevron-left"></i> Prev</button>
+                    </div>
+                    <div class="fr tr">
+                        <button class="btn" ng-click="CusStep5()">Confirm</button>
+                    </div>
+                
+                </form>
+                </div>
+                <div ng-show="stepCus5">
+<!--
+                    <div class="stepImg">
+                        <img src="/facesix/static/qcom/img/logo.png"/>
+                    </div>
+-->
+                    <div class="clearfix"></div>
+                    <div style="padding-top:20px;">
+                        <p class="tc">New customer added Successfully</p>
+<!--                        <p class="tc">Email Sent to the Customer</p>-->
+                        <div class="tc">
+<!--                            <a href="#/addvenue" class="btn">Generate Email</a>-->
+                            <button class="btn" ng-click="generateemail()">Generate Email</button>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="tc">
+                            <p>Or</p>
+                        </div>
+                        <div class="tc">
+                            <button class="btn" ng-click="newCustomerOpen()">Skip</button>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="stepCus6">
+<!--
+                    <div class="stepImg">
+                        <img src="/facesix/static/qcom/img/logo.png"/>
+                    </div>
+-->
+                    <div class="clearfix"></div>
+                    <div style="padding-top:20px;">
+                        <div style="width:90%; min-width:300px; max-width:600px; margin:auto; border:1px solid rgba(183,203,216,0.7);">
+                        <div style="width:100%; height:60px; background-color:rgba(183,203,216,0.7); text-align:center; position:relative;">
+                            <a href="http://qubercomm.com"><img style="width:auto; max-height:40px; max-width:80%; position:relative; margin-top:10px;" src="/facesix/static/qcom/img/logo.png"/></a>
+                        </div>
+                        <div style="padding:15px;">
+                            <h3 style="font-family:sans-serif; color:grey; font-size:14px; font-weight:normal;">Hi Jack,</h3>
+                            <p style="font-family:sans-serif; color:grey; font-size:13px; font-weight:normal; text-align:justify; line-height:18px;">Thank you for signing up with us. Your account has been created successfully. You can access your account by clicking the below link with user name and password provied with this mail.</p>
+                            <p style="font-family:sans-serif; color:grey; font-size:13px; font-weight:normal; text-align:justify; line-height:18px;">UserName: example.gmail.com</p>
+                            <p style="font-family:sans-serif; color:grey; font-size:13px; font-weight:normal; text-align:justify; line-height:18px;">Password: Sgruykhj</p>
+                            <div style="padding:10px; text-align:center;">
+                                <a href="http://cloud.qubercomm.com/clientname" style="font-family:sans-serif; color:whitesmoke; font-size:14px; font-weight:normal; text-decoration:none; padding:6px 12px; background-color:#009BC2">Login</a>
+                            </div>
+                            <p style="font-family:sans-serif; color:grey; font-size:13px; font-weight:normal; text-align:justify; line-height:18px;">
+                                Thanks,<br>
+                                Qubercomm Team
+                            </p>
+                            <hr>
+                            <p style="font-family:sans-serif; color:grey; font-size:12px; font-weight:normal; text-align:justify; line-height:16px;">
+                                if you're having trouble clicking the password reset button, copy and paste the URL below into your web browser.
+                                <br>
+                                <span style="font-family:sans-serif; color:#009BC2; font-size:12px; font-weight:normal; text-align:justify; line-height:16px; text-decoration:underline; display:block; padding-top:5px;">http://cloud.qubercomm.com/clientname</span>
+                            </p>  
+                        </div>
+                        <div style="width:100%; height:40px; background-color:rgba(183,203,216,0.7); text-align:center; position:relative;">
+                            <p style="font-family:sans-serif; color:#009BC2; font-size:12px; font-weight:normal; text-align:center; line-height:16px; text-decoration:underline; display:block; padding:5px;">© 2016, Qubercomm Techonologies, All rights reserved.</p>
+                        </div>
+                    </div>
+                    </div>
+                    <div style="padding-top:20px;">
+                        <div class="tc">
+                            <button class="btn" ng-click="sendMail()">Send Email</button>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="stepCus7">
+<!--
+                    <div class="stepImg">
+                        <img src="/facesix/static/qcom/img/logo.png"/>
+                    </div>
+-->
+                    <div class="clearfix"></div>
+                    <div style="padding-top:20px;">
+                      <p class="tc">Email Sent Successfully</p>
+<!--                        <p class="tc">Email Sent to the Customer</p>-->
+                        <div class="tc">
+                            <a href="#/addvenue" class="btn">Create Venue</a>
+<!--                            <button class="btn" ng-click="generateemail()">Generate Email</button>-->
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="tc">
+                            <p>Or</p>
+                        </div>
+                        <div class="tc">
+                            <button class="btn" ng-click="newCustomerOpen()">Skip</button>
+                        </div>  
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="popup" ng-class="{'open':EditOpen}">
+    <div class="popup-container accountAdd">
+        <div class="card-view bt2">
+            <div class="heading border">
+                <div class="title">
+                    Edit - <span ng-bind="editCus.customerName"></span>
+                    
+                </div>
+                <div class="fr"><button class="btn w-auto fl">Reset Password</button><button class="btn w-auto fl" ng-click="EditCus()"><i class="fa fa-times"></i></button></div>
+            </div>
+            <div class="body" style="height:500px;">
+                <div class="steps">
+                    <ul>
+                        <li ng-class="{'done': customerstep1, 'inactive': customerstep2}"><span>1</span>Info</li>
+                        <li ng-class="{'done': customerstep2, 'inactive': customerstep3}"><span>2</span>Licence</li>
+                        <li ng-class="{'done': customerstep3, 'inactive': customerstep4}"><span>3</span>Contact</li>
+                        <li ng-class="{'done': customerstep4, 'inactive': customerstep5}"><span>4</span>Email</li>
+                    </ul>
+                </div>
+                <hr>
+                <div ng-if="stepCus1">
+                    <div class="w50">
+                      <div class="form-group" style="display:noune;">
+                            <label>CustomerID</label>
+                            <input type="text" class="form-control" ng-model="editCus.id">
+                        </div>
+                       
+                       <div class="form-group" style="display:noune;">
+                            <label>Customer ReferenceUserId</label>
+                            <input type="text" class="form-control" ng-model="editCus.referenceUserId">
+                        </div>
+                       
+                        
+                        <div class="form-group" >
+                            <label>Name</label>
+                            <input type="text" class="form-control" ng-model="editCus.customerName">
+                        </div>
+                        <div class="form-group">
+                            <label>Address</label>
+                            <input type="text" class="form-control" ng-model="editCus.address">
+                        </div> 
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" class="form-control" ng-model="editCus.city">
+                        </div>
+                        <div class="form-group">
+                            <label>Country</label>
+                            <input type="text" class="form-control" ng-model="editCus.country">
+                        </div>
+                        <div class="form-group">
+                            <label>Postal Code</label>
+                            <input type="text" class="form-control" ng-model="editCus.postalCode">
+                        </div>
+
+                    </div>
+                    <div class="w50">
+                        <div class="form-group">
+                            <label>Type</label>
+                            <select class="form-control" ng-model="editCus.venueType">
+                                <option>Enterprises</option>
+                                <option>Sport Arena</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Package</label>
+                            <select class="form-control" ng-model="editCus.offerPackage">
+                                <option>Select</option>
+                                <option>Gateway + Public Cloud</option>
+                                <option>Gateway + Private Cloud</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Solution</label>
+                            <select class="form-control" ng-model="editCus.solution">
+                                <option>Select</option>
+                                <option>Gateway + Location</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>No Of Gateway</label>
+                            <input type="number" class="form-control" min="0" ng-model="editCus.noOfGateway">
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="fr tr">
+                        <button class="btn" ng-click="CusStep2()">Next <i class="fa fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div ng-if="stepCus2">
+<!--
+                    <div class="stepImg">
+                        <img src="/facesix/static/qcom/img/logo.png"/>
+                        <h2>License Terms</h2>
+                    </div>
+-->
+                   <div class="w50">
+                        <div class="form-group">
+                            <label>Service Start Date</label>
+                            <input type="date" class="form-control" ng-model="editCus.serviceStartdate">
+                        </div>
+                        <div class="form-group">
+                            <label>Service Duration <small>in Months</small></label>
+                            <input type="number" class="form-control" ng-model="editCus.serviceDuration">
+                        </div>
+                        <div class="form-group">
+                            <label>Service Expiry Date</label>
+                            <input type="date" class="form-control" ng-model="editCus.ServiceExpirydate">
+                        </div>
+                    </div>
+                    <div class="w50">
+                        <div class="tc">
+                            <div class="accountSupport">
+                                <h2>Qubercomm Assist</h2>
+                                <i class="icon-support"></i>
+                                <div class="clearfix"></div>
+                                <label class="switch">
+                                        <input type="checkbox" ng-model="CusSupport" ng-model="editCus.qubercommAssist">
+                                        <span></span>
+                                    </label>
+                                <div class="clearfix"></div>
+                                <label class="label label-success" ng-if="CusSupport">Enabled</label>
+                                <label class="label label-warning" ng-if="!CusSupport">Disabled</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="fl tl">
+                        <button class="btn" ng-click="CusStep1()"><i class="fa fa-chevron-left"></i> Prev</button>
+                    </div>
+                    <div class="fr tr">
+                        <button class="btn" ng-click="CusStep3()">Next <i class="fa fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                <div ng-if="stepCus3">
+                    <div class="w50">
+                        <div class="form-group">
+                            <label>Contact Person</label>
+                            <input type="text" class="form-control" ng-model="editCus.contactPerson">
+                        </div>
+                        <div class="form-group">
+                            <label>Designation</label>
+                            <input type="text" class="form-control" ng-model="editCus.designation">
+                        </div> 
+                        <div class="form-group">
+                            <label>Contact Number</label>
+                            <input type="text" class="form-control" ng-model="editCus.contactNumber">
+                        </div> 
+                        <div class="form-group">
+                            <label>Mobile Number</label>
+                            <input type="text" class="form-control" ng-model="editCus.mobileNumber">
+                        </div>
+                    </div>
+                    <div class="w50">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" class="form-control" ng-model="editCus.email">
+                        </div>
+                        <div class="form-group">
+                            <label>Role</label>
+                            <select class="form-control" ng-model="editCus.role">
+                                <option>Select</option>
+                                <option>Super Admin</option>
+                                <option>Admin</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="fl tl">
+                        <button class="btn" ng-click="CusStep2()"><i class="fa fa-chevron-left"></i> Prev</button>
+                    </div>
+                    <div class="fr tr">
+                        <button class="btn" ng-click="CusStep4()">Next <i class="fa fa-chevron-right"></i></button>
+                    </div>
+                </div>
+                
+                <div ng-if="stepCus4">
+                    <div class="stepImg">
+                        <img src="/facesix/static/qcom/img/logo.png"/>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="w50" style="padding-top:20px;">
+                        <div class="form-group">
+                           <div class="CusList">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>Name:</td>
+                                            <td><span ng-bind="editCus.customerName"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Address:</td>
+                                            <td><span ng-bind="editCus.address"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Location:</td>
+                                            <td><span ng-bind="editCus.city"></span>, <span ng-bind="editCus.country"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Postal Code:</td>
+                                            <td><span ng-bind="editCus.postalCode"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Type:</td>
+                                            <td><span ng-bind="editCus.venueType"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Package:</td>
+                                            <td><span ng-bind="editCus.offerPackage"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Solution:</td>
+                                            <td><span ng-bind="editCus.solution"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gateway:</td>
+                                            <td><span ng-bind="editCus.noOfGateway"></span></td>
+                                        </tr>
+                                    </tbody>
+                               </table>
+                            </div>
+                        
+                        </div>
+                    </div>
+                    <div class="w50" style="padding-top:20px;">
+                        <div class="form-group">
+                           <div class="CusList">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>Agreement Date:</td>
+                                            <td><span ng-bind="editCus.serviceStartdate"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Expires date:</td>
+                                            <td><span ng-bind="editCus.ServiceExpirydate"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Contract Period:</td>
+                                            <td><span ng-bind="editCus.serviceDuration"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Qubercomm Assist:</td>
+                                            <td><span ng-bind="editCus.qubercommAssist"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Contact Person:</td>
+                                            <td><span ng-bind="editCus.contactPerson"></span>, <small><span ng-bind="editCus.designation"></span></small></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Contact No:</td>
+                                            <td><span ng-bind="editCus.mobileNumber"></span> / <span ng-bind="editCus.contactNumber"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Role:</td>
+                                            <td><span ng-bind="editCus.role"></span></td>
+                                        </tr>
+                                    </tbody>
+                               </table>
+                            </div>
+                        
+                        </div>
+                    
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="fl tl">
+                        <button class="btn" ng-click="CusStep3()"><i class="fa fa-chevron-left"></i> Prev</button>
+                    </div>
+                    <div class="fr tr">
+                        <button class="btn" ng-click="CusStep5()">Confirm</button>
+                    </div>
+                </div>
+                <div ng-if="stepCus5">
+<!--
+                    <div class="stepImg">
+                        <img src="/facesix/static/qcom/img/logo.png"/>
+                    </div>
+-->
+                    <div class="clearfix"></div>
+                    <div style="padding-top:20px;">
+                        <p class="tc">Customer record edited Successfully</p>
+                        <div class="clearfix"></div>
+                        <div class="tc">
+                            <button class="btn" ng-click="EditCus()">Close</button>
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+</div>

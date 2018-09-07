@@ -1,0 +1,75 @@
+{{#partial "page"}}
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                	{{#if entity}}
+                    <h3 class="page-header"> Modify Entity Configuration : {{fsobject.name}}</h3>
+                    {{else}}
+                    <h3 class="page-header"> New Entity Configuration </h3>
+                    {{/if}}
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                      	{{#block "message"}} {{/block}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-1"> </div>
+                            
+                                <div class="col-lg-10">
+                                    <form role="form" action="/facesix/web/entity/save" method="post">
+                                    {{#if fsobject.id}}
+                                        <input name="id" type="hidden" value="{{fsobject.id}}">
+                                    {{/if}}
+                                      <div class="form-group">
+                                            <label>Entity UID</label>
+                                            <input class="form-control" name="uid" placeholder="unique id" value="{{fsobject.uid}}" {{disabled}}>
+                                        </div>                                         
+                                        <div class="form-group">
+                                            <label>Entity Name</label>
+                                            <input class="form-control" name="name" placeholder="name of the entity" value="{{fsobject.name}}" >
+                                        </div>                                   
+                                        <div class="form-group">
+                                            <label>Entity Type</label>
+                                            <input class="form-control" name="typefs" placeholder="type if any" value="{{fsobject.typefs}}">
+                                        </div>
+                                     <div class="form-group">
+                                            <label>Entity Description</label>
+                                            <input class="form-control" name="description" placeholder="description" value="{{fsobject.description}}">
+                                        </div>                                                              
+                                         <div class="form-group">
+                                            <label>Settings (key=value)</label>
+                                            <textarea class="form-control" name="settings" rows="5" cols="80" placeholder="settings as key=value pair per line">{{fsobject.settingsAsString}}</textarea>
+                                        </div>
+                                        <!-- jeditor -->
+                                        <input type="hidden" id="jedittings_field" class="form-control" name="jedittings" value='{{fsobject.jedittings}}'> </input>
+                                        <div id='jeditor_holder' class='medium-12 columns'></div>
+                                        
+                                        <button type="submit" id="submit" class="btn btn-default">Save</button> <a href="/facesix/web/entity/list"> Cancel </a>
+                                    </form>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                <div class="col-lg-1"> </div>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+{{/partial}}
+ {{>message}}
+ {{>entity-leftnav}}
+ {{>entity-edit-headerscript}}
+ {{>entity-edit-footerscript}}
+ {{>wrapper}}

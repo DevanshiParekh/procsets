@@ -1,0 +1,157 @@
+{{#partial "page"}}
+<style>
+@media screen and (max-width: 768px){
+.aln-btn{
+	margin-left: 20px;
+	margin-top: 10px !important;
+	margin-bottom: 0px !important;
+}
+#page-content-wrapper{
+	padding: 15px !important;
+}
+.map-top{
+	margin-top: 15px !important;
+}
+.map-embed{
+	margin-top: 100px !important;
+}
+.mob-vedit{
+	padding: 18px !important;
+}
+}
+</style>
+			<div id="page-content-wrapper">
+				<div class="addvenuePage addvenueAlter mob-vedit">
+					<div class="container-fluid">
+						<div class="venue-Details display-inline">
+							<div class="NoOfVenues display-inline">
+							{{#if message}}
+								<label><font color="{{message.type}}">{{message.message}}</font></label>
+							{{/if}}
+							</div>
+						</div>
+						<div class="row addVenueForm">
+							<div class="col-md-6 padmob">
+
+                                 <form id="createVenue" role="form" action="/facesix/web/site/save?sid={{fsobject.id}}" method="post">
+									{{#if find}}
+									 <div class="form-group">
+										<input type="text" name="customerName"  value="{{customerName}}" class="form-control" placeholder="Customer Name" disabled="disabled">
+									</div>
+									{{/if}}
+									
+									
+									{{#if list}}
+									<div class="form-group">
+									 <select class="form-control"  name="customerName" required>
+									 <option value="{{customerId}}">{{customerName}}</option>
+									 {{#each custList}}
+	                                	<option value="{{customerId}}">{{customerName}}</option>
+	                                	{{/each}}
+	                           		 </select>
+									</div>
+									{{/if}}
+									
+									<div class="form-group ">
+										<input type="hidden" name="customerId"  value="{{customerId}}" class="form-control" disabled="disabled" >
+									</div>
+									
+									<div class="form-group ">
+										<input type="text" name="uid"  value="{{fsobject.uid}}" class="form-control" placeholder="Venue Title" maxlength="100">
+									</div>
+									<div class="form-group ">
+										<input type="text" name="name" value="{{fsobject.name}}" class="form-control" id="venueAddress" placeholder="Venue Address" onblur="TestOnTextChange()">
+									</div>
+									<textarea name="description" class="form-control" rows="7" placeholder="Description"  style="box-shadow:2px 3px 2px #cdd9ef;">{{fsobject.description}}</textarea>
+									
+									<div class="form-group ">
+										<input type="text" name="latitude" class="MapLat" value="{{fsobject.latitude}}"  id="latitude" style="display: none;">
+									</div>
+									<div class="form-group">
+										<input type="text" name="longitude" class="MapLon" value="{{fsobject.longitude}}"  id="longitude" style="display: none;">
+									</div>
+									
+																		
+									<div class="save-section pull-right addVenueBtn"  style="margin-right:-10px;">
+										<button type="reset" id="reset" class="btn btn-primary btn3d btn-lg btn-save    width-120" onclick="javascript:window.location.href='/facesix/web/site/list?cid={{customerId}}'"><span style="color:white;">Back</span></button>
+										<button type="submit" id="submit1" class="btn btn-primary btn-lg btn3d btn-config-venue   width-120 aln-btn"><span style="color:white;">Save</span></button>
+									</div>
+								</form>								
+
+							</div>
+							<div class="col-md-6 padmob map-top">
+							
+								<div class="map-embed mapArea">
+									<div style="overflow:hidden;width: 100%;height: 323px;resize:none;max-width:100%;box-shadow:2px 3px 2px #cdd9ef;">
+										<div id="google-maps-canvas" style="height:100%; width:100%;max-width:100%;">
+											{{#if fsobject.name}}
+											<iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/search?q={{fsobject.name}}&key=AIzaSyBIb48XnrVG-JZvYup6AkfvNdCclhEnSwE"></iframe>
+											{{else}}
+											<iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/search?q=xxxxxxxx&zoom=1&amp;key=AIzaSyBIb48XnrVG-JZvYup6AkfvNdCclhEnSwE"></iframe>
+											{{/if}}										
+										</div>
+									</div>
+								</div>
+							 	
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>			
+
+<!-- js -->
+<script src="/facesix/static/qubercomm/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/d3.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/c3.js" type="text/javascript"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.mobile-events.js"></script>
+<script src="/facesix/static/qubercomm/js/circularprogress.jquery.min.js"></script>
+<script src="/facesix/static/qubercomm/js/jquery_validate_min_js.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/form-validations.js" type="text/javascript"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/common.js"></script>
+<script src="/facesix/static/qubercomm/js/script.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/venue-edit.js" type="text/javascript"></script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIb48XnrVG-JZvYup6AkfvNdCclhEnSwE&libraries=places&callback=initAutocomplete"
+        async defer></script>
+
+<!--css-->
+<link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/css/style.css">
+<link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/css/circularprogress.css"/>
+<link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/css/font-awesome.css"/>
+<link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/css/c3.css"/>
+<link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/css/buttons.css"/>
+
+
+<!--#css-->
+
+<script type="text/javascript">
+    var geocoder;
+	function TestOnTextChange()
+	{
+		console.log ("TestOnTextChange!!!!");
+		geocoder = new google.maps.Geocoder();
+    	var address = document.getElementById('venueAddress').value;
+    	console.log ("Venue Address" + address);
+    	geocoder.geocode( { 'address': address}, function(results, status) {
+			if (status == google.maps.GeocoderStatus.OK)
+			{
+			      // do something with the geocoded result
+			      //
+			      console.log ("Lat " + results[0].geometry.location.lat());
+			      console.log ("Long " + results[0].geometry.location.lng());
+			      $('#latitude').val(results[0].geometry.location.lat());
+        		  $('#longitude').val(results[0].geometry.location.lng());
+			}
+	    });	    
+	    
+	}
+ 
+</script>
+
+{{/partial}}
+{{>qubercomm/nav-top}}
+{{>qubercomm/nav-left}}
+{{>qubercomm/wrapper}}

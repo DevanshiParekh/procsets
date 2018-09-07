@@ -1,0 +1,73 @@
+
+#
+# SERVER
+#
+server.contextPath=/facesix
+server.port=8175
+
+facesix.restricted.uris=/facesix/web,facesix/rest
+facesix.cryptkey=01234567
+facesix.path2home=/facesix/qubercloud/welcome
+
+
+#
+# To store uploaded files
+#
+facesix.fileio.root=./uploads
+#
+# LOGGING
+#
+logging.level.org.springframework.web=INFO
+logging.level.org.hibernate=ERROR
+logging.level.com.semaifour=INFO
+
+#
+#
+#  Graylog Settings
+#
+
+#web url to GL web that is visible to internet/intranet
+graylog.weburl=http://facesix.semaifour.com/webgl
+
+#rest url to GL server accessible from the host where facesix running
+graylog.resturl=http://facesix.semaifour.com/glapi
+
+#
+graylog.principal=a8d6ba11a7b22fb908bb5db6b37c06d7
+graylog.secret=f66fe98cf70052fd
+
+#
+# Elastic Configuration
+#
+#name of the cluster
+elasticsearch.cluster.name=facesix
+
+#transport host name & port connectable from within network
+elasticsearch.host=10.128.0.2
+
+#elasticsearch.host=localhost
+elasticsearch.port=9300
+
+#
+#Kiweb Settings
+#
+#web url with host name visible to outside networks also
+kiweb.weburl=http://facesix.semaifour.com:5601
+
+#
+#MQTT
+#
+mqtt.brokerurl=tcp://127.0.0.1:1883
+#mqtt.principal=
+#mqtt.secret=
+mqtt.topic2publish=prod/facesix/to/scanner
+mqtt.topic2consume=prod/scanner/to/facesix=com.semaifour.facesix.beacon.ScannerMqttMessageHandler
+
+#
+#
+#Mongodb Configuration
+#
+mongo.hosts=10.128.0.2:27017
+mongo.db=facesix
+mongo.username=
+mongo.password=

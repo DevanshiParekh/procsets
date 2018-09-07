@@ -1,0 +1,349 @@
+{{#partial "page"}}
+
+<div id="page-content-wrapper" class="addfloor">
+	<div class="container-fluid">
+		<div class="floorplan-tab ">
+			<form id="AddfloorForm" method="post" action="/facesix/web/site/portion/save" enctype="multipart/form-data">	
+				<div class="floorPlan-section">
+					<div class="col-md-5">
+						<div class="floorPlan-details">
+							<div class="floorplan-heading newfloorplan network-heading marTop-10">
+								{{#if fsobject.uid}}
+								<label>Floorplan > {{fsobject.uid}}</label>
+								{{else}}
+								<label>New Floorplan</label>
+								{{/if}}
+								
+							</div>
+							<div class="floorPlan-form">
+								<input name="siteId" type="hidden" value="{{sid}}">
+								{{#if fsobject.id}}
+								<input name="id" type="hidden" value="{{fsobject.id}}">
+								{{/if}}
+								<label>Floorplan Details</label>
+								<div class="form-group">
+									<input type="text" name="uid" id="floorEditTxt" value="{{fsobject.uid}}" class="form-control" oninput="updateUrl(this)" placeholder="Floorplan Title (e.g. Floor Name)" maxlength="50">
+								</div>
+								<textarea id="fDesc" name="description" oninput="updateDesc(this)" class="form-control" rows="7" placeholder="Description">{{fsobject.description}}</textarea>
+								<span class="marTop-20 builtUp">Built-up Area Dimensions</span>
+								<div class="plan-inline display-inline width100">
+									<div class="form-group display-inline width35 mob-width100">
+										<input disabled="true" type="text" value="{{width}}" class="form-control" placeholder="Width">
+									</div>
+									<div class="form-group display-inline width35 mob-width100">
+										<input disabled="true" type="text"  value="{{height}}" class="form-control" placeholder="Height">
+									</div>
+									<select disabled="true" class="form-control display-inline active mob-width100" id="fMeter" name="fMeter">
+										<option value="meter">Meter</option>
+										<option value="feet">Feet</option>
+									</select>
+									<input type="text" style="display:none" name="imageJson" id="imageJson"  value="{{fsobject.imageJson}}"></input>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-5">
+						<div class="save-section pull-right">
+							
+							<button type="reset" id="reset" class="btn btn-primary btn3d btn-save  width-120" onclick="javascript:window.location.href='/facesix/web/site/portion/list?sid={{sid}}&cid={{cid}}'"><span style="color:white!important;">Back</span></button>
+						
+							<button type="submit" class="btn btn-primary btn3d btn-config-venue " id="submit1"><span style="color:white!important;">Save & Configure</span></button>
+							
+						</div>
+						<div class="upload-section">
+							<div class="add-floorPlan-form">
+								<label>Add Floorplan</label>
+							</div>
+							{{#if INACTIVE_WRITE}} 
+							<div class="addFloorTab" style="margin-bottom:-10px">
+							{{else}}
+							<div class="addFloorTab">
+							{{/if}}
+								<ul class="list-unstyled">
+									<li class="active">
+										<img src="/facesix/static/qubercomm/images/addvenue/upload.png">
+										Upload
+									</li>
+									{{#if INACTIVE_WRITE}} 
+									{{#if fsobject.id}}
+									
+									<li class="active boxClick">  
+										<a href="/facesix/drawfloor?sid={{sid}}&cid={{cid}}&spid={{spid}}&title="  style="color: #fff;" id="DrawPlan"  class="disabled">Draw Floor Plan</a>
+									</li>
+								
+									{{else}}
+									<li class="active boxClick">  
+										<a href="/facesix/drawfloor?sid={{sid}}&cid={{cid}}&title="  style="color: #fff;" id="DrawPlan"  class="disabled">Draw Floor Plan</a>
+									</li>
+									{{/if}}
+									<p id="floorDelText" style="color:red"></p> 
+									{{/if}}
+									{{#if GeoSolution}}
+									
+									<li class="active">
+									<i class="fa fa-sun-o"></i>
+								   <a  id="plot" style="color:white">Draw</a>
+									</li>
+									{{/if}}
+								</ul>
+							</div>
+
+							<div class="floorPlanUpload">
+								<div class="img-container" style="width:100%;height:100%;margin:0">
+									{{# if fsobject.planFilepath}}
+									<img src="/facesix/web/site/portion/planfile?spid={{fsobject.id}}" id="uploadedimg" style="width:100%;height:100%;margin:0">
+									{{else}}
+									<img src="" id="uploadedimg" style="width:100%;height:100%;margin:0">
+									{{/if}}
+								</div>
+								<div class="addfloor-option">
+									<ul>
+										<li>
+											<img src="/facesix/static/qubercomm/images/venue/crop.png">
+										</li>
+										<li>
+											<img src="/facesix/static/qubercomm/images/venue/opacity.png">
+										</li>
+									</ul>
+								</div>
+								
+								<div class="overlay-inner"></div>
+
+								<div class="upload-notes">
+									{{# if fsobject.planFilepath}}
+									<input type="file" name="file" data-edit="true" id="floorimg"  style="opacity: 0;" accept="image/x-png, image/gif, image/jpeg"/>
+									{{else}}
+									<input type="file" name="file" id="floorimg"  style="opacity: 0;" accept="image/x-png, image/gif, image/jpeg"/>
+									{{/if}}
+									<div class="drop-area text-center">
+										<img src="/facesix/static/qubercomm/images/addvenue/plus.png">
+										<label>Upload Floorplan <br>(jpg,png)</label>
+									</div>
+								</div>
+								<label class="uplaod-notes pull-right">
+									Minimum image dimensions: 3000px X 3000px
+								</label>
+							</div>
+							<div class="floorPlanOptions">
+								<span class="display-inline floorPlan-title UploadFloorText">{{fsobject.planFilepath}}</span>
+								<ul class="list-unstyled pull-right display-inline">
+									<li id="" class="submitFloor">
+										<label>
+											<img src="/facesix/static/qubercomm/images/addvenue/delete.png" >
+										</label>
+										<span>Delete</span>
+									</li>
+									
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!-- js -->
+<script src="/facesix/static/qubercomm/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.ui.touch-punch.js"></script>
+<script src="/facesix/static/qubercomm/js/jquery_validate_min_js.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/form-validations.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/script.js"></script>
+<script src="/facesix/static/qubercomm/js/common.js"></script> 
+<script src="/facesix/static/qubercomm/js/cropper.min.js"></script>
+<script src="/facesix/static/qubercomm/js/crop-image.js"></script>
+<script>
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+	var cid = '{{cid}}';
+	var sid = '{{sid}}';
+	var newspid = getParameterByName('spid'); 
+	
+	
+	if(newspid != 'null' && newspid != null){
+		newspid = newspid;
+	}else{
+		newspid = '';
+	}
+	
+	var tval = $('input[name="uid"]').val();
+	var desc = $("#fDesc").val();
+	var flr =  $(".UploadFloorText").text();
+	
+	if(tval != '' && desc != '' && flr == ''){
+		 $('#DrawPlan').removeClass('disabled');
+	 }else{
+		 $('#DrawPlan').addClass('disabled');
+	 } 
+	
+	
+	var updated_url = '/facesix/drawfloor?sid='+sid+'&cid='+cid+'&spid='+newspid+'&title='+tval+'&desc='+desc;
+	$('#DrawPlan').attr('href', updated_url);
+	
+	
+	var updateUrl = function(e){
+		 var url = $(e).val();
+		 var flr =  $(".UploadFloorText").text();
+		 
+		 var desc = $("#fDesc").val();
+		 if(url != '' && desc != '' && flr == ''){
+			 $('#DrawPlan').removeClass('disabled');
+		 }else{
+			 $('#DrawPlan').addClass('disabled');
+		 } 
+		 var updated_url = '/facesix/drawfloor?sid='+sid+'&cid='+cid+'&spid='+newspid+'&title='+url+'&desc='+desc;
+		 $('#DrawPlan').attr('href', updated_url);
+	}
+	var updateDesc = function(e){
+		 var url = $('input[name="uid"]').val();
+		 var desc = $(e).val();
+		 var flr =  $(".UploadFloorText").text();
+		 
+		 if(url != '' && desc != '' && flr == ''){
+			 $('#DrawPlan').removeClass('disabled');
+		 }else{
+			 $('#DrawPlan').addClass('disabled');
+		 } 
+		
+		 var updated_url = '/facesix/drawfloor?sid='+sid+'&cid='+cid+'&spid='+newspid+'&title='+url+'&desc='+desc;
+		 $('#DrawPlan').attr('href', updated_url);
+	}
+	
+	$('.boxClick').on('click',function(){
+		//console.log("welocme")
+		var name = $('#floorEditTxt').val();
+		var fDesc = $('#fDesc').val();
+		var flr =  $(".UploadFloorText").text();
+		var imageRval =$('#imageJson').val();
+		
+		if(name == ""){
+			$('#floorEditTxt').css("border-color", "red");
+		} else {
+			$('#floorEditTxt').css("border-color", "lightgray");
+		}
+		
+		if(fDesc == ""){
+			$('#fDesc').css("border-color", "red");
+		} else {
+			$('#fDesc').css("border-color", "lightgray");
+		}
+		
+		
+		if(flr != "" && imageRval == ''){
+			//console.log("flrinside" + flr );
+			$('#floorDelText').text('Please delete the current floorplan to upload');
+		
+		} else if (name == "" || fDesc == ""){
+			$('#DrawPlan').addClass('disabled');
+			
+		} else {
+			$('#floorDelText').text('');
+			$('#DrawPlan').removeClass('disabled');
+		}
+		
+	});
+
+	
+	
+	
+	
+	function delFloorImg(){
+		
+		var spid = location.search.split("&")[1].replace("?","").split("=")[1];
+		console.log("spid" + spid)
+		var url  = "/facesix/rest/site/portion/reset?spid="+spid;
+		
+		var flr =  $(".UploadFloorText").text();
+		$("input[type='file']").attr('disabled', false);
+		$('#floorDelText').text('');
+		
+		$.ajax({
+		   	  	url:url,
+		   	  	method:'DELETE',
+		   	  	success:function(response){
+		   	  	console.log("success "+JSON.stringify(response));
+		   	  	},
+		   	  	error:function(response){
+		   	  	console.log("error "+JSON.stringify(response));
+		   	  	}
+		   	  });
+		$(".savearea").hide();
+		resetAllData();
+		
+	}
+	
+	  
+		$( "#floorimg" ).on('click',function(){
+			  var flr =  $(".UploadFloorText").text();
+			if(flr != ""){
+				console.log("flrinside" + flr );
+			$('#floorDelText').text('Please delete the current floorplan to upload');
+			$("input[type='file']").attr('disabled', true);
+		} 
+		});
+		
+		$("body").on('click','.submitFloor',function(evt){
+            var showText = $('.UploadFloorText').text();
+            if(showText != ""){
+                $(".savearea").show();
+            }
+		  		
+		  })	
+		  
+		function  resetAllData(){
+			
+		        $("#AddfloorForm #floorimg").val("")
+		        $(".addfloor-option").hide();
+		        $('#uploadedimg').hide();
+		        $(".upload-notes").show()
+		        $(".UploadFloorText").text("")
+		        $("#floorimg").rules('add',{required:true})
+		        $(".cropper-container").hide()
+		   
+		}
+</script>
+<div class="savearea" id="reposition-mode" class="reposition-mode" style="display:none;position:fixed;">
+	<div class="savearea_bottom">
+			<div class="left-section">
+				<label>Are you sure you want to delete the floorplan?</label>
+			</div>
+			<div class="rightsection">
+				<ul class="list-unstyled">
+					<li id="cancelDelete">
+						<label>
+							
+						</label>
+						<span >
+							Cancel
+						</span>
+					</li>
+					<li onclick="delFloorImg()">
+						<label>
+						</label>
+						<span class="color2" >
+							OK
+						</span>
+					</li>
+				</ul>
+			</div>
+			</div>
+		</div>
+<link rel="stylesheet" href="/facesix/static/qubercomm/css/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/css/buttons.css"/>
+
+<!--#css -->	
+
+{{/partial}}
+{{>qubercomm/nav-top}}
+{{>qubercomm/nav-left}}
+{{>qubercomm/wrapper}}

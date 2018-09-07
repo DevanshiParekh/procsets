@@ -1,0 +1,94 @@
+{{#partial "page"}}
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header"> Execute Datasource : {{fsobject.name}}</h3>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                      	{{#block "message"}} {{/block}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-1"> </div>
+                            
+                                <div class="col-lg-12">
+                                    <form role="form" action="/facesix/web/datasource/execute" method="post">
+                                    {{#if fsobject.id}}
+                                        <input name="id" type="hidden" value="{{fsobject.id}}">
+                                    {{/if}}
+                                    <div class="form-group">
+                                            <label>Data Source</label>
+                                            <textarea class="form-control" name="ds" rows="3">{{fsobject}}</textarea>
+                                        </div>
+                              			<div class="form-group">
+                                            <label>Executable Query</label>
+                                            <textarea class="form-control" name="query" rows="2" placeholder="select * from table" {{disabled}}>{{query}}</textarea>
+                                        </div>
+                                         <div class="form-group">
+                                            <label>Additional Attributes</label>
+                                            <input class="form-control" name="addattrs"  value="{{addattrs}}" placeholder="{type=xyz, xxx=yyyy}">
+                                        </div>  
+                                         <div class="form-group">
+                                            <label>Write Resultset To</label>
+                                            <input class="form-control" name="wto"  value="{{wto}}" placeholder="display (screen) or send to GELF port (host:port)" {{disabled}} >
+                                        </div>  
+                                        <button type="submit" class="btn btn-default"> Execute </button> <a href="/facesix/web/datasource/list"> Cancel </a>
+                                    </form>
+                                </div>
+                                
+                                <!-- /.col-lg-6 (nested) -->
+			                    <div class="col-lg-1"> </div>
+	
+			                </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            
+            {{#if rows}}
+            
+            <div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">Data matched the query</div>
+						<!-- /.panel-heading -->
+						<div class="panel-body">
+							<div class="dataTable_wrapper">
+								<table class="table table-striped table-bordered table-hover"
+									id="dataTables-example">
+									<thead>
+										<tr>
+											<th>Result</th>
+										</tr>
+									</thead>
+									<tbody>
+										{{#each rows}}
+										<tr class="odd gradeX">
+											<td>{{this}}</td>
+										</tr>
+										{{/each}}	
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+            </div>
+          {{/if}}
+        </div>
+        <!-- /#page-wrapper -->
+ {{/partial}}
+ {{>message}}
+ {{>datasource-leftnav}}
+ {{>wrapper}}

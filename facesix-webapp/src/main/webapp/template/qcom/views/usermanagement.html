@@ -1,0 +1,809 @@
+<style>
+	input.pw{ 
+		-webkit-text-security: disc;
+	}
+	.aln-list{
+		margin-left: 7px;
+	}
+	.pad-panel{
+		padding-right: 30px !important;
+	}	
+	
+@media screen and (max-width: 767px){
+	.aln-box{	
+		margin-left: 0px !important;
+		margin-top: 10px !important;
+	}
+	.aln-tab2{
+		margin-bottom: 38px !important;
+		margin-right: 0px !important;		
+	}
+	.pad-panel{
+		padding-right: 15px !important;
+	}
+	hr{
+		margin-left: 0px !important;
+    	margin-right: 0px !important;
+	}
+	#nameDisp {    
+	    margin-left: -67px !important;
+	    margin-right: 80px !important;
+	}
+	.hide{
+		visibility: hidden;
+	}
+		
+}
+@media screen and (min-width: 1500px){
+	.aln-list {
+	    margin-left: 10px !important;
+	}
+	hr{
+		margin-left: 10px !important;
+	}
+}
+@media screen and (min-width: 1800px){
+	.aln-list {
+	    margin-left: 14px !important;
+	}
+	hr{
+		margin-left: 14px !important;
+	}
+}
+</style>
+
+<section class="content">
+        <div class="container-fluid">
+            <div class="profile-box" ng-class="{'srink':showProfileMenu, 'open':showProfileMenuAll}">
+                <div class="profile-content userMgm">
+                    <!--  <img src="/facesix/static/qcom/img/logo.png"/> -->
+                    <div class="profile-menu">
+                        <a href="" ng-click="showAllProfileMenu()">
+                            <span>Account Management</span>
+                            <i class="caret"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="profile-wrapper">
+                        <ul class="navigation">
+                            <li ng-click="myprof$scope.getUsersiles()" ng-if="showProfileMenu" class="note-hidden"><a href=""><i class="fa fa-chevron-left"></i> <span>Back</span></a></li>
+                            <li ng-class="{'active':alluser}" ng-click="showalluser()"><a href=""><i class="fa fa-users"></i> <span>Users</span></a></li>
+                            <li ng-class="{'active':allroles}" ng-click="showallrole()" ng-repeat="role in roles" ng-if="role.ADMIN_WRITE"><a href=""><i class="fa  fa-user-plus"></i><span>Role</span></a></li>
+                             
+                            <li ng-class="{'active':showallgp}" ng-click="selectTab('a')" ng-controller="CPortantCtrl" ng-repeat="role in roles" ng-if="role.SUPERAPP_ADMIN_WRITE"><a href="#!/captiveportal"><i class="fa fa-user"></i> <span>Login/Captive Portals</span></a></li>
+                            <li ng-class="{'active':showallsupport}" ng-click="showsupport()" ng-repeat="role in roles" ng-if="role.MANAGEMENT_WRITE"><a href=""><i class="icon-support"></i> <span>Support</span></a></li>
+                            <li ng-class="{'active':showalllicense}" ng-click="showlicence()"><a href=""><i class="icon-license"></i> <span>License</span></a></li>                           
+                            <li ng-class="{'active':showallIA}" ng-click="showIA()" ng-repeat="role in roles" ng-if="role.INACTIVE_WRITE"><a href=""><i class="fa fa-trash" aria-hidden="true"></i> <span>Inactive Customer</span></a></li>
+                        </ul>
+                    </div>
+            </div>
+            <div class="nd3" ng-if="alluser">
+               <div class="form-group search note-show">
+                        <input type="text" class="form-control ng-pristine ng-valid ng-empty ng-touched" ng-model="searchText" placeholder=" Search users">
+                        <label><i class="fa fa-search"></i></label>
+                    </div>
+                <div class="card-group">
+                <div class="card cursor usercards" ng-click="newUser()" ng-repeat="role in roles" ng-if="role.ACC_WRITE">
+                        <div class="ui-card-inner">
+                        <div class="left">
+                            <div class="">
+                            <i class="fa  fa-user-plus" style="font-size: 4.8em;color: #a9a9a9;"></i>
+                            </div>
+                        </div>
+                        <div class="body">
+                            <div class="fl">
+                            
+                                <h5>Add New User</h5>
+
+                            </div>
+
+						</div>
+                        </div>
+                    </div>
+                    <div class="card usercards" ng-repeat="ud in usersData | filter:searchText" ng-click="editOpenUd(ud)">
+                        <div class="ui-card-inner">
+                        <div class="left ">
+                        	<div class="user-icon-small"><span class="" style="background-image: url('/facesix/web/account/profilepic?userid={[{ud.id}]}');"></span></div>
+                            <!--  <img class="absolute-img" src="/facesix/static/qcom/img/users.png"/>
+                            <img ng-src="{[{path}]}"/>
+                            -->
+                        </div>
+                        <div class="body">
+                            <div class="fl">
+                                <h5>{[{ud.fname}]} {[{ud.lname}]}</h5>
+                                <p>{[{ud.designation}]}</p>
+                                <p>{[{ud.customerName}]}</p>
+                                <p>Active Accounts &nbsp{[{ud.loginCount}]}</p>
+                                <div class="info-list">
+                                    <span ng-if="ud.isMailalert == 'true'"><i class="fa fa-envelope"></i></span>
+                                    <span ng-if="ud.isSmsalert == 'true'"><i class="fa fa-phone"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+            <div class="nd2" ng-show="allroles">
+<!--            <div class="">-->
+                <div class="panel fl w100" >
+                    <div class="panel-heading"><h6>Roles<span class="fr"><i class="fa fa-users"></i></span></h6></div>
+                    <div class="panel-body">
+                        
+                            <style>
+								 table, td {
+									border: 1px solid black;
+									border-collapse: collapse;
+									
+								}
+								th {
+									font-weight: normal;
+									border-top: 2px solid #009bc2;
+									border-bottom: 2px solid #009bc2;
+									padding: 5px;
+								} 
+								@media screen and (max-width: 768px){
+                        		.profile-box.srink .profile-content{
+                        			margin-top: 40px !important;
+                        		}
+                        	}
+								
+							</style>
+				      <table>
+				        <tr>
+				         <th>S.No</th>
+				         <th>ADMIN TYPES</th>
+				         <th>CUSTOMER</th>
+				         <th>SITE</th>
+				         <th>SYSTEM</th>
+				         <th>ACCOUNT</th>
+				    
+				       </tr>
+				       
+				  <tr align="center" >
+				  <td>1</td>
+				  <td>Superadmin</td>
+				  <td><input type="checkbox" checked />Read/Write</td>
+				  <td><input type="checkbox" checked/>Read/Write</td>
+				  <td><input type="checkbox" checked/>Read/Write</td>
+				  <td><input type="checkbox" checked/>Read/Write</td>
+				  </tr>
+				  <tr align="center">
+				   <td>2</td>
+				   <td>Appadmin</td>
+				  <td><input type="checkbox" checked />Not allowed</td>
+				  <td><input type="checkbox" checked/>Read/Write</td>
+				  <td><input type="checkbox" checked/>Read/Write</td>
+				  <td><input type="checkbox" checked/>Read/Write</td>
+				  </tr>
+				  <tr align="center">
+				   <td>3</td>
+				   <td>Siteadmin</td>
+				  <td><input type="checkbox" checked />Not allowed</td>
+				  <td><input type="checkbox" checked/>Read/Write</td>
+				  <td><input type="checkbox" checked/>Read</td>
+				  <td><input type="checkbox" checked/>Read</td>
+				  </tr>
+				  <tr align="center">
+				   <td>4</td>
+				   <td>Sysadmin</td>
+				  <td><input type="checkbox" checked />Not allowed</td>
+				  <td><input type="checkbox" checked/>Read</td>
+				  <td><input type="checkbox" checked/>Read/Write</td>
+				  <td><input type="checkbox" checked/>Read</td>
+				  </tr>
+				  <tr align="center">
+				   <td>5</td>
+				   <td>Useradmin</td>
+				 <td><input type="checkbox" checked />Read</td>
+				  <td><input type="checkbox" checked/>Read</td>
+				  <td><input type="checkbox" checked/>Read</td>
+				  <td><input type="checkbox" checked/>Read/Write</td>
+				  </tr>
+				  <tr align="center">
+				   <td>6</td>
+				   <td>User</td>
+				  <td><input type="checkbox" checked />Not allowed</td>
+				  <td><input type="checkbox" checked/>Read</td>
+				  <td><input type="checkbox" checked/>Read</td>
+				  <td><input type="checkbox" checked/>Read</td>
+				  </tr>
+				</table> 
+ 	
+                </div>
+                </div>
+                <div class="panel fr" style="display: none;">
+                    <div class="panel-heading"><h6>Create Role & Define Access<span class="fr"><i class="fa fa-plus"></i></span></h6></div>
+                    <div class="panel-body">
+                        <form name="userRoleForm" novalidate>
+                        <div class="form-group" ng-class="{'error':userRoleForm.roleName.$invalid && errorMsgLable}">
+                            <label>Name</label>
+                            <!-- <label class="errorMsg" ng-show="userRoleForm.roleName.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                            <input type="text" class="form-control" ng-model="rolesNewData.roleName" name="roleName" required ng-pattern="onlyText">     
+                        </div>
+
+                        <div class="form-group tc">
+                            <button class="btn" type="submit" ng-click="newRoles(rolesNewData)" ng-show="!editRoleBtn"><i class="fa fa-save"></i> Create</button>
+                            <button class="btn" type="submit" ng-click="updateRoles(rolesNewData)" ng-show="editRoleBtn"><i class="fa fa-save"></i> Update</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="nd2" ng-if="showallsupport">
+                <div class="panel aln-box" style="width: 100%;margin-left: -0px; margin-top: 10px;">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">Support <span class="fr"><i class="icon-support"></i></span></h6>
+                    </div>
+                    <div class="panel-body pad-panel">
+                           {{#if INACTIVE_WRITE}}
+                           <div class="panel w80" style="width: 100%;margin-bottom: 30px;">
+                            <div class="table-container" ng-if="showallsupport">
+                            <p style="text-align:center">Support Mail</p>
+                            <table id="mySupportTable" style="margin-top: 10px;">
+                                <thead>
+                                    <tr align="center">
+                                     	<th>Index</th>
+                                        <th>Customer Name</th>
+                                        <th>Host</th>
+                                        <th>Port</th>
+                                        <th>Username</th>                                        
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                 <tr ng-repeat="ld in supportMailData" align="center">
+                                        <td>{[{$index + 1}]}</td>
+                                        <td>{[{ld.customerName}]}</td>
+                                        <td>{[{ld.host}]}</td>
+                                        <td>{[{ld.port}]}</td>
+                                        <td>{[{ld.username}]}</td>
+                                        <td>
+                                           <label class="switch">
+												<input class="group1" type="checkbox" ng-true-value="'true'" ng-false-value="'false'" ng-model="ld.support"  ng-change="custSupportEmailEnable(ld)"/>  
+												   <span ></span>
+                                            </label>
+                                        </td>
+                                    </tr>  
+                                </tbody>
+                            </table>
+                       	 </div>
+                       	 </div>
+                           {{else}}
+                           <form novalidate name="userAdd">
+                            <div class="panel w80 aln-tab2" style="width: 100%;margin-bottom: 0px;margin-right: -8px;padding: 10px;">
+                            <p style="text-align:center; margin-bottom: 25px;"><b>Support Mail</b></p>
+                            <div class="form-group" ng-class="{'error':userAdd.support.$invalid && errorMsgLable}" style="float: right;margin-right: 0px;;margin-bottom: 15px;">
+							<label class="switch"> <input type="checkbox" ng-true-value="'true'" ng-false-value="'false'" ng-model="udata.support" ng-change="supportEmailEdit(x)" id="support" name="support" /> STATUS <span>&nbsp;</span>
+						</label>
+						</div>
+						<div class="form-group" ng-class="{'error':userAdd.edit.$invalid && errorMsgLable}" style="float: right;margin-right: -15px">
+							<label><span id="editV"></span>
+						</label><input type="checkbox" ng-model="x.edit" ng-change="updateEditMail(x)" id="edit" name="edit"></input>
+						</div>
+						<div style="width:100%;margin-top: 70px;">
+						<div class="aln-order1" style="width:50%;float:left;">
+                        <div class="form-group one" ng-class="{'error':userAdd.host.$invalid && errorMsgLable}">
+                            <label style="color: #000;">Host</label>
+                            <input type="text" class="form-control" ng-model="udata.host" id="host" name="host" tabindex=1 required ng-pattern="/^[a-z]+.[a-z]+.[a-z]+$/">
+                        </div>
+                        <div class="form-group three" ng-class="{'error':userAdd.username.$invalid && errorMsgLable}">
+                            <label style="color: #000;">Email Id</label>
+                            <input type="email" class="form-control" ng-model="udata.username" id="username" name="username" tabindex=3 required ng-pattern="emailValidate">                           
+                        </div> 
+                        </div>
+                        <div class="aln-order2" style="width:50%;float:right" id="rightCss"> 
+                        <div class="form-group two" ng-class="{'error':userAdd.port.$invalid && errorMsgLable}">
+                            <label style="color: #000;">Port</label>
+                            <input type="text" class="form-control" maxlength="4" minlength="3" ng-model="udata.port" tabindex=2 id="port" name="port" oninput="this.value = this.value.replace(/[^0-9.]/g, ''); this.value = this.value.replace(/(\..*)\./g, '$1');" onKeyDown="if(this.value.length==4 && event.keyCode!=8) return false;" pattern="[1-9][0-9]{3}" required ng-pattern="">
+                        </div>                         
+                         <div class="form-group four" ng-class="{'error':userAdd.password.$invalid && errorMsgLable}" style="margin-bottom: 20px;">
+                            <label style="color: #000;">Password</label>
+                            <input type="text" class="form-control pw" minlength="3" ng-model="udata.password" id="password" name="password" tabindex=4 required ng-pattern="">
+                        </div> 
+                        
+                        <div class="form-group" ng-class="{'error':userAdd.password.$invalid && errorMsgLable}">
+                         
+                        
+                        <button class="btn preloader" type="submit" ng-click="createSupportmail(udata)" id="mailData"  ng-hide="myVar" style="height:37px;float:right;margin-top: -8px;width: 70%; margin-bottom: 10px;">
+                        Submit
+                        
+                        </button>
+                        <p id="smallLoadingFloor" class="hide" style="float:right;margin-right: -87px;"></p>
+                    	</div> 
+                    	<p name="nameDisp" id="nameDisp"></p>
+                        </div>
+                        
+                    	<div class="clearfix"></div>
+                    	
+               		</div>      
+                            </div>
+                            </form>
+                             {{/if}}
+                               {{#if INACTIVE_WRITE}}
+                              <div class="tc panel w20" style="width: 100%;">
+                             {{else}}
+                              <div class="tc panel w20" style="width: 100%;">
+                               {{/if}}
+                                Allow access to Qubercomm Support 
+                                <div class="tc mt10 support-div">
+                                    <table>
+                                    <thead>
+                                    <tr align="center">
+                                    	<th>Index</th>
+                                        <th>Customer Name</th>
+                                        <th>Status</th>
+                                    </tr>
+                                    </thead>
+                                        <tbody>
+                                            <tr ng-repeat="x in supportData" align="center">
+                                            	<td>{[{$index + 1}]}</td>
+                                                <td> {[{x.customerName}]} </td>
+                                                <td>
+                                                   <label class="switch">
+                                                     <input type="checkbox" ng-true-value="'true'" ng-false-value="'false'" ng-model="x.qubercommAssist" ng-change="updateSupport(x)"/>
+                                                        <span></span>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                    
+                                </div>
+                            </div>
+                            <hr style="margin-top: 13px; margin-bottom: 11px;margin-left: 8px; margin-right: -10px;">
+                        <ul class="panel-list bb aln-list">
+                            <li>Enable this when requested by Qubercomm support team</li>
+                            <li>By enabling this, you are granting Qubercomm support with temporary administrator-level access</li>
+                            <li>This grant for access will be automatically revoked after 7 days.</li>
+                        </ul>
+                    </div>
+                         
+                </div>
+							
+            </div>
+            <div class="nd2" ng-if="showalllicense">
+                <div class="panel w100">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">License <span class="fr"><i class="icon-license"></i></span></h6>
+                    </div>
+                    <div class="panel-body">
+                        
+                        <h3>License Subscriptions</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr align="center">
+                                        <th>S.No</th>
+                                        <th>Customer Name</th>
+                                        <th>Type</th>
+                                        <th>Purchased on</th>
+                                        <th>Expires on</th>
+                                        <th>Time Left</th>
+                                        <th ng-repeat="role in roles" ng-if="role.INACTIVE_WRITE">Deactivation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="ld in licenceData" align="center">
+                                        <td>{[{$index + 1}]}</td>
+                                        <td>{[{ld.licenceFor}]}</td>
+                                        <td>{[{ld.type}]}</td>
+                                        <td>{[{ld.purchasedOn}]}</td>
+                                        <td>{[{ld.expriesOn | date}]}</td>
+                                        <td>{[{ld.timeLeft}]}</td>
+                                         <td ng-repeat="role in roles" ng-if="role.INACTIVE_WRITE">
+                                         <label class="switch">
+                                          <input type="checkbox" ng-model="ia.supportFlag" ng-true-value="true" ng-false-value="false" ng-change="deactivateLicense(ld)"/>
+                                          <span style="margin-left:23px;margin-bottom: -3px;"></span>
+                                     </label>
+                                     <span class="label label-warning" ng-if="ia.supportFlag1 == 'false'">Off</span>
+                                     <span class="label label-success" ng-if="ia.supportFlag == 'true'">On</span>
+                                         </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        
+                        </div>
+                    </div>
+                         
+                </div>
+            </div>
+<!--  
+		<div class="nd2" ng-if="showallgp">
+                <div class="panel w100">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">Guest Pass/Captive Portal <span class="fr"><i class="fa fa-user"></i></span></h6>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group tr">
+                            <button class="btn" ng-click="openGP()" style="margin-right:-15px">Create Pass</button>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr align="center">
+                                        <th>S.No</th>
+                                        <th>Name</th>
+                                        <th>Mobile No</th>
+                                        <th>Allowed Network</th>
+                                        <th>Expires on</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                       
+                                    </tr>
+                                    <tr ng-repeat="gp in guestPassData" align="center">
+                                        <td>{[{$index + 1}]}</td>
+                                        <td>{[{gp.passName}]}</td>
+                                        <td>{[{gp.mobileNumber}]}</td>
+                                        <td>{[{gp.allowedNetwork}]}</td>
+                                        <td>{[{gp.guestpassexpireson | date}]}</td>
+                                        <td>{[{gp.passStatus}]}
+                                        <label class="switch">
+                                                        <input type="checkbox" ng-model="gp.supportFlag" ng-true-value="true" ng-false-value="false" ng-change="updateGuestStatus(gp)"/>
+                                                        <span style="margin-left:23px;margin-bottom: -3px;"></span>
+                                                    </label>
+                                                    <span class="label label-warning" ng-if="gp.supportFlag1 == 'false'">Off</span>
+                                                    <span class="label label-success" ng-if="gp.supportFlag == 'true'">On</span>                                      
+                                        </td>
+                                         <td><label class="label label-primary cursor" ng-click="editOpen(gp)"><i class="fa fa-edit"></i></label></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                         
+                </div>
+            </div>
+ -->
+             
+            <div class="nd2" ng-if="showallIA">
+                <div class="panel w100">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">Inactive Customer <span class="fr"><i class="fa fa-user"></i></span></h6>
+                    </div>
+                    <div class="panel-body">
+               
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr align="center">
+                                    	<th>S.No</th>
+                                        <th>Customer Name</th>
+                                        <th>Venue Type</th>
+                                        <th>City</th>
+                                        <th>StartDate</th>
+                                        <th>ExpiryDate</th>
+                                        <th>MobileNumber</th>
+                                        <th>Email</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                       		<tr ng-repeat="ia in custinactiveData" align="center">
+									<td>{[{$index + 1}]}</td>
+									<td>{[{ia.customerName}]}</td>
+									<td>{[{ia.venueType}]}</td>
+									<td>{[{ia.city}]}</td>
+									<td>{[{ia.serviceStartDate}]}</td>
+									<td>{[{ia.serviceExpiryDate}]}</td>
+									<td>{[{ia.mobileNumber}]}</td>
+									<td>{[{ia.email}]}</td>
+									<td>{[{ia.status}]}
+									 <label class="switch">
+                                          <input type="checkbox" ng-model="ia.supportFlag" ng-true-value="true" ng-false-value="false" ng-change="updateCustData(ia)"/>
+                                          <span style="margin-left:23px;margin-bottom: -3px;"></span>
+                                     </label>
+                                     <span class="label label-warning" ng-if="ia.supportFlag1 == 'false'">Off</span>
+                                     <span class="label label-success" ng-if="ia.supportFlag == 'true'">On</span>
+                                     </td>
+									
+								</tr>
+							</tbody>
+                            </table>
+                        </div>
+                    </div>
+                         
+                </div>
+            </div>
+            
+            
+        </div>
+    </section>
+
+
+<div class="popup" ng-class="{'open':GPOpen}">
+    <div class="popup-container accountAdd">
+        <div class="card-view bt2">
+            <div class="heading border">
+                <div class="title">
+                    Guest Pass/Captive Portal
+                </div>
+<!--
+                <div class="fr">
+                    <button class="btn w-auto fl" ng-click="openGP()"><i class="fa fa-times"></i></button>
+                </div>
+-->
+                <div class="fr" ng-if="!gpdeleteTrue">
+               
+                <button class="btn w-auto fl" ng-click="sendByprint(gpdata)" ng-if="EditOpenGP" > <i class="fa fa-print"></i></button>
+                    <button class="btn w-auto fl" ng-click="askDeleteGP()" ng-if="EditOpenGP"><i class="fa fa-trash"></i></button>
+                    <button class="btn w-auto fl" ng-click="closeGP()"><i class="fa fa-times"></i></button>
+                </div>
+                <div class="fr" ng-if="gpdeleteTrue">
+                    <div class="title">
+                        Are you sure to delete this Guest Pass?
+                    </div>
+                    <button class="btn btn-warning w-auto fl" ng-click="confirmDeleteGP(gpdata)"><i class="fa fa-trash"></i> Yes</button>
+                    <button class="btn w-auto fl" ng-click="askDeleteGP()"><i class="fa fa-times"></i> No</button>
+                </div>
+            </div>
+            <div class="body">
+                    <form name="guestPassForm" novalidate>
+                     <div>
+                    <div class="w50">
+                    <div class="form-group" style="margin-top: 3%;margin-bottom: 25px;">
+                                <label class="radio" style="bottom: -9px">
+                                    <input id="radioguest" type="radio" name="portalType"  value="radioguest" ng-model="gpdata.portalType" ng-checked="true"/>
+                                    <span></span>
+                                </label>
+                                <span class="checkboxtext" style="padding-right: 24px"><i class="fa fa-user" ></i> Guestpass</span>
+                           
+                                <label class="radio"  style="bottom: -9px">
+                                    <input id="radiocaptive" type="radio" name="portalType" value="radiocaptive" ng-model="gpdata.portalType"/>
+                                    <span></span>
+                                </label>
+                                <span class="checkboxtext"><i class="fa fa-envelope"></i> Captive</span>
+                        </div>   
+                    <div class="form-group" ng-class="{'error': userAdd.customerId.$invalid && errorMsgLable}">
+                            <label>Customer Name</label>
+<!--                            <label class="errorMsg" ng-show="userAdd.customerName.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                            <select class="form-control" ng-model="gpdata.customerId" name="customerId" required>
+                            <option value="">Select</option>
+                                <option ng-repeat="x in clientListData" value="{[{x.id}]}">{[{x.custName}]}</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group" ng-class="{'error':guestPassForm.passName.$invalid && errorMsgLable}">
+                            <label>Name</label>
+                            <input type="text" class="form-control" ng-model="gpdata.passName" name="passName" required>
+                        </div>
+                        <div class="form-group" ng-class="{'error':guestPassForm.mobileNumber.$invalid && errorMsgLable}">
+                            <label>Mobile Number</label>
+                            <input type="text" class="form-control" ng-model="gpdata.mobileNumber" name="mobileNumber" ng-pattern="mobileValidate" required>
+                        </div> 
+                        <div class="form-group" ng-class="{'error':guestPassForm.email.$invalid && errorMsgLable}">
+                            <label>Email</label>
+                            <input type="text" class="form-control" ng-model="gpdata.email" name="email" ng-pattern="emailValidate" required>
+                        </div>
+                        <div class="form-group" ng-class="{'error':guestPassForm.ssid.$invalid && errorMsgLable}">
+                            <label>SSID</label>
+                            <input type="text" class="form-control" ng-model="gpdata.ssid" name="ssid" required></input>
+                        </div>
+                        <div class="form-group" ng-class="{'error':guestPassForm.notes.$invalid && errorMsgLable}">
+                            <label>Notes</label>
+                            <textarea class="form-control" ng-model="gpdata.notes" name="notes"></textarea>
+                        </div>
+                       
+                    </div>
+                     
+                    <div class="w50">
+                        <div class="form-group" ng-class="{'error':guestPassForm.allowedNetwork.$invalid && errorMsgLable}" style="margin-top: 66px;">
+                            <label>Allowed Networks</label>
+                            <select class="form-control" ng-model="gpdata.allowedNetwork" name="allowedNetwork" required>
+                                <option value="">Select</option>
+                                <option ng-repeat="x in allowedNetData" value="{[{x.id}]}">{[{x.name}]}</option>
+                            </select>
+                        </div>
+                        
+                       
+                        <div class="form-group"  ng-class="{'error':guestPassForm.noOfdevices.$invalid && errorMsgLable}">
+                     
+                            <label ng-hide="gpdata.portalType == 'radiocaptive'" >No Of Device</label>
+                              <label ng-show="gpdata.portalType == 'radiocaptive'" >Captive Expires(in hours)</label>
+                            <input type="number" class="form-control" string-to-number min="0" ng-model="gpdata.noOfdevices" name="noOfdevices" required>
+                        </div>
+                        <div class="form-group" ng-hide="gpdata.portalType == 'radiocaptive'" ng-class="{'error':guestPassForm.guestpassexpireson.$invalid && errorMsgLable}">
+                            <label>Access Expries in</label>
+                            <input type="text" class="form-control" name="guestpassexpireson"  ng-model="gpdata.guestpassexpireson" bs-datepicker data-date-format="dd/MM/yyyy" autoclose="true" ng-attr-data-template="/facesix/static/qcom/datepicker/datepicker.tpl.html" />
+                                
+                        </div>
+                       
+                        <div class="form-group" style="margin-top: 6%">
+                                <label class="radio" style="bottom: -9px">
+                                    <input type="radio" ng-model="gpdata.sendByMobile" value="sms"  name="sendByMobile"/>
+                                    <span></span>
+                                </label>
+                                <span class="checkboxtext" style="padding-right: 90px"><i class="fa fa-tablet" ></i> Send to Mobile</span>
+                           
+                                <label class="radio"  style="bottom: -9px">
+                                    <input type="radio" ng-model="gpdata.sendByMobile" value="email"  name="sendByMobile"/>
+                                    <span></span>
+                                </label>
+                                <span class="checkboxtext"><i class="fa fa-envelope"></i> Send By Email</span>
+                        </div>     
+                        <div style="margin-top: 23px;">
+                                 <img alt="" src="/facesix/static/qcom/img/captive.png" />
+                                 </div>         
+						</div>
+                    <div class="clearfix"></div>
+                    <div class="fr tc">
+                        <button class="btn preloader" ng-click="newGp(gpdata)" ng-show="!updateGpopen" ng-disabled="preloadTrue">
+                       <i class="fa fa-spinner fa-pulse"></i>Create</button>
+                        <button class="btn preloader" ng-click="updateGp(gpdata)" ng-show="updateGpopen" ng-disabled="preloadTrue">
+                        <i class="fa fa-spinner fa-pulse"></i>Update</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+    <div class="popup" ng-class="{'open':UserOpen}">
+    <div class="popup-container accountAdd">
+        <div class="card-view bt2">
+            <div class="heading border">
+                <div class="title">
+                    Users
+                </div>
+                <div class="fr" ng-if="!deleteTrue">
+                    <button class="btn w-auto fl" ng-click="askDeleteUser()" ng-if="EditOpen"><i class="fa fa-trash"></i></button>
+                    <button class="btn w-auto fl" ng-click="rem()"><i class="fa fa-times"></i></button>
+                </div>
+                <div class="fr" ng-if="deleteTrue">
+                    <div class="title">
+                        Are you sure to delete this user?
+                    </div>
+                    <button class="btn btn-warning w-auto fl" ng-click="confirmDeleteUser(udata)"><i class="fa fa-trash"></i> Yes</button>
+                    <button class="btn w-auto fl" ng-click="askDeleteUser()"><i class="fa fa-times"></i> No</button>
+                </div>
+            </div>
+            <div class="body">
+                <form novalidate name="userAdd">
+                <div>
+                    <div class="w50">
+                    	<div ng-if="udata.role == 'superadmin'"  class="form-group" ng-class="{'error': userAdd.customerId.$invalid && errorMsgLable}">
+                            <label>Customer Name</label>
+<!--                            <label class="errorMsg" ng-show="userAdd.customerName.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                            <select class="form-control" ng-model="udata.customerId" name="customerId">
+                            <option value="">Select</option>
+                                <option ng-repeat="x in clientListData" value="{[{x.id}]}">{[{x.custName}]}</option>
+                            </select>
+                        </div>
+                        <div ng-if="udata.role != 'superadmin'"  class="form-group" ng-class="{'error': userAdd.customerId.$invalid && errorMsgLable}">
+                            <label>Customer Name</label>
+<!--                            <label class="errorMsg" ng-show="userAdd.customerName.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                            <select class="form-control" ng-model="udata.customerId" name="customerId" required>
+                            <option value="">Select</option>
+                                <option ng-repeat="x in clientListData" value="{[{x.id}]}">{[{x.custName}]}</option>
+                            </select>
+                        </div>
+                        <div class="form-group" ng-class="{'error':userAdd.fname.$invalid && errorMsgLable}">
+                            <label>First Name</label>
+<!--                            <label class="errorMsg" ng-show="userAdd.fname.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                            <input type="text" class="form-control" ng-model="udata.fname" name="fname" required ng-pattern="onlyText" maxlength="30">
+                        </div>
+                        <div class="form-group" ng-class="{'error':userAdd.lname.$invalid && errorMsgLable}">
+                            <label>Last Name</label>
+<!--                            <label class="errorMsg" ng-show="userAdd.lname.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                            <input type="text" class="form-control" ng-model="udata.lname" name="lname" required ng-pattern="onlyText" maxlength="30">
+                        </div> 
+                        <div class="form-group" ng-class="{'error':userAdd.email.$invalid && errorMsgLable}">
+                            <label>Email</label>
+<!--                            <label class="errorMsg" ng-show="userAdd.email.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                            <input type="email" class="form-control" ng-model="udata.email" ng-style="mymail" name="email" id="email" ng-blur="checkEmailDuplicate(udata.email)" required ng-pattern="emailValidate">
+                        </div>
+                        <div class="form-group" ng-class="{'error':userAdd.phone.$invalid && errorMsgLable}">
+                            <label>Mobile No</label>
+<!--                            <label class="errorMsg" ng-show="userAdd.phone.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                            <input type="text" class="form-control" ng-model="udata.phone" name="phone" required ng-pattern="mobileValidate">
+                        </div>
+                    </div>
+                    <div class="w50">
+                        <div class="form-group" ng-class="{'error':userAdd.designation.$invalid && errorMsgLable}">
+                            <label>Designation</label>
+<!--                            <label class="errorMsg" ng-show="userAdd.designation.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                            <input type="text" class="form-control" ng-model="udata.designation" name="designation" required ng-pattern="onlyText" maxlength="30">
+                        </div>
+                        <div class="form-group" ng-class="{'error':userAdd.role.$invalid && errorMsgLable}">
+                            <label>Role</label>
+<!--                            <label class="errorMsg" ng-show="userAdd.role.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                            <select class="form-control" ng-model="udata.role" name="role" required>
+                            <option value="">Select</option>
+                                <option ng-repeat="x in rolesData" value="{[{x}]}">{[{x}]}</option>
+                            </select>
+                                
+                        </div>
+                        
+                        <div class="form-group" ng-if="!updateUopen" ng-class="{'error':userAdd.password.$invalid && errorMsgLable}">
+                            <label>Password-alteast one special char,numeric and uppercase</label>
+<!--                            <label class="errorMsg" ng-show="userAdd.password.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                            <input type="password" class="form-control" ng-model="udata.password" name="password" placeholder="minimum 8 characters" ng-pattern="passwordValidate" id="passwordValidate" min="8" required>
+                                
+                        </div>
+                        <div class="form-group" ng-if="!updateUopen" ng-class="{'error':userAdd.confirmPassword.$invalid && errorMsgLable}">
+                            <label>Confirm Password</label>
+<!--                            <label class="errorMsg" ng-show="userAdd.confirmPassword.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                            <label class="errorMsg" ng-show="udata.password !=udata.confirmPassword && !udata.confirmPassword.$pristine"> <small>Password Doesn't Match</small></label>
+                            <input type="password" class="form-control" ng-model="udata.confirmPassword" ng-pattern="passwordValidate" name="confirmPassword" name="fname" required>  
+                        </div>
+                        <div class="form-group">
+                            <h4>Alert Notification</h4>
+                            <ul class="panel-list lmb10" style="width:69%">
+                                <li class="w50"  style="margin-right: 156px">Email 
+                                    <span class="fr">
+                                        <label class="switch">
+                                            <input type="checkbox" ng-model="udata.isMailalert" ng-true-value="'true'" ng-false-value="'false'">
+                                            <span></span>
+                                        </label>
+                                    </span>
+                                </li>
+                                <li  style="margin-right: -158px">SMS 
+                                    <span class="fr">
+                                        <label class="switch">
+                                            <input type="checkbox" ng-model="udata.isSmsalert" ng-true-value="'true'" ng-false-value="'false'">
+                                            <span></span>
+                                        </label>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="form-group" ng-if="updateUopen">
+                        	<button class="btn" ng-click="userResetPassword(udata)">Reset Password</button>
+                        	<p class="successMsg">{[{successMsg}]}</p>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="fr tc">
+                        <button class="btn preloader" type="submit" ng-if="!updateUopen && udata.password == udata.confirmPassword" ng-click="updateUsers(udata)" ng-disabled="preloadTrue" ng-hide="myVar">
+                        <i class="fa fa-spinner fa-pulse"></i>Create</button>
+                        <button class="btn preloader" type="submit" ng-if="updateUopen" ng-click="updateUsers(udata)" ng-disabled="preloadTrue" ng-hide="myVar">
+                        <i class="fa fa-spinner fa-pulse"></i>Update</button>
+                        <p class="errorMsg">{[{errorMsg}]}</p>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+      <p class="successMsg" align="right">{[{successMsg}]}</p>
+    </div>
+</div>
+<div class="popup" ng-class="{'open':resetOpen}">
+        <div class="popup-container">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h6 class="panel-title">Reset Password - {[{resetdata.fname}]} {[{resetdata.lname}]}<span class="fr cursor" ng-click="closeresetPassword()"><i class="fa fa-times"></i></span></h6>
+                </div>
+                <div class="panel-body">
+                    <form novalidate name="resetPasswordForm2">
+                        <div class="form-group" ng-class="{'error':resetPasswordForm.password.$invalid && errorMsgLable}">
+                            <label>Password-alteast one special char,numeric and uppercase</label>
+<!--                            <label class="errorMsg" ng-show="resetPasswordForm2.password.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                            <input type="password" class="form-control" ng-model="resetdata.password" name="password" ng-pattern="passwordValidate" placeholder="minimum 8 characters" required/>
+                        </div>
+                        <div class="form-group" ng-class="{'error':resetPasswordForm.password.$invalid && errorMsgLable}">
+                            <label>Confirm Password</label> 
+<!--                            <label class="errorMsg" ng-show="resetPasswordForm2.confirmpassword.$invalid && errorMsgLable"> <small>!Required</small></label>-->
+                            <label class="errorMsg" ng-show="resetdata.password != resetdata.confirmPassword && !resetdata.confirmPassword.$pristine"> <small>Password Doesn't Match</small></label>
+                            <input type="password" class="form-control" ng-model="resetdata.confirmPassword" name="confirmpassword" ng-pattern="passwordValidate" required/>
+                        </div>
+                        <div class="form-group">
+                        	<p class="errorMsg">{[{errorMsg}]}</p>
+                        </div>
+                        <div class="tr">
+                            <button class="btn w-auto"  ng-if="resetdata.password == resetdata.confirmPassword" ng-click="resetuserPassword(resetdata)" ng-disabled="preloadTrue" style="margin-right: 14px;">
+                        <i class="fa fa-spinner fa-pulse"></i><i class="fa fa-save" ></i> Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>  
+        </div>
+    </div>

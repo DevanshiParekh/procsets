@@ -1,0 +1,956 @@
+{{#partial "page"}}
+  <div id="page-con-wrapper" class="acc-sec">
+	<div class="container-fluid">
+		<h4 class="acc-sec-title"></h4>		
+		<div class="col-md-12 venue-details" >
+			<div class="view-details" >
+				<ul>
+					<li class="displayBlockName">
+					<img src="/facesix/static/qubercomm/images/networkconfig/connected.png" alt="" id="quberImg">
+						<label class="venue-name" style="margin-left: 41px;">Configuration Settings </label>
+					<span>
+					<label>
+					<a class="btn btn-default btn-config btn-theme" style="height:34px;">
+					<input type="file" name="file" id="upload-file-selector"
+						id="fileSelect" accept=".txt" />
+  							<i class="fa fa-download faa-vertical animated" aria-hidden="true" title="Import"></i>
+						</a>
+						</label>
+						</span>
+						{{#if hidden_value}}
+						{{else}}
+						<span>
+						<label>
+						<a class="btn btn-default btn-config btn-theme" style="height:34px;">
+						 	<i class="fa fa-upload faa-vertical animated" id="exportJSON" aria-hidden="true" title="Export"></i>
+						</a>
+						</label>
+						</span> 
+						{{/if}}
+					</li>
+					
+				</ul>
+			</div>		
+      	</div>		
+					      
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description"
+	content="facesix : elastic data express to aggregate accelerate search analyze articulate analytics on data">
+<meta name="author" content="semaifour inc">
+<link
+	href="/facesix/static/bower_components/bootstrap/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<!-- Custom Fonts -->
+<link
+	href="/facesix/static/bower_components/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.1/css/buttons.dataTables.min.css">    
+	 <!-- <script src="/facesix/static/js/json-editor/jsoneditor.js"></script> -->
+</head>
+<div id="wrapper">
+            <div class="row" >
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+
+						<div class="panel-heading" style="height:69px;margin-bottom: -8px;">
+						<div id="duplicate" style="display: none;">
+							<label><font color="RED">Duplicate mac id found.</font></label>
+						</div>
+						
+						{{#if message}}
+							<label  style="margin-top: 12px;">{{message.message}}</label>
+						{{/if}}
+							<font color="RED" ></font>
+						</div>
+						{{#if policy}}
+						{{else}}
+						{{#if hidden_value}}
+					
+						{{#if SYS_WRITE}}
+							<div><a href="#" class="btn btn-primary btn3d btn-config-venue submitMesh" style=" float:right;margin-top: -50px;">Auto configure MESH </a></div>
+							<div><a href="#" class="btn btn-primary btn3d btn-config-venue submitDelete submit1" style=" float:right;margin-top: -50px;margin-right: 195px;" >Auto configure AP</a></div>
+							<!-- <div class="form-group  disp-inline" style="margin-top:35px;">
+								<button class="btn btn-primary btn-theme mobilehideS" id="importJSON" type="button" onclick="importfile();">Import</button>
+								<input type="file" id="hidfile" name="hidefile" style="display:none;" accept="application/json">
+								
+							</div> -->
+							{{/if}}
+										
+						{{else}}
+							<div class="form-group  disp-inline" style="margin-top:0px;">
+<!-- 								<button class="btn btn-primary btn-theme mobilehideS" id="exportJSON" type="button">Export</button>
+ -->							</div>
+						{{/if}}
+						{{/if}}
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-lg-1" style="margin-top: 35px;"></div>
+				<div style="float:left; width:100%;">
+				{{#if policy}}
+				<form role="form" action="/facesix/rest/site/portion/networkdevice/venueAndFloorDeviceConfig?sid={{sid}}&spid={{spid}}&cid={{cid}}" method="post" id="configform">
+				<div style="float:left; width:100%; padding-top:20px;margin-bottom: 20px;">
+					<div class="form-group disp-inline">
+							<span for="">Venue/Floor</span>
+							<select class="form-control valign" name="flag" id="flag">
+                                {{#if sid}}	<option value="Venue">Venue</option>{{/if}}
+						 		{{#if spid}}<option value="Floor">Floor </option>{{/if}}
+								<option value="Customer">Customer</option>
+							</select> 
+					</div>
+					<div><a href="#" class="push_button red submitMesh" style=" float:left;">Auto configure MESH</a></div>
+					<div><a href="#" class="push_button blue submitDelete submit1" style=" float:left;" >Auto configure AP</a></div>
+				</div>
+				{{else}}
+				<form role="form" action="/facesix/rest/site/portion/networkdevice/apsave?sid={{sid}}&spid={{spid}}&uid={{uid}}&cid={{cid}}" method="post" id="configform" >
+					<div style="float:left; width:100%; padding-top:20px;margin-bottom: 20px;">
+						<div class="form-group disp-inline res-dev">
+							<span for="" style="margin-left: 3px;">Device UID</span>
+							<input class="form-control disp-block valign" style="width: 200px;margin-top: 9px !important" name="uuid" id="uuid" onkeyup="doInsert(this)" maxlength="17"
+								placeholder="mac address" value="{{device.uid}}" {{#if device.id}}readonly{{/if}}>
+						</div> 
+						<div class="form-group  disp-inline" style="margin-left: 25px;">
+							<span for="" style="margin-left: 3px;">Alias</span> <input	class="form-control disp-block valign" style="width: 200px"
+								placeholder="alias" name="alias" id="alias" value="{{device.alias}}" maxlength="25">
+						</div>
+							
+						<div class="form-group  disp-inline" style="margin-left: -40px;">
+							<span for="" style="margin-left: 3px;">Keep Alive</span> <input	type ="number" class="form-control disp-block valign" style="width: 68px;"
+								placeholder="In minutes" name="statusInterval" id="statusInterval" min = "1" value="{{device.keepAliveInterval}}">
+						</div>
+						<div class="form-group  disp-inline" style="margin-left: -172px;">
+							<span for="" style="margin-left: 3px;">Root</span><select class="form-control disp-block valign" style="width:34%;text-transform: uppercase;" name="root" id="root" value="{{device.root}}">
+								{{#if device.root}}
+								<option value="{{device.root}}" style="display:none">{{device.root}}</option>
+								{{/if}}
+								<option value="no">no</option>
+								<option value="yes">yes</option>
+								</select>
+						</div>
+						{{#if INACTIVE_WRITE}}
+						<div class="form-group  disp-inline wMode">
+							<p for="" style="margin-left: 3px;margin-top: 11px;margin-bottom: -11px;">Mode</p><select class="form-control disp-block valign" 
+							     style="width:34%;text-transform: uppercase;" name="workingMode" id="workingMode" value="{{device.workingMode}}">
+								{{#if device.workingMode}}
+								<option value="{{device.workingMode}}" style="display:none">{{device.workingMode}}</option>
+								{{/if}}
+								<option value="normalmode">Normal Mode</option>
+								<option value="performancemode">Performance Mode</option>
+								</select>
+						</div>
+						{{/if}}
+						<div class="form-group  disp-inline" style="display: none;">
+							<input	style="width: 250px" name="param" id="param" value="{{param}}">
+						</div>
+						
+							<div style="float:right;margin-top: 18px;" class="tabAlign">
+							<div class="form-group  disp-inline" id="steerD">
+	                     	<p id="steerP">Load Balance</p>	
+						    <div class="loadBalance">  
+ 							<input type="checkbox" style="width: 250px" value="{{device.loadBalance}}" id="loadBalance" name="loadBalance"/>
+						     <label for="loadBalance"></label>
+						   </div>
+							</div>
+						<div class="form-group  disp-inline" id="steerB">
+	                     	<p id="steerPB">Band Steering</p>
+						    <div class="steering">  
+ 							<input type="checkbox" style="width: 250px" value="{{device.steering}}" id="steering" name="steering"/>
+						     <label for="steering"></label>
+						   </div>
+							</div></div>
+										
+					</div>
+				{{/if}}
+					
+				<!-- edited code for conf tab -->
+				
+				<style>
+				.disp-inline { float:left; width:250px; margin-left:10px;}
+				.tabgrp { border:2px solid #e3e3e3; padding:15px; float:left; width:100%; margin-bottom:10px; }
+				.tab { float:left; width:100%; font-size: 14px; line-height: 1.42857143; color: #333;}
+				.tabtn { float:left; width:150px; padding:7px 5px 2px 5px; cursor:pointer; text-align:center;
+							background-color: #008DD2;color: #333; margin-right:1px;     
+							border-top-right-radius: 10px; border-top-left-radius: 10px;
+							border: 1px solid #008DD2;
+						}
+				.tabc { display:none; border: 1px solid #008DD2;padding: 25px 10px 10px 10px; float:left; width:100%; background:#fff; }
+				.active { color:#fff;}
+				.mygrp { float:left; width:100%; margin-bottom:5px;}
+				.mylable {color: grey;font-size: 12px; margin: 5px; display: inline-block; width:100px; float:left;}
+				.myinput {margin-right: 10px; display: inline-block;margin-bottom: 5px; width:250px; float:left;}
+				.num4 { width:75px;}	
+				#allfromdata label{
+				    display: inline-block !important;
+				}
+				.cbmany { width:700px;}
+				.cbmany span{ float:left; width:50px; font-size:13px;}
+				.cbmany input { padding: 0;  margin:0;  vertical-align: middle;  position: relative;}
+				
+				.w50 { float:left; width:50%; max-width:450px; margin-top: 5px; margin-bottom: 10px;}
+				.form-control { height:30px!important; font-size:12px;} 
+				.switch {
+				  margin-bottom: 0px;
+				}
+				.switch:focus,
+				.switch:hover,
+				.switch:visited,
+				.switch:active {
+				  outline: 0 !important;
+				}
+				.switch input[type=checkbox] { display:none;}
+				.switch input[type=checkbox]:checked + span {
+				  -webkit-box-shadow: #00ccff 0px 0px 0px 8px inset;
+				  -moz-box-shadow: #00ccff 0px 0px 0px 8px inset;
+				  box-shadow: #00ccff 0px 0px 0px 8px inset;
+				  border-color: #00ccff;
+				  -webkit-transition: border 0.4s, box-shadow 0.4s, background-color 1.2s;
+				  -moz-transition: border 0.4s, box-shadow 0.4s, background-color 1.2s;
+				  -o-transition: border 0.4s, box-shadow 0.4s, background-color 1.2s;
+				  transition: border 0.4s, box-shadow 0.4s, background-color 1.2s;
+				}
+				.switch input[type=checkbox]:checked + span:before {
+				  left: auto;
+				  right: 0 !important;
+				}
+				.switch span {
+				  border: 1px solid #ddd;
+				  -webkit-border-radius: 100px;
+				  -moz-border-radius: 100px;
+				  -o-border-radius: 100px;
+				  border-radius: 100px;
+				  background-color: #f9f9f9;
+				  height: 14px;
+				  width: 28px;
+				  cursor: pointer;
+				  display: inline-block;
+				  -webkit-box-sizing: content-box;
+				  -moz-box-sizing: content-box;
+				  box-sizing: content-box;
+				  position: relative;
+				}
+				.switch span:before {
+				  background-color: #f9f9f9;
+				  content: '';
+				  -webkit-border-radius: 100px;
+				  -moz-border-radius: 100px;
+				  -o-border-radius: 100px;
+				  border-radius: 100px;
+				  width: 14px;
+				  height: 14px;
+				  position: absolute;
+				  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+				  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+				  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+				  left: 0;
+				}
+				.search {
+				  position: relative;
+				  padding-left: 0px !important;
+				  padding: 0px !important;
+				}
+				
+				
+				#steerP{
+				    float: right;
+    				margin-right:82px;
+    				margin-top: -10px;
+				}
+				
+				#steerD{
+				    margin-right: -50px;
+    				float: right;
+				}
+				#steerPB{
+				    float: right;
+    				margin-right:82px;
+    				margin-top: -10px;
+				}
+				
+				#steerB{
+				    margin-right: -135px;
+    				float: right;
+				}
+				.wMode{
+				width: 536px;
+			    margin-top: -94px;
+			    float: right;
+			    margin-right: -325px;
+				}
+				.avoid-clicks {
+				  pointer-events: none;
+				  background-color: lightgray;
+
+				}
+				</style>
+				
+				
+				<div class="col-md-12" style="margin-left: 12px;">
+				
+				 <div class="col-md-6 bandSteer res-med" style="border: 1px solid #008DD2;margin-bottom: 20px;float: left; width: 49%">
+				 <div style="margin-top: -31px;margin-left: -16px;"><input type="text" value="" id="inputCss"><p style="margin-left: 25px;margin-top: -24px;color:white">Band Steering</p></input></div>
+				 <div class="w50">
+				 <!-- <label style="margin-left: 0px">Band Steering</label> -->
+				<div class="form-group">
+				<label class="mylable" style="width: 150px;">Station Reject Threshold</label>
+				<div class="myinput">
+					<input type="number" class="form-control requir bssVal" id="bssStationRejectThresh" name="bssStationRejectThresh" value="{{device.bssStationRejectThresh}}" style="margin-left: 0px;">
+				</div>
+				</div>
+				<div class="form-group">
+				<label class="mylable" style="width: 150px;">Channel Busy Percentage</label>
+				<div class="myinput">
+					<input type="number" class="form-control requir bssVal" id="bssChanPbusyPercent" name="bssChanPbusyPercent" value="{{device.bssChanPbusyPercent}}" style="margin-left: 0px;">
+				</div>
+				</div>
+				<div class="form-group">
+				<label class="mylable" style="width: 150px;">Reject Timeout (Seconds)</label>
+				<div class="myinput">
+					<input type="number" class="form-control requir bssVal" id="bssRejectTimeout" name="bssRejectTimeout" value="{{device.bssRejectTimeout}}" style="margin-left: 0px;">
+				</div>
+				</div>
+					</div>	
+					 <div class="w50">
+				<div class="form-group">
+				<label class="mylable">2G Station Ratio </label>
+				<div class="myinput">
+					<input type="number" class="form-control requir bssVal" id="band2GStaRatio" name="band2GStaRatio" value="{{device.band2GStaRatio}}" style="margin-left: 0px;">
+				</div>
+				</div>
+				<div class="form-group">
+				<label class="mylable">5G Station Ratio </label>
+				<div class="myinput">
+					<input type="number" class="form-control requir bssVal" id="band5GStaRatio" name="band5GStaRatio" value="{{device.band5GStaRatio}}" style="margin-left: 0px;">
+				</div>
+				</div>
+				<div class="form-group">
+				<label class="mylable">RCPI Difference </label>
+				<div class="myinput">
+					<input type="number" class="form-control requir bssVal" id="bandRcpiDiff" name="bandRcpiDiff" value="{{device.bandRcpiDiff}}" style="margin-left: 0px;">
+				</div>
+				</div>
+					</div> 
+			     </div>				
+				
+				<div class="col-md-6 loadSteer res-med"  style="border: 1px solid #008DD2;margin-bottom: 20px;margin-left: 20px; width: 49%">
+				
+				 <div class="w50" style="margin-bottom: 15px;">
+				 <div style="margin-top: -37px;margin-left: -16px;"><input type="text" value="" id="inputCss"><p style="margin-left: 25px;margin-top: -24px;color:white">Load Balance</p></input></div>
+				<div class="form-group">
+				<label class="mylable">Min Staion Count </label>
+				<div class="myinput">
+					<input type="number" class="form-control requir bssVal" id="minStaCount" name="minStaCount" value="{{device.minStaCount}}" style="margin-left: 0px;">
+				</div>
+				</div>
+				<div class="form-group">
+				<label class="mylable">RSSI Threshold </label>
+				<div class="myinput">
+					<input type="number" class="form-control requir bssVal" id="rssiThreshold" name="rssiThreshold" value="{{device.rssiThreshold}}" style="margin-left: 0px;">
+				</div>
+				</div>
+				<div class="form-group">
+				<label class="mylable">RCPI Range</label>
+				<div class="myinput">
+					<input type="number" class="form-control requir bssVal" id="rcpiRange" name="rcpiRange" value="{{device.rcpiRange}}">
+				</div>
+				</div>
+					</div>	
+					<div class="w50">
+				<div class="form-group">
+				<label class="mylable" style="width:150px">Avg Staion Count LB </label>
+				<div class="myinput">
+					<input type="number" class="form-control requir bssVal" id="avgStaCntLb" name="avgStaCntLb" value="{{device.avgStaCntLb}}">
+				</div>
+				</div>
+				
+					</div>	
+			     </div>
+				</div>
+			
+				<div class="medium-12 columns" style="margin-top:30px; margin-bottom:100px;">
+				<div class="well well-sm" id="allfromdata">
+
+				<h3><div id="h32gr">2G Radio</div></h3>
+				<div id="div2gr"></div>
+				<button onclick="addtab('#hid2gr','#div2gr',1);" type="button" title="Add row" class="btn btn-default json-editor-btn-add "><i class="fa fa-plus"></i> Row</button>
+				<button onclick="deltab('#div2gr');" type="button" title="Delete Last row" class="btn btn-default json-editor-btn-delete " style=""><i class="fa fa-times"></i> Last row</button>
+				
+				
+				<h3><div id="h32gi">2G Interface</div></h3>
+				<div id="div2gi"></div>
+				<button onclick="addtab('#hid2gi','#div2gi',1);" type="button" title="Add row" class="btn btn-default json-editor-btn-add "><i class="fa fa-plus"></i> Row</button>
+				<button onclick="deltab('#div2gi'); interfaceSize();" type="button" title="Delete Last row" class="btn btn-default json-editor-btn-delete " style=""><i class="fa fa-times"></i> Last row</button>
+				
+				
+				<h3 ><div id="h35gr">5G Radio</div></h3>
+				<div id="div5gr"></div>
+				<button onclick="addtab('#hid5gr','#div5gr',1);" type="button" title="Add row" class="btn btn-default json-editor-btn-add "><i class="fa fa-plus"></i> Row</button>
+				<button onclick="deltab('#div5gr');" type="button" title="Delete Last row" class="btn btn-default json-editor-btn-delete " style=""><i class="fa fa-times"></i> Last row</button>
+				
+				
+				<h3 ><div id="h35gi">5G Interface</div></h3>
+				<div id="div5gi"></div>
+				<button onclick="addtab('#hid5gi','#div5gi',1);" type="button" title="Add row" class="btn btn-default json-editor-btn-add "><i class="fa fa-plus"></i> Row</button>
+				<button onclick="deltab('#div5gi'); interfaceSize();" type="button" title="Delete Last row" class="btn btn-default json-editor-btn-delete " style=""><i class="fa fa-times"></i> Last row</button>
+				</div>
+				</div>
+														
+				<!-- edited code for conf tab -->
+				<div style="margin-bottom: 50px"><input type="hidden" id="deconfig" class="form-control" name="conf"  value='{{device.conf}}'></div>
+				<!-- <div id='editor_holder' class='medium-12 columns devbar'></div> -->
+				{{#if SYS_WRITE}}
+				<button type="button" class="btn btn-primary btn3d btn-config-venue  width-120" id="valsubmit" style="margin-left: 10px">Submit</button>									
+				 {{/if}}	
+				<input type="button" class="btn btn-primary btn3d btn-config  width-120"	onclick="goBack()" value="Cancel" style="margin-left: 3px"></input>
+               		
+			</form>
+		</div>
+                                <!-- /.col-lg-6 (nested) -->
+                                <div class="col-lg-1"> </div>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+	<!-- <script src="/facesix/static/qubercomm/js/dev-edit.js"></script> -->
+ 
+  		<div class="savearea" id="reposition-modal" class="reposition-modal" style="display:none;position:fixed;margin-left: -6px;">
+  		<div class="savearea_bottom">
+			<div class="left-section">
+				<label>Are you sure you want to configure with Legacy default values ?</label>
+				<input type="checkbox" id="custband2g" style="margin-left:30px" checked>  2G?</input>
+				<input type="checkbox" id="custband5g" checked>  5G?</input>
+			</div>
+			<div class="rightsection">
+				<ul class="list-unstyled">
+					<li id="cancelDelete">
+						<label>
+							
+						</label>
+						<span >
+							Cancel
+						</span>
+					</li>
+					<li id="custlegacy">
+						<label>
+						</label>
+						<span class="color2" >
+							OK
+						</span>
+					</li>
+				</ul>
+			</div>
+			</div>
+		</div>
+ 
+ 		<div class="rebootPopup saveareaone" style="position: fixed; display: none;margin-left:-7px;">
+ 		<div class="saveareaone_bottom">
+			<div class="left-section">
+				<label>Are you sure you want to configure with Mesh default values ?</label>
+				<input type="checkbox" id="custdualband2g" style="margin-left:30px" checked>  2G?</input>
+				<input type="checkbox" id="custdualband5g" checked>  5G?</input>
+			</div>
+			<div class="rightsection">
+				<ul class="list-unstyled">
+					<li id="cancelDelete">
+						<label>
+							
+						</label>
+						<span>
+							Cancel
+						</span>
+					</li>
+					<li id="custmeshconfig">
+						<label>
+						</label>
+						<span class="color2">
+							OK
+						</span>
+					</li>
+				</ul>
+			</div>
+			</div>
+		</div>
+ 		<div class="saveareatwo" style="position: fixed; display: none;margin-left:-7px;">
+ 		<div class="saveareatwo_bottom">
+			<div class="left-section">
+				<label>To initiate steering both 2G & 5G radio should be enabled !</label>
+			</div>
+			<div class="rightsection">
+				<ul class="list-unstyled">
+					<li id="cancelD">
+						<label>
+							
+						</label>
+						<span>
+							Cancel
+						</span>
+					</li>
+					
+				</ul>
+			</div>
+			</div>
+		</div>
+		
+		 <div class="saveareathree" style="position: fixed; display: none;margin-left:-7px;">
+ 		<div class="saveareathree_bottom">
+			<div class="left-section">
+				<label>If you delete this radio then steering will be disabled ,do you want to continue ?</label>
+			</div>
+			<div class="rightsection">
+				<ul class="list-unstyled">
+					<li id="cancelthree">
+						<label>
+							
+						</label>
+						<span>
+							Cancel
+						</span>
+					</li>
+					<li id="showthree">
+						<label>
+						</label>
+						<span class="color2">
+							OK
+						</span>
+					</li>
+				</ul>
+			</div>
+			</div>
+		</div>
+ 		<div class="saveareafour" style="position: fixed; display: none;margin-left:-7px;">
+ 		<div class="saveareafour_bottom">
+			<div class="left-section">
+				<label>Removing a radio will disable the Band steering option ,do you want to continue ?</label>
+			</div>
+			<div class="rightsection">
+				<ul class="list-unstyled">
+					<li id="cancelfour">
+						<label>
+							
+						</label>
+						<span>
+							Cancel
+						</span>
+					</li>
+					<li id="showfour">
+						<label>
+						</label>
+						<span class="color2">
+							OK
+						</span>
+					</li>
+				</ul>
+			</div>
+			</div>
+		</div>
+		
+		<div class="saveareafive" style="position: fixed; display: none;margin-left:-7px;">
+ 		<div class="saveareafive_bottom">
+			<div class="left-section">
+				<label>Switching root to "NO" will make load balance option disabled, do you want to continue ? </label>
+			</div>
+			<div class="rightsection">
+				<ul class="list-unstyled">
+					<li id="cancelfive">
+						<label>
+							
+						</label>
+						<span>
+							Cancel
+						</span>
+					</li>
+					<li id="showfive">
+						<label>
+						</label>
+						<span class="color2">
+							OK
+						</span>
+					</li>
+				</ul>
+			</div>
+			</div>
+		</div>
+		<div class="saveareasix" style="position: fixed; display: none;margin-left:-7px;">
+ 		<div class="saveareasix_bottom">
+			<div class="left-section">
+				<label>Removing a radio will disable the Band steering option ,do you want to continue ?</label>
+			</div>
+			<div class="rightsection">
+				<ul class="list-unstyled">
+					<li id="cancelsix">
+						<label>
+							
+						</label>
+						<span>
+							Cancel
+						</span>
+					</li>
+					<li id="showsix">
+						<label>
+						</label>
+						<span class="color2">
+							OK
+						</span>
+					</li>
+				</ul>
+			</div>
+			</div>
+		</div>
+		<div class="saveareaseven" style="position: fixed; display: none;margin-left:-7px;">
+ 		<div class="saveareaseven_bottom">
+			<div class="left-section">
+				<label>To initiate Load balance Mesh config should be enabled !</label>
+			</div>
+			<div class="rightsection">
+				<ul class="list-unstyled">
+					<li id="cancelseven">
+						<label>
+							
+						</label>
+						<span>
+							Cancel
+						</span>
+					</li>
+					
+				</ul>
+			</div>
+			</div>
+		</div>
+ 	<style>
+ 	
+ 	@media screen and (min-width: 1717px){
+ 		.res-med{
+ 			width: 47% !important;
+ 		}
+ 	}
+ 	@media screen and (min-width: 1785px){
+ 		.res-med{
+ 			width: 45% !important;
+ 		}
+ 	}
+ 	@media screen and (min-width: 1858px){
+ 		.res-med{
+ 			width: 44% !important;
+ 		}
+ 	}
+ 	@media screen and (min-width: 1897px){
+ 		.res-med{
+ 			width: 40% !important;
+ 		}
+ 	}
+ 	@media screen and (min-width: 2072px){
+ 		.res-med{
+ 			width: 38% !important;
+ 		}
+ 	}
+ 	.res-dev{
+ 		margin-top: -90px;
+ 		margin-left: 25px;
+ 	}
+	
+.push_button {
+	position: relative;
+	width:155px;
+	height:40px;
+	text-align:center;
+	box-shadow: 0 0 0 0 #A84155;
+  border-radius: 5px;
+  background-size:cover;
+  background-repeat: no-repeat;
+  color:#fff;
+	text-decoration:none;
+	line-height:43px;
+	font-family:'Oswald', Helvetica;
+	display: block;
+	margin: 28px 15px;
+	-webkit-animation: pulse 2.25s infinite cubic-bezier(0.1, 0, 0, 1);
+  -moz-animation: pulse 2.25s infinite cubic-bezier(0.1, 0, 0, 1);
+  -ms-animation: pulse 2.25s infinite cubic-bezier(0.1, 0, 0, 1);
+  animation: pulse 2.25s infinite cubic-bezier(0.1, 0, 0, 1);
+}
+@-webkit-keyframes pulse {to {box-shadow: 0 0 0 10px rgba(232, 76, 61, 0);}}
+@-moz-keyframes pulse {to {box-shadow: 0 0 0 10px rgba(232, 76, 61, 0);}}
+@-ms-keyframes pulse {to {box-shadow: 0 0 0 10px rgba(232, 76, 61, 0);}}
+@keyframes pulse {to {box-shadow: 0 0 0 10px rgba(232, 76, 61, 0);}}
+
+.red {
+	text-shadow:-1px -1px 0 #A84155;
+	background: #D25068;
+	border:1px solid #D25068;
+	
+	background-image:-webkit-linear-gradient(top, #F66C7B, #D25068);
+	background-image:-moz-linear-gradient(top, #F66C7B, #D25068);
+	background-image:-ms-linear-gradient(top, #F66C7B, #D25068);
+	background-image:-o-linear-gradient(top, #F66C7B, #D25068);
+	background-image:linear-gradient(to bottom, #F66C7B, #D25068);
+	
+	
+}
+.red:hover {
+	background: #F66C7B;
+	background-image:-webkit-linear-gradient(top, #D25068, #F66C7B);
+	background-image:-moz-linear-gradient(top, #D25068, #F66C7B);
+	background-image:-ms-linear-gradient(top, #D25068, #F66C7B);
+	background-image:-o-linear-gradient(top, #D25068, #F66C7B);
+	background-image:linear-gradient(top, #D25068, #F66C7B);
+	color:#fff; text-decoration:none;
+}
+.blue {
+	text-shadow:-1px -1px 0 #2C7982;
+	background: #3EACBA;
+	border:1px solid #379AA4;
+	background-image:-webkit-linear-gradient(top, #48C6D4, #3EACBA);
+	background-image:-moz-linear-gradient(top, #48C6D4, #3EACBA);
+	background-image:-ms-linear-gradient(top, #48C6D4, #3EACBA);
+	background-image:-o-linear-gradient(top, #48C6D4, #3EACBA);
+	background-image:linear-gradient(top, #48C6D4, #3EACBA);
+	}
+
+.blue:hover {
+	background: #48C6D4;
+	background-image:-webkit-linear-gradient(top, #3EACBA, #48C6D4);
+	background-image:-moz-linear-gradient(top, #3EACBA, #48C6D4);
+	background-image:-ms-linear-gradient(top, #3EACBA, #48C6D4);
+	background-image:-o-linear-gradient(top, #3EACBA, #48C6D4);
+	background-image:linear-gradient(top, #3EACBA, #48C6D4);
+	color:#fff; text-decoration:none;
+}
+
+.bssVal{
+width:80%;
+}
+
+#inputCss{
+	border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border: 1px solid #008DD2;
+    width: 150px;
+    padding: 7px 5px 2px 5px;
+    background: #008DD2;
+}
+</style>
+<!-- ***********2G radio Form************ -->
+
+
+<link rel="stylesheet" href="/facesix/static/geo/css/loader.css">		
+<!-- js -->
+<script src="/facesix/static/qubercomm/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/jquery_validate_min_js.js" type="text/javascript"></script>
+
+<script src="https://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.nicescroll.min.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/common.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/handlebars.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/script.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/snap.svg-min.js"></script>
+<script src="/facesix/static/qubercomm/js/jqpanzoom.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/d3.v3.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/underscore-min.js"></script>
+<link src="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="/facesix/static/qcom/js/angular.min.js"></script>
+<script src="/facesix/static/qcom/js/angular-route.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/css/style.css"/>
+
+<!--
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.mobile-events.js"></script> 
+<script src="/facesix/static/qubercomm/js/form-validations.js" type="text/javascript"></script> -->
+<script type="text/javascript" src="/facesix/static/qubercomm/js/config.js"></script>
+<script type='text/javascript'>
+var srvrdta = "{{device.conf}}";
+</script>
+<script>
+$(document).ready(function(){
+
+var steerval = '{{device.steering}}' ;
+var loadBal = '{{device.loadBalance}}' ;
+	
+	
+	//console.log("steerval = " + steerval)
+	//console.log("loadBal = " + loadBal)
+	
+	if(steerval == 'true'){
+		$('#steering').prop('checked', true);
+		$('.bandSteer').show();
+	} else {
+		$('#steering').prop('checked', false);
+		$('.bandSteer').hide();
+	}
+	
+	
+	if(loadBal == 'true'){
+		$('#loadBalance').prop('checked', true);
+		$('.loadSteer').show();
+	} else {
+		$('#loadBalance').prop('checked', false);
+		$('.loadSteer').hide();
+	}
+
+	/* var sVal = $('#steering').val();
+	if(sVal == "true"){
+		$('.bandSteer').show();
+	} else {
+		$('.bandSteer').hide();
+	}
+
+ 	var loadVal = $('#loadBalance').val();
+	if(loadVal == "true"){
+		$('.loadSteer').show();
+	} else {
+		$('.loadSteer').hide();
+	}
+  */
+  
+  var root = $('#root').val();
+  
+  {{#if hidden_value}}
+  	$('#bssStationRejectThresh').val('2');
+	$('#bssChanPbusyPercent').val('75');
+	$('#bssRejectTimeout').val('900');
+	$('#band2GStaRatio').val('30');
+	$('#band5GStaRatio').val('70');
+	$('#bandRcpiDiff').val('10');
+	
+	$('#minStaCount').val('10');
+	$('#rssiThreshold').val('-60');
+	$('#rcpiRange').val('8');
+	$('#avgStaCntLb').val('0');
+  
+  {{else}}
+     if(root == "no" && $("#loadBalance").is(':checked') == true){
+	$('.loadSteer').hide();
+	}
+	{{/if}}
+
+
+});
+
+
+$('#root').change(function() {
+	
+	var meshNode  = $('#2gi_mode_1').val();
+	var meshNodeF = $('#5gi_mode_1').val();
+	var lB = $('#loadBalance').is(':checked') == true;
+	var rootVal = $('#root').val();
+	
+	console.log(">>mesh<<<" + meshNode)
+	console.log(">>meshF<<<" + meshNodeF)
+	console.log(">>loadBalance<<<" + lB)
+	
+	if(rootVal == "no" && $("#loadBalance").is(':checked') == true){
+		$('.saveareafive').show();
+	}
+	else if(rootVal == "no"){
+		$('saveareaseven').show();
+	} else if(rootVal == "yes" && lB == true){
+		//$('#loadBalance').prop('disabled',false);
+		$('.loadSteer').show();
+		$('#minStaCount').val('10');
+		$('#rssiThreshold').val('-60');
+		$('#rcpiRange').val('8');
+		$('#avgStaCntLb').val('0');
+	} 
+	
+	$('#2gi_mode_1').val('mesh');
+	$('#5gi_mode_1').val('mesh');
+	
+});
+
+function goBack() {
+    window.history.back();
+}
+
+
+function interfaceSize(){
+
+cur_val_2g = $('#div2gi div').size();
+cur_val_5g = $('#div5gi div').size();
+if(cur_val_2g == '104'){
+	$('#2gr_dcs_0').attr('readonly',true);
+						$("#2gr_dcs_0").val('false');
+						$("#2gr_dcs_0").addClass('avoid-clicks');
+					} else {
+						$('#2gr_dcs_0').attr('readonly',false);
+						$("#2gr_dcs_0").removeClass('avoid-clicks');
+}
+
+if(cur_val_5g == '104'){
+	$('#5gr_dcs_0').attr('readonly',true);
+						$("#5gr_dcs_0").val('false');
+						$("#5gr_dcs_0").addClass('avoid-clicks');
+					} else {
+						$('#5gr_dcs_0').attr('readonly',false);
+						$("#5gr_dcs_0").removeClass('avoid-clicks');
+}
+}
+</script>
+<div id="onloadata"></div>
+<div class="loader_box" style="display: none;">	
+	<div class="loader"></div>
+	<h4 class="text-center">Processing</h4>
+</div>
+
+{{#if device.id}}
+{{else}}
+<script>
+$(document).ready(function(){
+    $("input").focus(function(){
+    	var uid = $('#uuid').val();
+    	
+    	var url="/facesix/rest/device/checkDuplicate?uid="+uid;
+    	console.log("url" + url);
+    	$.ajax({
+	   	  	url:url,
+	   	  	method:'GET',
+	   	  	data:{},
+	   	  	headers:{
+	   	  		'content-type':'application/json'
+	   	  	},
+	   	  	success:function(response,error){
+	   	  		//console.log(">>>>>>>"+response+"<<<<<<<<");
+	   	  		 if(response=="duplicate"){
+	   	  		$("#uuid").css("border", "1px solid red");
+					document.getElementById("alias").value = "";
+					document.getElementById("uuid").value = "Duplicate UID";
+	   	  			//alert("Kindly update existing device, device with this MAC already exists !");
+	   	  			
+	   	  		}else{
+	   	  			$("#uuid").css("border", "1px light black");
+					
+	   	  		}
+	   	  	},
+	   	  	error:function(error){
+	   	  		 console.log(error);
+	   	  	}
+	   	  });
+    });
+});
+</script>
+{{/if}}
+<script>
+
+$("#statusInterval").keypress(function(event) {
+	  if ( event.which == 45 || event.which == 189 ) {
+	      event.preventDefault();
+	   }
+});
+</script>
+{{/partial}}
+
+{{>qubercomm/nav-top}}
+{{>qubercomm/nav-left}}
+  {{>device-edit-headerscript}}
+{{>qubercomm/wrapper}}

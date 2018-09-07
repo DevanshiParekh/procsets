@@ -1,0 +1,69 @@
+{{#partial "page"}}
+        <div id="page-wrapper-noleftnav">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="page-header"> Modify Beacon Configuration : {{device.name}}</h3>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                      <div class="panel-heading">
+                      	{{#block "message"}} {{/block}}
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-1"> </div>
+                            
+                                <div class="col-lg-10">
+                                    <form role="form" action="/facesix/web/beacon/checkout?cid={{cid}}" method="post">
+                                    {{#if beacon.id}}
+                                        <input name="id" type="hidden" value="{{beacon.id}}">
+                                    {{/if}}
+                                        <div class="form-group">
+                                            <label>Beacon Macaddr</label>
+                                            <input class="form-control" name="macaddr" placeholder="name of the device" value="{{beacon.macaddr}}" {{disabled}}>
+                                        </div>
+                                   
+                                        <div class="form-group">
+                                            <label>Beacon UID</label>
+                                            <input class="form-control" name="uid" placeholder="ip or mac address" value="{{beacon.uid}}" {{disabled}}>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Assigned To</label>
+                                            <input class="form-control" name="assto" placeholder="name of the person" value="{{beacon.assto}}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Patient Type</label>
+                                            	<select name="Patient">
+												  	<option value="New">New</option>
+												  	<option value="Review">Review</option>
+												  	<option value="PMT">PMT</option>
+												  	<option value="POP">POP</option>
+												  	<option value="Investigation">Investigation</option>
+												</select>
+                                        </div>
+                                        <button type="submit" id="submit" class="btn btn-default">Checkout</button> <a href="/facesix/web/beacon/list?suid={{beacon.suid}}&cid={{cid}}"> Cancel </a>
+                                    </form>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                <div class="col-lg-1"> </div>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+{{/partial}}
+{{>message}}
+{{>qubercomm/nav-top}}
+{{>qubercomm/nav-left}}
+{{>qubercomm/wrapperfinder}}

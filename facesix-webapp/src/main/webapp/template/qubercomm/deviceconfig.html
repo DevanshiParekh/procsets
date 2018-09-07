@@ -1,0 +1,382 @@
+{{#partial "page"}}
+  <div id="page-con-wrapper" class="acc-sec">
+	<div class="container-fluid">
+		<h4 class="acc-sec-title"></h4>		
+		<div class="col-md-12 venue-details" >
+									<div class="view-details" >
+										<ul>
+											<li class="displayBlockName">
+											<img src="/facesix/static/qubercomm/images/networkconfig/connected.png" alt="" id="quberImg">
+												<label class="venue-name" style="margin-left: 41px;">Configuration Settings </label>
+											</li>			
+												         
+										 
+						</ul>
+				 	                 </div>		
+				 	                	
+					      </div>		
+					      
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description"
+	content="facesix : elastic data express to aggregate accelerate search analyze articulate analytics on data">
+<meta name="author" content="semaifour inc">
+<link
+	href="/facesix/static/bower_components/bootstrap/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<!-- Custom Fonts -->
+<link
+	href="/facesix/static/bower_components/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.1/css/buttons.dataTables.min.css">    
+	 <script src="/facesix/static/js/json-editor/jsoneditor.js"></script>
+</head>
+<div id="wrapper">
+            <div class="row" >
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                    <div class="panel-heading">
+						{{#if message}}
+							<label><font color="READ">{{message.message}}</font></label>
+						{{/if}}
+							<font color="RED" ></font>
+						</div>
+                        {{#if uid}}
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-1"> </div>
+                            
+                                  <div class="col-lg-10">
+                                    <form role="form"  id="configform" action="/facesix/rest/site/portion/networkdevice/apsave?sid={{sid}}&spid={{spid}}&uid={{uid}}" method="post">
+                                    {{#if device.id}}
+                                        <input name="id" id="id" type="hidden" value="{{device.id}}">
+                                    {{/if}}
+                                      
+                                        <div class="form-group disp-inline uiddd">
+                                             <span for="">Device UID</span>  
+                                            <input class="form-control disp-block valign" style="width:250px" name="uuid" id="uuid" placeholder="ip or mac address" value="{{uid}}" readonly>
+                                        </div>
+                                  
+                                        <div class="form-group  disp-inline uu">
+                                            <span for="">Alias</span>
+                                            <input class="form-control disp-block valign" style="width:250px"  placeholder="alias" name="alias" id="alias" value='{{device.alias}}'>
+                                        </div>
+                                   {{#if hidden_value}}
+										<div>
+										<a href="#" class="push_button red submitMesh"  style="margin-left: 458px;margin-top: -54px;">Push to Auto configure MESH</a>
+											<!-- <a class="button btn-is-disabled" id=""> <span>Mesh
+													&nbsp;&nbsp;&nbsp;</span>
+											</a> -->
+										</div>
+										<div>
+										<a href="#" class="push_button blue submitDelete submit1" style="margin-left: 700px;margin-top: -70px;" >Push to Auto configure LEGACY</a>
+											<!-- <a class="leg submitDelete submit1" > <span>Legacy</span>
+											</a> -->
+										</div>
+										<div style="margin-top:-70px;margin-left:943px;">
+										<i class='	fa fa-hand-o-left faa-wrench animated fa-3x'></i>
+
+										</div>
+										{{else}}
+										<div style="margin-left: 445px; margin-top: -48px;">
+											<button class="btn btn-default btn-config btn-theme mobilehideS" id="exportJSON" type="button">Export</button>
+										</div>
+										{{/if}}
+										
+										
+										<div style="margin-bottom:50px">
+                                            <input type="hidden" id="deconfig" class="form-control" name="conf" value='{{device.conf}}'> </input>
+                                        </div>
+                                        <div id='editor_holder' class='medium-12 columns devbar'"></div>
+                                       
+                                        <button type="submit" class="btn btn-default btn-config btn-theme width-120" id="submit" style="margin-left:-98px">Submit</button>
+                                        {{#if sid}}
+                                        <input type="button" class="btn btn-default btn-config btn-theme width-120" onclick="javascript:window.location.href='/facesix/web/site/portion/nwcfg?sid={{sid}}&spid={{spid}}&uid=?'" value="Cancel" style="margin-left:3px">
+                                        {{else}}
+                                       </input>
+           								 <input type="button" class="btn btn-default btn-config btn-theme width-120" onclick="javascript:window.location.href='/facesix/qubercloud/welcome'" value="Cancel" style="margin-left:3px"></input>
+
+										{{/if}}
+
+										<div class="savearea" id="reposition-modal" class="reposition-modal" style="display: none; position: fixed; margin-left: -210px;">
+											<div class="left-section">
+												<p style="font-weight: bold;color: black;"> Are you sure you want to configure with Legacy default values ?</p>
+												<input type="checkbox" id="cband" style="margin-left:30px">  2G?</input>
+												<input type="checkbox" id="pband">  5G?</input>
+											</div>
+											<div class="rightsection">
+												<ul class="list-unstyled">
+													<li id="cancelDelete"><label> </label> <span>
+															Cancel </span></li>
+													<li id="legacy"><label> </label> <span class="color2">
+															OK </span></li>
+												</ul>
+											</div>
+										</div>
+										<div class="rebootPopup saveareaone"
+											style="position: fixed; display: none;margin-left: -210px;">
+											<div class="left-section">
+												<p style="color:black;font-weight:bold;">Are you sure you want to configure with Mesh
+													default values ?</p>
+													<input type="checkbox" id="meshband2g" style="margin-left:30px">  2G?</input>
+												<input type="checkbox" id="meshband5g">  5G?</input>
+											</div>
+											<div class="rightsection">
+												<ul class="list-unstyled">
+													<li id="cancelDelete"><label> </label> <span>
+															Cancel </span></li>
+													<li id="mesh"><label> </label> <span class="color2">
+															OK </span></li>
+												</ul>
+											</div>
+										</div>
+									</form>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                <div class="col-lg-1"> </div>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        {{else}}
+                            <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-1"> </div>
+                            
+                                  <div class="col-lg-10">
+                                    <form role="form" action="/facesix/rest/site/portion/networkdevice/venueAndFloorDeviceConfig?sid={{sid}}&spid={{spid}}&cid={{cid}}" method="post">
+                                    {{#if device.id}}
+                                        <input name="id" type="hidden" value="{{device.id}}">
+                                    {{/if}}
+                                        <div class="form-group" style="width:250px;margin-left:-100px">
+                                              <label  id = "">Venue/Floor</label>
+                                         	<select class="form-control" name="flag" id="flag">
+                                         	{{#if sid}}
+										 		<option value="Venue">Venue</option>
+										 		{{/if}}
+										 		{{#if spid}}
+												<option value="Floor">Floor </option>
+												{{/if}}
+												<option value="Customer">Customer</option>
+											</select> 
+                                        </div>
+                                        <div>
+										<a href="#"  id="meshclick" class="push_button red submitMesh" style="margin-left: 170px;margin-top: -54px;">Push to Auto configure MESH</a>
+											<!-- <a class="button btn-is-disabled" id=""> <span>Mesh
+													&nbsp;&nbsp;&nbsp;</span>
+											</a> -->
+										</div>
+										<div>
+										<a href="#" id="legclick" class="push_button blue submitDelete submit1" style="margin-left: 403px;margin-top: -70px;" >Push to Auto configure LEGACY</a>
+											<!-- <a class="leg submitDelete submit1" > <span>Legacy</span>
+											</a> -->
+										</div>
+										<div style="margin-top:-70px;margin-left:639px;">
+										<i class='	fa fa-hand-o-left faa-wrench animated fa-3x'></i>
+
+										</div>
+
+										<div style="margin-bottom:50px">
+                                            <input type="hidden" id="deconfig" class="form-control" name="conf" value='{{device.conf}}'> </input>
+                                        </div>
+                                        <div id='editor_holder' class='medium-12 columns devbar' ></div>
+                                    
+                                        <button type="submit" class="btn btn-default btn-config btn-theme width-120" id="submit" style="margin-left:-98px">Submit</button>
+                                       	<input type="button" class="btn btn-default btn-config btn-theme width-120" onclick="javascript:window.location.href=' /facesix/web/site/list?cid={{cid}}'" value="Cancel" style="margin-left:3px"></input>
+
+
+										<div class="savearea" id="reposition-modal" class="reposition-modal" style="display: none; position: fixed; margin-left: -210px;">											
+											<div class="left-section">
+												<label >Are you sure you want to configure the<p id="flag1" style="color: black;"></p> with Legacy default values ?</label>
+													<input type="checkbox" id="dualband2g" style="margin-left:30px">  2G?</input>
+												<input type="checkbox" id="dualband5g">  5G?</input>
+											</div>
+											<div class="rightsection">
+												<ul class="list-unstyled">
+													<li id="cancelDelete"><label> </label> <span>
+															Cancel </span></li>
+													<li id="lg"><label> </label> <span class="color2">
+															OK </span></li>
+												</ul>
+											</div>
+										</div>
+										<div class="rebootPopup saveareaone"
+											style="position: fixed; display: none;margin-left: -210px;">
+											<div class="left-section">
+												<label>Are you sure you want to configure <p id="flag2" style="color: black;"></p> with Mesh
+													default values ?</label>
+													<input type="checkbox" id="dual2g" style="margin-left:30px">  2G?</input>
+												<input type="checkbox" id="dual5g">  5G?</input>
+											</div>
+											<div class="rightsection">
+												<ul class="list-unstyled">
+													<li id="cancelDelete"><label> </label> <span>
+															Cancel </span></li>
+													<li id="me"><label> </label> <span class="color2">
+															OK </span></li>
+												</ul>
+											</div>
+										</div>
+									</form>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                <div class="col-lg-1"> </div>
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        {{/if}}
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+	<script src="/facesix/static/qubercomm/js/dev-edit.js"></script> 
+ 
+	</div>
+
+	<style>
+	
+	.push_button {
+	position: relative;
+	width:220px;
+	height:40px;
+	text-align:center;
+	color:#FFF;
+	text-decoration:none;
+	line-height:43px;
+	font-family:'Oswald', Helvetica;
+	display: block;
+	margin: 30px;
+}
+.push_button:before {
+	background:#f0f0f0;
+	background-image:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#D0D0D0), to(#f0f0f0));
+	
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	
+	-webkit-box-shadow:0 1px 2px rgba(0, 0, 0, .5) inset, 0 1px 0 #FFF; 
+	-moz-box-shadow:0 1px 2px rgba(0, 0, 0, .5) inset, 0 1px 0 #FFF; 
+	box-shadow:0 1px 2px rgba(0, 0, 0, .5) inset, 0 1px 0 #FFF;
+	
+	position: absolute;
+	content: "";
+	left: -6px; right: -6px;
+	top: -6px; bottom: -10px;
+	z-index: -1;
+}
+
+.push_button:active {
+	-webkit-box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset;
+	top:5px;
+}
+.push_button:active:before{
+	top: -11px;
+	bottom: -5px;
+	content: "";
+}
+
+.red {
+	text-shadow:-1px -1px 0 #A84155;
+	background: #D25068;
+	border:1px solid #D25068;
+	
+	background-image:-webkit-linear-gradient(top, #F66C7B, #D25068);
+	background-image:-moz-linear-gradient(top, #F66C7B, #D25068);
+	background-image:-ms-linear-gradient(top, #F66C7B, #D25068);
+	background-image:-o-linear-gradient(top, #F66C7B, #D25068);
+	background-image:linear-gradient(to bottom, #F66C7B, #D25068);
+	
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	
+	-webkit-box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #AD4257, 0 4px 2px rgba(0, 0, 0, .5);
+	-moz-box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #AD4257, 0 4px 2px rgba(0, 0, 0, .5);
+	box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #AD4257, 0 4px 2px rgba(0, 0, 0, .5);
+}
+
+.red:hover {
+	background: #F66C7B;
+	background-image:-webkit-linear-gradient(top, #D25068, #F66C7B);
+	background-image:-moz-linear-gradient(top, #D25068, #F66C7B);
+	background-image:-ms-linear-gradient(top, #D25068, #F66C7B);
+	background-image:-o-linear-gradient(top, #D25068, #F66C7B);
+	background-image:linear-gradient(top, #D25068, #F66C7B);
+}
+
+.blue {
+	text-shadow:-1px -1px 0 #2C7982;
+	background: #3EACBA;
+	border:1px solid #379AA4;
+	background-image:-webkit-linear-gradient(top, #48C6D4, #3EACBA);
+	background-image:-moz-linear-gradient(top, #48C6D4, #3EACBA);
+	background-image:-ms-linear-gradient(top, #48C6D4, #3EACBA);
+	background-image:-o-linear-gradient(top, #48C6D4, #3EACBA);
+	background-image:linear-gradient(top, #48C6D4, #3EACBA);
+	
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
+	border-radius:5px;
+	
+	-webkit-box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #338A94, 0 4px 2px rgba(0, 0, 0, .5);
+	-moz-box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #338A94, 0 4px 2px rgba(0, 0, 0, .5);
+	box-shadow:0 1px 0 rgba(255, 255, 255, .5) inset, 0 -1px 0 rgba(255, 255, 255, .1) inset, 0 4px 0 #338A94, 0 4px 2px rgba(0, 0, 0, .5);
+}
+
+.blue:hover {
+	background: #48C6D4;
+	background-image:-webkit-linear-gradient(top, #3EACBA, #48C6D4);
+	background-image:-moz-linear-gradient(top, #3EACBA, #48C6D4);
+	background-image:-ms-linear-gradient(top, #3EACBA, #48C6D4);
+	background-image:-o-linear-gradient(top, #3EACBA, #48C6D4);
+	background-image:linear-gradient(top, #3EACBA, #48C6D4);
+}
+
+	</style>
+	
+	
+	
+
+	<img src="/facesix/static/qubercomm/images/networkicons/server_inactive.png" height="30" id="serverOffline" width="30" style="display:none">
+	<img src="/facesix/static/qubercomm/images/networkicons/switch_inactive.png" height="30" id="switchOffline" width="30" style="display:none">
+	<img src="/facesix/static/qubercomm/images/networkicons/ap_inactive.png" height="30" id="apOffline" width="30" style="display:none">
+	<img src="/facesix/static/qubercomm/images/networkicons/sensor_inactive.png" height="30" id="sensorOffline" width="30" style="display:none">
+		
+		
+		
+<!-- js -->
+<script src="/facesix/static/qubercomm/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/jquery_validate_min_js.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/form-validations.js" type="text/javascript"></script>
+<script src="https://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.mobile-events.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/common.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/handlebars.min.js"></script>
+<script src="/facesix/static/qubercomm/js/qubercast.js" type="text/javascript"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/script.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/snap.svg-min.js"></script>
+<script src="/facesix/static/qubercomm/js/jqpanzoom.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/d3.v3.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/underscore-min.js"></script>
+
+
+<script src="/facesix/static/qubercomm/js/networkcon.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/networkconfig.js" type="text/javascript"></script>
+{{/partial}}
+
+{{>qubercomm/nav-top}}
+{{>qubercomm/nav-left}}
+ {{>device-edit-headerscript}}
+{{>qubercomm/wrapper}}

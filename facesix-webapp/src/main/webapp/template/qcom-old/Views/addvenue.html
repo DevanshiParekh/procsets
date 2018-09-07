@@ -1,0 +1,62 @@
+<section class="content">
+    <div class="container-fluid">
+        <div class="addvenue">
+                <h3 class="set-title">Add Venue</h3>
+                <div class="steps">
+                    <ul>
+                        <li ng-class="{'done': venuestep1}"><span>1</span>Search</li>
+                        <li ng-class="{'done': venuestep2}"><span>2</span>Edit</li>
+                        <li ng-class="{'done': venuestep3}"><span>3</span>Save</li>
+                    </ul>
+                </div>
+                <form id="createVenue" role="form" action="/facesix/web/site/save?sid={{fsobject.id}}" method="post">
+                <div class="venue-box">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <div class="form-group">
+                                <div class="form-inline">
+                                    <button class="btn btn-type-left" ng-if="prevtrue" ng-click="venueprev()"><i class="fa fa-chevron-left"></i>Prev</button>
+                                    <input id="from" type="text" ng-model="user.from" placeholder="Search Venue" autocomplete="off" class="form-control" ng-show="searchtrue">
+                                    <button class="btn btn-type-right" ng-if="nexttrue" ng-click="venuenext()">Next <i class="fa fa-chevron-right"></i></button>
+                                    <button class="btn btn-type-right" ng-if="savetrue" ng-click="createvenue(venue)"><i class="fa fa-save"></i> Save</button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="panel-body venue-box-1">
+                            <div class="w50" ng-show="venuestep2">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input type="text" class="form-control" ng-model="venue.name" name="uid"/>
+                                </div>
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <textarea class="form-control" ng-model="venue.address" name="name"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Description / Note</label>
+                                    <textarea class="form-control" ng-model="venue.note" name="description"></textarea>
+                                </div>
+                            </div>
+                            <div ng-class="{'w100' : venuestep1, 'w50' : venuestep2}">
+                                <div class="venuemap" id="map-canvas"></div>
+                            </div>
+                            <div>
+
+                                <div class="col-md-6">
+
+                                </div>
+                            </div>
+                            <div ng-show="venuestep3">
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+</form>
+            </div>
+     </div>
+</section>

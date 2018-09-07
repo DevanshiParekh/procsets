@@ -1,0 +1,71 @@
+{{#partial "leftnav"}}
+	<div id="sidebar-wrapper">
+				<ul class="sidebar-nav nav-pills nav-stacked  nav-seller" id="menu">
+
+					<li>
+						<hr>
+						
+						{{#if spid}}
+							<a href="/facesix/web/site/portion/nwcfg?sid={{sid}}&spid={{spid}}&uid=?&cid={{cid}}" class="disablemenu"><span class="fa-stack fa-lg pull-left" title = "Config"><i class="fa fa-cogs fa-lg" aria-hidden="true" style="margin-left:-13px"></i></span>
+									<span class="sb-name">Configuration</span>
+							</a>
+						{{/if}}
+					
+						
+					</li>				
+					
+					<li>
+						<hr>
+							{{#if sid}}					
+								<a href="/facesix/web/site/portion/dashview?sid={{sid}}"><span class="fa-stack fa-lg pull-left" title = "Dashboard"><img src="/facesix/static/qubercomm/images/sidebar/sb2.png" alt=""></span> 
+									<span class="sb-name">Dashboard</span>
+								</a>
+							{{/if}}
+					</li>	
+					
+					<li class="addhide">
+						<hr>
+							{{#if spid}}					
+								<a href="/facesix/web/site/portion/map?spid={{spid}}"><span class="fa-stack fa-lg pull-left" title = "Topology"><i class="fa fa-tree" style="margin-left:-13px"></i></span> 
+									<span class="sb-name">Topology</span>
+								</a>
+							{{/if}}
+					</li>					
+					<!--  				
+					{{#if sid}}
+					<li class="user-pic mobilehideS">
+						<a href="/facesix/web/qcast/profile?qcastId=a5a5&spid={{spid}}&uid=?">
+							<i class="fa fa-video-camera fa-lg" aria-hidden="true"></i>								
+								<span class="sb-name" title=""></span> 
+							
+							</a>
+					</li>
+				{{/if}}
+					-->
+					 {{#if sid}}
+		                 		<li class="addhide">
+			               		<a href="/facesix/web/device/deviceconfigure?sid={{sid}}&spid={{spid}}&cid={{cid}}">
+								<i class="fa fa-database"></i> 
+									<span class="sb-name"></span>
+		                      	</a></li> 
+		                     {{/if}} 
+		                      {{#if sid}}
+		                 		<li class="addhide">
+			               		<a href="/facesix/web/site/portion/campaign?sid={{sid}}">
+								<i class="fa fa-map"></i> 
+									<span class="sb-name"></span>
+		                      	</a></li> 
+		                     {{/if}} 
+								
+					{{#if sid}}
+						<li class="user-pic mobilehideS">
+							<a href="/facesix/web/acl/profile?sid={{sid}}&spid={{spid}}">
+								<i class="fa fa-lock fa-lg" aria-hidden="true"></i>								
+									<span class="sb-name"></span>
+							</a>
+						</li> {{/if}} 
+				
+
+	</ul>
+			</div>
+{{/partial}}

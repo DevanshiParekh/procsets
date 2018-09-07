@@ -1,0 +1,144 @@
+{
+  
+  "title": "Config",
+  "type": "object",
+  "options" : {
+  	"disable_edit_json" : true,
+  	"disable_properties" : true,
+  	"no_additional_properties" : true
+  },
+  "properties": {
+   "radio2g" : {
+  		"type": "array",
+      	"format": "table",
+      	 "title": "Radio 2G",
+      	 "uniqueItems": true,
+      	 "items": {
+             "type": "object",
+             "properties" : {
+			   "wifi-device": {
+			      "type": "string",
+			      "minLength": 1
+			    },
+			    "type": {
+			      "type": "string",
+			      "minLength": 1
+			    },
+			    "channel": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    },
+			    "hwmode": {
+			      "type": "string",
+			      "minLength": 1
+			    }
+			}
+	    },
+	    "options" : {
+	    	"disable_array_add" : true,
+	    	"disable_array_delete" : true,
+	    	"disable_array_reorder" : true
+	    	
+	    }
+    },
+    "interfaces2g": {
+      "type": "array",
+      "format": "table",
+      "title": "2G Interfaces",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "wifi-iface": {
+            "type": "string"
+          },
+          "device": {
+            "type": "string"
+          },
+    	  "network": {
+      		"type": "string"
+    	   },          
+          "mode": {
+            "type": "string"
+          },
+          "ssid": {
+            "type": "string"
+          },
+          "encryption": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "radio5g" : {
+  		"type": "array",
+      	"format": "table",
+      	"title": "Radio 5G",
+      	 "uniqueItems": true,
+      	 "items": {
+             "type": "object",
+             "properties" : {
+			   "wifi-device": {
+			      "type": "string",
+			      "minLength": 1
+			    },
+			    "type": {
+			      "type": "string",
+			      "minLength": 1
+			    },
+			    "channel": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    },
+			    "hwmode": {
+			      "type": "string",
+			      "minLength": 1
+			    }
+			}
+	    },
+	    "options" : {
+	    	"disable_array_add" : true,
+	    	"disable_array_delete" : true,
+	    	"disable_array_reorder" : true
+	    	
+	    }
+    },
+    "interfaces5g": {
+      "type": "array",
+      "format": "table",
+      "title": "5G Interfaces",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "wifi-iface": {
+            "type": "string"
+          },
+          "device": {
+            "type": "string"
+          },
+    	  "network": {
+      		"type": "string"
+    	   },          
+          "mode": {
+            "type": "string"
+          },
+          "ssid": {
+            "type": "string"
+          },
+          "encryption": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

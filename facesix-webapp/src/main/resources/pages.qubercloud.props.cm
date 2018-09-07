@@ -1,0 +1,23 @@
+#
+# Pages - mapping of html templates for white labeled pages
+#
+facesix.login=qubercomm/login
+facesix.forgot=qubercomm/forgot
+facesix.contact=qubercomm/contactus
+facesix.reset=qubercomm/reset
+facesix.account=qubercomm/account
+facesix.logs=qubercomm/logs
+facesix.iot.site.list=qubercomm/venue-list
+facesix.iot.site.edit=qubercomm/venue-edit
+
+facesix.iot.site.portion.list=qubercomm/floor-list
+facesix.iot.site.portion.sort=qubercomm/floor-sort
+facesix.iot.site.portion.edit=qubercomm/floor-edit
+facesix.iot.site.portion.dashboard=qubercomm/floor-dashboard
+facesix.iot.site.portion.nwcfg=qubercomm/floor-nwcfg
+facesix.iot.site.portion.map=qubercomm/floor-map
+facesix.iot.site.portion.dev.dashboard=qubercomm/floor-dev-dashboard
+facesix.iot.site.portion.swi.dashboard=qubercomm/floor-swi-dashboard
+facesix.iot.site.portion.dashview=qubercomm/venue-dashboard
+facesix.iot.site.portion.logview=qubercomm/logs
+facesix.iot.site.portion.flrdash=qubercomm/floor-dashboard

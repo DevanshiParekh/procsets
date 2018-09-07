@@ -1,0 +1,228 @@
+<div class="topology">
+    <div class="top-icons">
+        <h3>{[{head.title}]}</h3>
+        <ul>
+            <li click="server">
+                <a href="" ng-click="serveropen()">
+                    <label class="server"></label> <span>Server</span>
+                </a>
+                <div class="top-dropdown" ng-show="serveropened">
+                    <div class="form-group">
+                        <label>Name <span class="errMsg" ng-if="errorName">Required</span></label>
+                        <input type="text" class="form-control" ng-model="dataserver.devname" />
+                        <input type="hidden" class="form-control" ng-model="dataserver.type" />
+                    </div>
+                    <div class="form-group">
+                        <label class="radio fl">
+                            <input type="radio" name="idType" ng-model="dataserver.idtypeval" value="Y" />
+                            <span></span></label>
+                        <label class="fl" style="line-height:23px; margin-left:5px"> Mac</label>
+                        <label class="fr" style="line-height:23px; margin-left:5px"> Serial Number</label>
+                        <label class="radio fr">
+                            <input type="radio" name="idType" ng-model="dataserver.idtypeval" value="N" />
+                            <span></span>
+                        </label>
+                        <span class="errMsg" ng-if="errorid">Required</span>
+                        <input type="text" class="form-control" ng-model="dataserver.devuid" maxlength="17" macvalid ng-if="dataserver.idtypeval == 'Y'" />
+                        <input type="text" class="form-control" ng-model="dataserver.devuids" maxlength="17" ng-if="dataserver.idtypeval == 'N'" />
+                    </div>
+                    <div class="form-group tr">
+                        <button class="btn" ng-click="newDevice(dataserver)">Submit</button>
+                    </div>
+                </div>
+            </li>
+            <li click="switch">
+                <a href="" ng-click="switchopen()">
+                    <label class="switch"></label> <span>Switch</span>
+                </a>
+                <div class="top-dropdown" ng-if="switchopened">
+                    <div ng-if="!showSwitch" class="tc top-noServer">
+                        <p>No Server Found</p>
+                        <button class="btn w-auto" ng-click="serveropen()">Add Server</button>
+                    </div>
+                    <div ng-if="showSwitch">
+                        <div class="form-group" ng-show="needServer">
+                            <label>Server <span class="errMsg" ng-if="errorServer">Required</span></label>
+                            <select class="form-control" ng-model="dataswitch.parent">
+                                <option value="">Select Server</option>
+                                <option ng-repeat="x in servers" value="{[{x.uid}]}">
+                                    SVR - {[{x.uid}]}
+                                </option>
+                            </select>
+                            <input type="hidden" class="form-control" ng-model="dataswitch.type" />
+                        </div>
+                        <div class="form-group">
+                            <label>Name <span class="errMsg" ng-if="errorName">Required</span></label>
+                            <input type="text" class="form-control" ng-model="dataswitch.devname" />
+                        </div>
+                        <div class="form-group">
+                            <label class="radio fl">
+                                <input type="radio" name="idType" ng-model="dataswitch.idtypeval" value="Y" />
+                                <span></span></label>
+                            <label class="fl" style="line-height:23px; margin-left:5px"> Mac</label>
+                            <label class="fr" style="line-height:23px; margin-left:5px"> Serial Number</label>
+                            <label class="radio fr">
+                                <input type="radio" name="idType" ng-model="dataswitch.idtypeval" value="N" />
+                                <span></span>
+                            </label>
+                            <span class="errMsg" ng-if="errorid">Required</span>
+                            <input type="text" class="form-control" ng-model="dataswitch.devuid" maxlength="17" macvalid ng-if="dataswitch.idtypeval == 'Y'" />
+                            <input type="text" class="form-control" ng-model="dataswitch.devuids" maxlength="17" ng-if="dataswitch.idtypeval == 'N'" />
+                        </div>
+                        <div class="form-group tr">
+                            <button class="btn" ng-click="newDevice(dataswitch)">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li click="ap">
+                <a href="" ng-click="apopen()">
+                    <label class="ap"></label> <span>AP</span>
+                </a>
+                <div class="top-dropdown" ng-if="apopened">
+                    <div ng-if="!showAp" class="tc top-noServer">
+                        <p>No Server Found</p>
+                        <button class="btn w-auto" ng-click="serveropen()">Add Server</button>
+                    </div>
+                    <div ng-if="showAp">
+                        <div class="form-group" ng-show="needSwitch">
+                            <label>Switch <span class="errMsg" ng-if="errorServer">Required</span></label>
+                            <select class="form-control" ng-model="dataap.parent">
+                                <option value="">Select Switch</option>
+                                <option ng-repeat="x in switchs" value="{[{x.uid}]}">
+                                    SW - {[{x.uid}]}
+                                </option>
+                            </select>
+                            <input type="hidden" class="form-control" ng-model="dataap.type" />
+                        </div>
+                        <div class="form-group">
+                            <label>Name <span class="errMsg" ng-if="errorName">Required</span></label>
+                            <input type="text" class="form-control" ng-model="dataap.devname" />
+                        </div>
+                        <div class="form-group">
+                            <label class="radio fl">
+                                <input type="radio" name="idType" ng-model="dataap.idtypeval" value="Y" />
+                                <span></span></label>
+                            <label class="fl" style="line-height:23px; margin-left:5px"> Mac</label>
+                            <label class="fr" style="line-height:23px; margin-left:5px"> Serial Number</label>
+                            <label class="radio fr">
+                                <input type="radio" name="idType" ng-model="dataap.idtypeval" value="N" />
+                                <span></span>
+                            </label>
+                            <span class="errMsg" ng-if="errorid">Required</span>
+                            <input type="text" class="form-control" ng-model="dataap.devuid" maxlength="17" macvalid ng-if="dataap.idtypeval == 'Y'" />
+                            <input type="text" class="form-control" ng-model="dataap.devuids" maxlength="17" ng-if="dataap.idtypeval == 'N'" />
+                        </div>
+                        <div class="form-group">
+                            <div class="col33">
+                                <label class="checkbox fl">
+                                    <input type="checkbox" ng-model="dataap.dualband" ng-true-value="1" ng-false-value="0" />
+                                    <span></span>
+                                </label>
+                                <label class="fl" style="line-height:23px; margin-left:5px"> 2G</label>
+                            </div>
+                            <div class="col33">
+                                <label class="checkbox fl">
+                                    <input type="checkbox" ng-model="dataap.band5" ng-true-value="1" ng-false-value="0" />
+                                    <span></span>
+                                </label>
+                                <label class="fl" style="line-height:23px; margin-left:5px"> 5G</label>
+                            </div>
+                            <div class="col33">
+                                <label class="checkbox fl">
+                                    <input type="checkbox" ng-model="dataap.guest" ng-true-value="1" ng-false-value="0" />
+                                    <span></span>
+                                </label>
+                                <label class="fl" style="line-height:23px; margin-left:5px"> Guest</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col50">
+                                <label>VAP</label>
+                                    <input type="number" ng-model="dataap.vap" class="form-control" min="0" max="3"/>
+                            </div>
+                            <div class="col50">
+                                <label>Alias</label>
+                                    <input type="text" ng-model="dataap.alias" class="form-control"/>
+                            </div>
+                            <div class="col50">
+                                <label>SSID</label>
+                                    <input type="text" ng-model="dataap.ssid" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col50">
+                                <label>Ch-2G</label>
+                                    <input type="number" ng-model="dataap.ch2g" class="form-control" min="0"/>
+                            </div>
+                            <div class="col50">
+                                <label>CH-5G</label>
+                                    <input type="number" ng-model="dataap.ch5g" class="form-control" min="0"/>
+                            </div>
+                            
+                        </div>
+                        <div class="form-group tr">
+                            <button class="btn" ng-click="newDevice(dataap)">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li click="device">
+                <a href="" ng-click="deviceopen()">
+                    <label class="device"></label> <span>Sensor</span>
+                </a>
+                <div class="top-dropdown" ng-if="deviceopened">
+                    <div ng-if="!showDevice" class="tc top-noServer">
+                        <p>No Server Found</p>
+                        <button class="btn w-auto" ng-click="serveropen()">Add Server</button>
+                    </div>
+                    <div ng-if="showDevice">
+                        <div class="form-group" ng-show="needAp">
+                            <label>Server <span class="errMsg" ng-if="errorServer">Required</span></label>
+                            <select class="form-control" ng-model="datadevice.parent">
+                                <option value="">Select AP</option>
+                                <option ng-repeat="x in aps" value="{[{x.uid}]}">
+                                    AP - {[{x.uid}]}
+                                </option>
+                            </select>
+                            <input type="hidden" class="form-control" ng-model="datadevice.type" />
+                        </div>
+                        <div class="form-group">
+                            <label>Name <span class="errMsg" ng-if="errorName">Required</span></label>
+                            <input type="text" class="form-control" ng-model="datadevice.devname" />
+                        </div>
+                        <div class="form-group">
+                            <label class="radio fl">
+                                <input type="radio" name="idType" ng-model="datadevice.idtypeval" value="Y" />
+                                <span></span></label>
+                            <label class="fl" style="line-height:23px; margin-left:5px"> Mac</label>
+                            <label class="fr" style="line-height:23px; margin-left:5px"> Serial Number</label>
+                            <label class="radio fr">
+                                <input type="radio" name="idType" ng-model="datadevice.idtypeval" value="N" />
+                                <span></span>
+                            </label>
+                            <span class="errMsg" ng-if="errorid">Required</span>
+                            <input type="text" class="form-control" ng-model="datadevice.devuid" maxlength="17" macvalid ng-if="datadevice.idtypeval == 'Y'" />
+                            <input type="text" class="form-control" ng-model="datadevice.devuids" maxlength="17" ng-if="datadevice.idtypeval == 'N'" />
+                        </div>
+                        <div class="form-group tr">
+                            <button class="btn" ng-click="newDevice(datadevice)">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+    </div>
+    <div class="draw-overflow">
+        <div class="drawer-top">
+            <div id="topconfig">
+                <ul id="ctm" class="canvas-context spl">
+                    <li ng-click='shapeMove()'><a><i class='fa fa-eye'></i>Move</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+</div>

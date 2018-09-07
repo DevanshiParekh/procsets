@@ -1,0 +1,423 @@
+{{#partial "page"}}
+
+<!-- loader box -->
+<link rel="stylesheet" href="/facesix/static/geo/css/loader.css">
+<div class="loader_boxtwo" style="display: none;">	
+	<div class="loader"></div>
+	<h4 class="text-center">Loading Alerts...</h4>
+</div>
+<div id="page-content-wrapper" class="acc-sec wrap-res" style="position: static">
+	<div class="container-fluid">
+		<h4 class="acc-sec-title"></h4>
+		<div class="col-md-12 venue-details" >
+			<div class="view-details">
+				<div class="col-md-6 col-sm-6 col-xs-8 img-res" style="margin-top: -23px;"><ul>
+					<li class="displayBlockName"><img
+						src="/facesix/static/qubercomm/images/q-cgf-ble.png" alt=""
+						id="" style="width:80px;margin-left:-10px;"> <label class="venue-name" id="fimob" style="margin-left:-12px;">Alert List</label></li>
+				</ul></div>
+				<div class="pull-right mobilehideS" style="margin-right: 15px;">
+					
+					<select class="form-control csv2" id="fileformat" style="display: inline-block; width: auto;height:40px;margin-top: 0; vertical-align: middle; margin-left: 0;">
+						<option selected="" value="pdf">PDF</option>
+						<option value="csv">CSV</option>
+					</select> 
+								
+					<button class="btn btn-primary btn3d btn-config-venue mobilehideS "
+						type="button" id="exportlog"
+						style="margin-left: 30px; margin-right: 0px; margin-top:0;display: inline-block; width: auto; vertical-align: middle;">
+						<i class="fa fa-arrow-up"></i> Export
+					</button>
+					{{#if SUPERAPP_ADMIN_WRITE}}
+					<a href="/facesix/web/beacon/customizeAlert?sid={{sid}}&spid={{spid}}&cid={{cid}}" style="margin-left: 20px;margin-top: 0;  margin-right: 0;" class="btn btn-primary btn3d btn-config-venue mobilehideS ">   
+						<i class="fa fa-exclamation-triangle" aria-hidden="false"></i>&nbsp;
+						<span>Customize Alert</span> 
+						<!-- <span class="sb-name"></span> -->
+					</a> 
+					{{/if}}
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<style>
+.view-details ul li { margin-right: 0px;}
+.view-details ul li .venue-name{ border-bottom: 0px solid #2496d8; font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;}
+.pulse {
+	position: static;
+	text-align:center;
+	box-shadow: 0 0 0 0 #A84155;
+	border-radius: 5px;
+	background-size:cover;
+	background: #000;
+	background-repeat: no-repeat;
+	color:#fff;
+	text-decoration:none;
+	margin:auto;cursor:pointer;
+	display: block;
+	-webkit-animation: pulse 2.25s infinite cubic-bezier(0.1, 0, 0, 1);
+	-moz-animation: pulse 2.25s infinite cubic-bezier(0.1, 0, 0, 1);
+	-ms-animation: pulse 2.25s infinite cubic-bezier(0.1, 0, 0, 1);
+	animation: pulse 2.25s infinite cubic-bezier(0.1, 0, 0, 1);
+	 width: 30%;
+}
+@-webkit-keyframes pulse {to {box-shadow: 0 0 0 10px rgba(232, 76, 61, 0);}}
+@-moz-keyframes pulse {to {box-shadow: 0 0 0 10px rgba(232, 76, 61, 0);}}
+@-ms-keyframes pulse {to {box-shadow: 0 0 0 10px rgba(232, 76, 61, 0);}}
+@keyframes pulse {to {box-shadow: 0 0 0 10px rgba(232, 76, 61, 0);}}
+.csv2{
+width: auto;
+    margin-left: -100px;
+}
+.padd-ress{
+	padding:10px 30px;
+	} 
+@media screen and (max-width: 768px){
+ 
+	.wrap-res{
+	padding: 18px !important;
+    margin-left: 50px;
+    position: relative !important;
+	}	
+	.img-res{
+	margin-left: -75px;
+    padding: 0;
+	}
+} 
+@media screen and (max-width: 480px){
+	
+	.padd-ress{
+	padding: 25px !important;
+    margin-left: -87px;
+    margin-top: -23px;
+	}
+}
+.selected{ 
+background-color: rgba(211,211,211,.7);
+color: black;
+}
+table{
+cursor: default;
+}
+</style>
+
+	<br><br>
+	<div class="padd-ress">		
+		
+		<div class="col-md-15 padding-device padding-right-0">
+			<div class="chart-box tag-table-chart-box" style="margin-left:11px;margin-right:13px;"></div>
+		</div>	
+		<div class="col-md-15 padding-device padding-right-0">
+			<div class="chart-box bat-table-chart-box" style="margin-left:11px;margin-right:13px;"></div>
+		</div>
+		<div class="col-md-15 padding-device padding-right-0">
+			<div class="chart-box dev-table-chart-box" style="margin-left:11px;margin-right:13px;"></div>
+		</div>	
+		{{#if GatewayFinder}}	
+		<div class="col-md-15 padding-device padding-right-0">
+			<div class="chart-box device-table-chart-box ui-table-chart-box" style="margin-left:11px;margin-right:13px;"></div>
+		</div>	
+		{{/if}}
+		
+		</div>
+	</div>
+
+	<div class="savearea" id="reposition-mode" class="reposition-mode" style="display:none;position:fixed;">
+	<div class="savearea_bottom">
+			<div class="left-section">
+				<label>Are you sure you want to delete this UID?</label>
+			</div>
+			<div class="rightsection">
+				<ul class="list-unstyled">
+					<li id="cancelDelete">
+						<label>
+							
+						</label>
+						<span >
+							Cancel
+						</span>
+					</li>
+					<li id="deleteItem">
+						<label>
+						</label>
+						<span class="color2" >
+							OK
+						</span>
+					</li>
+				</ul>
+			</div>
+			</div>
+		</div>
+		
+<!-- js -->
+<script src="/facesix/static/qubercomm/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/jquery_validate_min_js.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/form-validations.js" type="text/javascript"></script>
+<script src="https://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.mobile-events.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/common.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/handlebars.min.js"></script>
+<script src="/facesix/static/finder/js/finderalert.js" type="text/javascript"></script>
+<script type="text/javascript" src="/facesix/static/finder/js/script.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/snap.svg-min.js"></script>
+<script src="/facesix/static/qubercomm/js/jqpanzoom.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/d3.v3.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/underscore-min.js"></script>
+<link rel="stylesheet" type="text/css" href="/facesix/static/finder/css/style.css"/>
+
+<script id="chartbox-tag-template" type="text/x-handlebars-template">
+	
+	<div class="device-coon-desc">
+		<i class="fa fa-tags" aria-hidden="true" style="color:red"></i>
+		<label>Tag Alerts</label>
+		<span class="table-page" data-table-name="tag-table"><i class="fa fa-refresh tag-refreshTable" aria-hidden="true"></i>\{{#if show_previous_button}}<i class="fa fa-caret-left tag-tablePreviousPage"></i>\{{/if}}&nbsp;\{{#if show_next_button}}<i class="fa fa-caret-right tag-tableNextPage"></i>\{{/if}}</span>
+					
+	</div>
+
+	<div class="tableSection">
+			<div class="panel-heading">
+                            
+     		</div>
+		<table class="table tag-table" id="tag-table" data-current-page="\{{current_page}}" data-row-limit="10">
+			<thead>
+				<tr class="sel_tbl1">
+					<th onclick="sort_table('recid', 0, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(0)" class="width-40"># <i class="fa fa-arrow-up"></i></th>
+				    <th onclick="sort_table('recid', 1, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(1)">Tag Id <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('recid', 2, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(2)">TagType <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('recid', 3, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(3)">AssignedTo <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('recid', 4, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(4)">Floor Name<i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('recid', 5, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(5)">Location<i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('recid', 6, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(6)">State <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('recid', 7, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(7)">Last Seen <i class="fa fa-arrow-up"></i></th>
+				</tr>
+			</thead>
+			<tbody id="recid">
+				\{{#each data}}
+				<tr class="tr_aclrow" id="aclrow" mac-id="\{{mac_address}}" ap="\{{ap}}" uid="{{uid}}" cid="\{{cid}}">
+					<td style="color: black;">\{{index}}</td>
+					<td style="color: black;">\{{macaddr}}</td>
+					<td style="color: black;">\{{tagtype}}</td>
+					<td style="color: black;">\{{assignedTo}}</td>
+					<td style="color: black;">\{{floorname}}</td>
+					<td style="color: black;">\{{alias}}</td>
+					<td style="color: black;">\{{state}}</td>
+					<td style="color: black;">\{{lastSeen}}</td>
+				</tr>
+				\{{/each}}
+			</tbody>
+
+		</table>
+	</div>	
+	
+</script>
+
+<script id="chartbox-bat-template" type="text/x-handlebars-template">
+	
+	<div class="device-coon-desc">
+		<i class="fa fa-battery-full" aria-hidden="true" style="color:red"></i>
+		<label>Battery Alerts</label>
+		<span class="table-page" data-table-name="bat-table"><i class="fa fa-refresh bat-refreshTable" aria-hidden="true"></i>\{{#if show_previous_button}}<i class="fa fa-caret-left bat-tablePreviousPage"></i>\{{/if}}&nbsp;\{{#if show_next_button}}<i class="fa fa-caret-right bat-tableNextPage"></i>\{{/if}}</span>
+	</div>
+
+	<div class="tableSection">
+			<div class="panel-heading">
+                            
+                        </div>
+		<table class="table bat-table" id="bat-table" data-current-page="\{{current_page}}" data-row-limit="10">
+			<thead>
+				<tr class="sel_tbl2">
+					<th onclick="sort_table('batid', 0, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(0)" class="width-40"># <i class="fa fa-arrow-up"></i></th>
+				    <th onclick="sort_table('batid', 1, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(1)">Tag Id <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('batid', 2, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(2)">AssignedTo <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('batid', 3, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(3)">TagType <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('batid', 4, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(4)">Floor Name<i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('batid', 5, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(5)">Location<i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('batid', 6, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(6)">Battery Level<i class="fa fa-arrow-up"></i></th>
+				</tr>
+			</thead>
+			<tbody id="batid">
+				\{{#each data}}
+				<tr class="tr_aclrow" id="aclrow" mac-id="\{{mac_address}}" ap="\{{ap}}" uid="{{uid}}" cid="\{{cid}}">
+					<td style="color: black;">\{{index}}</td>
+					<td style="color: black;">\{{macaddr}}</td>
+					<td style="color: black;">\{{assignedTo}}</td>
+					<td style="color: black;">\{{tagtype}}</td>
+					<td style="color: black;">\{{floorname}}</td>
+					<td style="color: black;">\{{alias}}</td>
+					<td style="color: black;">\{{batterylevel}}</td>
+				</tr>
+				\{{/each}}
+			</tbody>
+
+		</table>
+	</div>	
+
+</script>
+
+<script id="chartbox-dev-template" type="text/x-handlebars-template">
+	
+	<div class="device-coon-desc">
+		<i class="fa fa-server" aria-hidden="true" style="color:red"></i>
+		<label>Finder Device Alert</label>
+		<span class="table-page" data-table-name="dev-table"><i class="fa fa-refresh dev-refreshTable"" aria-hidden="true"></i>\{{#if show_previous_button}}<i class="fa fa-caret-left dev-tablePreviousPage"></i>\{{/if}}&nbsp;\{{#if show_next_button}}<i class="fa fa-caret-right dev-tableNextPage"></i>\{{/if}}</span>
+					
+	</div>
+
+	<div class="tableSection">
+			<div class="panel-heading">
+                            
+                        </div>
+		<table class="table dev-table" id="dev-table" data-current-page="\{{current_page}}" data-row-limit="10">
+			<thead>
+				<tr class="sel_tbl3">
+					<th onclick="sort_table('devid', 0, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl3(0)" class="width-40"># <i class="fa fa-arrow-up"></i></th>
+				    <th onclick="sort_table('devid', 1, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl3(1)">UID <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('devid', 2, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl3(2)">Type <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('devid', 3, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl3(3)">Floor Name<i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('devid', 4, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl3(4)">Location<i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('devid', 5, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl3(5)">Status<i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('devid', 6, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl3(6)">Last Active<i class="fa fa-arrow-up"></i></th>
+					<th class="addhide hidden-sm hidden-md"> Crash Dump <i class="fa fa-arrow-up"></i></th>
+				</tr>
+			</thead>
+			<tbody id="devid">
+				\{{#each data}}
+				<tr class="tr_aclrow" id="aclrow" mac-id="\{{mac_address}}" ap="\{{ap}}" uid="{{uid}}" cid="\{{cid}}">
+					<td style="color: black;">\{{index}}</td>
+					<td style="color: black;">\{{uid}}</td>
+					<td style="color: black;">\{{type}}</td>	
+					<td style="color: black;">\{{portionname}}</td>
+					<td style="color: black;">\{{alias}}</td>	
+					<td style="color: black;">\{{status}}</td>
+					<td style="color: black;">\{{timestamp}}</td>
+					<td class="addhide hidden-sm hidden-md"><button type="button" class="btn btn-primary btn3d dumphey" title="Crash Dump" onclick="crashDump('\{{fileName}}','\{{filestatus}}')" style="margin-top:0px;" \{{crashState}}>Crash Dump</button></td>
+				</tr>
+				\{{/each}}
+			</tbody
+
+		</table>
+	</div>	
+	
+</script>
+
+<script id="chartbox-device-template" type="text/x-handlebars-template">
+	
+	<div class="device-coon-desc">
+		<i class="fa fa-server" aria-hidden="true" style="color:red"></i>
+		<label>Gateway Device Alerts</label>
+		<span class="table-page" data-table-name="device-table"><i class="fa fa-refresh device-refreshTable"" aria-hidden="true"></i>\{{#if show_previous_button}}<i class="fa fa-caret-left device-tablePreviousPage"></i>\{{/if}}&nbsp;\{{#if show_next_button}}<i class="fa fa-caret-right device-tableNextPage"></i>\{{/if}}</span>
+					
+	</div>
+
+	<div class="tableSection">
+			<div class="panel-heading">
+                            
+                        </div>
+		<table class="table device-table" id="device-table" data-current-page="\{{current_page}}" data-row-limit="10">
+			<thead>
+				<tr class="sel_tbl4">
+					<th onclick="sort_table('deviceid', 0, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl4(0)" class="width-40"># <i class="fa fa-arrow-up"></i></th>
+				    <th onclick="sort_table('deviceid', 1, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl4(1)">UID <i class="fa fa-arrow-up"></i></th>
+				    <th onclick="sort_table('deviceid', 2, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl4(2)">Floor Name <i class="fa fa-arrow-up"></i></th>
+				    <th onclick="sort_table('deviceid', 3, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl4(3)">Alias <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('deviceid', 4, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl4(4)">Status <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('deviceid', 5, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl4(5)">Last Active <i class="fa fa-arrow-up"></i></th>
+					<th class="addhide hidden-sm hidden-md"> Crash Dump <i class="fa fa-arrow-up"></i></th>
+				</tr>
+			</thead>
+			<tbody id="deviceid">
+				\{{#each data}}
+				<tr class="tr_aclrow" id="aclrow">
+					<td style="color: black;">\{{index}}</td>
+					<td style="color: black;">\{{macaddr}}</td>
+					<td style="color: black;">\{{portionname}}</td>
+					<td style="color: black;">\{{alias}}</td>
+					<td style="color: black;">\{{state}}</td>
+					<td style="color: black;">\{{timestamp}}</td>
+					<td class="addhide hidden-sm hidden-md"><button type="button" class="btn btn-primary btn3d dumphey" title="Crash Dump" onclick="crashDump('\{{fileName}}','\{{filestatus}}')" style="margin-top:0px;" \{{crashState}}>Crash Dump</button></td>
+				</tr>
+				\{{/each}}
+			</tbody
+
+		</table>
+	</div>	
+	
+</script>
+
+{{#if GatewayFinder}}
+<script>
+
+search = window.location.search.substr(1)
+urlObj=JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
+
+
+$("#exportlog").click(function () {
+	
+	var file = document.getElementById("fileformat").value;
+	//console.log(">>>>>>>>>>>>>>.." + file)
+ 	var str="";
+ 	$('tr').each(function() {
+       	$(this).find('td').each(function() {
+           str=str+$(this).html()+"\t";
+ 		});
+    	str=str+"\n";
+     
+ 	});
+	if(file == "pdf"){
+		var url = "/facesix/rest/hybridAlert/alertpdf?cid="+urlObj.cid
+	}else{
+		var url = "/facesix/rest/hybridAlert/alertcsv?cid="+urlObj.cid
+	}
+ 
+ 	//console.log(url);
+	window.open(url);
+});
+
+</script>
+{{else}}
+<script>
+
+search = window.location.search.substr(1)
+urlObj=JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
+
+
+$("#exportlog").click(function () {
+	
+	var file = document.getElementById("fileformat").value;
+	//console.log(">>>>>>>>>>>>>>.." + file)
+ 	var str="";
+ 	$('tr').each(function() {
+       	$(this).find('td').each(function() {
+           str=str+$(this).html()+"\t";
+ 		});
+    	str=str+"\n";
+     
+ 	});
+	if(file == "pdf"){
+		var url = "/facesix/rest/beacon/trilaterationReports/alertpdf?cid="+urlObj.cid
+	}else{
+		var url = "/facesix/rest/beacon/trilaterationReports/alertcsv?cid="+urlObj.cid
+	}
+ 
+ 	//console.log(url);
+	window.open(url);
+});
+
+</script>
+
+ 
+{{/if}}
+
+</div>
+<!-- /.row -->
+
+        
+{{/partial}}
+
+{{>qubercomm/nav-top}}
+{{>qubercomm/nav-left}}
+{{>qubercomm/wrapper}}

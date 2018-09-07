@@ -1,0 +1,139 @@
+{{#partial "addon"}}
+<div class="savearea" style="display:none;position:fixed">
+<div class="savearea_bottom">
+			<div class="left-section">
+				<label>Are you sure you want to delete the Floor?</label>
+			</div>
+			<div class="rightsection">
+				<ul class="list-unstyled">
+					<li id="cancelDelete">
+						<label>
+							
+						</label>
+						<span >
+							Cancel
+						</span>
+					</li>
+					<li id="deleteItem">
+						<label>
+						</label>
+						<span class="color2" >
+							OK
+						</span>
+					</li>
+				</ul>
+			</div>
+			</div>
+</div>
+<!-- js -->
+	<script src="/facesix/static/qubercomm/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+	<script src="/facesix/static/qubercomm/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="/facesix/static/qubercomm/js/common.js" type="text/javascript"></script>
+	<script src="/facesix/static/qubercomm/js/underscore-min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/facesix/static/qubercomm/js/handlebars.min.js"></script>	
+	<script src="/facesix/static/qubercomm/js/script.js" type="text/javascript"></script>
+	<!-- css -->
+	<link rel="stylesheet" href="/facesix/static/qubercomm/css/jquery-ui.css">
+	<!--#css-->
+
+	<script id="floorlist-template" type="text/x-handlebars-template">
+		<div class="FloorPlan-Container \{{show_grid_view}}" id="grid_view">
+		\{{#each floorList}}
+		<div class="col-md-4 floorListItem" data-floor-name="\{{floor_name}}"" style="box-shadow:5px 6px 5px #cdd9ef;">
+			<div class="FloorPlan-section text-center">
+			<div class="floor-overlay"></div>
+				<div class="FloorPlan-img">
+					<img src="\{{floor_plan_img}}">
+					</div>
+					<div class="floor-head">
+					<span class="select-floor select-floor-grid-view" data-sid="\{{id}}" data-id="\{{sid}}"">
+									<i class="fa fa-check"></i>
+									</span>
+									<span class="floor-action">
+										<img src="/facesix/static/qubercomm/images/floorlist/dot2.png" alt="" class="animated fadeInDown">
+									</span>
+									<ul class="fh-options hide animated ">
+										<li>
+											<a href="/facesix/web/site/portion/open?spid={{id}}"><img src="/facesix/static/qubercomm/images/floorlist/log.png" alt=""></a>
+										</li>									
+										<li>
+											<a href="/facesix/web/site/portion/nwcfg?sid=\{{sid}}&spid=\{{id}}&uid=?"><img src="/facesix/static/qubercomm/images/floorlist/config2.png" alt=""></a>
+										</li>
+										<li>
+											<a href="/facesix/web/site/portion/map?sid=\{{sid}}&spid=\{{id}}"><img src="/facesix/static/qubercomm/images/floorlist/network.png" alt=""></a>
+										</li>
+										<li>
+											<a class="submitDelete submit1" href="/facesix/web/site/portion/delete?sid=\{{sid}}&spid=\{{id}}"><img src="/facesix/static/qubercomm/images/floorlist/delete2.png" data-orig="/facesix/static/qubercomm/images/floorlist/delete2.png" alt=""></a>
+										</li>
+									</ul>
+					</div>
+				<div class="floor-view animated fadeInDown">
+					<a href="/facesix/web/site/portion/dashboard?spid=\{{id}}">View</a>
+					</div>
+					<div class="floor-caption">
+					\{{floor_name}}
+					</div>
+				</div>
+			</div>
+		\{{/each}}
+						
+		</div>
+
+		<div class="floor-list \{{show_list_view}}" id="list_view">
+		<ul>
+			\{{#each floorList}}
+			<li class="list_item floorListItem" data-floor-name="\{{floor_name}}">
+				<div class="col-md-1 text-center padding-left-0">
+					<span class="select-floor select-floor-list-view" data-sid="\{{id}}" data-id="\{{sid}}"">
+						<i class="fa fa-check"></i>
+						</span>
+					</div>
+					<div class="col-md-11 pad0">
+					<div class="floor-content">
+						<span class="floor-thumb">
+							<img src=\{{floor_plan_img}} alt="">
+						</span>
+						<span class="floor-name">
+							\{{floor_name}}
+						</span>
+						<div class="listViewLink  hide animated fadeInDown">
+									<a href="/facesix/web/site/portion/dashboard?spid={{id}}">View</a>
+						</div>
+					<span class="floor-tools">
+						<a href="" class="floor-dot"><!-- <i class="fa fa-ellipsis-h"></i> -->
+							<img src="/facesix/static/qubercomm/images/floorlist/dot.png" alt="">
+						</a>	
+					<ul class="floor-options">
+												<li>
+													<a href="/facesix/web/site/portion/open?spid={{id}}"><img src="/facesix/static/qubercomm/images/floorlist/log-dark.png" alt=""></a>
+												</li>					
+												<li>
+													<a href="/facesix/web/site/portion/nwcfg?sid=\{{sid}}&spid=\{{id}}&uid=?"><img src="/facesix/static/qubercomm/images/floorlist/config.png" alt=""></a>
+												</li>
+												<li>
+													<a href="/facesix/web/site/portion/map?sid=\{{sid}}&spid=\{{id}}"><img src="/facesix/static/qubercomm/images/floorlist/network-dark.png" alt=""></a>
+												</li>
+												<li>
+													<a href="/facesix/web/site/portion/delete?sid=\{{sid}}&spid=\{{id}}" class="submitDelete submit1"><img src="/facesix/static/qubercomm/images/floorlist/delete.png" data-orig="/facesix/static/qubercomm/images/floorlist/delete.png" alt=""></a>
+												</li>
+					</ul>
+							</span>
+						</div>
+				</div>
+			</li>			
+			\{{/each}}
+			<li>
+				<div class="col-md-offset-1 col-md-11 pad0">
+					<div class="floor-content add-floor-list">
+						<span class="floor-name">
+							<img src="images/floorlist/add.png">
+								<label>Add New</label>
+							</span>
+						</div>
+					</div>
+				</li>
+		</ul>
+		</div>
+ 	</script>
+ 	
+{{/partial}}

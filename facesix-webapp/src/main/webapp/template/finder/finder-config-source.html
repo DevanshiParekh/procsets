@@ -1,0 +1,272 @@
+<div id="hid2gr" style="display:none;">
+<div class="tabgrp">
+<div class="tab" id="tabzzz">
+  <div class="tabtn tabtnzzz" id="tabtn-zzz-1">Basic</div>
+  <div class="tabtn tabtnzzz" id="tabtn-zzz-2">Advanced</div>
+  {{#if INACTIVE_WRITE}}
+  <div class="tabtn tabtnzzz" id="tabtn-zzz-3">Diagnostic</div>
+ {{/if}}
+</div>
+
+<div class="tabc tabczzz" id="tabc-zzz-1" >
+<div class="w50">
+	<div class="form-group mygrp">
+		<div class="mylable">Type</div>
+		<div class="myinput">
+		<select class="form-control" name="yyy__type" id="2gr_type_yyy">
+			<option value="receiver">Receiver</option>
+			<option value="server">Server</option>
+			<option value="scanner">Scanner</option>
+		</select>
+				
+		</div>
+	</div>
+  <div class="form-group mygrp">
+		<div class="mylable">Proximity</div>
+		<div class="myinput">
+		<input type="number"  class="form-control requir proxVal" id="2gr_proximity_yyy"  name="yyy__proximity" placeholder="in meters"  min="0" max="10" step="0.25" value="0.00">
+		</div>
+	</div>
+	 <div class="form-group mygrp">
+		<div class="mylable">Scan Duration</div>
+		<div class="myinput">
+		<input type="text" class="form-control requir" id="2gr_scanduration_yyy"  name="yyy__scanduration" maxlength="4" onkeypress="return fun_AllowOnlyAmountAndDot(this.id);"  placeholder="in seconds">
+		</div>
+	</div>
+	<div class="form-group mygrp tunnelHide">
+		<div class="mylable">tunnel</div>
+		<div class="myinput">
+		<input type="text" class="form-control requir" id="2gr_tunnel_yyy"  name="yyy__tunnel">
+		</div>
+	</div>
+	</div>
+	
+</div>
+		<div class="tabc tabczzz" id="tabc-zzz-2">
+			<div class="w50">
+				<div class="form-group mygrp">
+					<div class="mylable">SSID</div>
+					<div class="myinput">
+						<input type="text" class="form-control requir" id="2gr_ssid_yyy"
+							name="yyy__ssid" value="" maxlength="32">
+					</div>
+				</div>				
+				<div class="form-group mygrp">
+					<div class="mylable">Encryption</div>
+					<div class="myinput">
+						<select class="form-control" id="2gr_encryption_yyy"
+							name="yyy__encryption" onchange="getEncr(this.value, 2, yyy)">
+							<option value="wpa2-psk">wpa2-psk</option>
+							<option value="open">open</option>
+							<option value="wpa2">wpa2</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group mygrp">
+					<div class="mylable">Key</div>
+					<div class="myinput">
+						<input type="text" class="form-control key_req" id="2gr_key_yyy"
+							name="yyy__key" value="" maxlength="16">
+					</div>
+				</div>
+			</div>
+			<div class="w50">
+				<div class="form-group mygrp">
+					<div class="mylable">Battery Interval</div>
+					<div class="myinput">
+						<input type="number" class="form-control requir" placeholder ="in hours" id="2gr_batteryinterval_yyy"
+							name="yyy__batteryinterval" value="">
+					</div>
+				</div>				
+				<div class="form-group mygrp">
+					<div class="mylable">Status Interval</div>
+					<div class="myinput">
+						<input type="number" class="form-control requir" placeholder ="in minutes" id="2gr_statusinterval_yyy"
+							name="yyy__statusinterval" value="">
+					</div>
+				</div>
+				<div class="form-group mygrp">
+					<div class="mylable">TLU Interval</div>
+					<div class="myinput">
+						<input type="number" class="form-control key_req" placeholder ="in seconds" id="2gr_tluinterval_yyy"
+							name="yyy__tluinterval" value="">
+					</div>
+				</div>
+			</div>
+			<div class="w50">
+				<div class="form-group mygrp">
+					<div class="mylable">Log Level</div>
+					<div class="myinput">
+						<select class="form-control" id="2gr_loglevel_yyy"
+							name="yyy__loglevel">
+							<option selected="" value="all">All</option>
+							<option value="verbose">Verbose</option>
+							<option value="debug">Debug</option>
+							<option value="warning">Warning</option>
+							<option value="error">Error</option>
+							<option value="critical">Critical</option>
+							<option value="fatal">Fatal</option>
+							<option value="none">None</option>
+						</select>
+					</div>
+				</div>	
+
+				<div class="form-group mygrp">
+					<div class="mylable">Configuration</div>
+					<div class="myinput">
+						<select class="form-control configVal" id="2gr_configuration_yyy"
+							name="yyy__configuration" onchange="configChange(this.value, 2, yyy)">							
+							<option selected="" value="trilateration">Trilateration</option>
+							<option  value="unilateration">Unilateration</option>
+						</select>
+					</div>
+				</div> 
+				<div class="form-group mygrp">
+					<div class="mylable">Keep Alive</div>
+					<div class="myinput">
+						<input type="number" class="form-control requir" placeholder ="In Seconds" min = "10" id="2gr_keepaliveinterval_yyy"
+							name="yyy__keepaliveinterval" value="">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="tabc tabczzz" id="tabc-zzz-3">
+		<div id="boxhead">
+		<div class="tabbox" id="headRemove">
+		<div id="addbox">
+			<div class="col-md-12">
+			<div class="w50">
+				<div class="form-group mygrp">
+					<div class="mylable">Key</div>
+					<div class="myinput">
+						<input type="text" class="form-control" id="2gr_diag_key_dbg"
+							name="dbg__diag_key" value="">
+					</div>
+				</div>
+
+			</div>
+			<div class="w50">
+				<div class="form-group mygrp">
+					<div class="mylable">Value</div>
+					<div class="myinput">
+						<input type="text" class="form-control" id="2gr_diag_value_dbg"
+							name="dbg__diag_value" value="">
+							<label onclick="add_diagtab('#addbox','#boxhead',0,this);" type="button"  class="btn btn-default" style="margin-left: 268px;margin-top: -53px;"><i class="fa fa-plus"></i></label>
+                        <label onclick="del_diagtab(this,'#boxhead','.tabbox')" type="button" class="btn btn-default" style="margin-left: 322px;margin-top: -91px;"><i class="fa fa-minus"></i></label>
+					</div>
+			
+				</div>
+			</div>
+			</div>
+			
+			</div>
+		</div>
+		
+	</div>
+</div>
+
+	<script>
+	$(function(){
+	    var $select = $(".mpower");
+	    for (i=-127;i<=128;i++){
+	        $select.append($('<option></option>').val(i).html(i))
+	    }
+	});
+	
+	</script>
+	<script type="text/javascript">
+ 	function fun_AllowOnlyAmountAndDot(txt)
+        {
+            if(event.keyCode > 47 && event.keyCode < 58 || event.keyCode == 46)
+            {
+               var txtbx=document.getElementById(txt);
+               var amount = document.getElementById(txt).value;
+               var present=0;
+               var count=0;
+
+               if(amount.indexOf(".",present)||amount.indexOf(".",present+1));
+               {
+              // alert('0');
+               }
+
+               do
+               {
+               present=amount.indexOf(".",present);
+               if(present!=-1)
+                {
+                 count++;
+                 present++;
+                 }
+               }
+               while(present!=-1);
+               if(present==-1 && amount.length==0 && event.keyCode == 46)
+               {
+                    event.keyCode=0;
+                    //alert("Wrong position of decimal point not  allowed !!");
+                    return false;
+               }
+
+               if(count>=1 && event.keyCode == 46)
+               {
+
+                    event.keyCode=0;
+                    //alert("Only one decimal point is allowed !!");
+                    return false;
+               }
+               if(count==1)
+               {
+                var lastdigits=amount.substring(amount.indexOf(".")+1,amount.length);
+                if(lastdigits.length>=2)
+                            {
+                              //alert("Two decimal places only allowed");
+                              event.keyCode=0;
+                              return false;
+                              }
+               }
+                    return true;
+            }
+            else
+            {
+                    event.keyCode=0;
+                    //alert("Only Numbers with dot allowed !!");
+                    return false;
+            }
+
+        }
+
+    </script>
+    <script>
+    
+	    $('#2gr_type_yyy').on('change',function(){
+	    	var vl = $('#2gr_type_yyy').val();
+	    	if(vl == "server"){
+	    		$( "#2gr_tluinterval_yyy" ).val("5");
+	    	} else if (vl == "receiver"){
+	    		$( "#2gr_tluinterval_yyy" ).val("3");
+	    	} else {
+	    		$( "#2gr_tluinterval_yyy" ).val("1");
+	    	}
+	    	
+	    });
+	    
+	    $("#2gr_keepaliveinterval_yyy").keypress(function(event) {
+	    	  if ( event.which == 45 || event.which == 189 ) {
+	    	      event.preventDefault();
+	    	   }
+	    	});
+
+        function fillconfig(v){
+            $('#2gr_tunnel_yyy').val(v);
+        }
+
+    </script>
+	<a href="/facesix/template/finder/device-config.html" rel="external"></a>
+    <script>
+    var u = $('#vpn').val();
+        if(u == "true"){
+                    u = "enable";
+                } else {
+                    u = "disable";
+                }
+     $('#2gr_tunnel_yyy').val(u);
+    </script>

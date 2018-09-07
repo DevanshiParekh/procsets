@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html class="mob-bg">
+<head>
+	{{#if customer.customerName}}
+    	<title>{{customer.customerName}}</title>
+    {{else}}
+   		<title>Qubercomm | Compute Connect Cloud</title>
+    {{/if}}
+    {{#if customer.logofile}}
+      <link rel="shortcut icon" href="/facesix/static/qubercomm/images/favicon_blank.png?v=2">
+    {{else}}
+  	  <link rel="shortcut icon" href="/facesix/static/qubercomm/images/fav.png"> 
+    {{/if}}
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="google-site-verification" content="" />
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7">
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0, user-scalable=no">
+	 
+	<!-- js Links -->
+	<script src="/facesix/static/qubercomm/js/jquery-2.1.4.min.js"></script>
+	<script src="/facesix/static/qubercomm/js/bootstrap.min.js"></script>  
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="/facesix/static/qubercomm/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/facesix/static/qubercomm/css/fonts.css">
+	<link rel="stylesheet" href="/facesix/static/qubercomm/css/font-awesome.css">
+	<link rel="stylesheet" href="/facesix/static/qubercomm/css/style.css">
+
+</head>
+<style>
+
+@media screen and (max-width: 768px){
+	.contact-form{
+		padding: 35px;
+		height: 85%;
+	}
+}
+</style>
+<body class="mob-bg">
+	<!-- Banner -->
+<section id="contact_banner" class="relative" style="background-image: url({{#if customer.background}}/facesix/preferredBackgroundUrl?id={{customer.id}}{{else}}/facesix/static/qcom/img/QLoginPage3.jpg{{/if}});">
+	<div class="LoginSection">
+		<!-------<div class="top-header">
+			<nav class="navbar">
+				<div class="container-fluid">
+					<div class="navbar-header navbar-right">
+						<a class="navbar-brand home-logo" href="/facesix/goodbye">
+						</a>
+					</div>
+				</div>
+			</nav>
+		</div>------>
+		
+
+		
+				<div class="contact-form" >
+				<div class="col-md-12">
+				         <center><a class=" home-logo" href="/facesix/{{#if customer.preferedUrlName}}{{customer.preferedUrlName}}{{else}}goodbye{{/if}}">
+							{{#if customer.logofile}}
+			              	<img src="/facesix/preferredLogoUrl?id={{customer.id}}" class="img-responsive">
+			              {{else}}
+			              	<img src="/facesix/static/qubercomm/images/header/logo.png" class="img-responsive">
+			              {{/if}}
+						</a></center></div>
+					<h4 style="margin-top: 30px"><i class="fa fa-hand-o-right" aria-hidden="true"></i> Reset Password</h4>
+					<div class="row">
+				
+						<div class="col-md-6 col-sm-5 col-xs-12">
+							<form id="contactusForm" role="form" action="/facesix/changepwd?id={{uid}}&token={{token}}" method="post">
+								<div class="disp-inline">
+								<lable>Password-atleast one special char,numeric and uppercase</lable>
+									<input type="password" name="name" id="pwd" value="{{fsobject.name}}" class="form-control disp-block valign" placeholder="Password" required style="width:100%;box-shadow:2px 3px 12px grey;">
+								</div>
+								<div class="">
+									<div class="form-group">
+										<input type="password" name="cpwd" id="c_pwd" value="{{fsobject.email}}" class="form-control mr-fc valign res" placeholder="Confirm password"  required style="width:100%;box-shadow:2px 3px 12px grey;">
+									</div>
+									
+								</div>
+								<textarea type="text" name="Cdesc" id="Cdesc" " value="{{fsobject.desc}}" onclick="checkPasswordMatch()" class="form-control valign" placeholder="Reason" style="width:100%;box-shadow:2px 3px 12px grey;" ></textarea>
+								<div class="login-btns text-center">
+									<button type="submit" id="submit1" class="btn btn-default btn-login">Reset</button>
+								</div>
+								<ul class="cf-social" style="margin-right:0px!important;">
+									{{#if customer}} 
+										{{#if customer.facebook}}
+						           	   		<li><a href="{{customer.facebook}}" target="_blank"><img src="/facesix/static/qubercomm/images/home/fb.png" alt="facebook"></a></li>
+						           	   	{{else}}
+						           	   		<li><a href="javascript:void(0)" target="_blank"><img src="/facesix/static/qubercomm/images/home/fb.png" alt="facebook"></a></li>
+						           	   	{{/if}}
+						           	   	
+						           	   	{{#if customer.twitter}}
+						           	   		<li><a href="{{customer.twitter}}" target="_blank"><img src="/facesix/static/qubercomm/images/home/twitter.png" alt="twitter"></a></li>
+						           	   	{{else}}
+						           	   		<li><a href="javascript:void(0)" target="_blank"><img src="/facesix/static/qubercomm/images/home/twitter.png" alt="twitter"></a></li>
+						           	   	{{/if}}
+						           	   	
+						           	   	{{#if customer.linkedin}}
+						           	   		<li><a href="{{customer.linkedin}}"  target="_blank"><img src="/facesix/static/qubercomm/images/home/in.png" alt="linkedin"></a></li>
+						           	   	{{else}}
+						           	   		<li><a href="javascript:void(0)"  target="_blank"><img src="/facesix/static/qubercomm/images/home/in.png" alt="linkedin"></a></li>
+						           	   	{{/if}}  
+					           	   	{{else}}
+					           	   		<li><a href="https://www.facebook.com/qubercomm/" target="_blank"><img src="/facesix/static/qubercomm/images/home/fb.png" alt="facebook"></a></li>
+					           	   		<li><a href="" target="_blank"><img src="/facesix/static/qubercomm/images/home/twitter.png" alt="twitter"></a></li>
+					           	   		<li><a href="https://in.linkedin.com/company/qubercomm-technologies-inc."  target="_blank"><img src="/facesix/static/qubercomm/images/home/in.png" alt="linkedin"></a></li>
+					           	   	{{/if}} 
+								</ul>
+								<input type="hidden" name="url" id="name" value="{{#if customer.preferedUrlName}}{{customer.preferedUrlName}}{{/if}}" >
+							</form>
+						</div>
+						
+						<div class="col-md-6 col-sm-7 col-xs-12">
+							
+								{{#if customer}}
+									{{#if customer.contactNumber}}
+										<h4><i class="fa fa-phone" aria-hidden="true"></i> Telephone Support</h4>
+										
+										<ul class="cf-details">
+											<li>
+												<span>Contact Number</span>
+												<span>{{customer.contactNumber}}</span>
+											</li>
+											
+											{{#if customer.mobileNumber}}
+											<li>
+												<span>Mobile Number</span>
+												<span>{{customer.mobileNumber}}</span>
+											</li>
+											{{/if}}
+											
+										</ul>
+										
+									{{/if}}
+									
+									{{#if customer.support_link}}
+									 	<h4><i class="fa fa-envelope" aria-hidden="true"></i> Email Support</h4>
+									 	<ul class="cf-details">
+											<li>
+												<span>Support</span>
+												<span>
+													<a href="mailto:{{customer.support_link}}">{{customer.support_link}}
+													</a>
+												</span>
+											</li> 
+										</ul>
+										
+									{{/if}}
+									
+									{{#if customer.address}}
+										
+										<h4><i class="fa fa-map-marker" aria-hidden="true"></i> Address</h4>
+										 <div class="address-text">
+								
+											<ul class="cf-details">
+												<li>
+													
+													{{customer.customerName}}<br />
+													 {{customer.address}}, <br />
+													 {{customer.city}}, <br /> {{customer.state}}, 
+													 {{customer.country}} - {{customer.postalCode}}
+													<div  style="padding:5px 0px;">
+													
+														<iframe src="https://www.google.com/maps?q={{customer.address}}{{customer.city}}{{customer.state}}{{customer.country}}&output=embed" class="thumbnail" width="90%" height="100" frameborder="0" style="border:0" allowfullscreen></iframe>
+														
+													</div>
+												 
+												</li> 
+											</ul>
+											</div>
+											
+										
+									{{/if}}
+								
+								{{else}}
+								<h4><i class="fa fa-phone" aria-hidden="true"></i> Telephone Support</h4>
+								<ul class="cf-details">
+									<li>
+										<span>India</span>
+										<span>+91-44-6900-0715</span>
+									</li>
+									<li>
+										<span>USA</span>
+										<span>+1-650-209-4747</span>
+									</li>
+								</ul>
+								<h4><i class="fa fa-envelope" aria-hidden="true"></i> Email Support</h4>
+								<ul class="cf-details">
+									<li>
+										<span>Support</span>
+										<span>
+											<a href="mailto:support@qubercomm.com">support@qubercomm.com
+											</a>
+										</span>
+									</li>
+									<li>
+										<span>Legal</span>
+										<span>
+											<a href="mailto:legal@qubercomm.com">contact@qubercomm.com
+											</a>
+										</span>
+										
+									</li>
+								</ul>
+                                <h4><i class="fa fa-map-marker" aria-hidden="true"></i> Address</h4>
+                                <div class="address-text">
+								
+								<ul class="cf-details">
+									<li>
+										
+										<a href="https://goo.gl/maps/LzuKGrhisGN2" target="blank">Qubercomm Technologies (India)
+										<div  style="padding:5px 0px;"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.713831914255!2d80.2396258143755!3d12.990146290843734!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a525d7d6641728d%3A0xddfdb15c6538d927!2sIIT+Madras+Research+Park!5e0!3m2!1sen!2s!4v1501757286479" class="thumbnail" width="90%" height="100" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+									</a>
+									</li>
+									<li>
+										
+										<a href="https://goo.gl/maps/Vepo26AvRKU2"  target="blank">Qubercomm Technologies (USA)
+										<div style="padding:5px 0px;"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3307.246754180619!2d-117.86187838516605!3d34.01187658061693!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c32bbc64a92157%3A0xd5d68029cc2c6816!2s340+S+Lemon+Ave+%234751%2C+Walnut%2C+CA+91789%2C+USA!5e0!3m2!1sen!2sin!4v1501754004674" class="thumbnail" width="90%" height="100" frameborder="0" style="border:0" allowfullscreen></iframe></div>
+									</a>
+									</li>
+								</ul>
+								</div>
+								
+								{{/if}}
+								
+							
+						</div>
+						 
+					</div>
+				</div>
+		
+	
+		<footer class="footer footer-section addhide hidden-sm hidden-md" style="padding:0px 5px!important;">
+			<div class="container-fluid">
+				<span class="copyright-footer" style="color:white" >Copyright © 2018 Qubercomm.com All rights reserved.</span>
+				<span class="footer-link pull-right">
+					<ul class="list-unstyled">
+						<li>
+							<i class="fa fa-envelope" style="color:white"></i>						
+							<a href="/facesix/contact{{#if customer.preferedUrlName}}/{{customer.preferedUrlName}}{{/if}}" style="color:white">Contact Us</a>
+						</li>
+					</ul>
+				</span>
+			</div>
+		</footer>
+	</div>
+</section>
+
+<script>
+function checkPasswordMatch() {
+	var password = document.getElementById("pwd").value;
+    var confirmPassword = document.getElementById("c_pwd").value;
+	console.log (password);
+	console.log (confirmPassword);
+
+    if (password != confirmPassword) {
+    	console.log ("Password Mismatch");
+		document.getElementById("pwd").style.borderColor = "#E34234";
+		document.getElementById("c_pwd").style.borderColor = "#E34234";
+		document.getElementById("c_pwd").value = "";
+		document.getElementById("c_pwd").placeholder = "Password Mismatch";
+		document.getElementById("pwd").value = "";
+		document.getElementById("pwd").placeholder = "Password Mismatch";
+	}
+}
+</script>
+
+<script src="/facesix/static/qubercomm/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/jquery_validate_min_js.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/form-validations.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/script.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/common.js"></script>
+
+</body>
+</html>

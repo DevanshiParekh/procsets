@@ -1,0 +1,45 @@
+<header>
+    <nav class="navbar">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span> 
+          </button>
+          <a class="navbar-brand" href="#"><img src="asset/img/logo.png"></a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav navbar-right">
+            <li ng-click="isCollapsed = !isCollapsed"><a href=""><span class="icon-user"></span></a></li>
+            <li><a href="#"><span class="icon-power"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+</header>
+<div class="profile-bar header-position" uib-collapse="!isCollapsed">
+    <div class="profile-content">
+        <div class="profile-img">
+            <img class="fr-img" src="asset/img/profile-img/17.jpg"/>
+            <img src="asset/img/users.png"/>
+            <h6>Mark William</h6>
+            <span class="text-small">Designation</span>
+        </div>
+        <div class="profile-menu">
+            <a href="">
+                <span>My Account</span>
+                <i class="caret"></i>
+            </a>
+        </div>
+    </div>
+    <div class="profile-wrapper">
+            <ul class="navigation">
+                <li><a href="#"><i class="icon-user"></i> <span>My Profile</span></a></li>
+                <li><a href="#"><i class="icon-user"></i> <span>Users</span></a></li>
+                <li><a href="#"><i class="icon-cog"></i> <span>Account settings</span></a></li>
+				<li><a href="#"><i class="icon-power"></i> <span>Logout</span></a></li>
+            </ul>
+        </div>
+
+</div>

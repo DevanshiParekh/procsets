@@ -1,0 +1,217 @@
+<style>
+@media screen and (max-width: 768px){
+	.mhide{
+		display: none;
+	}
+}
+</style> 
+<div class="loader_boxtwo loaders" ng-class="{active:loaderEnabled == 'active'}">	
+	<div class="loadertwo"></div>
+	<h4 class="text-center">Loading...</h4>
+</div>
+
+<div class="captive_portal">
+	<div class="captive_portal_inner">
+		<div class="container-fluid">
+			<h2>Library</h2>
+			
+			<div class="uitabs">
+				<ul class="ui-tabs-nav">
+					<li ng-class="{ active: isSet(1) }"><a href ng-click="setTab(1)" >Portals</a></li>
+					<li ng-class="{ active: isSet(2) }"><a href ng-click="setTab(2)">Templates</a></li>
+					<li ng-class="{ active: isSet(3) }"><a href ng-click="setTab(3)">Casting</a></li>
+				</ul>
+				
+				<div class="tabs-inner">
+					
+					<!--  Portals Start -->
+					<div ng-show="isSet(1)">
+						<h2>Portals ({[{active_portals.length}]})</h2>
+						<div class="successMessage message" ng-show="SuccessDetete == true">Selected Portal has been removed successfully<a href="javascript:void(0);" ng-click="SuccessDetete = false" >x</a></div>
+						<div class="errorMessage message" ng-show="errorDeteted == true">Error while removing portal, please try after some time or contact admin.<a href="javascript:void(0);" ng-click="errorDeteted = false" >x</a></div>
+	       		  		<div class="cp-cards row ">
+							<div class="col-ui-3" ng-repeat="x in active_portals">
+								<div class="cp-card-signle " id="portals-{[{x.id}]}">
+									<div class="uitable">
+										<div class="icon-screenshot">
+											<div ng-show="x.bgScreenShot" class="icon-screenshot-thumb" style="background-image: url({[{x.bgScreenShot}]});"></div>
+											<div ng-show="!x.bgScreenShot" class="icon-screenshot-thumb"></div>
+										</div>
+										<div class="portal-content">
+											<h3>{[{x.portalName}]}</h3>
+											<!-- <p><b>Locations: </b> {[{x.location}]}</p> -->
+											<span class="cname" ng-if="x.customerName != '' && x.customerName != undefined"><b>Customer Name: </b>{[{x.customerName}]}</span>
+											<div class="portal-tools mhide">
+												<ul>
+													<li ng-if="x.portalType != 'login'" class="display_none_mobile"><a href="#!/captiveportal/edit/{[{x.id}]}"><i class="fa fa-edit"></i><span>Edit</span></a></li>
+													<li ng-if="x.portalType == 'login'" class="display_none_mobile"><a href="#!/captiveportal/edit/login/{[{x.id}]}"><i class="fa fa-edit"></i><span>Edit</span></a></li>
+													
+													<li ng-if="x.portalType != 'login'"><a href="#!/captiveportal/view/{[{x.id}]}" target="_blank"  ><i class="fa fa-external-link"></i><span>Preview</span></a></li>
+													<li ng-if="x.portalType == 'login'"><a href="#!/captiveportal/view/login/{[{x.id}]}" target="_blank"  ><i class="fa fa-external-link"></i><span>Preview</span></a></li>
+													
+													<li><a href="javascript:void(0);" ng-click="setRemove($index)" ><i class="fa fa-trash"></i><span>Delete</span></a></li>
+												</ul>
+											</div>
+										</div>
+										<div class="removeConfirm"  ng-show="isRemove($index)"  >
+			                   				<div class="ab-center">
+			                  					<a class="" href ng-click="removePortals(x.id)">Confirm</a>
+			                   					<a class="" href ng-click="setRemove(100000)">Cancel</a>
+			                 				</div>
+			                   			</div>
+									</div>
+									 
+		                   			
+								</div>
+							</div>
+							
+						</div>
+		        	</div>
+		        	
+		        	<!--  Portals End -->
+		        	
+		        	<!-- Templates Start -->
+		        	<div ng-show="isSet(2)">
+						<h2>Templates ({[{templates.length}]})</h2>
+	       		  		<div class="cp-cards row ">
+							<div class="col-ui-3" ng-repeat="x in templates"  >
+								<div class="cp-card-signle " id="portals-{[{x.id}]}">
+									<div class="uitable">
+										<div class="icon-screenshot">
+											<div ng-show="x.bgScreenShot" class="icon-screenshot-thumb" style="background-image: url({[{x.bgScreenShot}]});"></div>
+											<div ng-show="!x.bgScreenShot" class="icon-screenshot-thumb"></div>
+										</div>
+										<div class="portal-content">
+											<h3>{[{x.name}]}</h3>
+											<!-- <p><b>Locations: </b> {[{x.location}]}</p> -->
+											<div class="portal-tools mhide">
+												<ul> 
+													<li ng-show="x.isActive == 1 && x.url == ''" class="display_none_mobile"><a href="#!/captiveportal/add/{[{x.id}]}"><i class="fa fa-edit"></i><span>{[{x.editText}]}</span></a></li>
+													<li ng-show="x.isActive == 1 && x.url == 'login'" class="display_none_mobile"><a href="#!/captiveportal/add/login/{[{x.id}]}"><i class="fa fa-edit"></i><span>{[{x.editText}]}</span></a></li>
+													 
+												 	<li ng-if="x.url != 'login'"><a href="#!/captiveportal/view/{[{x.id}]}" target="_blank"  ><i class="fa fa-external-link"></i><span>Preview</span></a></li>
+													<li ng-if="x.url == 'login'"><a href="#!/captiveportal/view/login/{[{x.id}]}" target="_blank"  ><i class="fa fa-external-link"></i><span>Preview</span></a></li>
+													<!-- <li><a href="javascript:void(0);" ng-click="removePortal(x.id)" ><i class="fa fa-trash"></i><span>Delete</span></a></li> -->
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+		        	</div>
+		        	
+		        	<div ng-show="isSet(3)">
+		        		<h2>Casting ({[{casting.length}]})</h2>
+		        		<div class="successMessage message" ng-show="CastingSuccessDetete == true">Selected File has been removed successfully<a href="javascript:void(0);" ng-click="CastingSuccessDetete = false" >x</a></div>
+						<div class="errorMessage message" ng-show="CastingerrorDeteted == true">Error while removing File, please try after some time or contact admin.<a href="javascript:void(0);" ng-click="CastingerrorDeteted = false" >x</a></div>
+						<div class="successMessage message" ng-show="CastingSuccessUpload == true">File has been upload successfully<a href="javascript:void(0);" ng-click="CastingSuccessUpload = false" >x</a></div>
+						<div class="errorMessage message" ng-show="CastingerrorUpload == true">Error while uploading File, please try after some time or contact admin.<a href="javascript:void(0);" ng-click="CastingerrorUpload = false" >x</a></div>
+						
+						
+		        		<div class="row" id="fileManager">
+		 					
+		 					<div class="col-ui-2 mhide">
+				 				<div class="fileSingle">
+				 					<!--  <div class="extra-loader" ng-class="{'active': filePopUp == true}"><i class="fa fa-spinner fa-pulse"></i></div>  -->
+				 					<div class="add-new">
+			 							<a href ng-click="addNewFilePopUp()"><i class="fa fa-plus" aria-hidden="true"></i><span>Add New File</span></a>
+			 						</div>
+				 				</div>
+				 			</div>
+				 			
+				 			<div class="col-ui-2" ng-repeat="file in casting" >
+				 				<div class="fileSingle">
+				 					<div class="fileinfo">
+				 						<div class="fileThumb" style="text-align: center; background-image: url({[{file.screenshot}]})" > 
+				 						</div>
+				 						<div class="fileCon">
+				 							<h4>{[{file.name}]}</h4>	 	
+				 						</div>
+				 						<div class="removeConfirm"  ng-show="isRemove('file-'+$index)"  >
+			                   				<div class="ab-center">
+			                  					<a class="" href ng-click="removeCasting(file.id)">Confirm</a>
+			                   					<a class="" href ng-click="setRemove(100000)">Cancel</a>
+			                 				</div>
+			                   			</div>
+				 						<div class="fm-actions text-right mhide">
+				 							<!-- <a href="{[{file.url}]}" target="_blank" download><i class="fa fa-cloud-download" aria-hidden="true"></i><span>Download</span></a>  -->
+				 							<a href ng-click="showPreview(file.path, file.type)" class="fm_preview"><i class="fa fa-external-link"></i><span>Preview</span></a>
+				 							<a href="javascript:void(0);" ng-click="setRemove('file-'+$index)" class="fm_remove"><i class="fa fa-trash"></i><span>Delete</span></a>
+				 						</div>
+				 					</div>
+				 				</div>
+				 			</div>
+				 			
+				 		</div>
+				 		
+		        	</div>
+		        	<!-- Templates End -->
+		        	
+		        	
+				</div>
+				
+	        	
+				
+			</div>
+			
+		</div> 
+		
+	</div>
+</div>
+
+<div class="popup" ng-if="filePopUp == true" ng-class="{'open':filePopUp}">
+	<div class="popup-container accountAdd filPopup">
+		<div class="extra-loader" ng-class="{'active': uploadLoader == true}"><i class="fa fa-spinner fa-pulse"></i></div>
+		<h3>Upload New File</h3>
+		<form ng-submit="form.$valid && submitFile()" name="form"  >
+			<div class=" ">
+				<div class="col-ui-12">  
+					<div class="hiddenFileField" style="display: none;">
+						<canvas id="thecanvas" height="190" width="282"></canvas>
+						<div class="preview-section"></div>
+					</div>
+					<div ng-if="cids == undefined || cids == ''">
+					 	 <div class="wrapperbox">
+						 	<label>Select Customer</label><br />  
+						 	<select class="select-control" ng-model="cid" ng-change="changeCid(cid)"  style="max-width: 400px;" required >
+						 		<option value="" selected="selected" disabled>Select</option>
+						 		<option ng-repeat="x in cusList" value="{[{x.id}]}">{[{x.custName}]}</option>
+						 	</select> 
+						 </div>
+					 </div>
+					<div class="wrapperbox">
+						<label>Choose File</label><br /> 
+				 	 	<div  class="upload-btn-wrapper"> 
+				 	 		<span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path></svg></span>
+				 	 		<i>Choose File</i>
+				 	 		<input required type="file" accept="image/*, video/*" file-model="fileChoose" onchange="angular.element(this).scope().setFileTitle(this)" name="fileChoose" file-upload="" />
+					 	</div> 
+					 	<br />
+					 	<br />
+						<label>Name</label><br />
+						<input required type="text" id="filename" class="form-control" ng-model="filename" bound-model="filename" ng-class="{'error': form.$submitted && form.name.$invalid}" />
+						<input type="submit" class="btn btn-primary" value="Upload File">
+					 </div>
+				</div> 
+			</div>
+			
+		</form>
+		<button class="btn close-btn w-auto fl" ng-click="closeNewFilePopUp()"><i class="fa fa-times"></i></button>
+	</div>
+</div>
+
+<div class="popup" ng-if="previewPopUp == true" ng-class="{'open':previewPopUp}" style="text-align: center;">
+	<div class="popup-container accountAdd previewPopup"> 
+		<div class="previewTypeImage" ng-if="previewType.indexOf('image') > -1">
+			<img style="max-width: 100%" ng-src="{[{previewPath}]}" />
+		</div>
+		<div class="previewTypeVideo" ng-if="previewType.indexOf('video') > -1">
+			<video  controls style="width: 800px; max-width: 100%;">
+			  <source ng-src="{[{previewPath}]}" type="video/mp4"> 
+			</video>
+		</div>
+		<button class="btn close-btn w-auto fl" ng-click="closepreviewPopUp()"><i class="fa fa-times"></i></button>
+	</div>
+</div>

@@ -1,0 +1,21 @@
+{
+    "profile":{
+        "fname":"Qubercomm", 
+        "lname":"", 
+        "email":"sample@qubercomm.com", 
+        "mobile":"9876543210", 
+        "designation":"Vice President", 
+        "roleid":"1", 
+        "role":"superadmin",
+        "profileimg":"asset/img/profile-img/17.jpg",
+        "alert":{
+            "email":"Y", 
+            "sms":"N"
+        }
+    },
+    "roles":[
+        {"roleid":1, "role":"Super Admin"},
+        {"roleid":2, "role":"Admin"},
+        {"roleid":3, "role":"Network Manager"}
+    ]
+}

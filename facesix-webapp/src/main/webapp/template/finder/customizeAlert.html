@@ -1,0 +1,1709 @@
+{{#partial "page"}}
+
+<div id="page-content-wrapper" class="acc-sec">
+	<input type="hidden" name="sid" value="{{sid}}">
+	<input type="hidden" name="spid" value="{{spid}}">
+	<input type="hidden" name="cid" value="{{cid}}">
+
+	<div class="container-fluid">
+		<div class="col-md-12 venue-details">
+			<div class="view-details">
+				<ul>
+					<li><label class="venue-name scan_align aln-ca" style="margin-bottom: 25px" >Customized Alert </label></li>
+				</ul>
+			</div>
+			{{#if GatewayFinder}}			
+				<div class="col-md-12">
+			        <ul class="ui-tabs-nav" style="margin-top: -30px;">
+						<li class="active" style="margin-left: -14px;"><a href="/facesix/web/beacon/customizeAlert?sid={{sid}}&spid={{spid}}&cid={{cid}}" class="btn btn-sm" style="margin-top:-80px; width:125%">Finder Customize Alert</a></li>
+						<li class="" style="margin-left: 50px;"><a href="/facesix/GW_CustomizeAlert?sid={{sid}}&spid={{spid}}&cid={{cid}}"  class="btn btn-sm" style="margin-top:-81px; width:125%">Gateway Customize Alert</a></li> 
+					</ul>
+				</div>
+				{{/if}}
+		</div>
+
+	</div>
+							
+		
+		<!-- <div class="showme" style="float:right;margin-bottom: 32px;margin-right: 25px;margin-top: -41px;">
+		<button class="btn btn-primary btn3d" id="adder">Add</button>
+		<button class="btn btn-primary btn3d" id="remover">Remove</button>
+		</div> 
+		
+<script id="chartbox-receiver-template" type="text/x-handlebars-template">
+	
+	<div class="device-coon-desc">
+		<i class="fa fa-bluetooth-b" aria-hidden="true"></i>
+		<label>List </label>
+		<span class="table-page" data-table-name="receiver-table"><i class="fa fa-refresh refreshTable" aria-hidden="true"></i>\{{#if show_previous_button}}<i class="fa fa-caret-left rec-tablePreviousPage"></i>\{{/if}}&nbsp;\{{#if show_next_button}}<i class="fa fa-caret-right rec-tableNextPage"></i>\{{/if}}</span>
+		
+			
+	</div>
+
+	<div class="tableSection">
+			<div class="panel-heading">
+                            
+     		</div>
+		<table class="table receiver-table" id="receiver-table" data-current-page="\{{current_page}}" data-row-limit="10">
+			<thead>
+				<tr>
+					<th onclick="sort_table('recid', 0, asc1); asc1 *= -1; asc2 = 1; asc3 = 1;" class="width-40"># <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('recid', 1, asc1); asc1 *= -1; asc2 = 1; asc3 = 1;"> Tagtype <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('recid', 2, asc1); asc1 *= -1; asc2 = 1; asc3 = 1;"> Assigned To<i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('recid', 3, asc1); asc1 *= -1; asc2 = 1; asc3 = 1;"> Location<i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('recid', 4, asc1); asc1 *= -1; asc2 = 1; asc3 = 1;"> Duration<i class="fa fa-arrow-up"></i></th>
+				</tr>
+			</thead>
+			<tbody id="recid">
+				\{{#each data}}
+				<tr class="tr_aclrow" id="aclrow" mac-id="\{{mac_address}}" ap="\{{ap}}" uid="{{uid}}" cid="\{{cid}}">
+					<td>\{{index}}</td>
+					<td>\{{tagtype}}</td>
+					<td>\{{tagnames}}</td>
+					<td>\{{placenames}}</td>
+					<td>\{{duration}}</td>
+				</tr>
+				\{{/each}}
+			</tbody>
+
+		</table>
+	</div>	
+	
+</script>  -->
+		
+
+	<div class="col-md-12 ">
+		<div class="col-md-6 padding-device padding-right-0 configure-settings" style="margin-top: -20px;margin-bottom: 40px;">
+			<div class="chart-box acl-table-chart-box" id="cfSettings"></div>
+		</div>
+
+		<div
+			class="col-md-6 padding-device padding-right-0 configure-settings pad-md"
+			style="margin-top: -20px;">
+			<div class="pad0">
+				<title></title>
+				<div class="panel panel-default"
+					style="box-shadow: 5px 6px 5px #cdd9ef; margin-top: -25px;">
+					<label class="tag-opt" style="font-family: 'Exo2Regular';"><i class = "fa fa-tags"></i> Tags Options </label>
+					<div class="panel-body" style="margin-top: 18px;">
+						<div class="row">
+						<div class="col-md-4 aln-center" style="width: 100%;">
+							<div class="w50">
+								<div class="form-group disp-inline yeah">
+									<span style="margin-left: 0px;" class="fontwe"> TagType</span>
+									<select class="form-control stylenew " name="alertType"
+										id="alertType">
+									</select>
+								</div>
+								<div class="form-group disp-inline aln-tt yeah"
+									style="">
+									<span class="fontwe"> Place </span> <select
+										class="form-control stylenew" name="inactivity"
+										id="inactivity">
+										<!-- <option value="venue">Venue</option> -->
+										<option value="floor"> Floor</option>
+										<option value="location"> Location</option>
+									</select> </input>
+								</div>
+								
+
+								<div class="form-group disp-inline aln-vn yeah"
+									style="">
+									<span class="fontwe"> Duration (In Minutes)</span> 
+									<input class="form-control stylenew"
+										type="number" name="default_inactivity_time" id="duration" min="0"></input>
+								</div>
+
+								<div style="display: none">
+									<input type="text" class="form-control" name="cid" id="cid"
+										value="{{cid}}">
+								</div>
+
+							</div>
+							<div class="w50">
+							<div class="form-group disp-inline aln-vn yeah"
+									style="">
+									<span for="tagids" class="fontwe"> Select Tag Names:</span><br /> <select
+										id="tagids" multiple="multiple">
+									</select>
+								</div>
+								<div class="form-group disp-inline yeah" style="">
+									<span for="placeIds" class="fontwe"> Choose a place:</span><br /> <select
+										id="placeIds" multiple="multiple">
+									</select>
+								</div>
+								
+
+								<div class="form-group disp-inline aln-tt yeah btn-aln"
+									style="">
+									<input type="submit" class="btn btn-primary btn3d btn-config-venue width-120 btn-res btn-disabled"
+										name="submit" value="Submit" id="generateTable" style="float:right;margin-right: 0px;margin-top:101px" /> </input>
+								</div>
+
+								<div style="display: none">
+									<input type="text" class="form-control" name="cid" id="cid"
+										value="{{cid}}">
+								</div>
+
+							</div>
+</div>
+
+							<br />
+						</div>
+						<!-- /.col-lg-6 (nested) -->
+						<div class="col-lg-1"></div>
+					</div>
+					<!-- /.row (nested) -->
+				</div>
+				<!-- /.panel-body -->
+			</div>
+			<!-- /.panel -->
+		</div>
+		<div class="col-md-12 showTab" style="margin-top:-25px;margin-left: 15px;padding-left: 0px; padding-right: 40px;">				
+				<div class="chart-box acl-table-chart-box cuzalert"></div>
+			</div>
+<div class="savearea" id="reposition-mode" class="reposition-mode" style="display:none;position:fixed;">
+	<div class="savearea_bottom">
+			<div class="left-section">
+				<label>Are you sure you want to delete this Tag Alert?</label>
+			</div>
+			<div class="rightsection">
+				<ul class="list-unstyled">
+					<li id="cancelDeleteBeacon">
+						<label>
+							
+						</label>
+						<span >
+							Cancel
+						</span>
+					</li>
+					<li onclick="submitCheckDelete()">
+						<label>
+						</label>
+						<span class="color2" >
+							OK
+						</span>
+					</li>
+				</ul>
+			</div>
+			</div>
+	</div>
+	</div>	
+	
+		</div>
+	
+
+		
+<script id="CF-beacon-template" type="text/x-handlebars-template">
+	<br />
+	
+	<div class="tableSection aln-tb">
+		
+		<div class="row">
+	
+			<div class="col-md-4" style="width: 100%;">
+				 <div class="extraoption" style="margin-top: -20px;margin-bottom: 20px;>
+					<div>
+						<div class="device-coon-desc"> 
+							<label  class="blockelem al-opt"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp; Alert Options</label> 
+						</div> 
+					</div>
+					
+				</div>
+
+				<div class="extraoption">
+					<div>
+					<label  class="blockelem">Activate Email/SMS notification when Tags get inactive ?</label>
+					</div>
+					<div>
+					<div class="onoffswitch UI-onofswitch al-aln" style="vertical-align: middle; ">
+						<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="emailNofify" onchange="notify(this)" data-children="uicheckchild" \{{inactivityMail}}>
+						<label class="onoffswitch-label" for="emailNofify">
+							<span class="onoffswitch-inner Alert"></span>
+							<span class="onoffswitch-switch"></span>
+						</label>
+					</div>
+					</div>
+				</div>
+
+				<div class="extraoption">
+					<div>
+					<label  class="blockelem">Activate Email/SMS notification when Devices get inactive ?</label>
+					</div>
+					<div>
+					<div class="onoffswitch UI-onofswitch al-aln" style="vertical-align: middle; ">
+						<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="devNofify" onchange="notify(this)" data-children="uicheckchild" \{{inactivitydevMail}}>
+						<label class="onoffswitch-label" for="devNofify">
+							<span class="onoffswitch-inner Alert"></span>
+							<span class="onoffswitch-switch"></span>
+						</label>
+					</div>
+					</div>
+				</div>
+
+				<div class="extraoption">
+					<div>
+						<label class="blockelem">Default Tag Inactivity Time (In Minutes)</label>
+					</div>
+					<div><input min="1" max="100" style="text-align: center; max-width: 70px; height: 30px; display: inline-block; vertical-align: middle; " class=" form-control al-aln" name="default_inactivity_time" id="timeInact" type="number" value="40" />
+					</div>
+				</div>
+				<div class="extraoption">
+					<div><label class="blockelem">Default Device Inactivity Time (In Seconds)</label></div>
+					<div><input min="1" max="100" style="text-align: center; max-width: 70px; height: 30px; display: inline-block; vertical-align: middle; " class=" form-control al-aln" name="default_dev_inactivity_time" id="defTimeInact" type="number" value="40" />
+					</div>
+				</div>
+				<div class="extraoption">
+					<div><label class="blockelem">Battery Threshold  (%)</label></div>
+					<div><input min="1" max="100" style="text-align: center; max-width: 70px; height: 30px; display: inline-block; vertical-align: middle; " class=" form-control al-aln" name="batterythreshold" type="number" value="40" />
+					</div>
+				</div>
+				<div class="extraoption" style="padding-right: 0;">
+					<div><label class="blockelem"></label></div>
+					<div class="text-right"><a href="javascript:void(0)" class="btn btn-primary btn3d btn-config-venue width-120 " onclick="updateTagType()" style="margin-bottom: 23px; margin-right: 40px;">
+					<i class="fa fa-floppy-o"></i> Update</a></div>
+				</div>
+			</div>
+		
+		
+	</div>	
+	
+	<div class="text-right">
+		
+	</div>
+</script>
+
+<script id="chartbox-acl-template" type="text/x-handlebars-template">
+	
+	<div class="device-coon-desc" style="margin-top: 20px;">
+		<label>Configured Tag Alert</label>
+		<span class="table-page" data-table-name="cuzalert-table"><i class="fa fa-refresh bi-refreshTable" aria-hidden="true"></i>\{{#if show_previous_button}}<i class="fa fa-caret-left bi-tablePreviousPage"></i>\{{/if}}&nbsp;\{{#if show_next_button}}<i class="fa fa-caret-right bi-tableNextPage"></i>\{{/if}}</span>
+		<select class="tablelengthone" id="tablelengthone" data-target="#cuzalert-table">
+			<option value="5">5</option>
+			<option value="10" selected>10</option>
+			<option value="25">25</option>
+			<option value="50">50</option>
+			<option value="100">100</option>
+		</select>			
+	</div>
+
+	<div class="tableSection">
+		<table class="table scanner-table cuzalert-table" id="cuzalert-table" data-current-page="\{{current_page}}" data-row-limit="10">
+			<thead>
+				<tr class="sel_tbl1">
+					<th onclick="sort_table('blockTable', 0, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(0)" class="width-40"># <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('blockTable', 1, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(1)"> Tag Type <i class="fa fa-arrow-up"></i></th>
+					<th> Tag Names <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('blockTable', 3, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(3)"> Place <i class="fa fa-arrow-up"></i></th>
+					<th> Place Names <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('blockTable', 5, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(5)"> Durations <i class="fa fa-arrow-up"></i></th>
+					<th>Delete <i class="fa fa-arrow-up"></i></th>				
+				</tr>
+			</thead>
+			<tbody id="blockTable">
+				\{{#each data}}
+					<tr class="tr_blockrow">
+					<td style="color: black;">\{{index}}</td>
+					<td style="color: black;">\{{tagtype}}</td>
+					<td style="color: black;"><select class="form-control" style="margin-left: 22px; width: 80%">										
+												\{{#each tagnames}}										
+												<option value="\{{this}}"> \{{this}}</option>
+												\{{/each}}
+									</select></td>
+					<td style="color: black;">\{{place}}</td>
+					<td style="color: black;"><select class="form-control" style="margin-left: -50px; margin-right: 15px; width: 85%; float: right;">										
+												\{{#each placenames}}								
+												<option value="\{{this}}"> \{{this}}</option>
+												\{{/each}}
+									</select></td>
+					<td style="color: black;">\{{duration}}</td>
+					{{#if SYS_WRITE}}
+                    <td>
+                    <a class="submitDelete submit1" onclick="alertdelete('\{{id}}')" title="Remove" style="cursor: pointer"><i class="fa fa-trash fa-2x"></i></a>
+                    </td>
+					{{/if}}
+				</tr>
+				\{{/each}}
+			</tbody>
+
+		</table>
+	</div>		
+	
+</script>
+
+
+</div>
+
+
+<!-- js -->
+<script src="/facesix/static/qubercomm/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+ <script src="/facesix/static/qubercomm/js/bootstrap.min.js" type="text/javascript"></script> 
+
+<script type="text/javascript" src="/facesix/static/finder/js/bootstrap-multiselect.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+ <script src="/facesix/static/qubercomm/js/jquery_validate_min_js.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/form-validations.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.mobile-events.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/common.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/handlebars.min.js"></script>
+<script type="text/javascript" src="/facesix/static/finder/js/script.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/snap.svg-min.js"></script>
+<script src="/facesix/static/qubercomm/js/d3.v3.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/underscore-min.js"></script>
+  
+<link rel="stylesheet" type="text/css" href="/facesix/static/finder/css/style.css"/>
+<link rel="stylesheet" href="/facesix/static/geo/css/loader.css">
+
+ <div class="loader_boxone" id="loader_boxone" style="display: none;">	
+	<div class="loaderone"></div>
+	<h4 class="text-center">Loading...</h4>
+</div>
+
+<div class="loader_boxone" id="loader_boxone1" style="display: none;">	
+	<div class="loaderone"></div>
+	<h4 class="text-center">Updating tag type ...</h4>
+</div> 
+
+<script>
+
+var id = 0;
+function alertdelete(filter){
+	
+	id = filter;
+	$(".savearea").show();
+}
+
+function submitCheckDelete() {
+
+	var url = "/facesix/rest/beaconAlertData/delete?id="+id;
+	 console.log("url" + url);
+		$.ajax({
+	   	  	url:url,
+	   	  	method:'DELETE',
+	   	  	data:{},
+	   	  	headers:{
+	   	  		'content-type':'application/json'
+	   	  	},
+	   	  	success:function(response,error){
+	   	  	console.log("checked in");
+	   	  	location.reload(); 	  		
+	   	  	},
+	   	  	error:function(error){
+	   	  		 console.log(error);
+	   	  		 location.reload();
+	   	  	}
+});
+		$(".savearea").hide();
+}
+
+$('#cancelDeleteBeacon').on('click',function(){
+	
+	index = 0;
+	$(".savearea").hide();
+})
+
+</script>
+
+<script>
+
+
+$(document).ready(function(){
+	
+	
+	$('#tagids').multiselect({
+        templates: { // Use the Awesome Bootstrap Checkbox structure
+            li: '<li><div class="checkbox"><label></label></div></li>'
+        },
+         nonSelectedText: 'Select Name',
+         enableFiltering: true,
+         buttonWidth:'100%',
+         includeSelectAllOption: true,
+         numberDisplayed: 1,
+    });
+	
+	$('#placeIds').multiselect({
+        templates: { // Use the Awesome Bootstrap Checkbox structure
+            li: '<li><div class="checkbox"><label></label></div></li>'
+        },
+         nonSelectedText: 'Select Place',
+          enableFiltering: true,
+		  enableCaseInsensitiveFiltering: true,
+		  buttonWidth:'100%',
+		  includeSelectAllOption: true,
+		  numberDisplayed: 1,
+    });
+	
+	
+    $('.multiselect-container div.checkbox').each(function (index) {
+
+        var id = 'multiselect-' + index,
+            $input = $(this).find('input');
+
+        // Associate the label and the input
+        $(this).find('label').attr('for', id);  
+        $input.attr('id', id);
+
+        // Remove the input from the label wrapper
+        $input.detach();
+
+        // Place the input back in before the label
+        $input.prependTo($(this));
+
+        $(this).click(function (e) {
+            // Prevents the click from bubbling up and hiding the dropdown
+            e.stopPropagation();
+        });
+
+    });
+    
+	  var cid = location.search.split("&")[2].replace("?","").split("=")[1];
+	  
+	  $.ajax({
+			url: '/facesix/rest/customer/getTagTypes?cid='+urlObj.cid,
+			method: "get",
+			success: function (result) { 
+				//console.log("result"+ JSON.stringify(result[0]))
+				$.each(result, function(i) { 
+					 var slectOption = "<option value=" + result[i]+ ">"+ result[i] + "</option>"; 
+					 $(slectOption).appendTo('#alertType'); 
+				}); 
+				
+			     var type = result[0];
+			     tagChange(type);
+			},
+			
+			
+			dataType: "json"
+		}); 
+	
+	  function tagChange(type){
+		  var cid = location.search.split("&")[2].replace("?","").split("=")[1];
+				var type = type;  
+			$.ajax({
+				type : "GET",
+				url: "/facesix/rest/beaconAlertData/typeBasedTagNames?cid="+urlObj.cid+"&type="+type,
+				dataType : "json",
+				success : function(data) { 
+					
+					var filterCategories = [];
+					var category 		= [];
+					
+					//console.log("data length" + JSON.stringify(data.length));
+					$.each(data, function(i, obj) { 
+						category.push(obj);
+					});
+					
+					$('#tagids').empty();	
+						$.each(category, function(index, optionValue) {  
+							    var value = optionValue.name +" - "+ optionValue.tagid;
+			   	    			$('#tagids').append( $('<option></option>').val(optionValue.tagid).html(value));
+			   	    	});
+						
+				 	$('#tagids').multiselect('rebuild');  
+				 	
+				 	$.each($("#tagids"), function(){            
+				    	filterCategories.push($(this).val());   
+				    });
+				 	
+				}
+			});	
+			
+	  }
+	  	
+		
+		var cid = location.search.split("&")[2].replace("?","").split("=")[1];
+		var inactivityType = $('#inactivity').val();  
+		
+
+		$.ajax({
+			type : "GET",
+			url: "/facesix/rest/beaconAlertData/inactivityType?cid="+urlObj.cid+"&inactivityType="+inactivityType,
+			dataType : "json",
+			success : function(data) { 
+				
+				var filterCategories = [];
+				var category 		= [];
+				
+				console.log("data length" + JSON.stringify(data.length));
+				$.each(data, function(i, obj) { 
+					category.push(obj);
+				});
+				
+				$('#placeIds').empty();
+					$.each(category, function(index, optionValue) {  
+		   	    			$('#placeIds').append( $('<option></option>').val(optionValue.id).html(optionValue.name) );
+		   	    	});
+					
+			 	$('#placeIds').multiselect('rebuild');  
+			 	
+			 	$.each($("#placeIds"), function(){            
+			    	filterCategories.push($(this).val());   
+			    });
+			 	
+			}
+		});	
+		  
+		  
+});
+
+
+
+$('#alertType').on('change',function(){
+
+	var cid = location.search.split("&")[2].replace("?","").split("=")[1];
+	var type = $('#alertType').val();  
+	
+	  $.ajax({
+			type : "GET",
+			url: "/facesix/rest/beaconAlertData/typeBasedTagNames?cid="+urlObj.cid+"&type="+type,
+			dataType : "json",
+			success : function(data) { 
+				
+				var filterCategories = [];
+				var category 		= [];
+				
+				console.log("data length" + JSON.stringify(data.length));
+				$.each(data, function(i, obj) { 
+					category.push(obj);
+				});
+				
+				$('#tagids').empty();	
+					$.each(category, function(index, optionValue) {  
+						var value = optionValue.name +" - "+ optionValue.tagid;
+	   	    			$('#tagids').append( $('<option></option>').val(optionValue.tagid).html(value));
+		   	    	});
+					
+			 	$('#tagids').multiselect('rebuild');  
+			 	
+			 	$.each($("#tagids"), function(){            
+			    	filterCategories.push($(this).val());   
+			    });
+			 	
+			}
+		});	
+	    	
+});
+
+
+$('#inactivity').on('change',function(){
+
+	var cid = location.search.split("&")[2].replace("?","").split("=")[1];
+	var inactivityType = $('#inactivity').val();  
+	
+	  $.ajax({
+			type : "GET",
+			url: "/facesix/rest/beaconAlertData/inactivityType?cid="+urlObj.cid+"&inactivityType="+inactivityType,
+			dataType : "json",
+			success : function(data) { 
+				
+				var filterCategories = [];
+				var category 		= [];
+				
+				console.log("data length" + JSON.stringify(data.length));
+				$.each(data, function(i, obj) { 
+					category.push(obj);
+				});
+				
+				$('#placeIds').empty();
+					$.each(category, function(index, optionValue) {  
+		   	    			$('#placeIds').append( $('<option></option>').val(optionValue.id).html(optionValue.name) );
+		   	    	});
+					
+			 	$('#placeIds').multiselect('rebuild');  
+			 	
+			 	$.each($("#placeIds"), function(){            
+			    	filterCategories.push($(this).val());   
+			    });
+			 	
+			}
+		});	
+		
+});
+
+
+$('#generateTable').on('click',function(){
+	
+	if(tagids != null && placeIds != nul){
+		$('#generateTable').addClass('disabled',true);
+	}
+	var cid = location.search.split("&")[2].replace("?","").split("=")[1];
+	
+	var place = $('#inactivity').val();  
+	var tagtype = $('#alertType').val();
+	var tagids = $('#tagids').val();
+	var placeIds = $('#placeIds').val();
+	var duration = $('#duration').val();
+
+	if(tagids == null){
+		console.log("hi")
+		 $('.multiselect ').css("border-color","red")
+	} else {
+		 $('.multiselect ').css("border-color","#ccc")
+	}
+	
+	 if(placeIds == null) {
+		 $('.multiselect ').css("border-color","red")
+	} else { 
+		 $('.multiselect ').css("border-color","#ccc")
+	}
+	  
+	 if (duration == "") {
+		$('#duration').css("border-color","red")
+	} else {
+		$('#duration').css("border-color","#ccc")
+
+	}
+	 
+	 if (tagtype == null) {
+			$('#alertType').css("border-color","red")
+		} else {
+			$('#alertType').css("border-color","#ccc")
+
+		}
+	 
+	if(tagids != "" && tagids != null && placeIds != "" && placeIds != null && duration != "" && tagtype != null){
+		$('.btn-disabled').addClass('disabled');
+		var networkconfig={
+				"cid":cid,
+				"place":place,
+				"tagtype":tagtype,
+				"tagids":tagids,
+				"placeIds":placeIds,
+				"duration":duration,
+		 	};
+		
+		var conversion = JSON.stringify(networkconfig);
+		console.log(JSON.stringify(networkconfig))
+		var url = "/facesix/rest/beaconAlertData/save";
+		$.ajax({
+			url : url,
+	   	  	method:'POST',
+	   	 	data:conversion,
+	        headers:{
+	 	  		'content-type':'application/json'
+	 	  	}, 	   	  	
+	   	  	success:function(response,error){
+	   	  		console.log("success")
+	   	  		$('#tagids').multiselect("clearSelection");
+	   	  		$('#placeIds').multiselect("clearSelection");
+	   	  		$("#alertType").val($("#alertType option:first").val());
+	   	  		$("#inactivity").val($("#inactivity option:first").val());
+	   	  		$("#duration").val("60");
+	   	  		//alert("response" + JSON.stringify(response))
+	   	  		//location.reload();
+	   	  		updatedList()
+	   	  	$('#generateTable').removeClass('disabled');
+	   	  	},
+	   	  	error:function(error){
+	   	  		//console.log(error);	
+	   	  	}
+	   	 })
+	   	 
+	} 
+
+   	 
+ 	
+});
+
+function updatedList(){
+	 
+	search = window.location.search.substr(1)
+	urlObj=JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
+	var time = $('#time').val();
+	var url ="/facesix/rest/beaconAlertData/list?cid="+urlObj.cid
+	$.ajax({
+         url: url,
+         method: "get",
+         success: function (result) {             
+            
+         		 if (result && result.length) {
+                            var show_previous_button = false;
+                            var show_next_button = false;
+                            _.each(result, function (i, key) {
+                                i.index = key + 1;
+                            })
+                            dumpValData = result;
+                            if (result.length > 10) {
+                                var filteredData = result.slice(0, 10);
+                                show_next_button = true;
+                            } else {
+                                var filteredData = result;
+                            }
+
+                            var source = $("#chartbox-acl-template").html();
+                            var template = Handlebars.compile(source);
+                            var rendered = template({
+                                "data": filteredData,
+                                "current_page": 1,
+                                "show_previous_button": show_previous_button,
+                                "show_next_button": show_next_button,
+                                "startIndex": 1
+                            });
+                            $('.cuzalert').html(rendered);
+                            //$('table .aclPopup ').on("tap",aclMenu);                                
+                            
+                        }
+             if(result.length > 0){
+            	 $('.cuzalert').show();
+             }
+             $(".loader_box").hide();
+             
+         },
+         error: function (data) {
+         	$(".loader_box").hide();
+         },
+         dataType: "json"
+
+     });
+	
+};
+
+var row_limit = 10;
+
+$('body').on('change', ".tablelengthone", function (e) { 
+    	
+    	row_limit = $(this).val();
+    	var target = $(this).attr('data-target');
+    	$(target).attr('data-row-limit', row_limit);
+    	$(target).attr('data-current-page', '1');    	
+    	
+        var show_previous_button = true;
+        var show_next_button = false;
+
+        var tableName = $(this).attr("data-target"); 
+        var $tableBlock = $(tableName); 
+        current_page = 1;
+        previous_page = 1
+        next_page = current_page + 1  
+        console.log("RL " + row_limit);
+        if (previous_page == 1) {
+            show_previous_button = false;
+        }
+        if (dumpValData.length > current_page * row_limit) {
+            show_next_button = true;
+        }
+        var filteredData = dumpValData.slice((previous_page * row_limit) - row_limit, previous_page * row_limit);
+        var source = $("#chartbox-acl-template").html();
+        var template = Handlebars.compile(source);
+        var rendered = template({
+            "data": filteredData,
+            "current_page": previous_page,
+            "show_previous_button": show_previous_button,
+            "show_next_button": show_next_button,
+            "startIndex": (previous_page * row_limit) - row_limit
+        });
+        $('.cuzalert').html(rendered); 
+        $('#tablelengthone').val(row_limit);
+        
+    }); 
+    
+$('body').on('click', ".bi-tablePreviousPage", function (e) {
+
+    var show_previous_button = true;
+    var show_next_button = true;
+
+    var tableName = $(this).closest('span').attr("data-table-name");
+    var $tableBlock = $('#' + tableName);
+    var current_page = $tableBlock.attr('data-current-page');
+    current_page = parseInt(current_page);
+    previous_page = current_page - 1
+    //var row_limit = $tableBlock.attr('data-row-limit');
+    //row_limit = parseInt(row_limit);
+
+    if (previous_page == 1) {
+        show_previous_button = false;
+    }
+    var filteredData = dumpValData.slice((previous_page * row_limit) - row_limit, previous_page * row_limit);
+    var source = $("#chartbox-acl-template").html();
+    var template = Handlebars.compile(source);
+    var rendered = template({
+        "data": filteredData,
+        "current_page": previous_page,
+        "show_previous_button": show_previous_button,
+        "show_next_button": show_next_button,
+        "startIndex": (previous_page * row_limit) - row_limit
+    });
+    $('.cuzalert').html(rendered);
+    $('#tablelengthone').val(row_limit);
+});
+
+$('body').on('click', ".bi-tableNextPage", function (e) {
+	
+    var show_previous_button = true;
+    var show_next_button = false;
+    
+    var tableName = $(this).closest('span').attr("data-table-name");
+    var $tableBlock = $('#' + tableName);
+    var current_page = $tableBlock.attr('data-current-page');
+    current_page = parseInt(current_page);
+    next_page = current_page + 1
+    //var row_limit = $tableBlock.attr('data-row-limit');
+    //row_limit = parseInt(row_limit);
+    
+    if (dumpValData.length > next_page * row_limit) {
+        show_next_button = true;
+    }
+
+    var filteredData = dumpValData.slice(row_limit * current_page, row_limit * next_page);    
+    var source = $("#chartbox-acl-template").html();
+    var template = Handlebars.compile(source);
+    var rendered = template({
+        "data": filteredData,
+        "current_page": next_page,
+        "show_previous_button": show_previous_button,
+        "show_next_button": show_next_button,
+        "startIndex": row_limit * current_page
+    });
+    $('.cuzalert').html(rendered);
+    $('#tablelengthone').val(row_limit);
+});
+
+$('body').on('click', '.bi-refreshTable', function () {
+	
+	updatedList();
+	
+});
+
+  /* (function(){
+	var cid = location.search.split("&")[2].replace("?","").split("=")[1];
+	console.log("hey this is list");
+
+	search = window.location.search.substr(1)
+	urlObj=JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
+	var count = 1; 
+	var receiver_row_limit = 10;
+   
+                    $.ajax({
+                        url: '/facesix/rest/beaconAlertData/list?cid='+urlObj.cid,
+                        method: "get",
+                        success: function (result) {
+                        	 
+                          console.log("result"+ JSON.stringify(result)) 
+                           $.each(result,function(i,value){
+                        	  // console.log(value)
+                        	 var types = value.tagtype;
+                           	   //$('#tagtypes').append( $('<option></option>').html(value.tagtype));
+                        	   $('#tagtypes').html(types);
+                        	  console.log(types)
+                        	  var tag = value.tagnames;
+                        	   if(tag.length > 1){
+                        		   $.each(tag,function(j,k){
+                        			   var insideTag = tag[j];
+                        			   //console.log(insideTag);
+                        			   $('#tagnames').append( $('<option></option>').html(insideTag)); 
+                        		   });
+                        	   } else {
+                        		   $('#tagnames').append( $('<option></option>').html(tag));
+                        	   }
+                        	   
+                        	   $('#placenames').val(value.placenames);
+                        	   $('#duration').append( $('<option></option>').html(value.duration))
+                           });
+                          
+                        },
+                        error: function (data) {
+                        },
+                        dataType: "json"
+
+                    });
+ 
+})(); */ 
+
+
+(function () {
+	var row_limit = 10000;
+	search = window.location.search.substr(1)
+	urlObj=JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
+	var timer = 10000;
+	var count = 1;
+	var peerStats; 
+	
+	
+    CustomAlert = {
+        timeoutCount: 0, 
+        acltables: {
+            url: {
+                aclClientsTable: '/facesix/rest/beacon/scanned?cid='+urlObj.cid
+            },
+            setTable: {
+                alertList: function () {
+                	$('#loader_boxone').show(); 
+                	
+                     
+                	var tags = [];
+                	$.ajax({
+                		url: '/facesix/rest/customer/getTagTypes?cid='+cid,
+                		method: "get",
+                		success: function (result) { 
+                			for(var i = 0; i <= result.length - 1; i++){    
+                				var newTag = {
+                          			tagType: result[i],
+                          			inactivityDuration: default_inactivity_time, 
+                          			checked: ''
+                        		}
+                				tags.push(newTag);
+                			}
+                			loadsavedlist(); 
+                		},
+                		error: function (data) {
+                			  
+                		},
+                		dataType: "json"
+
+                	});
+                	
+                	
+                	
+                	function loadsavedlist(){
+                		//console.log("am called")
+                		$('.col-md-12').show();
+                		if(tags && tags.length){
+                        	var show_previous_button = false;
+                            var show_next_button = false;
+                            _.each(tags, function (i, key) {
+                                i.index = key + 1;
+                            })
+                             
+                            CustomAlert.activeAlertData = tags;
+                            
+                            $.ajax({
+                            	 url: '/facesix/rest/customer/getInactivityInfo?cid='+cid,
+                                method: "get",
+                                success: function (result) {
+                                	console.log(JSON.stringify(result))
+                               	 	if(result.default_inactivity_time != ''){
+                                     	default_inactivity_time = result.default_inactivity_time;
+                                    }
+                                	for(var j = 0; j <= tags.length - 1; j++){   
+                                		tags[j]['inactivityDuration'] = default_inactivity_time; 
+                                	}
+                                	if(result.inactivityInfo != '' && result.inactivityInfo != undefined){
+                                		 for(var i = 0; i <= result.inactivityInfo.length - 1; i++){    
+                                         	for(var j = 0; j <= tags.length - 1; j++){   
+                                             	if(tags[j]['tagType'] == result.inactivityInfo[i]['tagType']){
+                                             	 
+                                             		tags[j]['checked'] = 'checked'; 
+                                             		tags[j]['inactivityDuration'] = result.inactivityInfo[i]['inactivityDuration']; 
+                               					 }
+                                             	
+                                         	}
+                                     	}	
+                                	}
+                                   
+                                   
+                                    
+                                    if (tags.length > row_limit) {
+                                        var filteredData = tags.slice(0, row_limit);
+                                        show_next_button = true;
+                                    } else {
+                                        var filteredData = tags;
+                                    }
+
+                                    var source = $("#CF-beacon-template").html();
+                                    var template = Handlebars.compile(source);
+                                    var rendered = template({
+                                        "data": filteredData,
+                                        "current_page": 1,
+                                        "show_previous_button": show_previous_button,
+                                        "show_next_button": show_next_button,
+                                        "startIndex": 1
+                                    });
+                                    $('#cfSettings').html(rendered);
+                                    updateCheckboxstatus();
+                                    if(result.inactivityMail != ''){ 
+    	                               	 if(result.inactivityMail === 'true'){ 
+    	                               		 $('#emailNofify').prop('checked', true);
+    	                               	 }  
+                                    }
+                                    if(result.finderEmailSms != ''){ 
+   	                               	 if(result.finderEmailSms === 'true'){ 
+   	                               		 $('#devNofify').prop('checked', true);
+   	                               	 }  
+                                   }
+                                    
+                                    if(result.finderInactime != ''){
+                                 	   $('input[name="default_dev_inactivity_time"]').val(result.finderInactime);
+                                    }
+                                    
+                                   if(result.battery_threshold != ''){
+                                	   $('input[name="batterythreshold"]').val(result.battery_threshold);
+                                   }
+                                    
+                                   if(result.default_inactivity_time != ''){
+                                	   $('input[name="default_inactivity_time"]').val(result.default_inactivity_time);
+                                   }
+                                    
+                                    var height = 0; 
+                            	    var innerHeight = $('#beaconids tr').innerHeight();
+                            	    height = innerHeight * 10; 
+                            	    $('.uimax').css('max-height', height+'px');
+                            	    $('#loader_boxone').hide();
+                            	    notify();
+                                },
+                                error: function (data) {
+                                	if (tags.length > row_limit) {
+                                        var filteredData = tags.slice(0, row_limit);
+                                        show_next_button = true;
+                                    } else {
+                                        var filteredData = tags;
+                                    }
+
+                                    var source = $("#CF-beacon-template").html();
+                                    var template = Handlebars.compile(source);
+                                    var rendered = template({
+                                        "data": filteredData,
+                                        "current_page": 1,
+                                        "show_previous_button": show_previous_button,
+                                        "show_next_button": show_next_button,
+                                        "startIndex": 1
+                                    });
+                                    $('#cfSettings').html(rendered);
+                                    updateCheckboxstatus();  
+                                    
+                                    var height = 0; 
+                            	    var innerHeight = $('#beaconids tr').innerHeight();
+                            	    height = innerHeight * 10; 
+                            	    $('.uimax').css('max-height', height+'px');
+                            	    $('#loader_boxone').hide();
+                            	    $('.col-md-12').show();
+                            	    console.log("error")
+                                },
+                                dataType: "json"
+
+                            });
+                            
+                            
+                        }else{
+                        	$('#loader_boxone').hide();
+                        }
+                	}
+                	
+                    
+                    
+                     
+                    
+                }
+            }
+        },
+        init: function (params) {
+            var aclList     = ['alertList'] 
+            var that        = this;
+            $(".loader_boxtwo").show();
+            $.each(aclList, function (key, val) {
+                that.acltables.setTable[val]();
+            });
+             
+         
+
+        },
+    }
+    
+})();
+
+
+var cid = '{{cid}}';
+var selectedTags = [];
+var current_page = 1;
+var inactivityMail = '';
+var inactivitydevMail = '';
+var default_inactivity_time = 60;
+var default_dev_inactivity_time = 60;
+var sorttb = function(e){
+	console.log('we')
+	$(e).trigger('click');
+}
+
+var notify = function(e){
+	
+	if($('#emailNofify').prop('checked') === true)
+	{ 
+		$('#timeInact').attr('disabled',false)
+	}else{
+		$('#timeInact').attr('disabled',true)
+	}
+	
+	if($('#devNofify').prop('checked') === true)
+	{ 
+		$('#defTimeInact').attr('disabled',false)
+	}else{
+		$('#defTimeInact').attr('disabled',true)
+	}
+	
+}
+var updateCheckboxstatus = function(){
+	var count = 0;
+	$('.ajaxinput').removeClass('checked');
+	$('.ajaxinput').attr('disabled', 'true');
+	for(var i = 0; i <= CustomAlert.activeAlertData.length - 1; i++){   
+		if(CustomAlert.activeAlertData[i]['checked'] == 'checked'){
+			count = count + 1;
+			$('.ajaxinput.'+CustomAlert.activeAlertData[i]['tagType']).addClass('checked');
+			$('.ajaxinput.'+CustomAlert.activeAlertData[i]['tagType']).removeAttr('disabled');
+		} 
+	}
+	 
+	if(count == CustomAlert.activeAlertData.length){
+		$('#CheckAll').prop('checked', true);
+	}else{
+		$('#CheckAll').prop('checked', false);
+	}
+}
+
+var updateTagType = function(){
+	$('#loader_boxone1').show();
+	var updateTags = [];
+	for(var i = 0; i <= CustomAlert.activeAlertData.length - 1; i++){ 
+		if(CustomAlert.activeAlertData[i]['checked'] == 'checked'){ 
+			var datas = {
+				tagType: CustomAlert.activeAlertData[i]['tagType'],
+				inactivityDuration: CustomAlert.activeAlertData[i]['inactivityDuration']
+			};
+			updateTags.push(datas);
+	    }
+	} 
+	var battery_threshold = $('input[name="batterythreshold"]').val(); 
+	var default_inactivity_time = $('input[name="default_inactivity_time"]').val();
+	var default_dev_inactivity_time = $('input[name="default_dev_inactivity_time"]').val();
+	var inactivityMail = false;
+	var inactivitydevMail = false;
+	if($('#emailNofify').prop('checked') === true){
+		inactivityMail = true;
+	}
+	if($('#devNofify').prop('checked') === true){
+		inactivitydevMail = true;
+	}
+	var cid = '{{cid}}';
+	var data = {		 
+		cid: cid,
+		inactivityMail: inactivityMail,
+		inactivitydevMail: inactivitydevMail,
+		battery_threshold: battery_threshold,
+		default_inactivity_time: default_inactivity_time,
+		default_dev_inactivity_time: default_dev_inactivity_time
+	};
+
+	console.log(JSON.stringify(data));
+	 
+	$.ajax({
+        url: '/facesix/rest/customer/updateInactivityInfo',
+        method: "POST",
+        contentType: 'application/json',
+        data: JSON.stringify(data), 
+        success: function (result) { 
+        	//console.log(JSON.stringify(result));    
+        	$('#loader_boxone1').hide();
+        },
+        error: function (data) {
+             console.log(data);
+             $('#loader_boxone1').hide();
+        },
+        dataType: "json"
+
+    });
+	
+	
+};
+var ajaxUpdate = function(e, type, ftype){
+	for(var i = 0; i <= CustomAlert.activeAlertData.length - 1; i++){ 
+		if(CustomAlert.activeAlertData[i]['tagType'] == type){ 
+	    	if(ftype == 'inactivityDuration'){
+	    		CustomAlert.activeAlertData[i]['inactivityDuration'] = e;
+	    	}else if(ftype == 'bactteryThreshold'){
+	    		CustomAlert.activeAlertData[i]['bactteryThreshold'] = e;
+	    	}else{
+	    		
+	    	}
+	    }
+	} 
+	
+};
+var selectChild = function(e){
+	var target = $(e).attr('data-children'); 
+	if($(e).prop('checked') === true)
+	{ 
+		for(var i = 0; i <= CustomAlert.activeAlertData.length - 1; i++){ 
+			CustomAlert.activeAlertData[i]['checked'] = 'checked';
+		} 
+		$('.'+target).prop('checked', true);  
+		
+	}else{
+		for(var i = 0; i <= CustomAlert.activeAlertData.length - 1; i++){ 
+			CustomAlert.activeAlertData[i]['checked'] = '';
+		} 
+		$('.'+target).prop('checked', false); 
+	}
+	updateCheckboxstatus();
+	
+};
+var checkboxUpdate = function(e){ 
+	if($(e).prop('checked') == true){
+		
+	}else{
+		 $(e).removeAttr('checked');
+	}
+	updateDataValues(); 
+	updateCheckboxstatus();
+	
+};
+
+
+updateDataValues = function(){
+	$('.uicheckchild').each(function(){ 
+		
+		var target = $(this).attr('data-id');
+		if($(this).prop('checked') == true){
+			for(var i = 0; i <= CustomAlert.activeAlertData.length - 1; i++){ 
+			    if(CustomAlert.activeAlertData[i]['tagType'] == target){ 
+			    	CustomAlert.activeAlertData[i]['checked'] = 'checked';
+			    }
+			} 
+			
+		}else{
+			for(var i = 0; i <= CustomAlert.activeAlertData.length - 1; i++){ 
+				if(CustomAlert.activeAlertData[i]['tagType'] == target){ 
+			    	CustomAlert.activeAlertData[i]['checked'] = ''; 
+			    	CustomAlert.activeAlertData[i]['inactivityDuration'] = default_inactivity_time;
+			    	$('input[name="inactivityDuration"].'+target).val(default_inactivity_time); 
+			    	$('input[name="inactivityDuration"].'+target).attr('value', default_inactivity_time); 
+			    }
+			}  
+		}
+		
+	});
+	
+	console.log(CustomAlert.activeAlertData); 
+	
+};
+
+$(document).ready(function(){ 
+	
+	$('.cuzalert').hide();
+	$('.col-md-12').hide();
+	updatedList();
+	
+	$('body').on('click', "#tableSortChanged th:not(.tableFilter)", function (e) { 
+		updateCheckboxstatus();
+		notify();
+	}); 
+	
+	$('body').on('change', ".tablelength", function (e) { 
+		
+	 	 row_limit = $(this).val();
+		/*var target = $(this).attr('data-target');
+		 
+		 
+	    var show_previous_button = true;
+	    var show_next_button = false;
+
+	    var tableName = $(this).attr("data-target"); 
+	    var $tableBlock = $(tableName); 
+	    current_page = 1;
+	    previous_page = 1
+	    next_page = current_page + 1  
+	    
+	    if (previous_page == 1) {
+	        show_previous_button = false;
+	    }
+	    if (CustomAlert.activeAlertData.length > current_page * row_limit) {
+	        show_next_button = true;
+	    }
+	    var filteredData = CustomAlert.activeAlertData.slice((previous_page * row_limit) - row_limit, previous_page * row_limit);
+	    
+	    var source = $("#CF-beacon-template").html();
+	    var template = Handlebars.compile(source);
+	    var rendered = template({
+	        "data": filteredData,
+	        "current_page": next_page,
+	        "show_previous_button": show_previous_button,
+	        "show_next_button": show_next_button,
+	        "startIndex": row_limit * current_page
+	    });
+	    $('#cfSettings').html(rendered); 
+	    
+	    */
+	    $('#tablelength').val(row_limit); 
+	    updateCheckboxstatus();
+	    notify(); 
+	    var height = 0;
+	    console.log(row_limit);
+	    var innerHeight = $('#beaconids tr').innerHeight();
+	    height = innerHeight * row_limit;
+	    console.log(height);
+	    $('.uimax').css('max-height', height+'px');
+	}); 
+	/* $('body').on('click', ".acl-tablePreviousPage", function (e) {
+ 
+	    var show_previous_button = true;
+	    var show_next_button = false;
+
+	    var tableName = $(this).closest('span').attr("data-table-name"); 
+	    var $tableBlock = $('#' + tableName);
+	   	var current_page = $tableBlock.attr('data-current-page');
+	    current_page = parseInt(current_page);
+	    console.log(current_page);
+	    previous_page = current_page - 1; 
+	    if (previous_page == 1) {
+	        show_previous_button = false;
+	    }
+	    if (CustomAlert.activeAlertData.length > previous_page * row_limit) {
+	        show_next_button = true;
+	    }
+	    var filteredData = CustomAlert.activeAlertData.slice((previous_page * row_limit) - row_limit, previous_page * row_limit);
+	    var source = $("#CF-beacon-template").html();
+	    var template = Handlebars.compile(source);
+	    var rendered = template({
+	        "data": filteredData,
+	        "current_page": previous_page,
+	        "show_previous_button": show_previous_button,
+	        "show_next_button": show_next_button,
+	        "startIndex": row_limit * current_page
+	    });
+	    $('#cfSettings').html(rendered); 
+	    updateCheckboxstatus();
+	    $('#tablelength').val(row_limit); 
+	    notify();
+
+	});
+	var checkStatus = false; 
+	$('body').on('click', ".acl-tableNextPage", function (e) {
+	  
+	    var show_previous_button = true;
+	    var show_next_button = false;
+
+	    var tableName = $(this).closest('span').attr("data-table-name");
+	    var $tableBlock = $('#' + tableName);
+	    var current_page = $tableBlock.attr('data-current-page');
+	    current_page = parseInt(current_page);
+	    next_page = current_page + 1
+	   
+
+	    if (CustomAlert.activeAlertData.length > next_page * row_limit) {
+	        show_next_button = true;
+	    }
+
+	    var filteredData = CustomAlert.activeAlertData.slice(row_limit * current_page, row_limit * next_page);
+	    var source = $("#CF-beacon-template").html();
+	    var template = Handlebars.compile(source);
+	    var rendered = template({
+	        "data": filteredData,
+	        "current_page": next_page,
+	        "show_previous_button": show_previous_button,
+	        "show_next_button": show_next_button,
+	        "startIndex": row_limit * current_page
+	    });
+	    $('#cfSettings').html(rendered); 
+	    updateCheckboxstatus();
+	    $('#tablelength').val(row_limit); 
+	    notify();
+	}); */  
+	
+	/* $('body').on('click', '.chk-refreshTable', function () {
+		row_limit = 100000;
+		CustomAlert.acltables.setTable.alertList('reload');
+		notify();
+	}); */
+	
+
+	var current_page = 1;
+	// $(".loader_boxone").show();
+ 	 	
+	CustomAlert.init();  
+	$('body').on('change', 'input[name="batterythreshold"]', function () { 
+		if($(this).val() <= 10){
+		      $(this).val('10');
+		      return false;
+	    }
+		else if($(this).val() > 60){
+	      $(this).val('60');
+	      return false;
+	    }else{
+	    	return true;
+	    }
+
+	  });
+	$('body').on('change', 'input[name="inactivityDuration"]', function () { 
+		if($(this).val() <= 0){
+		      $(this).val('1');
+		      $(this).attr('value', '1');
+		      return false;
+	    } 
+		else{
+			$(this).attr('value', $(this).val());	
+	    	return true;
+	    }
+
+	  });
+	
+});
+
+
+function checkCheckboxstatus(){ 
+	
+	if($('#CheckAll').prop('checked') === true)
+	{
+		checkStatus = true;
+	}
+	else 
+	{
+		checkStatus = false;
+	} 
+} 
+function updateCheckboxstatus(){
+	
+	var target = $('#CheckAll').attr('data-children');
+	var name;
+	$('.'+target).each(function(){
+		name = $(this).attr('name'); 
+		if(checkedValues.indexOf(name) > -1){
+			
+		}
+		else{
+			if(checkStatus === true){
+				$(this).prop('checked', true);
+			}
+			else{
+				$(this).prop('checked', false);
+			}
+		}
+	});
+    if(checkStatus === true){ 
+    	$('#CheckAll').prop('checked', true);
+    }else{ 
+    	$('#CheckAll').prop('checked', false);
+    }
+    
+	$.each(checkedValues, function(index, optionValue) {   
+		$('.'+target+'[name="'+optionValue+'"]').prop('checked', true);
+	}); 
+}
+
+var numInput = document.querySelector('#duration');
+
+//Listen for input event on numInput.
+numInput.addEventListener('input', function(){
+ // Let's match only digits.
+ var num = this.value.match(/^\d+$/);
+ if (num === null) {
+     // If we have no match, value will be empty.
+     this.value = "";
+ }
+}, false)
+
+
+$('#tagids').on('change',function(){
+var tagV = $('#tagids').val();
+var placeV = $('#placeIds').val();
+if(placeV != null && tagV != null){
+$('.multiselect ').css("border-color","#ccc")
+}
+});
+
+
+$('#placeIds').on('change',function(){
+var tagV = $('#tagids').val();
+var placeV = $('#placeIds').val();
+if(placeV != null && tagV != null){
+$('.multiselect ').css("border-color","#ccc")
+}
+});
+
+</script>
+<style>
+	.selected{ 
+		background-color: rgba(211,211,211,.7);
+		color: black;
+	}
+	.colr{
+		border: 1px solid #ccc;
+	}
+	table{
+		cursor: default;
+	}
+	.btn-aln{
+		margin-top: 25px;
+	}
+	.al-aln{
+		margin-left: 52px;
+	}
+	.al-opt{
+		margin-left: -20px;
+	}
+	.tag-opt{
+		margin-left: 20px;
+    	margin-top: 16px;
+    	margin-bottom: 1px;
+	}
+	th{
+		font-weight: lighter !important;
+		font-family: 'Exo2Regular';
+		text-align: center;
+	}
+	.ajaxinput:not(.checked){ 
+	 	cursor: not-allowed;
+	 	background: #eee;
+	}
+	.uimax { 
+		overflow: auto;
+	}
+	.table-fixed{
+		table-layout: fixed;
+	}
+	.extratabs > div{
+		padding-top: 15px;
+		padding-bottom: 15px;
+	}
+	.acl-table-chart-box .device-coon-desc label{
+		margin-top: 0;
+	}
+	.extraoption{
+		display: table;
+		padding: 13px 10px;
+	    width: 100%;
+		background: #f0f0f054;
+	}
+	.extraoption > div{
+		display: table-cell;
+		vertical-align: top; 
+	}
+	.extraoption > div:nth-child(2){
+		width: 150px;
+	}
+	.extraoption:nth-child(odd){
+		background: none;
+	}
+	.extraoption{ 
+	
+	} 
+	.pad0{
+		padding: 25px !important;
+   		margin-left: -5px;
+   		margin-top: 0px;
+	}
+	.flt-rgt{
+		float: right;
+		margin-right: 22px;
+	}
+	@media screen and (max-width: 480px){
+		 .al-opt{
+		 	margin-top: 10px;
+		 	margin-left: 0px;
+		 }
+		 .aln-ca{
+		 	margin-left: 16px !important;
+		 	font-size: 16px !important;
+		 	margin-bottom: 40px !important;
+		 }
+		 .pad-md{
+		 padding: 0px;    
+    	 margin-left: -5px;
+    	 margin-right: -11px;
+		 }
+		 .aln-center{
+		 	margin-left: 16px;
+		 }
+	}
+	@media screen and (min-width: 1315px){
+		.btn-res{
+			margin-top: 81px !important;
+		} 
+	}
+	@media screen and (min-width: 1354px){
+		.btn-res{
+			margin-top: 63px !important;
+		} 
+	}
+	
+
+.framelen {
+    margin-top: -50px;
+    margin-left: 215px;
+}
+
+	
+	}
+	
+	body {
+    padding: 20px;
+}
+.multiselect-container div.checkbox {
+    margin: 0;
+}
+.multiselect-container label {
+    margin: 0;
+    white-space: nowrap;
+}
+.multiselect-container div.checkbox {
+    padding: 5px 15px 5px 35px;
+}
+
+.multiselect-container {
+    position: absolute;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    }
+    
+    .open>.dropdown-menu {
+    display: block;
+    height: 205px;
+    overflow-y: scroll;
+    width: 100%;
+}
+.stylenew{
+width: 100%;
+}
+
+@media only screen 
+  and (min-device-width: 768px) 
+  and (-webkit-min-device-pixel-ratio: 1) {
+.w50 {width:50%;float:left}
+}
+
+
+
+.yeah{
+	display: table;
+    padding: 15px 10px;
+    width: 85%;
+    background: #f0f0f054;
+}
+.No{
+	display: table;
+    padding: 15px 10px;
+    width: 85%;
+}
+
+.multiselect-selected-text{
+float:left;
+}
+
+.btn .caret {
+    margin-top: 10px;
+    float: right;
+}
+
+.multiselect-search{
+    padding: 20px;
+}
+.multiselect-filter {
+    margin-left: 0px !important;
+}
+.multiselect-container li {
+   margin-left:-28px;
+}
+.glyphicon{
+	font-size: 15px;
+}
+.fontwe{
+    font-weight: 700;
+    font-family: 'Exo2Regular';
+}
+</style>
+ 
+{{/partial}}
+{{>finder/beacon-list-footerscript}}
+{{>qubercomm/nav-top}}
+{{>qubercomm/nav-left}}
+{{>qubercomm/wrapper}}

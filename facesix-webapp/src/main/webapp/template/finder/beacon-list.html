@@ -1,0 +1,994 @@
+{{#partial "page"}}
+
+<style>
+.selected{ 
+background-color: rgba(211,211,211,.7);
+color: black;
+}
+table{
+cursor: default;
+}
+</style>
+<div id="page-content-wrapper" class="acc-sec">
+<div class="lth-right searchTAG pull-right" style="margin-right: 16px">
+					<div class="search-opt">
+						<div class="GeneratePdf" style="display: inline-block;vertical-align: middle;">
+							<a class=" btn btn-sm toggleBtns collapsed " title="Show/Hide Scanner" style="background: none;background: none; position: relative; " data-toggle="collapse" aria-expanded="false" data-target=".togglePdfGen"><i class="fa fa-eye-slash faa-vertical animated" aria-hidden="true"></i></a>
+						</div>
+						<form action="/facesix/web/beacon/list/filter"  id="target" style="display: inline-block; vertical-align: middle; margin-top: 4px; min-width: 300px;">
+							<div class="form-group">
+								<div class="search-box">
+									<span class="icon" id="searchClick">
+										<i class="fa fa-search " aria-hidden="true"></i>
+									</span>
+									<input type="hidden" name="sid" value="{{sid}}">
+									<input type="hidden" name="spid" value="{{spid}}">
+									<input type="hidden" name="cid" value="{{cid}}">
+									<input type="hidden" name="place" value="scanlist">
+									<input type="search" name = "name" id="click" class="form-control search-align">
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+	<div class="container-fluid">
+		<h4 class="acc-sec-title"></h4>
+		<div class="col-md-12 venue-details" style="padding:10px;">
+			<div class="view-details">
+				<div class="row">
+				<div class="col-md-6 col-sm-6 col-xs-6 align-top"><ul>
+					<li class="displayBlockName"><img
+						src="/facesix/static/qubercomm/images/q-scan-ble.png" alt=""
+						id="quberIm" style="width:80px;margin-top:0%;margin-left:0px"> <label class="venue-name scan_align" style="font-size:20px;margin-left:-15px;margin-top:10px;">Tags</label></li>
+						{{#if INACTIVE_WRITE}}
+						<li>
+						<span class="collapse fade togglePdfGen" id="togglePdfGen1">
+							<label>
+								<a class="btn btn-default btn-config btn-theme" style="height:34px;">
+								<input type="file" name="file" id="upload-file-selector"  id="fileSelect" accept=".txt" />
+								 	<i class="fa fa-download faa-vertical animated" aria-hidden="true" title="Import"></i>
+								</a>
+							</label>
+						</span>
+						</li>
+						{{/if}}
+				</ul>
+				</div> 
+					{{#if SYS_WRITE}}
+					<div class="col-md-6 col-sm-6 col-xs-6">
+					<div class=" collapse fade togglePdfGen" id="togglePdfGen">
+					<div class="  mobilehide text-right" style="">
+							<select class="form-control csslast" name="scannerUid" id="scannerUid" style="width: 184px;display: inline-block; vertical-align: middle;">
+							</select>
+							<button class="btn btn-primary btn3d width-120 mobilehideS exp exportlistcss"
+							id="triggersan" type="button"  style="display: inline-block; vertical-align: middle; margin-left: 15px; margin-right: 0; margin-top: 0;" disabled>Scan now</button>
+					</div> 
+					</div>
+					</div>
+					{{/if}}
+					</div>
+					
+			</div>
+		</div>
+	</div>
+
+
+   	
+	<div class="col-md-12 tblhide">
+		<div class="collapse fade togglePdfGen" id="togglePdfGen2" aria-expanded="false">
+			<div class="col-md-12 padding-device padding-right-0" style="margin-left:-9px;margin-top: -20px;">
+				<div class="chart-box acl-table-chart-box"></div>
+			</div>	
+		</div>
+	{{#if INACTIVE_WRITE}}
+		<a href="" class="btn btn-primary btn3d btn-config-venue addhide width-120 deleteAllCheck pull-right" style="margin-bottom: 13px;">
+			<i class="fa fa-trash"></i> Delete All</a>
+	{{/if}}
+	<div class="col-md-12 tblhide padding-device padding-right-0" style="margin-left:-9px">
+		<div class="chart-box table-chart-box"></div>
+	</div>	</div>
+		
+</div>
+
+	<div class="savearea" id="reposition-mode" class="reposition-mode" style="display:none;position:fixed;">
+	<div class="savearea_bottom">
+			<div class="left-section">
+				<label>Are you sure you want to delete this Tag ?</label>
+			</div>
+			<div class="rightsection">
+				<ul class="list-unstyled">
+					<li id="cancelDeleteBeacon">
+						<label>
+							
+						</label>
+						<span >
+							Cancel
+						</span>
+					</li>
+					<li onclick="submitCheckDelete()">
+						<label>
+						</label>
+						<span class="color2" >
+							OK
+						</span>
+					</li>
+				</ul>
+			</div>
+			</div>
+	</div>
+	
+ <div class="saveareatwo" style="position: fixed; display: none;">
+ <div class="saveareatwo_bottom">
+	<div class="left-section">
+			<label>Are you sure you want to check-in this Tag ?</label>
+	</div>
+	<div class="rightsection">
+		<ul class="list-unstyled">
+			<li id="cancelTag" onclick="cancelchecked()"><label> </label> <span> 
+			 Cancel </span>
+			</li>
+			<li id="deleteTag" onclick="deletechecked()"><label> </label> <span class="color2">
+				OK </span>
+		   </li>
+		</ul>
+	</div>
+	</div>
+</div>
+	
+
+<div class="saveareathree checkout" id="reposition-mode"
+	class="reposition-mode" style="display: none; position: fixed;">
+	<div class="saveareathree_bottom">
+	
+	<div class="left-section">
+		<div class="ui-col">
+			<div class="ui-col-inner">
+				<div id="labelpop"><label>Are you sure you want to checkout this Tag?</label></div>
+				<input id="print" style="border-style:hidden !important;color:red !important;font-size:20px"></input>
+			</div>
+			<div class="ui-col-inner">
+				<div id="beaconstyle">
+					<label>Tag Name</label>
+					<input class="form-control" name="name" id="name"
+						placeholder="Tag Name" value="{{beacon.name}}" style="width: 160px;">
+				</div>
+				{{#if newbeacon}}
+				<div id="bintervalcss">
+					<label>Beacon Interval</label>
+					<select class="form-control increment"  name="bi" id="bi"
+						placeholder="Beacon interval" value="{{beacon.bi}}" style="width:120px;"></select>
+				</div>
+				{{/if}}
+			</div>
+			<div class="ui-col-inner">
+				<div id="tagname">
+					<label>Assign To</label>
+					<input class="form-control"  name="assto" id="assto"
+						placeholder="Assign To" value="{{beacon.assto}}" style="width: 160px;">
+				</div>
+				{{#if newbeacon}}
+				<div id="txrx">
+					<label>TxPower</label>
+					<select class="form-control" name="txpwr" id="txpwr" style="width: 160px;">
+									<option selected="" value="4">4</option>
+									<option value="0">0</option>
+									<option value="-4">-4</option>
+									<option value="-8">-8</option>
+									<option value="-12">-12</option>
+									<option value="-16">-16</option>
+									<option value="-20">-20</option>
+									<option value="-30">-30</option>
+									</select>
+					
+				</div>
+				{{/if}}
+			</div>
+			
+			<div class="ui-col-inner">
+				<div id="tagstyle">
+					<label>Tag Type</label> <select name="Patient" id="patient" style="width: 160px;height: 33px;">
+						<option value="Doctor">Doctor</option>
+						<option value="WheelChair">Wheel Chair</option>
+						<option value="Asset">Asset</option>
+						<option value="Bed">Bed</option>
+						<option value="Ambulance">Ambulance</option>
+						<option value="MedicalKit">Medical Kit</option>
+						<option value="Heartbeat">heartbeat</option>
+						<option value="Cycle">cycle</option>
+						<option value="Truck">Truck</option>
+						<option value="Bus">Bus</option>
+						<option value="Car">Car</option>
+						<option value="Child">Child</option>
+						<option value="Female">Female</option>
+						<option value="Male">Male</option>
+						<option value="Fax">Fax</option>
+						<option value="User">User</option>
+						<option value="Library">Library</option>
+						<option value="Hotel">Hotel</option>
+						<option value="Fireextinguisher">Fire-extinguisher</option>
+						<option value="Print">Print</option>
+						<option value="Clock">Clock</option>
+						<option value="Film">Film</option>
+						<option value="Music">Music</option>
+						<option value="Levelup">Levelup</option>
+						<option value="Leveldown">Leveldown</option>
+						<option value="Trash">Trash</option>
+						<option value="Home">Home</option>
+						<option value="Videocamera">Videocamera</option>
+						<option value="Circle">Circle</option>
+						<option value="Gift">Gift</option>
+						<option value="Exit">Exit</option>
+						<option value="Key">Key</option>
+						<option value="Camera">Camera</option>
+						<option value="Phone">Phone</option>
+						<option value="Creditcard">Creditcard</option>
+						<option value="Speaker">Speaker</option>
+						<option value="Powerroom">Power room </option>
+						<option value="Toolset">Toolset</option>
+						<option value="Batteryroom">Battery room</option>
+						<option value="Computerroom">Computer room</option>
+						<option value="Kidsroom">Kids room</option>
+						<option value="TVroom">TV room</option>
+					</select>
+				</div>
+			</div>
+			<div class="ui-col-inner">
+				<div id="tagmodel">
+					<label>Tag Model</label> <select name="Tagmod" id="tagmod" style="width: 160px;height: 33px;">
+						<option value="neck">Neck</option>
+						<option value="stck">Sticker</option>
+						<option value="label">Label</option>
+						<option value="rock">Rock</option>
+						<option value="box">Box</option>
+						<option value="key">Key</option>
+						<option value="coin">Coin</option>
+						<option value="card">Card</option>
+					</select>
+				</div>
+			</div>
+			<div class="ui-col-inner">
+				<div id="reftx" style="margin-top: 6px;">
+					<label>Ref TxPower</label>
+					<input class="form-control"  name="reftx" id="reftx"
+						placeholder="-59" value="{{beacon.reftx}}" style="width: 156px;margin-left: 0px;margin-top: 0px;">
+				</div>
+			</div>
+				  
+		</div>
+						
+	</div>
+	
+	
+	<div class="rightsection ui-rightsection" style="margin-top:20px;"> 
+		<ul class="list-unstyled">
+			<li id="cancelBeacon"><label> </label> <span> Cancel
+			</span></li>
+			<li  onclick="checkout()"><label> </label> <span class="color2">
+					OK </span>
+		   </li>
+		</ul>
+	</div>
+	</div>
+</div>
+
+	<div class="saveareadel" id="reposition-mode" class="reposition-mode" style="display:none;position:fixed;">
+	<div class="saveareadel_bottom">
+			<div class="left-section  ">
+				<label>Are you sure you want to DELETE ALL TAGS?</label>
+			</div>
+			<div class="rightsection">
+				<ul class="list-unstyled">
+					<li id="cancelAllCheck">
+						<label>
+							
+						</label>
+						<span >
+							Cancel
+						</span>
+					</li>
+					<li id="deleteAllCheckedout">
+						<label>
+						</label>
+						<span class="color2" >
+							OK
+						</span>
+					</li>
+				</ul>
+			</div>
+			</div>
+		</div>
+		
+		<div class="saveareadelone" id="reposition-mode" class="reposition-mode" style="display:none;position:fixed;">
+	<div class="saveareadelone_bottom">
+			<div class="left-section">
+				<label>Are you sure you want to delete this TAG?</label>
+			</div>
+			<div class="rightsection">
+				<ul class="list-unstyled">
+					<li id="canceldelchecked">
+						<label>
+							
+						</label>
+						<span >
+							Cancel
+						</span>
+					</li>
+					<li onclick="deleteCheckedoutTag()">
+						<label>
+						</label>
+						<span class="color2" >
+							OK
+						</span>
+					</li>
+				</ul>
+			</div>
+			</div>
+		</div>
+	<div class="saveareafour" id="reposition-mode" class="reposition-mode" style="display:none;position:fixed;">
+	<div class="saveareafour_bottom">
+			<div class="left-section">
+				<label>Are you sure you want to Enable/Disable Log ?</label>
+			</div>
+			<div class="rightsection">
+				<ul class="list-unstyled">
+					<li id="cancel">
+						<label>
+							
+						</label>
+						<span >
+							Cancel
+						</span>
+					</li>
+					<li onclick="selectChild()">
+						<label>
+						</label>
+						<span class="color2" >
+							OK
+						</span>
+					</li>
+				</ul>
+			</div>
+			</div>
+		</div>
+<!-- js -->
+<script src="/facesix/static/qubercomm/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/jquery_validate_min_js.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/form-validations.js" type="text/javascript"></script>
+<script src="https://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.mobile-events.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/common.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/handlebars.min.js"></script>
+<script src="/facesix/static/finder/js/beaconscan.js" type="text/javascript"></script>
+<script type="text/javascript" src="/facesix/static/finder/js/script.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/snap.svg-min.js"></script>
+<script src="/facesix/static/qubercomm/js/jqpanzoom.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/d3.v3.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/underscore-min.js"></script>
+<link rel="stylesheet" type="text/css" href="/facesix/static/finder/css/style.css"/>
+
+
+<script id="chartbox-acl-template" type="text/x-handlebars-template">
+	
+	<div class="device-coon-desc">
+		<i class="fa fa-rss" aria-hidden="true"></i>
+		<label>Scanned Devices</label>
+		<span class="table-page" data-table-name="scanner-table"><i class="fa fa-refresh refreshTable" aria-hidden="true"></i>\{{#if show_previous_button}}<i class="fa fa-caret-left tablePreviousPage"></i>\{{/if}}&nbsp;\{{#if show_next_button}}<i class="fa fa-caret-right tableNextPage"></i>\{{/if}}</span>
+					
+	</div>
+
+	<div class="tableSection">
+		<table class="table scanner-table" id="scanner-table" data-current-page="\{{current_page}}" data-row-limit="10">
+			<thead>
+				<tr class="sel_tbl1">
+					<th onclick="sort_table('spotid', 0, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(0)" class="width-40"># <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 1, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(1)">Tag ID <i class="fa fa-arrow-up"></i></th>
+				    <th onclick="sort_table('spotid', 2, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(2)">Scanner UID <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 3, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(3)">Scanner Name <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 4, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(4)">Minor <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 5, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(5)">Major <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 6, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(6)">Checkout <i class="fa fa-arrow-up"></i></th>
+					{{#if SYS_WRITE}}
+					<th>Delete <i class="fa fa-arrow-up"></i></th>
+					{{/if}}
+				</tr>
+			</thead>
+			<tbody id="spotid">
+				\{{#each data}}
+				<tr class="tr_aclrow" id="aclrow" mac-id="\{{mac_address}}" ap="\{{ap}}" uid="{{uid}}" cid="\{{cid}}">
+				 	<td style="color: black;">\{{index}}</td>
+					<td id="mac" style="color: black;">\{{macaddr}}</td>
+					<td style="color: black;">\{{scannerUid}}</td>
+					<td style="color: black;">\{{scanner}}</td>
+					<td style="color: black;">\{{minor}}</td>
+					<td style="color: black;">\{{major}}</td>
+    				 <td>
+                         <a class="submitCheck" title="Checkout" onclick="checkoutpopup('\{{macaddr}}')"><button>Assign To</button></a> 
+                      </td>
+					{{#if SYS_WRITE}}
+                      <td>
+                           <a class="submitDelete submit1"  onclick="scandelete('\{{macaddr}}')" href="/facesix/rest/beacon/remove/scanned?macaddr=\{{macaddr}}"  title="Remove"><i class="fa fa-trash fa-2x"></i></a>
+                          </td>
+						{{/if}}
+				</tr>
+				\{{/each}}
+			</tbody>
+
+		</table>
+	</div>	
+	
+</script>
+
+<script id="chartbox-beacon-template" type="text/x-handlebars-template">
+	
+	<div class="device-coon-desc">
+		<i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+		<label>Checkedout Devices</label>
+		<span class="table-page" data-table-name="dashboard-table"><i class="fa fa-refresh chk-refreshTable" aria-hidden="true"></i>\{{#if show_previous_button}}<i class="fa fa-caret-left acl-tablePreviousPage"></i>\{{/if}}&nbsp;\{{#if show_next_button}}<i class="fa fa-caret-right acl-tableNextPage"></i>\{{/if}}</span>
+		<select class="tablelength" id="tablelength" data-target="#dashboard-table">
+			<option value="5">5</option>
+			<option value="10" selected>10</option>
+			<option value="25">25</option>
+			<option value="50">50</option>
+			<option value="100">100</option>
+		</select>	
+		 
+	</div>
+
+	<div class="tableSection">
+		<table class="table dashboard-table" id="dashboard-table" data-current-page="\{{current_page}}" data-row-limit="10">
+			<thead id="tableSortChanged">
+				<tr class="sel_tbl2">
+					<th onclick="sort_table('beaconid', 0, asc1);  asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(0)" class="width-40"># <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('beaconid', 1, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(1)">Tag ID <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('beaconid', 2, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(2)">State <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('beaconid', 3, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(3)">Tag Type<i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('beaconid', 4, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(4)">Assigned To <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('beaconid', 5, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(5)">Location <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('beaconid', 6, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(6)">Floor Name <i class="fa fa-arrow-up"></i></th>
+					{{#if INACTIVE_WRITE}}
+					<th class="tableFilter addhide">
+						<div class="onoffswitch UI-onofswitch">
+						  	  <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" onchange="selectChildone(this)" id="CheckAll" data-children="uicheckchild">
+							  <label class="onoffswitch-label" for="CheckAll">
+							      <span class="onoffswitch-inner"></span>
+							      <span class="onoffswitch-switch"></span>
+							  </label>
+						</div>
+					</th>
+					{{/if}}
+					<th class="addhide">Battery Info <i class="fa fa-arrow-up"></i></th>
+					{{#if SYS_WRITE}}
+					<th class="addhide">Action<i class="fa fa-arrow-up"></i></th>
+					<th class="addhide">Checkin <i class="fa fa-arrow-up"></i></th>
+	                {{/if}}
+	
+					{{#if INACTIVE_WRITE}}
+					<th class="addhide">Delete <i class="fa fa-arrow-up"></i></th>
+					{{/if}}
+			</tr>
+			</thead>
+			<tbody id="beaconid" class="CheckAllWrp">
+				\{{#each data}}
+				<tr mac-id="\{{mac_address}}" ap="\{{ap}}" uid="{{uid}}" ssid="\{{ssid}}">
+					<td style="color: black;">\{{index}}</td>
+					<td style="cursor:pointer" onclick="location.href='/facesix/web/beacon/tagDashboard?macaddr=\{{macaddr}}&sid={{sid}}&spid={{spid}}&cid={{cid}}'">
+					<a class="LN1 LN2 LN3 LN4 LN5">
+					\{{macaddr}}  
+					</a>
+					</td>
+					<td style="color: black;">\{{state}}</td>
+					<td style="color: black;">\{{tagtype}}</td>
+					<td style="color: black;">\{{assignedTo}}</td>
+					<td style="color: black;">\{{alias}}</td>
+					<td style="color: black;">\{{location}}</td>
+					{{#if INACTIVE_WRITE}}
+					<td style="color: black;" class="addhide"> 
+						<div class="onoffswitch UI-onofswitch">
+						  	  <input type="checkbox" name="\{{macaddr}}" class="onoffswitch-checkbox uicheckchild" onchange="checkboxUpdate(this)" id="ui-check-\{{index}}" data-children="uicheckchild" \{{debugflag}} >
+							  <label class="onoffswitch-label" for="ui-check-\{{index}}">
+							      <span class="onoffswitch-inner"></span>
+							      <span class="onoffswitch-switch"></span>
+							  </label>
+						</div>
+					</td>
+					{{/if}}
+					<td class="addhide">
+					<li> 
+					<a title="\{{battery}}%"><i class="\{{fafa}}" style="color:\{{color}}"></i></a>
+					</li>
+					</td>
+					{{#if SYS_WRITE}}
+                 	<td class="addhide">
+					<a href="/facesix/web/beacon/tag/configure?macaddr=\{{macaddr}}&cid={{cid}}&sid={{sid}}&spid={{spid}}" title="Configure"><i class="fa fa-cog fa-2x" style="color:black"></i></a>	
+					</td>	
+ 					<td class="addhide">
+                       <a class="submitout" title="Checkin" href="javascript:void(0)" onclick="showcheckinpop('\{{id}}')" ><i class="fa fa-sign-out fa-2x"></i></a>
+                    </td>
+					{{/if}}
+					{{#if INACTIVE_WRITE}}
+ 					<td class="addhide">
+                       <a class="submitout" title="Delete" href="javascript:void(0)" onclick="showdeletepop('\{{id}}')"><i class="fa fa-trash fa-2x"></i></a>
+                    </td>
+					{{/if}}
+				</tr>
+				\{{/each}}
+			</tbody>
+
+		</table>
+	</div>	
+	
+</script>
+
+<script>
+$(document).ready(function(){
+	$('.tblhide').hide();
+});
+var checkinID = 0;
+function showcheckinpop(filter){
+	
+	$("#triggersan").prop("disabled",true);
+	checkinID = filter;
+	console.log (checkinID);
+	$(".saveareatwo").show();
+}
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+var reload = getParameterByName('reload');
+if(reload == '1'){
+	 $('.GeneratePdf .toggleBtns').trigger('click');
+	 $('.GeneratePdf .toggleBtns').removeClass('collapsed');
+}
+ 
+function deletechecked() {
+	console.log (checkinID);
+	
+    var url  = "/facesix/rest/beacon/checkin/beacon?id="+checkinID;	
+    console.log("url" + url);
+		$.ajax({
+ 	   	  	url:url,
+ 	   	  	method:'POST',
+ 	   	  	data:{},
+ 	   	  	headers:{
+ 	   	  		'content-type':'application/json'
+ 	   	  	},
+ 	   	  	success:function(response,error){
+ 	   	  	console.log("checked in");
+ 	   	  	location.reload();
+ 	   	  		
+ 	   	  	},
+ 	   	  	error:function(error){
+   	  		 console.log(error);
+   	  		 location.reload();
+ 	   	  	}
+ });
+	
+	
+	
+	
+	$(".saveareatwo").hide();
+	//$("#triggersan").prop("disabled",false);
+}
+
+function cancelchecked() {
+	checkinID = 0;
+	console.log (checkinID);
+	
+	$(".saveareatwo").hide();
+	$("#triggersan").prop("disabled",false);
+}
+</script>
+	
+<script>
+var client_id 	= "{{cid}}";
+var checkedValues = [];
+var dbgVal; 	
+function selectChildone(e){
+	$(".saveareafour").show();
+	dbgVal = e;
+	console.log(dbgVal);
+}
+
+
+function selectChild(){ 
+	console.log("hi" + dbgVal)
+	
+	var target = $(dbgVal).attr('data-children'); 
+	var debugflag = 'false';
+	
+	if($(dbgVal).prop('checked') === true)
+	{ 
+		$.each(DeviceACL.activeoneClientsData, function(index, optionValue) {   
+			checkedValues.push(optionValue.macaddr); 
+		});  
+		debugflag = 'true';
+		
+	}else{
+		checkedValues = [];
+		$('.'+target).prop('checked', false);
+	}
+	
+	$.each(checkedValues, function(index, optionValue) {   
+		$('.'+target+'[name="'+optionValue+'"]').prop('checked', true);
+	});  
+	
+	var uniqueArray = function(arrArg) {
+		  return arrArg.filter(function(elem, pos,arr) {
+		    return arr.indexOf(elem) == pos;
+		  });
+		};
+
+		var uniqEs6 = (arrArg) => {
+		  return arrArg.filter((elem, pos, arr) => {
+		    return arr.indexOf(elem) == pos;
+	 	});
+	} 
+	uniqueArray(checkedValues); 
+		
+	if(DeviceACL.activeoneClientsData.length <= checkedValues.length){
+		debug_flag = 'true'; 
+	}
+	if((DeviceACL.activeoneClientsData.length <= checkedValues.length) || (checkedValues.length == 0)){ 
+		var result = $.ajax({
+			url: '/facesix/rest/beacon/debugByTag?cid='+client_id+'&debugflag='+debugflag,
+			type : "POST",
+			enctype : 'multipart/form-data',
+			processData : false,
+			contentType : false,
+			success : function(result) {
+				 console.log(result);
+			},
+			error : function(result) {
+				 console.log(result);
+			}
+		});
+	}
+	$(".saveareafour").hide();
+} 
+ 
+ 
+$('#cancel').on('click',function(){
+	
+	if($('#CheckAll').prop('checked') == true){
+		$('#CheckAll').prop('checked',false)
+		console.log("true")
+	}else{
+		$('#CheckAll').prop('checked',true)
+		console.log("false")
+	}
+	$(".saveareafour").hide();
+})
+
+
+function checkboxUpdate(e){
+	
+	var debugflag = 'false'; 
+	var device_id = $(e).attr('name');
+	if($(e).prop('checked') == true){
+		debugflag = 'true';
+	}
+
+	var result = $.ajax({
+		url: '/facesix/rest/beacon/debugByTag?macaddr='+device_id+'&debugflag='+debugflag+"&cid="+client_id,
+		type : "POST",
+		processData : false,
+		contentType : false,
+		success : function(result) {
+			 console.log(result);
+		},
+		error : function(result) {
+			 console.log(result);
+		}
+	});
+	
+	var parentCount = 0;
+	var target = $(e).attr('data-children'); 
+	$('.'+target).each(function(){
+		if($(this).prop('checked') == true)
+		{
+			var index = checkedValues.indexOf($(this).attr('name'));
+			if (index == -1) {
+				checkedValues.push($(this).attr('name'));
+			}
+		}
+		else 
+		{
+			var index = checkedValues.indexOf($(this).attr('name')); 
+			if (index > -1) {
+				checkedValues.splice(index, 1);
+			} 
+			$('#CheckAll').prop('checked', false); 
+			parentCount = parentCount + 1;
+		}
+		
+	});
+	
+	if(DeviceACL.activeoneClientsData.length <= checkedValues.length){
+		$('#CheckAll').prop('checked', true); 
+	}
+	
+	
+	/* if(parentCount === 0){
+		$('#CheckAll').prop('checked', true); 
+	}
+	else{
+		$('#CheckAll').prop('checked', false); 
+	} */
+	
+	var uniqueArray = function(arrArg) {
+		  return arrArg.filter(function(elem, pos,arr) {
+		    return arr.indexOf(elem) == pos;
+		  });
+		};
+
+		var uniqEs6 = (arrArg) => {
+		  return arrArg.filter((elem, pos, arr) => {
+		    return arr.indexOf(elem) == pos;
+	 	});
+	} 
+	uniqueArray(checkedValues); 
+} 
+
+var macaddr = 0;
+function checkoutpopup(filter){
+	
+	macaddr = filter;
+	$(".saveareathree").show();
+}
+
+function checkout() {
+
+	var uid 	= $("#uid").text();
+	var patient = $('#patient').val();
+	var assto 	= $('#assto').val();
+	var tagmod	= $('#tagmod').val();
+	var reftx	= $('input[name="reftx"]').val();
+	
+	var cid 	= "{{cid}}";
+	var name 	= $('#name').val();
+	var bi		= 55; //magic
+	var txpwr   = 55; //magic
+	var bSkip	= 0;
+	console.log ($('#txpwr').val());
+	
+	if ($('#txpwr').val() != undefined) {
+		txpwr 	= $('#txpwr').val();
+		bi 		= $('#bi').val();
+		if (txpwr == "" || txpwr == undefined || txpwr ==" ") {
+	     	$("#txpwr").css("outline", "solid 1px  red");
+	     	bSkip = 1;
+	    }
+		
+		if (bi =="" || bi == undefined || bi==" ") {
+	     	$("#bi").css("outline", "solid 1px  red");
+	     	bSkip = 1;
+	    }		
+	}
+	
+	console.log("txpwr" + txpwr);
+	console.log("bi" + bi);
+	
+	if (assto == "" || assto == undefined || assto == " ") {
+     	$("#assto").css("outline", "solid 1px  red");
+     	bSkip = 1;
+    }
+	
+	if (name == "" || name == undefined || name== " ") {
+     	$("#name").css("outline", "solid 1px  red");
+     	bSkip = 1;
+    }
+	
+	if (reftx == "" || reftx == undefined || reftx == " ") {
+		reftx = "-59";
+    }
+	
+	if (bSkip == 1) {
+		return;
+	}
+	var url = "/facesix/rest/beacon/checkout/beacon?macaddr="+macaddr+"&uid="+uid+"&patient="+patient+"&assto="+assto+"&cid="+cid+"&name="+name+"&txpwr="+txpwr+"&bi="+bi+"&tagmod="+tagmod+"&reftx="+reftx;	
+
+	//alert("url" + url);
+	$.ajax({
+	   	  	url:url,
+	   	  	method:'POST',
+	   	  	data:{},
+	   	  	headers:{
+	   	  		'content-type':'application/json'
+	   	  	},
+	   	  	success:function(response,error){
+	   	  	
+	   	 if(response == ""){
+	   		//console.log("checked out" + JSON.stringify(response));
+	   		
+	   		document.getElementById("print").value = "Duplicate TagId found";
+	   	  	} else {
+	   	  		location.reload();
+	   	  	}
+	   	  		
+	   	  	},
+	   	  	error:function(error){
+	   	  		 console.log(error);
+	   	  		 location.reload();
+	   	  	}
+});
+	
+$(".saveareaone").hide();
+//$("#triggersan").prop("disabled",false);
+}
+$('.GeneratePdf .toggleBtns').click(function(){
+	$(this).toggleClass('collapsed');
+	if($(this).hasClass('collapsed')){
+		var path = "/facesix/web/beacon/list?sid={{sid}}&spid={{spid}}&cid={{cid}}&reload=0";
+		var obj = { Page: '', Url: path };
+        history.pushState(obj, obj.Page, obj.Url);
+        
+	}else{
+		var path = "/facesix/web/beacon/list?sid={{sid}}&spid={{spid}}&cid={{cid}}&reload=1";
+		var obj = { Page: '', Url: path };
+        history.pushState(obj, obj.Page, obj.Url);
+	}
+});
+$('#cancelBeacon').on('click',function(){
+	
+	macaddr = 0;
+	
+	var assto = $("#assto").val('');
+	var txpwr = $('#txpwr').val('');
+	var bi    = $('#bi').val('');
+	var name  = $('#name').val('');
+	
+ 	$("#assto").css("outline", "");
+ 	$("#txpwr").css("outline", "");
+ 	$("#bi").css("outline", "");
+ 	$("#name").css("outline", "");
+
+	$(".saveareathree").hide(); 	
+	$("#triggersan").prop("disabled",false);
+})
+
+</script>
+<script>
+
+var macaddr = 0;
+function scandelete(filter){
+	
+	macaddr = filter;
+	$(".savearea").show();
+}
+
+function submitCheckDelete() {
+
+	var url = "/facesix/rest/beacon/remove/scanned?macaddr="+macaddr;
+	 console.log("url" + url);
+		$.ajax({
+	   	  	url:url,
+	   	  	method:'DELETE',
+	   	  	data:{},
+	   	  	headers:{
+	   	  		'content-type':'application/json'
+	   	  	},
+	   	  	success:function(response,error){
+	   	  	console.log("checked in");
+	   	  	location.reload(); 	   	  		
+	   	  	},
+	   	  	error:function(error){
+	   	  		 console.log(error);
+	   	  		 location.reload();
+	   	  	}
+});
+		$(".savearea").hide();
+		//$("#triggersan").prop("disabled",false);
+}
+
+$('#cancelDeleteBeacon').on('click',function(){
+	
+	macaddr = 0;
+	$(".rebootPopup").hide();
+	$(".savearea").hide();
+})
+
+</script>
+
+
+
+<script>
+var checkinID = 0;
+function showdeletepop(filter){
+	
+	$("#triggersan").prop("disabled",true);
+	checkoutdeleteID = filter;
+	console.log (checkoutdeleteID);
+	$(".saveareadelone").show();
+}
+
+function deleteCheckedoutTag() {
+	console.log (checkoutdeleteID);
+    var url  = "/facesix/rest/beacon/delete?id="+checkoutdeleteID;	
+    console.log("url" + url);
+		$.ajax({
+ 	   	  	url:url,
+ 	   	  	method:'GET',
+ 	   	  	data:{},
+ 	   	  	headers:{
+ 	   	  		'content-type':'application/json'
+ 	   	  	},
+ 	   	  	success:function(response,error){
+ 	   	  	console.log("checked in");
+ 	   	  	location.reload();
+ 	   	  		
+ 	   	  	},
+ 	   	  	error:function(error){
+   	  		 console.log(error);
+   	  		 location.reload();
+ 	   	  	}
+ });
+	
+
+	$(".saveareadelone").hide();
+	//$("#triggersan").prop("disabled",false);
+}
+
+</script>
+			
+<script>
+$(function(){
+    var $select = $(".increment");
+    for (i=100;i<=10000;i+=100){
+        $select.append($('<option></option>').val(i).html(i))
+    }
+});
+</script>
+<!-- loader box -->
+<link rel="stylesheet" href="/facesix/static/geo/css/loader.css">
+<div class="loader_box" style="display: none;">	
+	<div class="loader"></div>
+	<h4 class="text-center">Scanning...</h4>
+</div>
+
+<link rel="stylesheet" href="/facesix/static/geo/css/loader.css">
+<div class="loader_boxone" style="display: none;">	
+	<div class="loaderone"></div>
+	<h4 class="text-center">Deleting ALL Tags  ...</h4>
+</div>
+
+
+<link rel="stylesheet" href="/facesix/static/geo/css/loader.css">
+<div class="loader_boxtwo" style="display: none;">	
+	<div class="loadertwo"></div>
+	<h4 class="text-center">Importing...</h4>
+</div>
+<!-- loader -->
+<style>
+#slist{
+    position: absolute;
+    z-index: 9999;
+    top: 5px;
+    left: -69px;
+}
+.floatimg{
+	position:absolute;
+	z-index:999;
+	right:-123px;
+}
+@media screen and (max-width: 767px){
+.align-top{
+    width: 100%;
+    margin-top: -50px;
+}
+} 
+</style>
+{{/partial}}
+{{>finder/beacon-list-footerscript}}
+{{>qubercomm/nav-top}}
+{{>qubercomm/nav-left}}
+{{>qubercomm/wrapper}}

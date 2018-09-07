@@ -1,0 +1,742 @@
+{{#partial "page"}}
+
+<div id="page-content-wrapper" class="acc-sec">
+	<input type="hidden" name="sid" value="{{sid}}">
+	<input type="hidden" name="spid" value="{{spid}}">
+	<input type="hidden" name="cid" value="{{cid}}">
+
+	<div class="container-fluid">
+		<div class="col-md-12 venue-details">
+			<div class="view-details">
+				<ul>
+					<li><label class="venue-name scan_align"  >Customized Alert </label></li>
+				</ul>
+			</div>
+			{{#if GatewayFinder}}			
+				<div class="col-md-12">
+			        <ul class="ui-tabs-nav" style="margin-top: -12px;">
+						<li class="" style="margin-left: -14px;"><a href="/facesix/web/beacon/customizeAlert?sid={{sid}}&spid={{spid}}&cid={{cid}}" class="btn btn-sm" style="margin-top:-80px; width:125%">Finder Customize Alert</a></li>
+						<li class="active" style="margin-left: 50px;"><a href="/facesix/GW_CustomizeAlert?sid={{sid}}&spid={{spid}}&cid={{cid}}"  class="btn btn-sm" style="margin-top:-81px; width:125%">Gateway Customize Alert</a></li> 
+					</ul>
+				</div>
+			{{/if}}
+		</div>
+	</div>
+	
+	<div class="col-md-12 gwcus-hide">
+		<div class="col-md-12 padding-device padding-right-0 configure-settings" style="margin-left:-9px;margin-top: -20px;">
+			<div class="chart-box acl-table-chart-box" id="cfSettings"></div>
+		</div>	
+	</div> 
+	 
+</div>
+
+<script id="CF-beacon-template" type="text/x-handlebars-template">
+	<br />
+	
+
+	<div class="tableSection">
+ 
+	 
+		
+		<div class="row">
+	
+			<div class="col-md-4" style="padding: 0px;">
+				 <div class="extraoption">
+					<div>
+						<div class="device-coon-desc"> 
+							<label  class="blockelem"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;Customized Alert</label> 
+						</div> 
+					</div>
+					
+				</div>
+
+				<div class="extraoption">
+					<div>
+					<label  class="blockelem">Activate Email/SMS notification when Devices get inactive ?</label>
+					</div>
+					<div>
+					<div class="onoffswitch UI-onofswitch al-alng" style="vertical-align: middle; ">
+						<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="devNotify" onchange="notify(this)" data-children="uicheckchild" \{{inactivitydevMail}}>
+						<label class="onoffswitch-label" for="devNotify">
+							<span class="onoffswitch-inner Alert"></span>
+							<span class="onoffswitch-switch"></span>
+						</label>
+					</div>
+					</div>
+				</div>
+
+				<div class="extraoption">
+					<div><label  class="blockelem" >Select/Unselect All Device </label></div>
+					<div><div class="onoffswitch UI-onofswitch al-alng">
+						<input   type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" onchange="selectChild(this)" id="CheckAll" data-children="uicheckchild">
+						 <label class="onoffswitch-label" for="CheckAll">
+							<span class="onoffswitch-inner Alert"></span>
+							<span class="onoffswitch-switch"></span>
+						 </label>
+					</div></div>
+				</div>
+				<div class="extraoption">
+					<div><label class="blockelem">Default Device Inactivity Time (In Minutes)</label></div>
+					<div><input min="1" max="100" style="text-align: center; max-width: 70px; height: 30px; display: inline-block; vertical-align: middle; " class=" form-control al-alng" name="default_dev_inactivity_time" id="defInactive" type="number" value="30" />
+					</div>
+				</div>
+				<div class="extraoption" style="padding-right: 0;">
+					<div><label class="blockelem"></label></div>
+					<div class="text-right"><a href="javascript:void(0)" class="btn btn-primary btn3d btn-config-venue width-120 " onclick="updateDeviceInfo()" style="margin-bottom: 13px; margin-right: 30px;">
+					<i class="fa fa-floppy-o"></i> Update</a></div>
+				</div>
+			</div>
+			<div class="col-md-8">
+			<div style="float: right;"><label> Device List &nbsp</label>
+						<select class="tablelength" id="tablelength" data-target="#dashboard-table" style="margin-left: 0;margin-top: 15px;">
+							<option value="5">5</option>
+							<option value="10" selected>10</option>
+							<option value="25">25</option>
+							<option value="50">50</option>
+							<option value="100">100</option>
+						</select>	
+						
+					</div>	
+				<table class="table dashboard-table table-fixed" id="dashboard-table" data-current-page="\{{current_page}}" data-row-limit="10">
+			<thead >
+				<tr colspan="6">
+					<th width="60px" onclick="sorttb('#a1')" ># <i class="fa fa-arrow-up"></i></th>
+					{{#if INACTIVE_WRITE}}
+					<th width="20%" class="tableFilter">
+						<label>Select Device</label>
+						
+					</th>
+					{{/if}}
+					
+					<th onclick="sorttb('#a2')">UID<i class="fa fa-arrow-up"></i></th>
+					 
+					<th onclick="sorttb('#a2')">Alias<i class="fa fa-arrow-up"></i></th>
+					
+					<th onclick="sorttb('#a3')">Inactivity Duration (min)<i class="fa fa-arrow-up"></i></th>
+					  
+			</tr>
+			</thead>
+			<tbody id="beaconid" class="CheckAllWrp" style="margin-top: 50px;">
+				<tr>
+					<td colspan="5" style="padding-top: 0;">
+						<div class="uimax">
+						
+
+						<table class="table dashboard-table table-fixed" style="margin-top: 0;" id="tableSortChanged">
+							
+							<tbody id="beaconids" >
+								\{{#each data}}
+				<tr data-id="\{{uid}}"  >
+					
+					<td  width="60px">\{{index}}</td>
+					{{#if INACTIVE_WRITE}}
+					<td width="20%"> 
+						<div class="onoffswitch UI-onofswitch">
+						  	  <input  type="checkbox" name="\{{uid}}" class="onoffswitch-checkbox uicheckchild onn" onclick="textboxEnable(this)" id="ui-check-\{{index}}" data-children="uicheckchild" data-id="\{{uid}}" \{{checked}}>
+							  <label class="onoffswitch-label" for="ui-check-\{{index}}">
+							      <span class="onoffswitch-inner Alert"></span>
+							      <span class="onoffswitch-switch"></span>
+							  </label>
+						</div>
+					</td>
+					{{/if}}
+					<td style="cursor:pointer" >
+				 
+					\{{uid}}  
+					 
+					</td> 
+					<td style="cursor:pointer" >
+				 
+					\{{name}}  
+					 
+					</td>
+				 
+					
+					<td><input min="1" style="text-align: center; max-width: 70px; margin: 0 auto;" class="ajaxinput inputon form-control \{{uid}} \{{checked}}" oninput="ajaxUpdate(this.value,'\{{uid}}','keepalive')" name="keepalive" id="inpon" data-id="\{{uid}}"  type="number" value="\{{keepalive}}" /></td>
+					 
+
+				</tr>
+				\{{/each}}
+							</tbody>
+						</table>
+						</div>
+					</td>
+
+				</tr>
+
+				
+			</tbody>
+
+		</table>
+			</div>
+
+		</div>
+		
+		
+	</div>	
+	
+	<div class="text-right">
+		
+	</div>
+</script>
+
+<!-- js -->
+<script src="/facesix/static/qubercomm/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/jquery_validate_min_js.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/form-validations.js" type="text/javascript"></script>
+<script src="https://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.mobile-events.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/common.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/handlebars.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/script.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/snap.svg-min.js"></script>
+<script src="/facesix/static/qubercomm/js/d3.v3.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/underscore-min.js"></script>
+<link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/css/style.css"/>
+
+<link rel="stylesheet" href="/facesix/static/geo/css/loader.css">
+
+<div class="loader_boxone" id="loader_boxone" style="display: none;">	
+	<div class="loaderone"></div>
+	<h4 class="text-center">Loading Device List ...</h4>
+</div>
+
+<div class="loader_boxone" id="loader_boxone1" style="display: none;">	
+	<div class="loaderone"></div>
+	<h4 class="text-center">Updating Device List ...</h4>
+</div>
+
+<script>
+var cid = '{{cid}}';
+var selectedTags = [];
+var current_page = 1;
+var inactivitydevMail = '';
+var default_inactivity_time = 60;
+var sorttb = function(e){
+	//console.log('we')
+	$(e).trigger('click');
+}
+
+var notify = function(){
+	
+	if($('#devNotify').prop('checked') === true)
+	{ 
+		$('#defInactive').attr('disabled', false);
+	}else{
+		$('#defInactive').attr('disabled', true);
+	}
+}
+
+var textboxEnable = function(){		
+ 	$('.onn').change( function() {
+ 	    $(this).parents("tr:eq(0)").find(".inputon").attr("disabled", ! this.checked); 
+ 	}); 
+ 	updateDataValues(); 
+	//updateCheckboxstatus();	
+}
+
+var updateCheckboxstatus = function(){
+	var count = 0;
+	$('.ajaxinput').removeClass('checked');
+	$('.ajaxinput').attr('disabled', 'true');
+	for(var i = 0; i <= CustomAlert.activeAlertData.length - 1; i++){   
+		if(CustomAlert.activeAlertData[i]['checked'] == 'checked'){
+			count = count + 1;
+			$('.ajaxinput.'+CustomAlert.activeAlertData[i]['uid']).addClass('checked');
+			$('.ajaxinput').removeAttr('disabled');
+		} 
+	}
+	 
+	
+	if(count == CustomAlert.activeAlertData.length){
+		$('#CheckAll').prop('checked', true);
+	}else{
+		$('#CheckAll').prop('checked', false);
+	}
+	
+}
+
+
+var updateDeviceInfo = function(){
+	$('#loader_boxone1').show();
+	var updateTags = [];
+	for(var i = 0; i <= CustomAlert.activeAlertData.length - 1; i++){ 
+		if(CustomAlert.activeAlertData[i]['checked'] == 'checked'){ 
+			var datas = {
+				uid: CustomAlert.activeAlertData[i]['uid'],
+				inactivityTime:CustomAlert.activeAlertData[i]['keepalive'],
+				custkeepAliveflag: CustomAlert.activeAlertData[i]['keepAliveFlg']
+			};
+			updateTags.push(datas);
+	    }
+	} 
+	
+	var gwDevInacTime = $('input[name="default_dev_inactivity_time"]').val(); 
+	if($('#devNotify').prop('checked') === true){
+		inactivitydevMail = true;
+	}
+	
+	var cid = '{{cid}}';
+	var data = {
+		gwinacDevInfo: updateTags, 
+		cid: cid,
+		inactivitydevMail: inactivitydevMail,
+		gatewyDevInacTime: gwDevInacTime
+	};
+
+	console.log("json format"+ JSON.stringify(data));
+	 
+	$.ajax({
+        url: '/facesix/rest/customer/GW_UpdateInactivityDevInfo',
+        method: "POST",
+        contentType: 'application/json',
+        data: JSON.stringify(data), 
+        success: function (result) { 
+        	console.log(result);    
+        	$('#loader_boxone1').hide();
+        },
+        error: function (data) {
+             console.log(data);
+             $('#loader_boxone1').hide();
+        },
+        dataType: "json"
+
+    });
+	
+	
+};
+var ajaxUpdate = function(e, type, ftype){
+	
+	for(var i = 0; i <= CustomAlert.activeAlertData.length - 1; i++){ 
+		if(CustomAlert.activeAlertData[i]['uid'] == type){ 
+	    	if(ftype == 'keepalive'){
+	    		CustomAlert.activeAlertData[i]['keepalive'] = e;
+	    	}else if(ftype == 'bactteryThreshold'){
+	    		CustomAlert.activeAlertData[i]['bactteryThreshold'] = e;
+	    	}else{
+	    		
+	    	}
+	    }
+	} 
+	
+};
+var selectChild = function(e){
+	var target = $(e).attr('data-children'); 
+	if($(e).prop('checked') === true)
+	{ 
+		for(var i = 0; i <= CustomAlert.activeAlertData.length - 1; i++){ 
+			CustomAlert.activeAlertData[i]['checked'] = 'checked';
+		} 
+		$('.'+target).prop('checked', true);  
+		
+	}else{
+		for(var i = 0; i <= CustomAlert.activeAlertData.length - 1; i++){ 
+			CustomAlert.activeAlertData[i]['checked'] = '';
+		} 
+		$('.'+target).prop('checked', false); 
+	}
+	updateCheckboxstatus();
+	
+};
+/* var checkboxUpdate = function(e){ 
+	
+	if($(e).prop('checked') == true){
+		
+	}else{
+		 $(e).removeAttr('checked');
+	}
+	updateDataValues(); 
+	updateCheckboxstatus();	
+}; */
+
+
+updateDataValues = function(){
+	$('.uicheckchild').each(function(){ 
+		
+		var target = $(this).attr('data-id');
+		if($(this).prop('checked') == true){
+			for(var i = 0; i <= CustomAlert.activeAlertData.length - 1; i++){ 
+			    if(CustomAlert.activeAlertData[i]['uid'] == target){ 
+			    	CustomAlert.activeAlertData[i]['checked'] = 'checked';
+			    }
+			} 
+			
+		}else{
+			for(var i = 0; i <= CustomAlert.activeAlertData.length - 1; i++){ 
+				if(CustomAlert.activeAlertData[i]['uid'] == target){ 
+			    	CustomAlert.activeAlertData[i]['checked'] = ''; 
+			    	CustomAlert.activeAlertData[i]['keepalive'] = default_inactivity_time;
+			    	$('input[name="keepalive"].'+target).val(default_inactivity_time); 
+			    	$('input[name="keepalive"].'+target).attr('value', default_inactivity_time); 
+			    }
+			}  
+		}
+		
+	});
+	
+	console.log(CustomAlert.activeAlertData); 
+	
+};
+var row_limit = 10000;
+(function () {
+	search = window.location.search.substr(1)
+	urlObj=JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}')
+	var timer = 10000;
+	var count = 1;
+	var peerStats; 
+	
+	
+    CustomAlert = {
+        timeoutCount: 0, 
+        acltables: {
+            url: {
+                aclClientsTable: '/facesix/rest/beacon/scanned?cid='+urlObj.cid
+            },
+            setTable: {
+                alertList: function () {
+                	$('#loader_boxone').show(); 
+                	var tags = [];
+                
+                            $.ajax({
+                                url: '/facesix/rest/customer/GW_DeviceDetails?cid='+cid,
+                                method: "get",
+                                success: function (result) {
+                                	var devlist = result.location;
+                                
+                                	console.log("result " +JSON.stringify(devlist));
+                                
+                                	
+                                	if(result.gwinacDevInfo != '' && result.gwinacDevInfo != undefined){
+                               		 for(var i = 0; i <= result.gwinacDevInfo.length - 1; i++){    
+                                        	for(var j = 0; j <= devlist.length - 1; j++){   
+                                            	if(devlist[j]['uid'] == result.gwinacDevInfo[i]['uid']){
+                                            	 
+                                            		devlist[j]['checked'] = 'checked';
+                                            		devlist[j]['keepalive'] = result.gwinacDevInfo[i]['keepalive']; 
+                              					 }
+                                            	
+                                        	}
+                                    	}	
+                               	}
+                                	
+                                	
+                                	
+                                	var show_previous_button = false;
+                                    var show_next_button = false;
+                                    _.each(devlist, function (i, key) {
+                                        i.index = key + 1;
+                                    })
+                                     
+                                    CustomAlert.activeAlertData = devlist;
+                                    
+                                    if (devlist.length > row_limit) {
+                                        var filteredData = devlist.slice(0, row_limit);
+                                        show_next_button = true;
+                                    } else {
+                                        var filteredData = devlist;
+                                    }
+
+                                    var source = $("#CF-beacon-template").html();
+                                    var template = Handlebars.compile(source);
+                                    var rendered = template({
+                                        "data": filteredData,
+                                        "current_page": 1,
+                                        "show_previous_button": show_previous_button,
+                                        "show_next_button": show_next_button,
+                                        "startIndex": 1
+                                    });
+                                    $('#cfSettings').html(rendered);
+                                    updateCheckboxstatus();
+                                    $('.gwcus-hide').show();
+                                    
+                                    if(result.mailSmsFlag != ''){ 
+    	                               	 if(result.mailSmsFlag === 'true'){ 
+    	                               		 $('#devNotify').prop('checked', true);
+    	                               	 }  
+                                    }
+                                   
+                                   if(result.gwDevInacTime != ''){
+                                	   $('input[name="default_dev_inactivity_time"]').val(result.gwDevInacTime);
+                                   }
+                                    
+                                    
+                                    var height = 0; 
+                            	    var innerHeight = $('#beaconids tr').innerHeight();
+                            	    height = innerHeight * 10; 
+                            	    $('.uimax').css('max-height', height+'px');
+                            	    $('#loader_boxone').hide();
+                            	    notify();
+                                },
+                                error: function (data) {
+                                	if (tags.length > row_limit) {
+                                        var filteredData = tags.slice(0, row_limit);
+                                        show_next_button = true;
+                                    } else {
+                                        var filteredData = tags;
+                                    }
+
+                                    var source = $("#CF-beacon-template").html();
+                                    var template = Handlebars.compile(source);
+                                    var rendered = template({
+                                        "data": filteredData,
+                                        "current_page": 1,
+                                        "show_previous_button": show_previous_button,
+                                        "show_next_button": show_next_button,
+                                        "startIndex": 1
+                                    });
+                                    $('#cfSettings').html(rendered);
+                                    updateCheckboxstatus();  
+                                    
+                                    var height = 0; 
+                            	    var innerHeight = $('#beaconids tr').innerHeight();
+                            	    height = innerHeight * 10; 
+                            	    $('.uimax').css('max-height', height+'px');
+                            	    $('#loader_boxone').hide();
+                            		
+                            	    
+                                },
+                                dataType: "json"
+
+                            });
+                            
+                }
+            }
+        },
+        init: function (params) {
+            var aclList     = ['alertList'] 
+            var that        = this;
+            $(".loader_boxtwo").show();
+            $.each(aclList, function (key, val) {
+                that.acltables.setTable[val]();
+            });
+             
+         
+
+        },
+    }
+    
+})();
+
+
+
+$(document).ready(function(){ 
+		 
+	$('.gwcus-hide').hide();
+	
+	
+	$('body').on('click', "#tableSortChanged th:not(.tableFilter)", function (e) { 
+		updateCheckboxstatus();
+		notify();
+	}); 
+	$('body').on('change', ".tablelength", function (e) { 
+		
+		
+	 	 row_limit = $(this).val();
+		/*var target = $(this).attr('data-target');
+		 
+		 
+	    var show_previous_button = true;
+	    var show_next_button = false;
+
+	    var tableName = $(this).attr("data-target"); 
+	    var $tableBlock = $(tableName); 
+	    current_page = 1;
+	    previous_page = 1
+	    next_page = current_page + 1  
+	    
+	    if (previous_page == 1) {
+	        show_previous_button = false;
+	    }
+	    if (CustomAlert.activeAlertData.length > current_page * row_limit) {
+	        show_next_button = true;
+	    }
+	    var filteredData = CustomAlert.activeAlertData.slice((previous_page * row_limit) - row_limit, previous_page * row_limit);
+	    
+	    var source = $("#CF-beacon-template").html();
+	    var template = Handlebars.compile(source);
+	    var rendered = template({
+	        "data": filteredData,
+	        "current_page": next_page,
+	        "show_previous_button": show_previous_button,
+	        "show_next_button": show_next_button,
+	        "startIndex": row_limit * current_page
+	    });
+	    $('#cfSettings').html(rendered); 
+	    
+	    */
+	    $('#tablelength').val(row_limit); 
+	    updateCheckboxstatus();
+	    notify(); 
+	    var height = 0;
+	    console.log(row_limit);
+	    var innerHeight = $('#beaconids tr').innerHeight();
+	    height = innerHeight * row_limit;
+	    console.log(height);
+	    $('.uimax').css('max-height', height+'px');
+	}); 
+	$('body').on('click', ".acl-tablePreviousPage", function (e) {
+ 
+	    var show_previous_button = true;
+	    var show_next_button = false;
+
+	    var tableName = $(this).closest('span').attr("data-table-name"); 
+	    var $tableBlock = $('#' + tableName);
+	   	var current_page = $tableBlock.attr('data-current-page');
+	    current_page = parseInt(current_page);
+	    console.log(current_page);
+	    previous_page = current_page - 1; 
+	    if (previous_page == 1) {
+	        show_previous_button = false;
+	    }
+	    if (CustomAlert.activeAlertData.length > previous_page * row_limit) {
+	        show_next_button = true;
+	    }
+	    var filteredData = CustomAlert.activeAlertData.slice((previous_page * row_limit) - row_limit, previous_page * row_limit);
+	    var source = $("#CF-beacon-template").html();
+	    var template = Handlebars.compile(source);
+	    var rendered = template({
+	        "data": filteredData,
+	        "current_page": previous_page,
+	        "show_previous_button": show_previous_button,
+	        "show_next_button": show_next_button,
+	        "startIndex": row_limit * current_page
+	    });
+	    $('#cfSettings').html(rendered); 
+	    updateCheckboxstatus();
+	    $('#tablelength').val(row_limit); 
+	    notify();
+
+	});
+	var checkStatus = false; 
+	$('body').on('click', ".acl-tableNextPage", function (e) {
+	  
+	    var show_previous_button = true;
+	    var show_next_button = false;
+
+	    var tableName = $(this).closest('span').attr("data-table-name");
+	    var $tableBlock = $('#' + tableName);
+	    var current_page = $tableBlock.attr('data-current-page');
+	    current_page = parseInt(current_page);
+	    next_page = current_page + 1
+	   
+
+	    if (CustomAlert.activeAlertData.length > next_page * row_limit) {
+	        show_next_button = true;
+	    }
+
+	    var filteredData = CustomAlert.activeAlertData.slice(row_limit * current_page, row_limit * next_page);
+	    var source = $("#CF-beacon-template").html();
+	    var template = Handlebars.compile(source);
+	    var rendered = template({
+	        "data": filteredData,
+	        "current_page": next_page,
+	        "show_previous_button": show_previous_button,
+	        "show_next_button": show_next_button,
+	        "startIndex": row_limit * current_page
+	    });
+	    $('#cfSettings').html(rendered); 
+	    updateCheckboxstatus();
+	    $('#tablelength').val(row_limit); 
+	    notify();
+	});  
+	
+	$('body').on('click', '.chk-refreshTable', function () {
+		row_limit = 100000;
+		CustomAlert.acltables.setTable.alertList('reload');
+		notify();
+	});
+	
+
+	var current_page = 1;
+	// $(".loader_boxone").show();
+ 	 	
+	CustomAlert.init();  
+	$('body').on('change', 'input[name="batterythreshold"]', function () { 
+		if($(this).val() <= 10){
+		      $(this).val('10');
+		      return false;
+	    }
+		else if($(this).val() > 60){
+	      $(this).val('60');
+	      return false;
+	    }else{
+	    	return true;
+	    }
+
+	  });
+	$('body').on('change', 'input[name="keepalive"]', function () { 
+		if($(this).val() <= 0){
+		      $(this).val('1');
+		      $(this).attr('value', '1');
+		      return false;
+	    } 
+		else{
+			$(this).attr('value', $(this).val());	
+	    	return true;
+	    }
+
+	  });
+	
+	
+		
+});
+</script>
+<style>
+	/* .ajaxinput:not(.checked){ 
+	 	cursor: not-allowed;
+	 	background: #eee;
+	} */
+	.al-alng{
+		margin-left: 63px;
+	}
+	.uimax { 
+		overflow: auto;
+	}
+	.table-fixed{
+		table-layout: fixed;
+	}
+	.extratabs > div{
+		padding-top: 15px;
+		padding-bottom: 15px;
+	}
+	.acl-table-chart-box .device-coon-desc label{
+		margin-top: 0;
+	}
+	.extraoption{
+		display: table;
+		padding: 15px 10px;
+	    width: 100%;
+		background: #f0f0f054;
+	}
+	.extraoption > div{
+		display: table-cell;
+		vertical-align: top; 
+	}
+	.extraoption > div:nth-child(2){
+		width: 150px;
+	}
+	.extraoption:nth-child(odd){
+		background: none;
+	}
+	.extraoption{ 
+	
+	}
+	.acl-table-chart-box {    
+    	margin-left: 8px;
+	} 
+	@media screen and (max-width: 480px){
+		 
+	}
+	@media screen and (min-width: 992px) and (max-width: 1494px){
+		 
+	}
+</style>
+{{/partial}}
+{{>qubercomm/nav-top}}
+{{>qubercomm/nav-left}}
+{{>qubercomm/wrapper}}

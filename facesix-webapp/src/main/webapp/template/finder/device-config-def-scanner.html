@@ -1,0 +1,40 @@
+{
+  
+  "title": "Config",
+  "type": "object",
+  "options" : {
+  	"disable_edit_json" : true,
+  	"disable_properties" : true,
+  	"no_additional_properties" : true
+  },
+  "properties": {
+   "attributes" : {
+  		"type": "array",
+      	"format": "table",
+      	 "title": "Attributes",
+      	 "uniqueItems": true,
+      	 "items": {
+             "type": "object",
+             "properties" : {
+			   "proximity": {
+			      "type": "string",
+			      "minLength": 1
+			    },
+			    "flex1": {
+			      "type": "string",
+			      "minLength": 1
+			    },
+			    "flex2": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    },
+			    "flex3": {
+			      "type": "string",
+			      "minLength": 1
+			    }
+			}
+	    }
+	}
+  }
+}

@@ -1,0 +1,67 @@
+{{#partial "footerscript"}}
+      
+<script type="text/javascript" language="javascript">
+	
+	console.log("0: we enter");
+	var jedittingsField = document.getElementById('jedittings_field');
+	var jedittings = jedittingsField.value;
+	jedittings = jedittings.trim();
+	console.log("1:" + jedittings);
+	if (jedittings && jedittings != null && jedittings != "") {
+		console.log("2:" + jedittings);
+		jedittings = JSON.parse(jedittings);
+	} else {
+		jedittings = {
+    			fsql : '',	
+				enlinks : [{}],
+			};
+		console.log("3:" + jedittings);
+	}
+	//console.log("4:" + jedittings);
+
+	// Initialize the editor
+	var editor = new JSONEditor(document.getElementById('jeditor_holder'), {
+		// Enable fetching schemas via ajax
+		ajax : true,
+		
+		theme: "bootstrap3",
+		
+		iconlib : 'fontawesome4',
+		
+		no_additional_properties : true,
+		
+		disable_array_reorder : true,
+		
+		remove_empty_properties : true,
+		
+
+		// The schema for the editor
+		schema : {
+			$ref : "/facesix/page/entity-edit-jeditor",
+			format : "normal"
+		},
+
+		// Seed the form with a starting value
+		startval : jedittings
+
+	});
+
+	// Hook up the submit button to log to the console
+	document.getElementById('submit').addEventListener('click', function() {
+		// Get the value from the editor
+		// console.log(editor.getValue());
+		$("#jedittings_field").val(JSON.stringify(editor.getValue()));
+		//console.log("new :" + JSON.stringify(editor.getValue()));
+	});
+
+	// Hook up the Restore to Default button
+	//document.getElementById('restore').addEventListener('click', function() {
+	//	editor.setValue(jedittings);
+	//});
+
+	// Hook up the validation indicator to update its 
+	// status whenever the editor changes
+	editor.on('change', function() {});
+
+</script>    
+{{/partial}}

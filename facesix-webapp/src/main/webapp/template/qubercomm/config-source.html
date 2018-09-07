@@ -1,0 +1,796 @@
+<div id="hid2gr" style="display:none;">
+<div class="tabgrp">
+<div class="tab" id="tabzzz">
+  <div class="tabtn tabtnzzz" id="tabtn-zzz-1">Basic</div>
+  <div class="tabtn tabtnzzz" id="tabtn-zzz-2">Advanced</div>
+</div>
+
+<div class="tabc tabczzz" id="tabc-zzz-1" >
+<div class="w50">
+	<div class="form-group mygrp">
+		<div class="mylable">HW Mode</div>
+		<div class="myinput">
+		<select class="form-control" name="yyy__hwmode" id="2gr_hwmode_yyy" onchange="getModes(this.value,2,yyy); setacs(this.value);">
+			<option value="11ng">11ng</option>
+			<option value="11bg">11bg</option>
+			<option value="11b">11b</option>
+			</select>
+				
+		</div>
+	</div>
+    <div class="form-group mygrp">
+		<div class="mylable">Intra bss</div>
+		<div class="myinput">
+		<select class="form-control" name="yyy__intrabss" id="2gr_intrabss_yyy">
+			<option value=1>Enable</option>
+			<option value=0>Disable</option>
+		</select>
+			
+			         
+		</div>
+	</div>    
+	<div class="form-group mygrp">
+		<div class="mylable">Regulatory</div>
+		<div class="myinput">
+		<select class="form-control" name="yyy__reg" id="2gr_reg_yyy" onChange="reg2g(this.value,0,yyy);sethw(this.value)">
+			<option value="AT">AT</option>
+			<option value="AU">AU</option>
+			<option value="BE">BE</option>
+			<option value="BR">BR</option>
+			<option value="CA">CA</option>
+			<option value="CH">CH</option>
+			<option value="CN">CN</option>
+			<option value="CY">CY</option>
+			<option value="CZ">CZ</option>
+			<option value="DE">DE</option>
+			<option value="DK">DK</option>
+			<option value="EE">EE</option>
+			<option value="ES">ES</option>
+			<option value="FI">FI</option>
+			<option value="FR">FR</option>
+			<option value="GB">GB</option>
+			<option value="GR">GR</option>
+			<option value="HK">HK</option>
+			<option value="HU">HU</option>
+			<option value="ID">ID</option>
+			<option value="IE">IE</option>
+			<option value="IL">IL</option>
+			<option value="ILO">ILO</option>
+			<option value="IN">IN</option>
+			<option value="IS">IS</option>
+			<option value="IT">IT</option>
+			<option value="J1">J1</option>
+			<option value="JP">JP</option>
+			<option value="KE">KE</option>
+			<option value="KR">KR</option>
+			<option value="LT">LT</option>
+			<option value="LU">LU</option>
+			<option value="LV">LV</option>
+			<option value="MY">MY</option>
+			<option value="NL">NL</option>
+			<option value="NO">NO</option>
+			<option value="NZ">NZ</option>
+			<option value="PH">PH</option>
+			<option value="PL">PL</option>
+			<option value="PT">PT</option>
+			<option value="SE">SE</option>
+			<option value="SG">SG</option>
+			<option value="SI">SI</option>
+			<option value="SK">SK</option>
+			<option value="TH">TH</option>
+			<option value="TW">TW</option>
+			<option value="US">US</option>			
+			<option value="USE">USE</option>
+			<option value="USL">USL</option>
+			<option value="ZA">ZA</option>
+			</select>
+		</div>
+	</div>
+	<div class="form-group mygrp">
+		<div class="mylable">DCS</div>
+		<div class="myinput">
+		<select class="form-control" name="yyy__dcs" id="2gr_dcs_yyy">
+			<option value="true">Enable</option>
+			<option value="false">Disable</option>dc
+			</select>
+		</div>
+	</div>
+	</div>
+	
+	
+	<div class="w50">
+	<div class="form-group mygrp">
+		<div class="mylable">Channel</div>
+		<div class="myinput">
+			<select class="form-control" name="yyy__channel" id="2gr_channel_yyy">
+				<option value="auto">auto</option>
+			</select>
+		</div>
+	</div>
+	
+	<div class="form-group mygrp">
+		<div class="mylable">Width</div>
+		<div class="myinput">
+		<select class="form-control" name="yyy__width" id="2gr_width_yyy">
+			<option value="auto">auto</option>
+			<option value="20">HT20</option>
+			<option value="40">HT40</option>
+			</select>
+		</div>
+	</div>
+	
+	<div class="form-group mygrp">
+		<div class="mylable">TxPwr (dBM)</div>
+		<div class="myinput">
+		<input type="text" class="form-control requir" id="2gr_txpwr_yyy" value="15" name="yyy__txpwr" maxlength="4" onchange="getTxpwr(this.value, 2, yyy)">
+		</div>
+	</div>
+	<!-- <div class="form-group mygrp">
+		<div class="mylable"></div>
+		<div class="myinput">
+		<input type="hidden" value="0" id="2gr_hid_yyy" name="yyy__acs">
+		<input type="hidden" value="0" id="2gr_acs_len_yyy" name="yyy__acs_len">
+		</div>
+	</div> -->
+	
+	
+	</div>
+	
+	
+	<!-- <div class="form-group mygrp">
+		<div class="mylable">ACS</div>
+		<div class="myinput cbmany" id="cbx_grp2g_yyy" ></div>
+		
+	</div> -->
+	
+</div>
+<div class="tabc tabczzz" id="tabc-zzz-2" >
+	<div class="w50">
+		<div class="form-group mygrp">
+			<div class="mylable">RTS Threshold</div>
+			<div class="myinput">
+			<input type="number" class="form-control num4 requir" value="1" name="yyy__rtsth" maxlength="4" max="9999" min="1" id="2gr_rtsth_yyy">
+			</div>
+		</div>
+		
+		<div class="form-group mygrp">
+			<div class="mylable">STBC Tx</div>
+			<div class="myinput">
+			
+			<select class="form-control num4" name="yyy__stbctx" id="2gr_stbctx_yyy">
+				<option value=0>0</option>
+				<option value=1>1</option>
+			</select>
+		
+            </div>
+		</div>
+		<div class="form-group mygrp">
+			<div class="mylable">LDPC Tx</div>
+			<div class="myinput">
+			<select class="form-control num4" name="yyy__ldpctx" id="2gr_ldpctx_yyy">
+				<option value=0>0</option>
+				<option value=1>1</option>
+			</select>
+			</div>
+		</div>
+		<div class="form-group mygrp">
+			<div class="mylable">Spectral</div>
+			<div class="myinput">
+			<select class="form-control num4" name="yyy__spec" id="2gr_spec_yyy">
+				<option value=0>0</option>
+				<option value=1>1</option>
+			</select>
+			</div>
+		</div>
+		<div class="form-group mygrp">
+			<div class="mylable">TXBF</div>
+			<div class="myinput">
+			<select class="form-control num4" name="yyy__txbf" id="2gr_txbf_yyy">
+				<option value=0>0</option>
+				<option value=1>1</option>
+			</select>
+		   </div>
+		</div>
+	</div>
+	<div class="w50">
+		<div class="form-group mygrp">
+			<div class="mylable">Fgmt Threshold</div>
+			<div class="myinput">
+			<input type="number" class="form-control num4 requir" value="1000" name="yyy__fgmth" id="2gr_fgmth_yyy" maxlength="4" max="9999" min="1">
+			</div>
+		</div>
+		
+		<div class="form-group mygrp">
+			<div class="mylable">STBC Rx</div>
+			<div class="myinput">
+			<select class="form-control num4" name="yyy__stbcrx" id="2gr_stbcrx_yyy">
+				<option value=0>0</option>
+				<option value=1>1</option>
+				<option value=2>2</option>
+				<option value=3>3</option>
+				<option value=3>4</option>
+			</select>
+			</div>
+		</div>
+		<div class="form-group mygrp">
+			<div class="mylable">LDPC Rx</div>
+			<div class="myinput">
+			<select class="form-control num4" name="yyy__ldpcrx" id="2gr_ldpcrx_yyy">
+				<option value=0>0</option>
+				<option value=1>1</option>
+				
+			</select>
+			</div>
+		</div>
+		<div class="form-group mygrp">
+			<div class="mylable">Thermal</div>
+			<div class="myinput">
+			<select class="form-control num4" name="yyy__thermal" id="2gr_thermal_yyy">
+				<option value=0>0</option>
+				<option value=1>1</option>
+			</select>
+			</div>
+		</div>
+		<div class="form-group mygrp">
+			<div class="mylable">SGI</div>
+			<div class="myinput">
+			<select class="form-control num4" name="yyy__sgi" id="2gr_sgi_yyy">
+				<option value=0>0</option>
+				<option value=1>1</option>
+			</select>
+			</div>
+		</div>
+	</div>
+	
+</div>
+</div>
+</div>
+
+<div id="hid2gi" style="display:none;">
+<div class="tabgrp">
+<div class="tab" id="tabzzz">
+  <div class="tabtn tabtnzzz" id="tabtn-zzz-1">Basic</div>
+  <div class="tabtn tabtnzzz" id="tabtn-zzz-2">Advanced</div>
+</div>
+
+<div class="tabc tabczzz" id="tabc-zzz-1" >
+<div class="w50">
+ 	<div class="form-group mygrp">
+		<div class="mylable">Mode</div>
+		<div class="myinput">
+		<select class="form-control" id="2gi_mode_yyy" name="yyy__mode" onchange="set_acl(this.value,yyy,0); set_gVal(this.value,yyy,1);">
+			<option value="ap">ap</option>
+			<option value="mesh">mesh</option>
+			<option value="sta">sta</option>
+		</select>
+		</div>
+	</div>
+	<div class="form-group mygrp">
+		<div class="mylable">Encryption</div>
+		<div class="myinput">
+		<select class="form-control" id="2gi_encryption_yyy" name="yyy__encryption" onchange="getEncr(this.value, 2, yyy)">
+			<option value="wpa2-psk">wpa2-psk</option>
+			<option value="open">open</option>
+			<option value="wpa2">wpa2</option>
+		</select>
+		</div>
+	</div>
+	<div class="form-group mygrp">
+		<div class="mylable">ERP</div>
+		<div class="myinput">
+		<select class="form-control" id="2gi_erp_yyy" name="yyy__erp">
+			<option value="1">Enable</option>
+			<option value="0">Disable</option>
+		</select>
+		</div>
+	</div>
+	</div>
+	<div class="w50">
+	
+	<div class="form-group mygrp">
+		<div class="mylable">SSID</div>
+		<div class="myinput">
+			<input type="text" class="form-control requir" id="2gi_ssid_yyy" name="yyy__ssid" value="" maxlength="32">
+		</div>
+	</div>
+	
+	<div class="form-group mygrp">
+		<div class="mylable">Key</div>
+		<div class="myinput">
+			<input type="text" class="form-control key_req" id="2gi_key_yyy" name="yyy__key" value="" maxlength="16">
+		</div>
+	</div>
+	
+	
+	
+	<div class="form-group mygrp">
+		<div class="mylable">Broadcast SSID</div>
+		<div class="myinput">
+			<select class="form-control" id="2gi_bcastssid_yyy" name="yyy__bcastssid">
+				<option value="1">Enable</option>
+				<option value="0">Disable</option>
+			</select>
+		</div>
+	</div>
+ </div>
+</div>
+<div class="tabc tabczzz" id="tabc-zzz-2" >
+	<div class="w50">
+		<div class="form-group mygrp">
+			<div class="mylable">AMSDU</div>
+			<div class="myinput">
+				<select class="form-control" id="2gi_amsdu_yyy" name="yyy__amsdu">
+					<option value="1">Enable</option>
+					<option value="0">Disable</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group mygrp">
+			<div class="mylable">Fixed Rate</div>
+			<div class="myinput">
+				<select class="form-control" id="2gi_fixedrate_yyy" name="yyy__fixedrate">
+					
+				</select>
+			</div>
+		</div>
+		<div class="form-group mygrp">
+			<div class="mylable">Mcast to Unicast Threshold</div>
+			<div class="myinput">
+				<select class="form-control" id="2gi_multicat_snoop_yyy" name="yyy__multicat_snoop">
+					
+				</select>
+			</div>
+		</div>
+		<div class="form-group mygrp aclGrp">
+			<div class="mylable">Hotspot</div>
+			<div class="myinput">
+				<select class="form-control" id="2gi_hotspot_yyy" name="yyy__hotspot" onchange="getHotspot(this.value, 2, yyy)">
+					<option value="on">Enable</option>
+					<option value="off" selected="selected">Disable</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="w50">
+		<div class="form-group mygrp">
+			<div class="mylable">AMPDU</div>
+			<div class="myinput">
+				<select class="form-control" id="2gi_ampdu_yyy" name="yyy__ampdu">
+					<option value="1">Enable</option>
+					<option value="0">Disable</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group mygrp">
+			<div class="mylable">Mcast Rate</div>
+			<div class="myinput">
+				<select class="form-control" id="2gi_mcast_yyy" name="yyy__mcast">
+					
+				</select>
+			</div>
+		</div>
+		<div class="form-group mygrp aclGrp">
+			<div class="mylable">ACL</div>
+			<div class="myinput">
+				<select class="form-control" id="2gi_acl_yyy" name="yyy__acl">
+					<option value="blacklist">blacklist</option>
+					<option value="whitelist">whitelist</option>
+				</select>
+			</div>
+		</div>
+		
+		<div class="form-group mygrp" style="margin-top: 10px;">
+			<div class="mylable">Bridge</div>
+			<div class="myinput">
+				<select class="form-control" id="2gi_bridge_yyy" name="yyy__bridge">
+					<option value="wan">wan</option>
+					<option value="lan">lan</option>
+				</select>
+			</div>
+		</div>		
+	</div>
+	
+</div>
+
+</div>
+</div>
+
+
+<div id="hid5gr" style="display:none;">
+<div class="tabgrp">
+<div class="tab" id="tabzzz">
+  <div class="tabtn tabtnzzz" id="tabtn-zzz-1">Basic</div>
+  <div class="tabtn tabtnzzz" id="tabtn-zzz-2">Advanced</div>
+</div>
+
+<div class="tabc tabczzz" id="tabc-zzz-1" >
+<div class="w50">
+	<div class="form-group mygrp">
+		<div class="mylable">HW Mode</div>
+		<div class="myinput">
+		<select class="form-control" name="yyy__hwmode" id="5gr_hwmode_yyy" onchange="getModes(this.value,5,yyy)">
+			<option value="11a">11a</option>
+			<option value="11na">11na</option>
+			<option value="11ac">11ac</option>
+			</select>
+				
+		</div>
+	</div>
+    <div class="form-group mygrp">
+		<div class="mylable">Intra bss</div>
+		<div class="myinput">
+		<select class="form-control" name="yyy__intrabss" id="5gr_intrabss_yyy">
+			<option value=1>Enable</option>
+			<option value=0>Disable</option>
+			
+			</select>
+			
+			         
+		</div>
+	</div>    
+	<div class="form-group mygrp">
+		<div class="mylable">Regulatory</div>
+		<div class="myinput">
+		<select class="form-control" name="yyy__reg" id="5gr_reg_yyy" onChange="reg5g(this.value,0,yyy)">
+			<option value="AT">AT</option>
+			<option value="AU">AU</option>
+			<option value="BE">BE</option>
+			<option value="BR">BR</option>
+			<option value="CA">CA</option>
+			<option value="CH">CH</option>
+			<option value="CN">CN</option>
+			<option value="CY">CY</option>
+			<option value="CZ">CZ</option>
+			<option value="DE">DE</option>
+			<option value="DK">DK</option>
+			<option value="EE">EE</option>
+			<option value="ES">ES</option>
+			<option value="FI">FI</option>
+			<option value="FR">FR</option>
+			<option value="GB">GB</option>
+
+			<option value="HK">HK</option>
+			<option value="HU">HU</option>
+
+			<option value="IE">IE</option>
+			<option value="IL">IL</option>
+			<option value="ILO">ILO</option>
+
+			<option value="IS">IS</option>
+			<option value="IT">IT</option>
+			<option value="J1">J1</option>
+			<option value="JP">JP</option>
+			<option value="KE">KE</option>
+			<option value="KR">KR</option>
+			<option value="LT">LT</option>
+			<option value="LU">LU</option>
+			<option value="LV">LV</option>
+
+			<option value="NL">NL</option>
+			<option value="NO">NO</option>
+			<option value="NZ">NZ</option>
+			<option value="PH">PH</option>
+			<option value="PL">PL</option>
+			<option value="PT">PT</option>
+			<option value="SE">SE</option>
+			<option value="SG">SG</option>
+			<option value="SI">SI</option>
+			<option value="SK">SK</option>
+			
+			<option value="TW">TW</option>
+			<option value="US">US</option>			
+			<option value="USE">USE</option>
+			<option value="USL">USL</option>
+
+			</select>
+		</div>
+	</div>
+	<div class="form-group mygrp">
+		<div class="mylable">DCS</div>
+		<div class="myinput">
+		<select class="form-control" name="yyy__dcs" id="5gr_dcs_yyy">
+			<option value="true">Enable</option>
+			<option value="false">Disable</option>
+			</select>
+		</div>
+	</div>
+	</div>
+	<div class="w50">
+	<div class="form-group mygrp">
+		<div class="mylable">Channel</div>
+		<div class="myinput">
+		<select class="form-control" name="yyy__channel" id="5gr_channel_yyy">
+			<option value="auto">auto</option>
+			</select>
+		</div>
+	</div>
+	
+	<div class="form-group mygrp">
+		<div class="mylable">Width</div>
+		<div class="myinput">
+		<select class="form-control" name="yyy__width" id="5gr_width_yyy">
+			<option value="auto">auto</option>
+			<option value="20">HT20</option>
+			<option value="40">HT40</option>
+			<option value="80">VHT80</option>
+			<option value="160">VHT160</option>
+			</select>
+		</div>
+	</div>
+	
+	<div class="form-group mygrp">
+		<div class="mylable">TxPwr (dBM)</div>
+		<div class="myinput">
+		<input type="text" class="form-control requir" id="5gr_txpwr_yyy" value="15" name="yyy__txpwr" maxlength="4" onchange="getTxpwr(this.value, 5, yyy)">
+		</div>
+	</div>
+	
+<!-- 	<div class="form-group mygrp">
+		<div class="mylable"></div>
+		<div class="myinput">
+		<input type="hidden" value="0" id="5gr_hid_yyy" name="yyy__acs">
+		<input type="hidden" value="0" id="5gr_acs_len_yyy" name="yyy__acs_len">
+		</div>
+	</div> -->
+	
+	
+	</div>
+
+	<!-- <div class="form-group mygrp">
+		<div class="mylable">ACS</div>
+		<div class="myinput cbmany" id="cbx_grp_yyy">
+		</div>
+	</div> -->
+</div>
+<div class="tabc tabczzz" id="tabc-zzz-2" >
+	<div class="w50">
+		<div class="form-group mygrp">
+			<div class="mylable">RTS Threshold</div>
+			<div class="myinput">
+			<input type="number" class="form-control num4 requir" value="1000" name="yyy__rtsth" maxlength="4" max="9999" min="1" id="5gr_rtsth_yyy">
+			</div>
+		</div>
+		
+		<div class="form-group mygrp">
+			<div class="mylable">STBC Tx</div>
+			<div class="myinput">
+			<select class="form-control num4" name="yyy__stbctx" id="5gr_stbctx_yyy">
+				<option value=0>0</option>
+				<option value=1>1</option>
+			</select>
+            </div>
+		</div>
+		<div class="form-group mygrp">
+			<div class="mylable">LDPC Tx</div>
+			<div class="myinput">
+			<select class="form-control num4" name="yyy__ldpctx" id="5gr_ldpctx_yyy">
+				<option value=0>0</option>
+				<option value=1>1</option>
+			</select>
+			</div>
+		</div>
+		<div class="form-group mygrp">
+			<div class="mylable">Spectral</div>
+			<div class="myinput">
+			<select class="form-control num4" name="yyy__spec" id="5gr_spec_yyy">
+				<option value=0>0</option>
+				<option value=1>1</option>
+			</select>
+			
+			
+			</div>
+		</div>
+		<div class="form-group mygrp">
+			<div class="mylable">TXBF</div>
+			<div class="myinput">
+			<select class="form-control num4" name="yyy__txbf" id="5gr_txbf_yyy">
+				<option value=0>0</option>
+				<option value=1>1</option>
+			</select>
+			
+           </div>
+		</div>
+	</div>
+	<div class="w50">
+		<div class="form-group mygrp">
+			<div class="mylable">Fgmt Threshold</div>
+			<div class="myinput">
+			<input type="number" class="form-control num4 requir" value="1" name="yyy__fgmth" id="5gr_fgmth_yyy" maxlength="4" max="9999" min="1">
+			</div>
+		</div>
+		
+		<div class="form-group mygrp">
+			<div class="mylable">STBC Rx</div>
+			<div class="myinput">
+			<select class="form-control num4" name="yyy__stbcrx" id="5gr_stbcrx_yyy">
+				<option value=0>0</option>
+				<option value=1>1</option>
+				<option value=2>2</option>
+				<option value=3>3</option>
+				<option value=3>4</option>
+			</select>
+			</div>
+		</div>
+		<div class="form-group mygrp">
+			<div class="mylable">LDPC Rx</div>
+			<div class="myinput">
+			<select class="form-control num4" name="yyy__ldpcrx" id="5gr_ldpcrx_yyy">
+				<option value=0>0</option>
+				<option value=1>1</option>
+			</select>
+			</div>
+		</div>
+		<div class="form-group mygrp">
+			<div class="mylable">Thermal</div>
+			<div class="myinput">
+			<select class="form-control num4" name="yyy__thermal" id="5gr_thermal_yyy">
+				<option value=0>0</option>
+				<option value=1>1</option>
+			</select>
+			
+			              
+			</div>
+		</div>
+		
+		<div class="form-group mygrp">
+			<div class="mylable">SGI</div>
+			<div class="myinput">
+			<select class="form-control num4" name="yyy__sgi" id="5gr_sgi_yyy">
+				<option value=0>0</option>
+				<option value=1>1</option>
+			</select>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+
+<div id="hid5gi" style="display:none;">
+<div class="tabgrp">
+<div class="tab" id="tabzzz">
+  <div class="tabtn tabtnzzz" id="tabtn-zzz-1">Basic</div>
+  <div class="tabtn tabtnzzz" id="tabtn-zzz-2">Advanced</div>
+</div>
+
+<div class="tabc tabczzz" id="tabc-zzz-1" >
+<div class="w50">
+ 	<div class="form-group mygrp">
+		<div class="mylable">Mode</div>
+		<div class="myinput">
+		<select class="form-control" id="5gi_mode_yyy" name="yyy__mode"onchange="set_acl(this.value,yyy,1); set_fivegVal(this.value,yyy,1);">
+			<option value="ap">ap</option>
+			<option value="mesh">mesh</option>
+			<option value="sta">sta</option>
+		</select>
+		</div>
+	</div>
+	<div class="form-group mygrp">
+		<div class="mylable">Encryption</div>
+		<div class="myinput">
+		<select class="form-control" id="5gi_encryption_yyy" name="yyy__encryption" onchange="getEncr(this.value, 5, yyy)"> 
+			<option value="wpa2-psk">wpa2-psk</option>
+			<option value="open">open</option>
+			<option value="wpa2">wpa2</option>
+		</select>
+		</div>
+	</div>
+	<div class="form-group mygrp">
+		<div class="mylable">ERP</div>
+		<div class="myinput">
+		<select class="form-control" id="5gi_erp_yyy" name="yyy__erp">
+			<option value="1">Enable</option>
+			<option value="0">Disable</option>
+		</select>
+		</div>
+	</div>
+	</div>
+	<div class="w50">
+	
+	<div class="form-group mygrp">
+		<div class="mylable">SSID</div>
+		<div class="myinput">
+			<input type="text" class="form-control requir" id="5gi_ssid_yyy" name="yyy__ssid" value="" maxlength="32">
+		</div>
+	</div>
+	
+	<div class="form-group mygrp">
+		<div class="mylable">Key</div>
+		<div class="myinput">
+			<input type="text" class="form-control key_req" id="5gi_key_yyy" name="yyy__key" value="" maxlength="16">
+		</div>
+	</div>
+	
+	
+	
+	<div class="form-group mygrp">
+		<div class="mylable">Broadcast SSID</div>
+		<div class="myinput">
+			<select class="form-control" id="5gi_bcastssid_yyy" name="yyy__bcastssid">
+				<option value="1">Enable</option>
+				<option value="0">Disable</option>
+			</select>
+		</div>
+	</div>
+ </div>
+</div>
+<div class="tabc tabczzz" id="tabc-zzz-2" >
+	<div class="w50">
+		<div class="form-group mygrp">
+			<div class="mylable">AMSDU</div>
+			<div class="myinput">
+				<select class="form-control" id="5gi_amsdu_yyy" name="yyy__amsdu">
+					<option value="1">Enable</option>
+					<option value="0">Disable</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group mygrp">
+			<div class="mylable">Fixed Rate</div>
+			<div class="myinput">
+				<select class="form-control" id="5gi_fixedrate_yyy" name="yyy__fixedrate">
+					
+				</select>
+			</div>
+		</div>
+		<div class="form-group mygrp">
+			<div class="mylable">Mcast to Unicast Threshold</div>
+			<div class="myinput">
+				<select class="form-control" id="5gi_multicat_snoop_yyy" name="yyy__multicat_snoop">
+					
+				</select>
+			</div>
+		</div>
+		<div class="form-group mygrp aclGrp">
+			<div class="mylable">Hotspot</div>
+			<div class="myinput">
+				<select class="form-control" id="5gi_hotspot_yyy" name="yyy__hotspot" onchange="getHotspot(this.value, 5, yyy)">
+					<option value="on">Enable</option>
+					<option value="off" selected="selected">Disable</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="w50">
+		<div class="form-group mygrp">
+			<div class="mylable">AMPDU</div>
+			<div class="myinput">
+				<select class="form-control" id="5gi_ampdu_yyy" name="yyy__ampdu">
+					<option value="1">Enable</option>
+					<option value="0">Disable</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group mygrp">
+			<div class="mylable">Mcast Rate</div>
+			<div class="myinput">
+				<select class="form-control" id="5gi_mcast_yyy" name="yyy__mcast">
+					<option value="0">0</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group mygrp aclGrp">
+			<div class="mylable">ACL</div>
+			<div class="myinput">
+				<select class="form-control" id="5gi_acl_yyy" name="yyy__acl">
+					<option value="blacklist">blacklist</option>
+					<option value="whitelist">whitelist</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group mygrp" style="margin-top: 10px;">
+			<div class="mylable">Bridge</div>
+			<div class="myinput">
+				<select class="form-control" id="5gi_bridge_yyy" name="yyy__bridge">
+					<option value="wan">wan</option>
+					<option value="lan">lan</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+</div>
+</div>
+	

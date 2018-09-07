@@ -1,0 +1,51 @@
+{{#partial "page"}}
+<div class="container">
+   <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                       <div class="panel-heading">
+                       	<h4></h4>
+                      	  {{#if locations}}
+					  		Name : {{name}} | Duration: {{sec2time duration}} | Date : {{date2display timestamp "EEE, d MMM yyyy HH:mm:ss z"}}
+					  	   {{/if}}
+					  </h4>
+                       </div>
+                    </div>
+               	</div>
+             </div>   	     
+            <!-- /.row -->
+    		<div class="row">
+				<div class="col-md-12">
+					<div style="display:inline-block;width:100%;overflow-y:auto;">
+					<ul class="timeline timeline-horizontal">
+					   {{#each locations}}
+						<li class="timeline-item">
+							<div class="timeline-badge {{#if cssBadgeColor}} {{cssBadgeColor}} {{else}} info {{/if}}"><i class="glyphicon {{#if cssBadgeArrow}} {{cssBadgeArrow}} {{else}}glyphicon-circle-arrow-down{{/if}}"></i></div>
+							<div class="timeline-panel">
+								<div class="timeline-heading">
+									<h5 class="timeline-title"> {{opcodex}} {{location}}
+									</h5>
+									<p>									
+										<small class="text-muted"><i class="glyphicon glyphicon-time"></i> {{date2display timestamp "h:mm a"}} 
+										{{#if timeElapsed}}
+											Elapsed  {{sec2time timeElapsed}}
+										{{/if}}
+										</small>
+									</p>
+								</div>
+							</div>
+						</li>
+						{{/each}}
+					</ul>
+				</div>
+				</div>
+			</div>
+		</div>
+        
+{{/partial}}
+{{#if head}}
+	{{>wrapper}}
+{{else}}
+	{{>wrapper-base}}
+{{/if}}

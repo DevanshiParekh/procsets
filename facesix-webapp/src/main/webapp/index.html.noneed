@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="refresh" content="0;url=pages/index.html">
+<title>facesix : elastic data express </title>
+<script language="javascript">
+    window.location.href = "/facesix/login"
+</script>
+</head>
+<body>
+Go to <a href="/facesix/login">/facesix/login</a>
+</body>
+</html>

@@ -1,0 +1,184 @@
+{{#partial "page"}}
+
+<div id="page-content-wrapper" class="">
+	<div class="container-fluid">
+	<div class="col-md-12 padding-right-0">
+			<div class="row log-table-head dd-log-head">
+				<div class="lth-left">	
+				<span>VENUE</span>		
+				<i class="fa fa-angle-right" aria-hidden="true"></i>
+					<span title="{{sitename}}"><div id="sname"></div></span>
+				</div>
+				
+			</div>
+		</div>
+		<!-- sunburst chart -->
+		<div class="venue-section1">
+			<div class="add-uid-form pull-right display-inline search-uid">
+				<div class="lth-right searchUID">
+					<div class="search-opt">
+						<form action="/facesix/web/finder/device/devboard" id="target">
+							<div class="form-group">
+								<div class="search-box">
+									<span class="icon" id="searchClick">
+										<i class="fa fa-search " aria-hidden="true"></i>
+									</span>
+									<input type="hidden" name="sid" value="{{sid}}">
+									<input type="hidden" name="cid" value="{{cid}}">
+									<input type="search" name="uid" id="click" class="form-control search-align" placeholder="">
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		
+		
+			<div class="fullActive col-md-8 vdcol-8 padremovecol venue-col">
+				<div class="sunburstChartSection">
+					<div class="sunburstChart">
+						<div class="expandClass ">
+							<img class="full-screen" src="/facesix/static/qubercomm/images/flooroverview/expand.png">
+						
+						</div>
+						<div id="sbtChart"></div>
+					</div>
+					<div class="sunburst-legends sunburstLeg-lign">
+						<ul>
+							<li><span class="l2"></span> Active</li>
+							<!-- <li><span class="l3"></span> Idle</li> -->
+							<li><span class="l1"></span> Inactive</li>
+							<li><span class="l4"></span> Floor</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4 vdcol-4 padremovecol venue-col pad0">
+				<div class="venus-chart1 venus-chart-common">
+					<div class="chart1">
+						<div class="netflowData select-filter-Plan venue-filter">
+							<label>Tags Status</label>
+						</div>
+						<div class="chart1Section">
+							<div id="vdChart1"></div>
+						</div>
+					</div>
+				</div>
+				<div class="venus-chart1 venus-chart-common">
+					<div class="chart1">
+						<div class="select-filter-Plan venue-filter venue-f">
+							<select class="txrxswap" >
+								<option selcted>Venue Downlink/Uplink Speed</option>
+								<option value="Uplink">Uplink Speed</option>
+								<option value="Downlink">Downlink Speed</option>
+							</select>
+						</div>
+						<div class="chart1Section">
+							<div id="fd_chart2"></div>
+						</div>
+					</div>
+				</div>
+				<div class=" venus-chart1 venus-chart-common height-340">
+					<div class="device-coon-desc">
+						<label>Active Tag Types</label>
+					</div>
+					<div class="chart1Section margin-top-20">
+						<div id="dd-chart5" class="text-center fd_chartalign"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="widthRow venue-section2 ">
+			<div class="col-md-8 vdcol-8 venue-col pad-style-width venue-S">
+				<div class="addvenueCommon venue-status-recent activities-section">
+					
+				</div>
+			</div>
+			<div class="col-md-4 vdcol-4 venue-col pad0">
+				<div class="addvenueCommon summarysectionAlign summary-section">
+					<div class="device-coon-desc">
+						<label>Venue Device Wheel</label>
+					</div>
+					<div class="chart1Section margin-top-20">
+						<div id="fd_chart4" class="text-center fd_chartalign"></div>
+					</div>				
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script id="activities-template" type="text/x-handlebars-template">	
+				<div class="recent-activities">
+						<div class="recent-heading">
+							<ul class="list-unstyled margin-btm-0">
+								<li class="dropdown profile-dash">
+									Recent Alerts
+								</li>
+							</ul>
+						</div>
+						<div class="recentDataSection scrollbar-inner" tabindex="0" style="outline: none;">
+							\{{#each recent_activities}}
+							<div class="recent-venue">
+								<div class="recent-data">
+									<p>
+										<label>\{{Floorplan}} </label> 
+										<label><span>\{{description}}</span></label>
+									</p>
+									
+								</div>
+							</div>
+							\{{/each}}
+						</div>
+					</div>
+</script>
+<script>
+	var str = '{{sitename}}';
+	console.log(str);
+	if (str.length > 32) {
+		str = str.substr(0, 32)
+		str += "...";
+	}
+	document.getElementById("sname").innerHTML = str;
+	console.log(str);
+</script>
+
+<!--css-->
+<link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/css/style.css">
+<link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/css/c3.css"/>
+<link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/css/animate.css">
+<!--css-->
+<!-- js -->
+<script src="/facesix/static/qubercomm/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/bootstrap.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/d3.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/c3.js"></script>
+<script type="text/javascript" src="/facesix/static/finder/js/sunburst.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.mobile-events.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/handlebars.min.js"></script>	
+<script src="/facesix/static/qubercomm/js/common.js"></script>  
+<script src="/facesix/static/finder/js/venue.js"></script>  
+<script src="/facesix/static/finder/js/script.js"></script>
+<style>
+				.recentDataSection{
+					overflow: auto !important;
+				}
+				@media screen and (max-width: 768px){
+					.expandClass{
+						right: 20px !important;
+					}
+					.padremovecol {
+					    padding: 10px !important;
+					    margin-bottom: 0px !important;
+					    margin-top: 0px !important;
+					}
+				}
+				a{
+					cursor: pointer;
+				}
+</style>
+{{/partial}}
+{{>qubercomm/nav-top}}
+{{>qubercomm/nav-left}}
+{{>qubercomm/wrapper}}

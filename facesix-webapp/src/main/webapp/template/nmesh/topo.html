@@ -1,0 +1,118 @@
+{{#partial "page"}}
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+  <link href="/facesix/static/qubercomm/assets/c3/c3.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/assets/Bootstrap-3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/assets/Bootstrap-3.3.7/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/css/nmesh.css">
+  <link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/assets/DataTables-1.10.15/css/dataTables.bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/assets/Buttons-1.4.0/css/buttons.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/assets/Select-1.2.2/css/select.dataTables.min.css">
+  <link rel="stylesheet" property="stylesheet" href="/facesix/static/qubercomm/assets/font-awesome/css/font-awesome.min.css">
+  <script src="/facesix/static/qubercomm/assets/jQuery-1.12.4/jquery-1.12.4.js"></script>
+</head>
+
+<body>
+  
+  <div class="container">
+    <br>
+    <div class="panel panel-default" id="paneltopo">
+      <div class="panel-heading">
+        <div class="panel-title">
+            <div class="topofooter titletopology">
+                <div>
+                  <div style="display: inline-block;position:relative">          
+                  <img src="/facesix/static/qubercomm/images/nmesh/security_symbol.png" title="Secured" class="securityicon"/>
+                  <span class="networkname"></span>
+                  </div>
+                  <div style="display: inline-block"><span class="securityname"></span></div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="panel-body posrelative">
+
+        <div id="topology">
+
+        </div>
+        
+        <div class="topotrafficdiv">
+           <table class="inettraffictable">
+             <tr><td><b>Internet Traffic:</b></td><td>5GB/2GB</td></tr>
+             <tr><td>2.4GHz channel:</td><td>6</td></tr>
+             <tr><td>5 GHz channel:</td><td>36</td></tr>
+             <tr><td>Connected Clients:</td><td><a href="/clientsum.html" title="click to explore" class="noofclients">2</a></td></tr>
+           </table>
+          </div>
+        </div>
+      </div>
+  </div>
+</body>
+<!-- Scripts -->
+<script src="/facesix/static/qubercomm/assets/d3/d3.v4.min.js" charset="utf-8"></script>
+<script src="/facesix/static/qubercomm/assets/c3/c3.js"></script>
+<script src="/facesix/static/qubercomm/assets/Bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script src="/facesix/static/qubercomm/assets/lodash/lodash.min.js"></script>
+<script src="/facesix/static/qubercomm/nmesh/dataservice.js"></script>
+<script src="/facesix/static/qubercomm/nmesh/util.js"></script>
+<script src="/facesix/static/qubercomm/nmesh/topo.js"></script>
+<script>
+  var topodata = null;
+  var topoMaker = null;
+  var dataservice = new NMeshDataService();
+  var cid = "";
+  var drawrefresh = null;
+  function refreshData(){
+    dataservice.getTopoData(cid)
+    .done((result)=>{
+      topodata = result;
+      if(!topoMaker){
+        topoMaker = new TopoMaker(cid, 'div#topology');
+      }
+        //Draw topology first time
+      try{
+        topoMaker.draw(drawrefresh, result);
+        drawrefresh=1;
+      }
+      catch(exp){
+        if(topoMaker)
+          topoMaker.clear();
+        drawrefresh = null;
+        console.log(exp);
+        console.log('ERROR:topo json,'+JSON.stringify(result));
+      }
+      
+      $('.networkname')[0].innerText = topodata.title;
+      $('.securityname')[0].innerText = ' - WPA-PSK';
+    })
+    .fail((error)=>{
+      console.log('ERROR:'+JSON.stringify(error));
+      //alert('Unable to get topology data')
+    })
+    .always(()=>{
+      setTimeout(()=>{
+        refreshData();
+      },5000)
+    })
+  }
+
+  $(document).ready(() => {
+    cid = util.getUrlParameter('cid');
+    $("a.noofclients").attr('href','/facesix/client_details?cid='+cid);
+    refreshData()
+    window.addEventListener("resize", ()=>{topoMaker.draw(1, topodata)});
+  })
+
+
+  
+
+  
+
+</script>
+
+{{/partial}}
+{{>qubercomm/nav-left}}
+{{>qubercomm/nav-top}}
+{{>qubercomm/wrapper}}
+

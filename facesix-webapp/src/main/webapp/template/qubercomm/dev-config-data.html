@@ -1,0 +1,297 @@
+{
+  
+  "title": "Radio/VAP Configuration",
+  "type": "object",
+  "options" : {
+  	"disable_edit_json" : true,
+  	"disable_properties" : true,
+  	"no_additional_properties" : true
+  },
+  "properties": {
+   "radio2g" : {
+  		"type": "array",
+      	"format": "table",
+      	 "title": "2G Radio",
+      	 "uniqueItems": true,
+      	 "items": {
+             "type": "object",
+             "properties" : {
+			  "fgmth": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 6
+			    },
+			    "channel": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 6
+			    },
+			    "hwmode": {
+			      "type": "string",
+			      "minLength": 1
+			    },
+			     "width": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    },
+			    "reg": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    },
+			    "acs": {
+			      "type": "string",
+			      "minLength": 1
+			    },
+			    "spec": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    },
+			    "txpwr": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    },
+			    "rtsth": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 6
+			    },
+			     "sgi": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    },
+			     "stbctx": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    },"stbcrx": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    },
+			     "ldpctx": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    },
+			    "ldpcrx": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    },
+			     "txbf": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    },
+			     "thermal": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    },
+			     "intrabss": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    }
+			}
+	    }
+    },
+    "interfaces2g": {
+      "type": "array",
+      "format": "table",
+      "title": "2G Iface",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "type": "string"
+          },
+          "ssid": {
+            "type": "string"
+          },
+          "encryption": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          },
+           "erp": {
+            "type": "string"
+          },
+           "fixedrate": {
+            "type": "string"
+          },
+          "multicat_snoop": {
+            "type": "string"
+          },
+           "mcast": {
+            "type": "string"
+          },
+           "ampdu": {
+            "type": "string"
+          },
+           "amsdu": {
+            "type": "string"
+          },
+           "bcastssid": {
+            "type": "string"
+          },
+           "acl": {
+            "type": "string"
+          },
+          "bridge": {
+			"type": "string"
+		   }
+        }
+      }
+    },
+    "radio5g" : {
+  		"type": "array",
+      	"format": "table",
+      	"title": "5G Radio",
+      	 "uniqueItems": true,
+      	 "items": {
+             "type": "object",
+             "properties" : {
+			    "fgmth": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 6
+			    },
+			    "channel": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 6
+			    },
+			    "hwmode": {
+			      "type": "string",
+			      "minLength": 1
+			    },
+			     "width": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    },
+			    "reg": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    },
+			    "acs": {
+			      "type": "string",
+			      "minLength": 1
+			    },
+			    "spec": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    },
+			    "txpwr": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    },
+			    "rtsth": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 6
+			    },
+			     "sgi": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    },
+			     "stbctx": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    },"stbcrx": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    },
+			     "ldpctx": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    },"ldpcrx": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    },
+			     "txbf": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    },
+			     "thermal": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    },
+			     "intrabss": {
+			      "type": "string",
+			      "minLength": 1,
+			      "maxLength": 4
+			    }
+			}
+	    }
+    },
+    "interfaces5g": {
+      "type": "array",
+      "format": "table",
+      "title": "5G Iface",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "type": "string"
+          },
+          "ssid": {
+            "type": "string"
+          },
+          "encryption": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string"
+          },
+           "erp": {
+            "type": "string"
+          },
+           "fixedrate": {
+            "type": "string"
+          },
+          "multicat_snoop": {
+            "type": "string"
+          },
+           "mcast": {
+            "type": "string"
+          },
+           "ampdu": {
+            "type": "string"
+          },
+           "amsdu": {
+            "type": "string"
+          },
+           "bcastssid": {
+            "type": "string"
+          },
+           "acl": {
+            "type": "string"
+          },
+          "bridge": {
+			 "type": "string"
+		  }
+        }
+      }
+    }
+  }
+}

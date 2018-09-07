@@ -1,0 +1,101 @@
+<section class="content">
+    <div class="container-fluid">
+        <div class="addvenue">
+               
+<!--
+                <div class="steps">
+                    <ul>
+                        <li ng-class="{'done': venuestep1}"><span>1</span>Info</li>
+                        <li ng-class="{'done': venuestep2}"><span>2</span>Edit</li>
+                        <li ng-class="{'done': venuestep3}"><span>3</span>Save</li>
+                    </ul>
+                </div>
+-->
+<form id="AddfloorForm" method="post" action="/facesix/web/site/portion/save" enctype="multipart/form-data">
+                <div class="venue-box mt40">
+                    <div class="panel">
+                        <div class="panel-heading">
+                             <h3 class="ch3 fl">Add Floor</h3>
+                            <div class="form-group">
+                                <div class="form-inline">
+                                    <button type="submit" class="btn btn-type-right"><i class="fa fa-save"></i> Save</button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="panel-body venue-box-1">
+                        
+                            <div class="w50">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                   
+                                    <input name="siteId" type="hidden" value="{{sid}}">
+								{{#if fsobject.id}}
+								<input name="id" type="hidden" value="{{fsobject.id}}">
+								{{/if}}
+                                    
+                                    <input type="text" class="form-control" name="uid" />
+                                </div>
+                                <div class="form-group">
+                                    <label>Description / Note</label>
+                                    <textarea class="form-control spltext" name="description"></textarea>
+                                </div>
+                                <div class="group">
+                                    <div class="form-group">
+                                        <label>Length</label>
+                                        <input type="text" class="form-control" name="length" disabled="true" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Breadth</label>
+                                        <input type="text" class="form-control"  name="breadth" disabled="true" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Unit</label>
+                                        <select class="form-control" disabled="true" name="fMeter">
+                                            <option>Feet</option>
+                                            <option>Meter</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="w50">
+                                <div class="img-hold tc">
+                                <div class="img-holder" ng-show="hideIcons">
+<!--                                        <!---<img src="asset/img/ground.png">
+                                        <img ng-src="{{image_source}}"/>
+                                        <img ng-bind="image_source"/>--->
+                                        <div id="imgHolder"></div>
+                                        <div class="label label-warning" ng-click="clearImg()"><i class="fa fa-times"></i></div>
+                                    </div>
+                                    <div class="img-pos" ng-show="!hideIcons" ng-click="ShowimG()">
+                                        <label class="btn w-auto">
+                                            Upload
+                                            <input type="file" name="file" class="hidden" id="floorimg" onchange="angular.element(this).scope().setFile(this)" accept="image/x-png, image/gif, image/jpeg"/>
+                                        </label>
+                                           OR
+                                        <a href="#/drawfloor" class="btn">Draw</a>
+                                        <h3 class="img-h3">Floor Plan</h3>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                            <div>
+
+                                <div class="col-md-6">
+
+                                </div>
+                            </div>
+                            <div ng-show="venuestep3">
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+</form>
+            </div>
+     </div>
+</section>

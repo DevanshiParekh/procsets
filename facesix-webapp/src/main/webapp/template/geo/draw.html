@@ -1,0 +1,157 @@
+{{#partial "page"}}
+
+<img src="/facesix/static/qubercomm/images/networkicons/server_inactive.png" height="30" id="serverOffline" width="30" style="display:none">
+<img src="/facesix/static/qubercomm/images/networkicons/switch_inactive.png" height="30" id="switchOffline" width="30" style="display:none">
+<img src="/facesix/static/qubercomm/images/networkicons/ap_inactive.png" height="30" id="apOffline" width="30" style="display:none">
+<img src="/facesix/static/qubercomm/images/networkicons/sensor_inactive.png" height="30" id="sensorOffline" width="30" style="display:none">
+
+<!-- js -->
+<script src="/facesix/static/qubercomm/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/jquery_validate_min_js.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/form-validations.js" type="text/javascript"></script>
+<script src="https://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.mobile-events.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/common.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/handlebars.min.js"></script>
+<script src="/facesix/static/qubercomm/js/qubercast.js" type="text/javascript"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/script.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/snap.svg-min.js"></script>
+<script src="/facesix/static/qubercomm/js/jqpanzoom.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/d3.v3.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/underscore-min.js"></script>
+
+
+<script src="/facesix/static/qubercomm/js/networkcon.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/networkconfig.js" type="text/javascript"></script>
+<link rel="stylesheet" href="/facesix/static/geo/css/font-awesome.css">
+<link rel="stylesheet" href="/facesix/static/geo/css/style-plot.css">
+<link rel="stylesheet" href="/facesix/static/geo/css/loader.css">
+<script async defer
+   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBXhgBQKDxZzb_jEH5dRXD-1HSpwlODZkM&libraries=places&callback=initialize">
+   </script>
+<script src="/facesix/static/geo/js/fabric.min.js"></script>   
+<script>
+var bg_json = ''; 
+var fg_json = '';
+var spid = '{{spid}}';
+//var bg_image_url = '/facesix/web/site/portion/planfile?spid={{spid}}';
+
+var img = document.createElement('img');
+
+
+$(function(){ 
+	$('.loader_box').hide();
+	$('.completed_box').hide();
+	$('.failure_box').hide();
+});
+
+img.src='/facesix/web/site/portion/planfile?spid={{spid}}';
+</script>
+
+<script type="text/javascript" src="/facesix/static/geo/js/plot_maps.js"></script>
+<script type="text/javascript" src="/facesix/static/geo/js/plot_canvas.js"></script>
+<script type="text/javascript" src="/facesix/static/geo/js/plot_app.js"></script>
+<script type="text/javascript" src="/facesix/static/geo/js/bootbox.min.js"></script>
+
+<div class="loader_box">	
+	<div class="loader"></div>
+	<h4 class="text-center">Processing</h4>
+</div>
+<div class="completed_box">
+	<div class="svg">
+	  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="-263.5 236.5 26 26">
+	    <g class="svg-success">
+	      <circle cx="-250.5" cy="249.5" r="12"/>
+	      <path d="M-256.46 249.65l3.9 3.74 8.02-7.8"/>
+	    </g>
+	  </svg><h4>Completed</h4>
+	</div>
+</div>
+<div class="failure_box">
+	<div class="svg-success">
+	  <img src="/facesix/static/geo/images/delete_icon.png" class="fail_img">
+	  <h4>Failure</h4>
+	</div>
+</div>
+<div class="contain">
+<div class="row">
+<section id="main_part_pg2">
+	<div class="sec_sty">
+		<div class="col-md-6 col-sm-6 col-xs-12 pop">
+			<div class="flor_head">
+				<div class="floor_plan col-md-6 col-sm-6 col-xs-12">
+					Your Floor Plan
+				</div>
+				<div class="col-md-6 col-sm-6 col-xs-12 floor_plan">
+					<div class="zoom_sec">
+						<button id="zoomin"><i class="fa fa-search-plus fa_colo"></i>Zoom In </button>
+						<button id="zoomout"><i class="fa fa-search-minus fa_colo"></i>Zoom Out</button>
+					</div>
+				</div>
+				<div class="col-md-12 col-sm-12 col-xs-12 r_no_pad">
+					<div class="" style="padding-right: 7px;background: #fff;">
+						<div class="img_sec div_map_canvas">
+							<canvas id="map_canvas">
+								canvas not supported by the browser
+							</canvas>
+							<canvas id="map2_canvas" class="cus_cur_image my_can">
+								canvas does not supported													
+							</canvas>										
+						</div>
+					</div>					
+				</div>
+			</div>
+			
+		</div>
+	  	<div class="col-md-6 col-sm-6 col-xs-12 popleft"> 
+		    <div class="map_sec">
+		    	<div class="map_head">
+		    		Physical Location
+		    	</div>
+		    	<div class="dk_pac_ip">
+		    		<input id="pac-input" class="controls" type="search" placeholder="Search Box">
+		    		<span  class="n_search" type="submit"><i class="fa fa-search" aria-hidden="true"></i></span>
+		    		<span  class="n_close"><i class="fa fa-times" aria-hidden="true"></i></span>
+		    	</div>
+			    <div id="map"></div>				   			    
+				</div>
+		    </div>
+		</div>  
+		<div class="row rr">
+			<div class="map_button"> 
+				<div class="btton_one">											
+					<button type="button" id="save_button" onclick="javascript:initiatePlotProcess();" class="btn btn-default show_bbtns">SAVE POINTS</button>
+				</div>
+				<div class="btton_ones">
+					<button type="button" id="reset_button" onclick="javascript:reset();" class="btn btn-default show_bbtn">RESET POINTS</button>
+				</div>
+			</div>
+		</div>
+	</section>	
+</div>
+
+<!-- set up the modal to start hidden and fade in and out -->
+<div id="myModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- dialog body -->
+      <div class="modal-body">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        Message
+      </div>
+      <!-- dialog buttons -->
+      <div class="modal-footer"><button type="button" class="btn btn-primary">OK</button></div>
+    </div>
+  </div>
+</div>
+</div>
+
+{{/partial}}
+
+{{>qubercomm/nav-top}}
+{{>qubercomm/nav-left}}
+{{>qubercomm/wrapper}}

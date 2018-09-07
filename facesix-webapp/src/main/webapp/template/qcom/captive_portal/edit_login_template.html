@@ -1,0 +1,156 @@
+<div class="captive_portal">
+	<div class="loader_boxtwo loaders" ng-class="{active:loaderEnabled == 'active'}">	
+		<div class="loadertwo"></div>
+		<h4 class="text-center">Saving...</h4>
+	</div> 
+	<div class="captive_portal_inner">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-ui-6 ">
+					<h2>Library</h2>
+				</div>
+			 	<div class="col-ui-6 text-right">
+					<a id="previewPortals" href ng-click="uiCancel = 'true'" ng-show="uiCancel != 'true'">Cancel</a>
+					<a id="previewPortals" ng-href="#!/captiveportal" ng-show="uiCancel == 'true'" style="background: #f00">Sure</a>
+					<a id="previewPortals" href ng-click="uiCancel = 'false'" ng-show="uiCancel == 'true'" >No</a>
+					
+					<a id="savePortals" href ng-click="savePortals()" ng-show="portalName != undefined && loginform.$valid != false" >Save</a>
+					<a id="savePortals" href="javascript:void(0)" ng-click="setTab(5)"  ng-show="portalName == undefined || loginform.$valid == false" class="disabled"  >Save</a>
+					<a id="previewPortals" href ng-click="previewPortals()" >Preview</a> 
+				</div>
+			</div>
+		 	
+		 	<div class="fixedActions" ng-if="previewMode == 'active'">
+		 		<div class="previewClose" ng-click="previewClose()" ><i class="fa fa-times"></i></div>
+		 		<ul>
+		 			<li ng-class="{active:previewModeClass == 'desktop'}"><a href ng-click="setPreviewClass('desktop')"><i class="fa fa-desktop" aria-hidden="true"></i></a></li>
+		 			<li ng-class="{active:previewModeClass == 'tablet'}"><a href ng-click="setPreviewClass('tablet')"><i class="fa fa-tablet" aria-hidden="true"></i></a></li>
+		 			<li ng-class="{active:previewModeClass == 'mobile'}"><a href ng-click="setPreviewClass('mobile')"><i class="fa fa-mobile" aria-hidden="true"></i></a></li>
+		 		</ul>
+		 	</div>
+		 	<div id="sortable-container">
+		 	
+				<div class="row" >
+				
+					
+					<div class="col-ui-6" >
+					    <form name="loginform">
+					    
+						<div class="builderInner">
+							<div class="builderHeader">
+								<ul class="extraTabs">
+									<li ng-class="{ active: isSet(1) }"><a href ng-click="setTab(1)" >Edit Option</a></li> 
+								</ul>
+							</div>
+							<div class="column"> 
+								<div class="builderTabs">
+									<div class="page-settings">
+										  
+										 <div class="row">
+												<div class="col-ui-6">
+													<div class="wrapperbox">
+													<label>Background Image</label><br />
+											 	 	<div class="upload-btn-wrapper" ng-click="chooseFile('image', 'background')"> 
+											 	 		<span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path></svg></span>
+											 	 		<i>Choose Background</i>
+											 	 		<!-- <input type="file" file-model="backgroundImgs" name="backgroundImg"  onchange="angular.element(this).scope().setThemeBg(this)"  file-upload="" accept="image/x-png,image/gif,image/jpeg" /> -->
+												 	</div>  
+													<input type="hidden" ng-model="backgroundImg" name="backgroundImg" />
+													</div>
+												</div>
+												<div class="col-ui-6">
+													 <div class="wrapperbox">
+														 <label>Logo Image</label><br />
+														 <div class="upload-btn-wrapper" ng-click="chooseFile('image', 'logo')"> 
+													 	 	<span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path></svg></span>
+													 	 	<i>Choose Logo</i>
+													 	 	<!--  <input type="file" file-model="logoImgs" name="imagePaths"  onchange="angular.element(this).scope().setSingleImageFile(this)"  file-upload="" accept="image/x-png,image/gif,image/jpeg" />  -->
+														 </div>
+														 <input type="hidden" ng-model="logoImg" name="logoImg" />
+													 </div>
+												</div>
+										 </div>
+										 
+										 <div class="row">
+											<div class="col-ui-6">
+												<div class="wrapperbox">
+													 <label>Facebook Url</label><br />
+													 <input type="url" ng-model="login.facebook" class="form-control" name="facebook" placeholder="Facebook Url" style="max-width: 400px;"/>  
+													 <label>Twitter Url</label><br />
+													 <input type="url" ng-model="login.twitter" class="form-control" name="twitter" placeholder="Twitter Url" style="max-width: 400px;"/>  
+													 <label>Linkedin Url</label><br />
+													 <input type="url" ng-model="login.linkedin" class="form-control" name="linkedin" placeholder="Linkedin Url" style="max-width: 400px;"/>   
+												 </div>
+											</div>
+											<div class="col-ui-6">
+												<div class="wrapperbox">
+													 <label>Support Phone</label><br />
+													 <input type="number" ng-pattern="/^[0-9]{10}$/" ng-model="login.contactNumber" style="text-indent: 0;font-size: 16px;height: auto;background: #fff; max-width: 400px;" class="form-control" name="contactNumber" placeholder="Support Phone" />  
+													 <!-- <label>Support Email</label><br />
+													 <input type="email" ng-model="login.support_link" class="form-control" name="support_link" placeholder=" Default(Qubercomm Support)" style="max-width: 400px;"/>   -->
+													   
+													 <label>Discover Link</label><br />
+													 <input type="url" ng-model="login.discover_link" class="form-control" name="discover_link" placeholder="Discover Link" style="max-width: 400px;"/>
+													 
+												 </div>
+											</div>
+										 </div>
+										 
+										 <div class="wrapperbox">
+										 	 <div class="row">
+										 	 	<div class="col-ui-6">
+										 	 		<label>Address</label><br />
+										  	 		<input type="text" ng-model="login.address" style="text-indent: 0;font-size: 16px;height: auto;background: #fff; max-width: 400px;"  class="form-control" name="address" placeholder="Address" />
+										 	 		<label>City</label><br />
+											 		<input type="text" id="getcity" ng-model="login.city" style="text-indent: 0;font-size: 16px;height: auto;background: #fff; max-width: 400px;" class="form-control" name="city" placeholder="City" />
+											 		<label>State</label><br />
+											 		<input type="text" ng-model="login.state" style="text-indent: 0;font-size: 16px;height: auto;background: #fff; max-width: 400px;" class="form-control" name="state" placeholder="State" />
+										 	 	</div>
+										 	 	<div class="col-ui-6">
+										 	 		<label>Postal Code</label><br />
+											 		<input type="number" ng-model="login.postalCode" class="form-control" name="postalCode" style="text-indent: 0;font-size: 16px;height: auto;background: #fff; max-width: 400px;" placeholder="Postal Code" ng-pattern="/^[0-9]{6}$/" />
+											 		<label>Country</label><br />
+											 		<input type="text" ng-model="login.country" class="form-control" name="country" placeholder="Country" style="text-indent: 0;font-size: 16px;height: auto;background: #fff; max-width: 400px;" />
+										 	 	</div>
+										 	 </div>
+										 </div>
+										 
+										  
+										  
+										 
+										   
+									</div>
+								</div>
+							</div>
+						</div>
+						</form>
+					</div> 
+					
+					<div class="col-ui-6">
+						<div class="builderInner">
+							<div class="builderHeader">
+								<ul>
+									<li><div class="portalTitle"><input type="text" required name="portalName" ng-model="portalName" placeholder="Template Name"  /></div></li>
+									
+								</ul>
+							</div>
+							 
+							
+							<div class="column"> 
+								 <div ng-include="template"></div>  
+				            </div>
+			         
+						</div>
+						
+			            
+					</div>
+					
+					
+				</div>
+			
+			</div>
+			
+		</div> 
+		
+	</div>
+</div>

@@ -1,0 +1,78 @@
+<section class="content cusmList">
+    <div class="container-fluid">
+        <div class="floor-list">
+            <div class="viewvenue">
+                <div class="pad375">
+                <div class="card-view">
+                    <div class="heading">
+                        <div class="title">
+                            QuberComm Technologies Floor View
+                        </div>
+                        <div class="responsive-menu">
+                            <div class="responsive-icon" open="dropdown1"><i class="fa fa-ellipsis-v"></i></div>
+                            <ul class="dropdown" id="dropdown1">
+                                <li><a href="#/addfloor/{{sid}}" class="list-btn"><i class="fa fa-plus"></i> Add Floor</a></li>
+                            </ul>
+                        </div>
+                        <div class="form-group search note-show">
+                            <input type="text" class="form-control" />
+                            <label><i class="fa fa-search"></i></label>
+                        </div>
+                    </div>
+                </div>
+                    </div>
+                <div class="form-group search note-hidden">
+                    <input type="text" class="form-control" />
+                    <label><i class="fa fa-search"></i></label>
+                </div>
+                <div class="floorlist">
+                {{#each fsobjects}}
+                    <div class="pt10">
+                        <div class="card-view">
+                            <div class="heading border">
+                                <div class="title theme">
+                                    {{uid}}
+                                </div>
+
+                            </div>
+                            <div class="card-body">
+                                <div class="card-progress">
+                                    <img src="/facesix/web/site/portion/planfile?spid={{id}}" />
+                                    <div class="floor-overlay">
+                                        <div class="fl-layer1">
+                                            <div class="card-menu">
+                                    <ul>
+                                        <li><a href=""><i class="fa fa-edit"></i></a></li>
+                                        <li><a href="#/configfloor/{{sid}}/{{id}}/{{uid}}"><i class="fa fa-cog"></i></a></li>
+                                        <li><a href=""><img src="/facesix/static/qcom/img/network.png"/></a></li>
+<!--                                        <li><a href="" ><i class="fa fa-line-chart"></i></a></li>-->
+                                        <li><a href=""><i class="fa fa-trash"></i></a></li>
+
+                                    </ul>
+                                </div>
+                                            <div class="card-menu-2">
+                                                <div class="layer1">
+                                                    <a href="#/floordashboard/{{id}}">View</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                    
+                    
+                    
+
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+</section>
+
+

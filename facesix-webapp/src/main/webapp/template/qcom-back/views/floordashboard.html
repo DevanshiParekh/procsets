@@ -1,0 +1,164 @@
+<section class="content">
+    <div class="container-fluid">
+        <div class="floor-dashboard">
+            <div class="card-view">
+                <div class="heading">
+                    <div class="title">
+                        Floor1 Dashboard
+                    </div>
+                    <div class="responsive-menu">
+                        <div class="responsive-icon" open="dropdown1"><i class="fa fa-ellipsis-v"></i></div>
+                        <ul class="dropdown" id="dropdown1">
+                            <li><a href="#/addfloor"><i class="fa fa-plus"></i> Add Floor</a></li>
+                            <li><a href=""><i class="fa fa-edit"></i> Edit Floor</a></li>
+                            <li><a href=""><i class="fa fa-trash"></i> Delete Floor</a></li>
+                            <!--                                    <li ng-click="fullview = !fullview"><a href=""><i class="fa fa-arrows-alt"></i> Sample FullView</a></li>-->
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card-body offsetrl" ng-if="!fullConfigView">
+                <div class="col-md-7">
+                    <div class="card-view bt2" style="height:283px;">
+                        <div class="heading border">
+                            <div class="title theme">
+                                Downlink & Uplink Speed
+                            </div>
+                        </div>
+                        <div class="body uplink">
+                            <div class="w50">
+                                <canvas id="bar" class="chart chart-bar" chart-data="dataRxTx.valueBarTx" chart-labels="dataRxTx.name" chart-series="dataRxTx.barTxSeries" chart-colours="barcolours" chart-options="baroptions">
+                                </canvas>
+                                <h5 class="tc">Downlink Speed</h5>
+                            </div>
+                            <div class="w50">
+                                <canvas id="bar" class="chart chart-bar" chart-data="dataRxTx.valueBarRx" chart-labels="dataRxTx.name" chart-series="dataRxTx.barRxSeries" chart-colours="barcolours" chart-options="baroptions">
+                                </canvas>
+                                <h5 class="tc">Uplink Speed</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-view bt2" style="height:700px;">
+                        <div class="heading border">
+                            <div class="title theme">
+                                Network Activity
+                            </div>
+                            <span class="fr cursor" ng-click="openConfig()"><i class="fa fa-arrows-alt"></i></span>
+                        </div>
+                        <div class="body card-progress">
+                            <configfloordash data="devices"></configfloordash>
+                        </div>
+                    </div>
+                    <div class="card-view bt2" style="height:137px;">
+                        <div class="heading border">
+                            <div class="title theme">
+                                Summary
+                            </div>
+                        </div>
+                        <div class="body">
+                            <ul class="card-body-ul">
+                                <li>
+                                    <label>
+                                        Qubercloud gateway wlan stats upload success
+                                    </label>
+                                    <label class="date">2016-09-24 11:29:42.562</label>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-view bt2" style="height:137px;">
+                        <div class="heading border">
+                            <div class="title theme">
+                                Alert
+                            </div>
+                        </div>
+                        <div class="body">
+                            <ul class="card-body-ul">
+                                <li>
+                                    <label>
+                                        Qubercloud gateway wlan stats upload success
+                                    </label>
+                                    <label class="date">2016-09-24 11:29:42.562</label>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="card-view bt2" style="height:283px;">
+                        <div class="heading border">
+                            <div class="title theme">
+                                Type Of Device & System Health
+                            </div>
+                        </div>
+                        <div class="body">
+                            <div class="tc w75">
+                                <canvas id="doughnut" class="chart chart-doughnut" chart-data="dataPeers.value" chart-labels="dataPeers.name" chart-legend="true" chart-colours="dougcolours"></canvas>
+
+                            </div>
+                            <div class="tc w25">
+                                <div class="card-progress">
+                                    <canvas class="chart" width="100" height="100" roundprogress data="value.data" label="value.label" color="value.color" linewidth="7" total="value.total"></canvas>
+                                </div>
+                                <div class="card-progress mt10">
+                                    <canvas class="chart" width="100" height="100" roundprogress data="value.data" label="health.label" color="health.color" linewidth="7" total="health.total"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="card-view bt2" style="height:345px;">
+                        <div class="heading border">
+                            <div class="title theme">
+                                Radio vs Traffic
+                            </div>
+                        </div>
+                        <div class="body">
+                        	<hchart data="RadioTraffic.value" labels="RadioTraffic.name"></hchart>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="card-view bt2" style="height:345px;">
+                        <div class="heading border">
+                            <div class="title theme">
+                                Venue Tx vs Rx
+                            </div>
+                        </div>
+                        <div class="body">
+                            <canvas id="line" class="chart chart-line" chart-data="dataRxTx.value" chart-labels="dataRxTx.name" chart-series="dataRxTx.series" chart-options="options" chart-colours="linedata.colours" chart-legend="true"></canvas>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="card-view bt2" style="height:283px;">
+                        <div class="heading border">
+                            <div class="title theme">
+                                Active VAP Chart
+                            </div>
+                        </div>
+                        <div class="body dougsame">
+                            <div class="tc w75">
+                            <canvas id="doughnut" class="chart chart-doughnut" chart-data="dataVaps.value" chart-labels="dataVaps.name" chart-legend="true" chart-colours="dougcolours"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body offsetrl" ng-if="fullConfigView">
+                <div class="card-view bt2" style="height:700px;">
+                        <div class="heading border">
+                            <div class="title theme">
+                                Network Activity
+                            </div>
+                            <span class="fr cursor" ng-click="openConfig()"><i class="fa fa-arrows-alt"></i></span>
+                        </div>
+                        <div class="body card-progress">
+                            <img src="asset/img/ground.png" />
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</section>

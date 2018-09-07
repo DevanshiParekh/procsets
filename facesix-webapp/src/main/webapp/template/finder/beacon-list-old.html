@@ -1,0 +1,144 @@
+{{#partial "page"}}
+
+        <div id="page-wrapper-content" style="margin-left: 3px;">
+            <div class="row row-centered">
+                <!-- <div class="col-lg-12 col-centered">
+                    <h5 class="page-header"> <button id="triggersan btn btn-def"> Scan Now </button></h5>
+                </div> -->
+                
+                <div class="container-fluid">
+		<h4 class="acc-sec-title"></h4>
+		<div class="col-md-12 venue-details">
+				<div class="view-details">
+					<ul>
+						<li class="displayBlockName" id="scanlistcss"><img
+							src="/facesix/static/qubercomm/images/q-scan-ble.png" alt=""
+							id="quberScan"></li>
+					</ul>
+					
+					<div>
+						<li class="scan"><label class="venue-name"
+							style="font-size: 40px; margin-top: -25px;">BLE Scan List</label></li>
+
+					</div>
+					
+					<div style="margin-bottom: 23px"></div>
+					
+					<div style="margin-bottom: -16px;" id="">
+						<button class="btn btn-primary btn-theme width-120 mobilehideS exp exportlistcss"
+							id="triggersan" type="button" style="margin-left:10px;">Scan now</button>
+					</div>
+
+				</div>
+		</div>
+
+		</div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Scanned Beacons <span id="message"> </span>
+                        </div>
+                        <!-- /.panel-heading -->
+							<div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>Macaddr</th>
+                                            <th>UID</th>
+                                            <th>Scanner UID </th>
+                                            <th>Minor</th>
+                                            <th>Major</th>
+                                            <th>Modified On</th>
+                                            <th>Actions</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {{#each scannedbeacons}}
+                                        <tr class="odd gradeX">
+                                            <td>{{macaddr}}</td>
+                                            <td>{{uid}}</td>
+                                            <td>{{scannerUid}}</td>
+                                            <td>{{minor}}</td>
+                                            <td>{{major}}</td>
+                                            <td>{{modifiedOn}}</td>
+                                            <td>
+                                            	<a href="/facesix/web/beacon/open/scanned?uid={{uid}}&macaddr={{macaddr}}" title="Checkout"><i class="fa fa-check-square-o"></i></a> 
+                                            	| <a href="/facesix/web/beacon/remove/scanned?id={{id}}&uid={{uid}}&macaddr={{macaddr}}" title="Remove" onclick="return confirm('Are you sure?')"><i class="fa fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                   {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Checked out beacons <span id="message"> </span>
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>Macaddr</th>
+                                            <th>UID</th>
+                                            <th>Scanner UID </th>
+                                            <th>Minor</th>
+                                            <th>Major</th>
+                                            <th>Assigned To </th>
+                                            <th>Modified On</th>
+                                            <th>Actions</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {{#each checkedoutbeacons}}
+                                        <tr class="odd gradeX">
+                                            <td>{{macaddr}}</td>
+                                            <td>{{uid}}</td>
+                                            <td>{{scannerUid}}</td>
+                                            <td>{{minor}}</td>
+                                            <td>{{major}}</td>
+                                           <td>{{assignedTo}}</td>
+                                            <td>{{modifiedOn}}</td>
+                                            <td>
+                                            	<a href="/facesix/web/beacon/checkin?id={{id}}&uid={{uid}}&cid={{cid}}" title="Checkin" onclick="return confirm('Are you sure?')"><i class="fa fa-times"></i></a>
+                                            </td>
+                                        </tr>
+                                   {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+          
+          </div>
+        <!-- /#page-wrapper -->
+        
+        
+{{/partial}}
+{{>finder/beacon-list-footerscript}}
+{{>qubercomm/nav-left}}
+{{>qubercomm/nav-top}}
+{{>qubercomm/wrapperfinder}}

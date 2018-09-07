@@ -1,0 +1,325 @@
+{{#partial "page"}}
+
+
+<div id="page-content-wrapper" class="acc-sec">
+	<div class="container-fluid">
+		<h4 class="acc-sec-title"></h4>		
+		<div class="col-md-12 venue-details" >
+			<div class="view-details" >
+				<ul>
+					<li class="displayBlockName">
+					<img src="/facesix/static/qubercomm/images/q-scan.png" alt="" id="quberScan" style="width:80px;margin-left:0px;margin-top:0px;">
+					</li>
+			   </ul>
+			<div>
+					<li class="scan">
+					    <label class="venue-name" style="position:absolute;font-size: 20px;margin-top: -40px;margin-left:75px;">Rogue List</label>
+					</li>
+					
+				</div>
+				<div style="margin-bottom: 23px">
+				<!-- 
+				
+				{{#if uid}}
+					<li class="ap">
+					<img src="/facesix/static/qubercomm/images/networkconfig/connected.png" alt="" style="margin-top: -10px;">
+					<span style="font-size: 20px;">AP<i class="fa fa-angle-right" aria-hidden="true"></i> AP-{{uid}}</span>
+					</li>
+					{{/if}}
+				 -->
+				</div>
+				<div  style="margin-bottom: -16px;padding-bottom:10px;">
+				<label style="margin-left:8px;margin-top:10px;">Scanner List</label>
+				<select class="form-control display-inline changeTime" id="time" name="time" style="width: 150px;margin-left: 45px;margin-top: -30px;">
+						<option value="auto">Auto</option>
+						<option value="15m">15 Minutes </option>
+						<option value="30m">30 Minutes </option>
+						<option value="60m">60 Minutes </option>
+						<option value="12h">12 Hours   </option>
+						<option value="24h">24 Hours   </option>
+					</select>
+					
+					<button class="btn btn-primary btn3d btn-config-venue mobilehideS exp pull-right addhide" id="pdfexport" type="button" style="margin-top:-3px;margin-left: 14px;">Export</button>
+				</div>
+				<button class="btn btn-primary btn3d btn-config-venue mobilehideS exp pull-left addhide" onclick="location.href='/facesix/web/site/portion/heatmap?uid={{uid}}&cid={{cid}}&mid=1'" id="" type="button" style="margin-top:-32px;margin-left:304px;"><i class="fa fa-map-marker" ></i> Heatmap</button>
+				<div>
+				
+					
+					
+				</div>
+				<div class="add-uid-form pull-right display-inline search-uuid ser addhide">
+				<div class="lth-right searchUID">
+					<div class="search-opt">
+						<form action="/facesix/scan" id="target">
+							<div class="form-group">
+								<div class="search-box">
+									<span class="icon" id="searchClick">
+										<i class="fa fa-search " aria-hidden="true"></i>
+									</span>
+									<input type="hidden" name="sid" value="{{sid}}">
+									<input type="hidden" name="cid" value="{{cid}}">
+									<input type="hidden" name="uid" value="{{uid}}">
+									<input type="search" name="clientmac" id="uid" class="form-control search-align" placeholder="" onkeyup="doInsert(this);" maxlength="17">
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+				
+      </div>
+      </div>
+      
+			
+			
+			
+		</div>
+		<br><br>
+		<div class="col-md-12 padding-device " style="padding:0px 38px;margin-top: 10px;">
+			<div class="chart-box acl-table-chart-box" style="margin-top: -40px;"></div>
+		</div>	
+	</div>
+
+ </div>
+
+
+</div>
+
+
+<div class="pad0 col-sm-3 col-md-3 sidebar LogsSection inactive" id="rightPanel" >
+			<div class="network-map-section logMapSection">		
+				<div class="network-top-section">
+					<div class="search-opt">
+						<form id="uidForm">
+							<div class="form-group">
+								<div class="serach-box">
+									<span class="icon">
+										<i class="glyphicon glyphicon-search"></i>
+									</span>
+									<input type="search" class="form-control search-align" placeholder="Search Devices..." oninput="javascript:triggerChange(event)">
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="network-heading display-inline hide">
+						
+					</div>
+					<div class="filter-opt display-inline pull-right">
+						<ul class="list-unstyled filter-opt-style">
+							<li class="search-mob-hide hide">
+								<img src="/facesix/static/qubercomm/images/networkconfig/search.png" class="search-icon" alt="">
+								Search
+							</li>
+							<li class="dropdown filter-dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+									<img src="/facesix/static/qubercomm/images/networkconfig/filter.png" alt="">
+									Filter
+									<span class="caret"></span></a>
+									<ul class="dropdown-menu filter-style">
+										<li><a href="#">Server</a></li>
+										<li><a href="#">Switch</a></li>
+										<li><a href="#">Ap</a></li>
+										<li><a href="#">Sensor</a></li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="device-section">
+						<span>3 Devices</span>
+						<ul class="list-unstyled">
+					<li>
+						<a href="" class="dshbrdLink">
+							<i class="fa fa-bar-chart" style="color:lightgray"></i>
+						</a>
+					</li>
+							<li>
+								<a href="" class="binaryLink">
+								 <i class="fa fa-shield" style="color:lightgray"></i>			
+								</a>
+							</li>
+							<li>
+								<a href="" class="scanLink">
+								  <i class="fa fa-spinner fa-pulse " style="color:lightgray"></i>
+								 <span class="sr-only"></span>				
+								</a>
+                                           				
+							</li>
+					<li class="addhide">
+						<a href="/facesix/web/site/portion/nwcfg?sid={{sid}}&spid={{spid}}&uid=?">
+							<img src="/facesix/static/qubercomm/images/networkconfig/setting.png" alt="">
+						</a>
+					</li>
+					
+					<li class="powerBtn" action="reset" btn-type="reset" devtype="Switch" uid="{{uid}}">
+						<a href="">
+							<!-- <img src="/facesix/static/qubercomm/images/networkconfig/refresh.png" alt=""> -->
+							<i class="fa fa-undo fa_style"></i>
+						</a>
+					</li>
+
+					<li class="powerBtn" action="reboot" btn-type="reboot" devtype="Switch" uid="{{uid}}">
+						<a href="">
+							<!-- <img src="/facesix/static/qubercomm/images/networkconfig/off.png" alt=""> -->
+							<i class="fa fa-power-off fa_style"></i>
+						</a>
+					</li>
+				</ul>
+					</div>
+					<div class="device-notification">
+						<ul class="list-unstyled" id="network-tree"></ul>
+					</div>
+				</div>				
+	
+
+					
+		</div>
+			
+				
+	<!-- Block STA Right click popup -->
+	<ul class='custom-menu-acl'>
+		<li class="handle acl">
+			<span><img src="/facesix/static/qubercomm/images/venue/block.png"></span>
+			<label>Blacklist</label>
+		</li>
+	</ul>
+	
+<div class="rebootPopup aclSavearea" style="position: fixed; display: none;margin-left: -70px;">
+<div class="aclSavearea_bottom">
+			<div class="left-section">
+				<label>Are you sure you want to reset the device?</label>
+			</div>
+			<div class="rightsection">
+				<ul class="list-unstyled">
+					<li id="cancelDelete">
+						<label>
+							
+						</label>
+						<span>
+							Cancel
+						</span>
+					</li>
+					<li id="deleteItem" action="reset" uid="{{uid}}">
+						<label>
+						</label>
+						<span class="color2">
+							OK
+						</span>
+					</li>
+				</ul>
+			</div>
+			</div>
+		</div>
+		
+
+
+	<img src="/facesix/static/qubercomm/images/networkicons/server_inactive.png" height="30" id="serverOffline" width="30" style="display:none">
+	<img src="/facesix/static/qubercomm/images/networkicons/switch_inactive.png" height="30" id="switchOffline" width="30" style="display:none">
+	<img src="/facesix/static/qubercomm/images/networkicons/ap_inactive.png" height="30" id="apOffline" width="30" style="display:none">
+	<img src="/facesix/static/qubercomm/images/networkicons/sensor_inactive.png" height="30" id="sensorOffline" width="30" style="display:none">
+		
+		
+		
+<!-- js -->
+<script src="/facesix/static/qubercomm/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/jquery_validate_min_js.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/form-validations.js" type="text/javascript"></script>
+<script src="https://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.nicescroll.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.mobile-events.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/common.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/handlebars.min.js"></script>
+<script src="/facesix/static/qubercomm/js/scan.js" type="text/javascript"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/script.js"></script>
+
+<script type="text/javascript" src="/facesix/static/qubercomm/js/snap.svg-min.js"></script>
+<script src="/facesix/static/qubercomm/js/jqpanzoom.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/d3.v3.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/underscore-min.js"></script>
+
+
+<script src="/facesix/static/qubercomm/js/networkcon.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/networkconfig.js" type="text/javascript"></script>
+
+
+<script id="chartbox-acl-template" type="text/x-handlebars-template">
+	
+	<div class="device-coon-desc">
+		<i class="fa fa-mixcloud" aria-hidden="true"></i>
+		<label>Scanned Devices</label>
+		<span class="table-page" data-table-name="dashboard-table"><i class="fa fa-refresh acl-refreshTable" aria-hidden="true"></i>\{{#if show_previous_button}}<i class="fa fa-caret-left acl-tablePreviousPage"></i>\{{/if}}&nbsp;\{{#if show_next_button}}<i class="fa fa-caret-right acl-tableNextPage"></i>\{{/if}}</span>
+		<select class="tablelength" id="tablelength" data-target="#dashboard-table">
+			<option value="5">5</option>
+			<option value="10" selected>10</option>
+			<option value="25">25</option>
+			<option value="50">50</option>
+			<option value="100">100</option>
+		</select>			
+	</div>
+
+	<div class="tableSection">
+		<table class="table dashboard-table" id="dashboard-table" data-current-page="\{{current_page}}" data-row-limit="10">
+			<thead>
+				<tr class="sel_tbl1">
+					<th onclick="sort_table('spotid', 0, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(0)" class="width-40"># <i class="fa fa-arrow-up"></i></th>
+					<!--<th>OS <i class="fa fa-arrow-up"></i></th>-->
+					<th onclick="sort_table('spotid', 1, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(1)">Client <i class="fa fa-arrow-up"></i></th>
+				    <th onclick="sort_table('spotid', 2, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(2)">Channel <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 3, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(3)">Signal <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 4, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(4)">TimeStamp <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 5, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(5)">Occurance <i class="fa fa-arrow-up"></i></th>
+					<!--<th>Vendor <i class="fa fa-arrow-up"></i></th>-->
+		
+				</tr>
+			</thead>
+			<tbody id="spotid">
+				\{{#each data}}
+				<tr class="tr_aclrow" id="aclrow" macid="\{{mac_address}}" ap="\{{ap}}" uid="{{uid}}" cid="{{cid}}" >
+					<td style="color: black;">\{{index}}</td>
+					<!--<td><img src="/facesix/static/qubercomm/images/\{{client_type}}.png"/> </td>-->
+					<td style="cursor:pointer;text-transform: uppercase;" onclick="get_macaddr('\{{mac_address}}')">
+					<a class="LN1 LN2 LN3 LN4 LN5">
+					\{{mac_address}}  
+					</a>
+					</td>
+					<td style="color: black;">\{{channel}}</td>
+					<td style="color: black;">\{{signal}}</td>
+					<td style="color: black;">\{{timestamp}}</td>
+					<td style="color: black;">\{{count}}</td>
+					<!--<td>\{{vendor}}</td>-->
+				</tr>
+				\{{/each}}
+			</tbody>
+
+		</table>
+	</div>	
+	
+</script>
+<<script type="text/javascript">
+function get_macaddr(mac){
+	var macaddr = mac.substr(0,17);
+	location.href='/facesix/web/acl/profile?sid={{sid}}&spid={{spid}}&cid={{cid}}&client_mac='+macaddr
+}
+</script>
+<style>
+.search-uuid{
+    width: 25%;
+    text-align: right;
+    margin-top: -25px;
+    margin-right: 121px;
+}
+.selected{ 
+background-color: rgba(211,211,211,.7);
+color: black;
+}
+table{
+cursor: default;
+}
+</style>
+{{/partial}}
+
+{{>qubercomm/nav-top}}
+{{>qubercomm/nav-left}}
+{{>qubercomm/wrapper}}

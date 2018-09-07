@@ -1,0 +1,304 @@
+{{#partial "page"}}
+<style>
+	.confink { position:absolute; color:#fff; font-size:11px; display:none;}
+	#mapconf{top:180px; left:10px;}
+	#devconf{top:180px; right:30px;}
+	.confink:hover{color:#fff;}
+	.floorListItem:hover .confink{ display:block;}
+	@media screen and (max-width: 768px){
+	.marg-top{
+	margin-top: 20px;
+	}
+	.FloorPlan-Container{
+	margin-top: 70px;	
+	}
+	}
+</style>
+<div id="page-content-wrapper">
+				<div class="container-fluid">
+					<div class="overview-heading">
+						<div class="FloorListTab floorlistSection marg-top">
+							<div class="NoOfPlan network-heading display-inline">
+						<label><span title="{{sitename}}"><div id="sname"></div></span></label>
+						<label style="margin-left: -28px;"><i class="fa fa-angle-right" aria-hidden="true"></i></label>	
+								<label style="margin-left: -36px;">{{numOfFloors}} Floor Plans</label>
+								{{#if SITE_WRITE}}
+								<a href="/facesix/web/site/portion/new?sid={{sid}}&cid={{cid}}" class="btn btn-primary btn3d btn-config-venue " style="margin-top:5px!important;">Add Floorplan</a>
+								{{/if}}
+							</div>
+							<div class="OverviewSort display-inline pull-right">
+								<ul class="list-unstyled">
+									<li>
+										<div class="search-opt">
+											<!-- <form> -->
+												<div class="form-group">
+													<div class="search-box floor-search">
+														<span class="icon">
+															<i class="fa fa-search " aria-hidden="true"></i>
+														</span>
+														<input type="search" class="form-control search-align floor-list-search">
+													</div>
+												</div>
+											<!-- </form> -->
+										</div>
+									</li>
+									<li class="sortView">
+									<a href="/facesix/web/site/portion/sort?sid={{sid}}&cid={{cid}}">
+										<img src="/facesix/static/qubercomm/images/floorlist/sort.png" class="width-18">
+									</a>
+									</li>
+									<li class="listView">
+										<img src="/facesix/static/qubercomm/images/floorlist/view.png" class="width-18">
+									</li>
+									<li class="gridView hide">
+										<img src="/facesix/static/qubercomm/images/floorlist/grid.png" class="width-18">
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				    <div id="floorList">
+					<div class="FloorPlan-Container" id="grid_view">
+					
+						{{#each fsobjects}}
+					
+						<div class="col-md-4 floorListItem" data-floor-name="{{uid}}">
+							<div class="FloorPlan-section text-center">
+								<div class="floor-overlay"></div>
+								<div class="FloorPlan-img">
+									<img src="/facesix/web/site/portion/planfile?sid={{sid}}&spid={{id}}&cid={{cid}}" >
+								</div>
+								<div class="floor-head">
+									<span class="select-floor select-floor-grid-view" data-sid="{{id}}"" data-id="{{sid}}"">
+										<i class="fa fa-check"></i>
+									</span>
+									<span class="floor-action">
+										<img src="/facesix/static/qubercomm/images/floorlist/dot2.png" alt="" class="animated fadeInDown">
+									</span>
+									{{#if GeoFinder}}
+									<a class="confink" id="mapconf" href="/facesix/web/site/portion/find?sid={{sid}}&spid={{id}}&cid={{cid}}"><li class="addhide"><i class="fa fa-location-arrow fa-1x"></i> Geo Configure</a></li>
+									{{else}}
+									{{#if GatewayFinder}}
+										<a class="confink" id="mapconf" href="/facesix/web/site/portion/find?sid={{sid}}&spid={{id}}&cid={{cid}}"><li class="addhide"><i class="fa fa-location-arrow fa-1x"></i> Geo Configure</a></li>
+								
+									{{/if}}
+									{{/if}}
+									<a class="confink" id="devconf" href="/facesix/web/site/portion/nwcfg?sid={{sid}}&spid={{id}}&cid={{cid}}&uid=?"><li class="addhide"><i class="fa fa-cog fa-1x"></i> Network Configure</a></li>
+									<ul class="fh-options hide animated ">
+										<li>
+										{{#if SITE_WRITE}}
+											<a href="/facesix/web/site/portion/open?sid={{sid}}&spid={{id}}&cid={{cid}}"><img src="/facesix/static/qubercomm/images/floorlist/edit.png" alt=""></a>
+											{{/if}}
+										</li>									
+										<li class="addhide">
+											<a href="/facesix/web/site/portion/nwcfg?sid={{sid}}&spid={{id}}&cid={{cid}}&uid=?"><img src="/facesix/static/qubercomm/images/floorlist/config2.png" alt=""></a>
+										</li>
+									
+										{{#if GeoFinder}}
+										<li class="addhide">
+											<a href="/facesix/web/site/portion/find?sid={{sid}}&spid={{id}}&cid={{cid}}"><img src="/facesix/static/qubercomm/images/floorlist/share2.png" alt=""></a>
+										</li>
+										{{else}}
+										{{#if GatewayFinder}}
+										<li class="addhide">
+											<a href="/facesix/web/site/portion/find?sid={{sid}}&spid={{id}}&cid={{cid}}"><img src="/facesix/static/qubercomm/images/floorlist/share2.png" alt=""></a>
+										</li>
+									
+										{{/if}}
+										{{/if}}
+										{{#if Gateway}}										
+										<li class="addhide">
+											<a href="/facesix/web/site/portion/map?sid={{sid}}&spid={{id}}&cid={{cid}}"><img src="/facesix/static/qubercomm/images/floorlist/network.png" alt=""></a>
+										</li>
+										{{else}}
+										{{#if GatewayFinder}}
+										<li class="addhide">
+											<a href="/facesix/web/site/portion/map?sid={{sid}}&spid={{id}}&cid={{cid}}"><img src="/facesix/static/qubercomm/images/floorlist/network.png" alt=""></a>
+										</li>
+										{{/if}}
+										{{/if}}
+										<li>
+										{{#if SITE_WRITE}}
+											<a class="submitDelete submit1" href="/facesix/web/site/portion/delete?sid={{sid}}&spid={{id}}&cid={{cid}}"><img src="/facesix/static/qubercomm/images/floorlist/delete2.png" data-orig="/facesix/static/qubercomm/images/floorlist/delete2.png" alt=""></a>
+											{{/if}}
+										</li>
+									</ul>
+									<!-- <div class="floor-action-right animated fadeInDown addhide" id="bottom">
+										
+									</div> -->
+								</div>
+								{{#if Heatmap}}
+								<div class="floor-view animated fadeInDown">
+									<a href="/facesix/web/site/portion/fullheatmap?sid={{sid}}&spid={{id}}&cid={{cid}}&param=0">View</a>
+								</div>
+								{{else}}
+								<div class="floor-view animated fadeInDown">
+									<a href="/facesix/web/site/portion/dashboard?sid={{sid}}&spid={{id}}&cid={{cid}}&param=0">View</a>
+								</div>
+								{{/if}}
+								
+								<div class="floor-caption">
+									{{uid}}									
+								</div>
+							</div>
+						</div>
+						{{/each}}
+						
+						<div class="col-md-4">
+						{{#if SITE_WRITE}}
+							<div class="FloorPlan-section text-center">
+								<!-- <div class="floor-overlay"></div> -->
+								
+								<div class="FloorPlan-img add-floor">
+								
+									<a href="/facesix/web/site/portion/new?sid={{sid}}&cid={{cid}}"><img src="/facesix/static/qubercomm/images/floorlist/add.png" ></a>
+									
+									<label><a href="/facesix/web/site/portion/new?sid={{sid}}&cid={{cid}}">Add New</a></label>
+									{{/if}}
+								</div>
+								<!-- <div class="floor-view animated fadeInDown">
+									Add
+								</div>
+								<div class="floor-caption">
+									Add Floor
+								</div> -->
+							</div>
+						</div>
+					</div>
+
+					<div class="floor-list hide" id="list_view">
+						<ul>
+						{{#each fsobjects}}
+							<li class="list_item floorListItem" data-floor-name="{{uid}}">
+								<div class="col-md-1 text-center padding-left-0">
+									<span class="select-floor select-floor-list-view" data-sid="{{id}}"" data-id="{{sid}}"">
+										<i class="fa fa-check"></i>
+									</span>
+								</div>
+								<div class="col-md-11 pad0">
+									<div class="floor-content">
+										<span class="floor-thumb">
+											<img src="/facesix/web/site/portion/planfile?sid={{sid}}&spid={{id}}&cid={{cid}}">
+										</span>
+										<span class="floor-name">
+											{{uid}}
+										</span>
+										{{#if Heatmap}}
+										<div class="listViewLink hide animated fadeInDown">
+											<a href="/facesix/web/site/portion/fullheatmap?sid={{sid}}&spid={{id}}&cid={{cid}}&param=0">View</a>
+										</div>
+								        {{else}}
+								        <div class="listViewLink hide animated fadeInDown">
+											<a href="/facesix/web/site/portion/dashboard?sid={{sid}}&spid={{id}}&cid={{cid}}&param=0">View</a>
+										</div>
+								        {{/if}}
+										<span class="floor-tools">
+											<a href="" class="floor-dot"><!-- <i class="fa fa-ellipsis-h"></i> -->
+												<img src="/facesix/static/qubercomm/images/floorlist/dot.png" alt="">
+											</a>
+											<ul class="floor-options">
+												<li>
+												{{#if SITE_WRITE}}
+													<a href="/facesix/web/site/portion/open?sid={{sid}}&spid={{id}}&cid={{cid}}"><img src="/facesix/static/qubercomm/images/floorlist/edit-dark.png" alt=""></a>
+													{{/if}}
+												</li>										
+											
+												<li>
+													<a href="/facesix/web/site/portion/nwcfg?sid={{sid}}&spid={{id}}&cid={{cid}}&uid=?"><img src="/facesix/static/qubercomm/images/floorlist/config.png" alt=""></a>
+												</li>
+												{{#if GeoFinder}}
+												<li>
+													<a href="/facesix/web/site/portion/find?sid={{sid}}&spid={{id}}&cid={{cid}}"><img src="/facesix/static/qubercomm/images/floorlist/share.png" alt=""></a>
+												</li>
+												{{else}}
+												{{#if GatewayFinder}}
+												<li>
+													<a href="/facesix/web/site/portion/find?sid={{sid}}&spid={{id}}&cid={{cid}}"><img src="/facesix/static/qubercomm/images/floorlist/share.png" alt=""></a>
+												</li>
+												{{/if}}
+												{{/if}}
+												{{#if Gateway}}
+												<li>
+													<a href="/facesix/web/site/portion/map?sid={{sid}}&spid={{id}}&cid={{cid}}"><img src="/facesix/static/qubercomm/images/floorlist/network-dark.png" alt=""></a>
+												</li>
+												{{else}}
+												{{#if GatewayFinder}}
+												<li>
+													<a href="/facesix/web/site/portion/map?sid={{sid}}&spid={{id}}&cid={{cid}}"><img src="/facesix/static/qubercomm/images/floorlist/network-dark.png" alt=""></a>
+												</li>
+												{{/if}}
+												{{/if}}
+
+												<li>
+												{{#if SITE_WRITE}}
+													<a href="/facesix/web/site/portion/delete?sid={{sid}}&spid={{id}}&cid={{cid}}" class="submitDelete submit1"><img src="/facesix/static/qubercomm/images/floorlist/delete.png" data-orig="/facesix/static/qubercomm/images/floorlist/delete.png" alt=""></a>
+													{{/if}}
+												</li>
+											</ul>
+										</span>
+									</div>
+								</div>
+							</li>
+							{{/each}}
+							<li>
+								<div class="col-md-offset-1 col-md-11 pad0">
+									<div class="floor-content add-floor-list">
+										<span class="floor-name">
+											<img src="/facesix/static/qubercomm/images/floorlist/add.png" >
+											<label><a href="/facesix/web/site/portion/new?sid={{sid}}&cid={{cid}}">Add New</a></label>
+										</span>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+					</div>
+					<div class="fl-toast">
+						<span class="floor-count">
+							<span class="select-floor floorGridView">
+								<i class="fa fa-check"></i>
+							</span>
+							<span class="toast-count">
+								<span class="count-number">0</span> Item Selected
+							</span>
+						</span>
+						<span class="toast-tools">
+							<ul class="toast-options">
+								<li>
+									<button class="copyIcon">
+									<a href="/facesix/web/site/portion/logview?cid={{cid}}&sid={{sid}}&spid={{spid}}">
+									<i class="fa fa-history fa-lg" aria-hidden="true" style="color:black"></i>
+									</a>
+									</button>
+								</li>
+								<li>
+								{{#if SITE_WRITE}}
+									<button class="deleteIcon submit1"><img src="/facesix/static/qubercomm/images/floorlist/delete.png" data-orig="/facesix/static/qubercomm/images/floorlist/delete.png" alt="" style="margin-bottom: 2px;"></button>
+									{{/if}}
+								</li>								
+							</ul>
+						</span>
+						<span class="toast-notes">
+							Select Floor plan options! 
+						</span>
+					</div>
+				</div>
+			</div>
+
+<script>
+	var str = 'Venue -' + '{{sitename}}';
+	console.log(str);
+	if (str.length > 32) {   
+		str = str.substr(0, 32)
+		str += "...";
+	}
+	document.getElementById("sname").innerHTML = str;
+	console.log(str);
+</script>
+	
+
+{{/partial}}
+{{>qubercomm/nav-top}}
+{{>qubercomm/nav-left}}
+{{>qubercomm/floor-list-addon}}
+{{>qubercomm/wrapper}}

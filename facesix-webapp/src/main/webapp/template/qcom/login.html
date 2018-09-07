@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+   
+    {{#if customer.customerName}}
+    	<title>{{customer.customerName}}</title>
+    {{else}}
+   		<title>Qubercomm | Compute Connect Cloud</title>
+    {{/if}}
+    {{#if customer.logofile}}
+      <link rel="shortcut icon" href="/facesix/static/qubercomm/images/favicon_blank.png?v=2">
+    {{else}}
+  	  <link rel="shortcut icon" href="/facesix/static/qubercomm/images/fav.png"> 
+    {{/if}}
+              
+    
+    <link href="/facesix/static/qcom/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="/facesix/static/qubercomm/css/font-awesome.css" rel="stylesheet"> 
+  <link rel="stylesheet" href="/facesix/static/qcom/bootstrap/css/flexslider.css" type="text/css" media="screen" />
+  
+  <style>
+  ul.social {list-style:none;}
+ul.social li { padding: 0; margin:7px 0px;}
+ul.social li a {display:inline-block; margin:0 auto; -moz-border-radius:50%; -webkit-border-radius:50%; border-radius:50%; text-align:center; width: 50px; height: 50px; font-size:20px; position:relative; background-color: #D3D3D3;}
+ul.social li a i {color:#fff; text-align: center; margin:0; line-height:50px; -webkit-transition: all 0.8s; -moz-transition: all 0.8s; -o-transition: all 0.8s; -ms-transition: all 0.8s; transition: all 0.8s;}
+ul.social li a:hover i { -moz-transform: rotate(360deg); -webkit-transform: rotate(360deg); -ms--transform: rotate(360deg);	transform: rotate(360deg);
+                         -webkit-transition: all 0.2s; -moz-transition: all 0.2s; -o-transition: all 0.2s; -ms-transition: all 0.2s; transition: all 0.2s;}
+
+.social li a.rss:hover {background-color: #F56505;}
+.social li a.face:hover {background-color:#3B5998;}
+.social li a.twit:hover {background-color:#33ccff;}
+.social li a.google:hover {background-color:#BD3518;}
+.social li a.linkedin:hover {background-color:#007bb7;}
+
+.text-muted {
+    color: #fff;
+    margin-top: -31px;
+    margin-left: -20px;
+    }
+ .con-top {
+    margin-bottom: 5%;
+}   
+.cont
+{
+background-color:transparent;border:2px solid whitesmoke;border-radius:20px;padding:10px;box-shadow:2px 3px 20px black;
+color:black;
+}
+
+.cont:hover
+{
+background-color:#0083a3;
+color:white;
+}
+
+
+.quotes
+{
+font-size:20px;
+}
+
+.login-form {
+   width: 450px;  
+    position: relative;
+	padding-top:10px;
+	padding-left:20px;
+	padding-right:20px;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0px auto;
+}
+.login-wrp{
+	padding: 30px 0;
+    min-height: 100vh;
+    display: table;
+    width: 100%;
+    position: relative;
+        z-index: 9999999;
+}
+  .login-wrp > div{
+  display: table-cell;
+    vertical-align: middle;
+  }
+.img-text div {
+    float: left;
+    padding: 5px 18px;
+}
+
+.sign {
+    border:transparent!important;
+    border-radius: 18px;
+} 
+  
+  ul.social li a {
+    display: inline-block;
+    margin: 0 auto;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    position: relative;
+    background-color: #D3D3D3;
+    border: 3px solid white!important;
+	box-shadow:2px 3px 20px black;
+}
+  #Content{ 
+    position: absolute;
+    top: 0;
+    z-index: -1;
+    height: 100vh;
+}
+#Content1{
+ position: absolute;
+    top: 0;
+    z-index: -1; 
+}
+.blw-text{
+position: fixed;
+    z-index: 99999999;
+}
+ .img-text{
+ z-index: 99999999;
+ }
+  
+
+  
+  
+@media screen and (max-width: 755px) {
+	.addhide{
+		display: none !important;
+	}
+	
+	#blinker
+	{
+	margin-top: 0px!important;
+	}
+	
+	
+	.login-form {
+   max-width: 300px;   
+   margin: 0 auto !important;
+   padding: 15px !important;
+   }
+	.text-muted{
+		text-align: center;
+		margin-left: 0px;
+	}
+  
+	 
+	body:before
+	{
+	background-image:url(/facesix/static/qcom/img/QLoginPage3.jpg);
+	background-repeat: no-repeat;
+	background-position: left center;
+	background-size: cover;
+	content: "";
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	}
+
+	.sign
+	{
+	 
+	}
+	
+#contact_banner .navbar-header, #contact_banner .home-logo
+{
+padding:20px!important;
+background-color:red!important;
+}
+	
+	.blw-text{
+		display: none;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.img-text{
+		width: 100%; 
+   	 text-align: center;
+   	 top: 0;
+	}
+	ul.social{
+		display: inline-block;
+		    padding-top: 0 !important;
+		    margin: 0;
+	}
+	.img-text div{
+		float: none;
+	}
+	ul.social li{
+		display: inline-block;
+	}	
+	ul.social li a{
+	    width: 30px;
+    	height: 30px;
+    	font-size: 16px;
+	}
+	ul.social li a i{
+		line-height: 16px;
+	}
+	.login-wrp{
+		padding-top: 60px;
+	}
+	.cont{
+	    padding: 6px 20px;
+	}
+}
+  </style>
+  
+  
+</head> 
+  
+ <body class="login-screen" ng-controller="loginCtrl" style="background-image: url({{#if customer}}/facesix/preferredBackgroundUrl?id={{customer.id}} {{/if}}); background-size: cover; background-position: center center; background-repeat: no-repeat;" >
+   
+	<div class="login-wrp">
+		<div class="">
+			<form role="form" id="loginForm" action="/facesix/qubercloud/welcome" method="post">
+ 
+         
+          <div class="login-form" style="padding:20px;background-color:rgba(225,225,225,0.4);border-radius:10px;box-shadow:3px 4px 27px black; ">
+          <div class="logo" style="background-color:white;padding: 10px;border-radius:10px;margin-bottom:10px;box-shadow:2px 3px 20px black">
+              {{#if customer.logofile}}
+              	<img src="/facesix/preferredLogoUrl?id={{customer.id}}" class="img-responsive">
+              {{else}}
+              	<img src="/facesix/static/qcom/img/logo-home.png" class="img-responsive">
+              {{/if}}
+          	
+          
+          </div>
+            <form>
+            
+             {{#if messages}}
+					<center><h4 class="text-center" id="blinker" style=" position: relative;top:0;bottom: 0;left: 0;right: 0;margin: auto;margin-top:0px;"><font color="red">{{messages}}</font></h4></center>
+			 {{/if}}
+			
+              <div class="form-group">
+                <label for="exampleInputEmail1" style="color:white;font-size:18px;text-shadow:0px 3px 10px black;">Email Address</label>
+                <input type="text" class="form-control" style="box-shadow:2px 3px 20px black" placeholder="Username" name="u" required autofocus/>
+              </div>
+              <input type="hidden" name="url" id="name" value="{{customer.preferedUrlName}}" > 
+              <input type="hidden" name="customizedLogin" id="name" value="{{#if customizedLogin}}{{customizedLogin}}{{/if}}" > 
+              <input type="hidden" name="verifiedUrl" id="name" value="{{#if verifiedUrl}}{{verifiedUrl}}{{/if}}" >
+              
+              <div class="form-group">
+                <label for="exampleInputPassword1" style="color:white;font-size:18px;text-shadow:0px 3px 4px black;">Password</label>
+                <input type="password" class="form-control"  style="box-shadow:2px 3px 20px black" placeholder="Password" name="p" required/>
+              </div>
+
+              <button type="submit" class="btn btn-primary col-xs-12" style="font-size:15px;">Login to Account</button>
+               <p style="color:white;font-size:15px;">Forgot Password <a href="/facesix/forgot{{#if customer.preferedUrlName}}/{{customer.preferedUrlName}}{{/if}}" style="color:powderblue;">Click to Reset</a></p>
+             </form>
+		</div>
+	</div>
+	</div> 
+   <div class="img-text">
+
+           <div class="sign"><a href="/facesix/contact{{#if customer.preferedUrlName}}/{{customer.preferedUrlName}}{{/if}}" class="cont" style="">Contact Us</a> 
+       
+           <ul class="social" style="padding-left:20px!important;padding-top:10px;">
+           	  
+           	    {{#if customer}}
+	           	   	{{#if customer.facebook}}
+	           	   		<li><a href="{{customer.facebook}}" target="_blank" class="face" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+	           	   	{{else}}
+	           	   		<li><a href="javascript:void(0)" target="_blank" class="face" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+	           	   	{{/if}}
+	           	   	
+	           	   	{{#if customer.twitter}}
+	           	   		<li><a href="{{customer.twitter}}" class="twit" title="Twitter" target="_blank"><i class="fa fa-twitter"></i></a></li>
+	           	   	{{else}}
+	           	   		<li><a href="javascript:void(0)" class="twit" title="Twitter" target="_blank"><i class="fa fa-twitter"></i></a></li>
+	           	   	{{/if}}
+	           	   	
+	           	   	{{#if customer.linkedin}}
+	           	   		<li><a href="{{customer.linkedin}}" target="_blank" class="linkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+	           	   	{{else}}
+	           	   		<li><a href="javascript:void(0)" target="_blank" class="linkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+	           	   	{{/if}}  
+           	   	{{else}}
+           	   		<li><a href="https://www.facebook.com/qubercomm/" target="_blank" class="face" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+           	   		<li><a href="#" class="twit" title="Twitter" target="_blank"><i class="fa fa-twitter"></i></a></li>
+           	   		<li><a href="https://in.linkedin.com/company/qubercomm-technologies-inc." target="_blank" class="linkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+           	   	{{/if}}
+           	   	
+            </ul>
+            </div>
+          
+         </div>
+       
+   
+      
+           <div class="col-md-12">
+      		<div class="col-md-6"  id="push">
+      		<p  class="text-muted addhide hidden-sm hidden-md">Copyright © 2018 Qubercomm.com All rights reserved.</p>
+      		</div>
+      		<div class="col-md-6">
+           <div class="blw-text">
+  
+           <div class="play" style="padding:20px;">
+            
+        		{{#if customer.customerName}}
+        			<a href="{{#if customer.discover_link}}{{customer.discover_link}}{{else}}javascript:void(0){{/if}}" target="_blank"><img src="/facesix/static/qcom/img/play.png"></a><span>Discover {{customer.customerName}}</span>
+        		{{else}}
+          			<a href="http://www.qubercomm.com/" target="_blank"><img src="/facesix/static/qcom/img/play.png"></a><span>Discover Qubercomm</span>
+          		{{/if}}
+          	
+          	</div>
+         </div>
+         </div>
+         </div>
+           </div>
+
+        <div id="Content"  style="width:100%!important;margin-top:0px!important;">
+        {{#if customer}}
+        	
+        {{else}}
+        	<div class="flexslider">  
+			<!--<img src="img/QLoginPage4.jpg"  style="height:100%; width:100%; position:relative;"> -->
+				 <ul class="slides addhide">
+					<li><img src="/facesix/static/qcom/img/QLoginPage1.jpg" alt=""></li>
+					<li><img src="/facesix/static/qcom/img/QLoginPage2.jpg" alt=""></li>
+					<li><img src="/facesix/static/qcom/img/QLoginPage3.jpg" alt=""></li>
+					<li><img src="/facesix/static/qcom/img/QLoginPage4.jpg" alt=""></li>
+					
+				    </ul>
+		          <div>
+			</div>
+        {{/if}}
+
+        
+         
+         <div class="blr-text addhide con-top">
+         <h1 style="font-size:30px;">Connectivity of Things</h1></br>
+          <p>Our products lets you optimize your industrial <br>opertationsfrom where you are sitting.<br>Know exactly which processes are pullingyou down and<br> those that are keeping you up.</p>
+         </div>
+         
+        </div>
+        </div>
+       
+        <script src="/facesix/static/qubercomm/js/jquery-2.1.4.min.js"></script>
+    
+    <script src="/facesix/static/qcom/bootstrap/js/bootstrap.min.js"></script>
+  	<script defer src="/facesix/static/qcom/bootstrap/js/jquery.flexslider.js"></script>
+
+  <script type="text/javascript">
+    $(function(){
+      SyntaxHighlighter.all();
+    }); 
+    $(window).resize(function(){
+ 	   var height = $('.login-wrp').innerHeight(); 
+		$('.flexslider').css('min-height',height+'px');
+    });
+    $(window).load(function(){
+    	 var height = $('.login-wrp').innerHeight(); 
+		$('.flexslider').css('min-height',height+'px');
+      $('.flexslider').flexslider({
+        animation: "slide",
+	slideshow: true,
+	controlNav:false,
+	customDirectionNav:false,
+	directionNav:false,
+	slideshowSpeed:3000,
+        start: function(slider){
+          $('body').removeClass('loading');
+        }
+      });
+    });
+  </script>
+    <script>
+    
+		var blink_speed = 500;
+		var t = setInterval(function () {
+	    var ele = document.getElementById('blinker');
+	    if( ele && ele !== "null" && ele !== "undefined" ){
+	    	ele.style.visibility = (ele.style.visibility == 'hidden' ? '' : 'hidden');
+	    }
+	}, blink_speed);
+	
+	</script>
+	<style>
+	@-moz-document url-prefix() { 
+  	#push {
+     margin-top:24%;
+  }
+}
+	</style>
+</body>
+</html>

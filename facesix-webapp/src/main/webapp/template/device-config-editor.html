@@ -1,0 +1,106 @@
+{{#partial "jsoneditor"}}
+<script>
+	// Set the default CSS theme and icon library globally
+	JSONEditor.defaults.theme = 'bootstrap3';
+	JSONEditor.defaults.iconlib = 'fontawesome4';
+</script>
+	<!-- /.row -->
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-lg-12">
+							<!--  strat config editor -->
+							<div class='row'>
+								<div id='editor_holder' class='medium-12 columns'></div>
+							</div>
+							<!--  end config editor -->
+						</div>
+					</div>
+					<!-- /.col-lg-6 (nested) -->
+				</div>
+				<!-- /.row (nested) -->
+			</div>
+			<!-- /.panel-body -->
+		</div>
+		<!-- /.panel -->
+	</div>
+	<!-- /.col-lg-12 -->
+<!-- /.row -->
+
+<script>
+	// This is the starting value for the editor
+	// We will use this to seed the initial editor 
+	// and to provide a "Restore to Default" button.
+	console.log("0: we enter");
+	var dconfigField = document.getElementById('dconfig');
+	var dconfig = dconfigField.value;
+	dconfig = dconfig.trim();
+	console.log("1:" + dconfig);
+	if (dconfig && dconfig != null && dconfig != "") {
+		console.log("2:" + dconfig);
+
+		dconfig = JSON.parse(dconfig);
+	} else {
+		dconfig = {
+	    			radio2g : [{}],	
+					interfaces2g : [{}],
+					radio5g : [{}],	
+					interfaces5g : [{}]
+				};
+		console.log("3:" + dconfig);
+
+	}
+	console.log("4:" + dconfig);
+
+	// Initialize the editor
+	var editor = new JSONEditor(document.getElementById('editor_holder'), {
+		// Enable fetching schemas via ajax
+		ajax : true,
+
+		// The schema for the editor
+		schema : {
+			$ref : "/facesix/page/device-config-def",
+			format : "normal"
+		},
+
+		// Seed the form with a starting value
+		startval : dconfig
+	});
+
+	// Hook up the submit button to log to the console
+	document.getElementById('submit').addEventListener('click', function() {
+		// Get the value from the editor
+		// console.log(editor.getValue());
+		$("#dconfig").val(JSON.stringify(editor.getValue()));
+		//alert(JSON.stringify(editor.getValue()));
+	});
+
+	// Hook up the Restore to Default button
+	document.getElementById('restore').addEventListener('click', function() {
+		editor.setValue(dconfig);
+	});
+
+	// Hook up the validation indicator to update its 
+	// status whenever the editor changes
+	editor.on('change', function() {
+		// Get an array of errors from the validator
+		var errors = editor.validate();
+
+		var indicator = document.getElementById('valid_indicator');
+
+		// Not valid
+		if (errors.length) {
+			indicator.className = 'label alert';
+			indicator.textContent = 'not valid';
+		}
+		// Valid
+		else {
+			indicator.className = 'label success';
+			indicator.textContent = 'valid';
+		}
+	});
+</script>
+<!-- /#page-wrapper -->
+{{/partial}}

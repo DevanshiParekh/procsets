@@ -1,0 +1,61 @@
+<section class="content cusmList">
+    <div class="container-fluid">
+        <div class="card-view">
+            <div class="heading">
+                <div class="title">Venue - Overview</div>
+                
+                <div class="responsive-menu">
+                    <div class="responsive-icon" open="dropdown1"><i class="fa fa-ellipsis-v"></i></div>
+                    <ul class="dropdown" id="dropdown1">
+                        <li><a href="#/addvenue" class="list-btn"><i class="fa fa-plus"></i> Add Venue</a></li>
+<!--
+                        <li><a href="#/editvenue"><i class="fa fa-edit"></i> Edit Venue</a></li>
+                        <li><a href="#/venuedashboard"><i class="fa fa-bar-chart"></i> Venue Dashboard</a></li>
+                        <li><a href="#/delvenue"><i class="fa fa-trash"></i> Delete Venue</a></li>
+-->
+                    </ul>
+                </div>
+<!--
+                <div class="form-group search note-show">
+                    <input type="text" class="form-control" />
+                    <label><i class="fa fa-search"></i></label>
+                </div>
+-->
+            </div>
+        </div>
+        <div class="form-group search note-hidden">
+            <input type="text" class="form-control" />
+            <label><i class="fa fa-search"></i></label>
+        </div>
+        <div class="clearfix"></div>
+        <div class="venue-list full">
+            <div class="card-view">
+            <div class="heading border">
+                <div class="title">QuberComm Technologies</div>
+<!--
+                <div class="card-menu fr">
+                    <ul>
+                                    <li><a href=""><i class="fa fa-edit"></i></a></li>
+                                    <li><a href="" ng-click="showVenueDashboard()"><i class="fa fa-line-chart"></i></a></li>
+                                    <li><a href="#/floor"><i class="fa fa-building"></i></a></li>
+                                    <li><a href=""><i class="fa fa-trash"></i></a></li>
+                                </ul>
+                </div>
+-->
+            </div>
+            
+            <div class="body desk-full" gvenue>
+                <div class="venuemap" id="venuelist" style="min-height:450px;"></div>  
+            </div>
+            
+            
+        </div>
+        </div>
+        {{#each fsobjects}}
+        	<a href="#/floor/{{id}}">{{uid}}</a> - <a href="#/venuedashboard/{{id}}">Dashboard</a> 
+        {{/each}}
+    </div>
+</section>
+
+
+

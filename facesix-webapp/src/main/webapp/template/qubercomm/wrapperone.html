@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html> 
+<html>
+<head>
+	<title>QUBERCOMM</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<!-- <script src="http://localhost:3000/livereload.js"></script> -->
+	<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="google-site-verification" content="" />	
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- fav icon -->
+	<link rel="shortcut icon" href="/facesix/static/qubercomm/images/fav.png">
+
+	<!-- css -->
+	<link rel="stylesheet" href="/facesix/static/qubercomm/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/facesix/static/qubercomm/css/fonts.css"><!-- / template styles -->
+	<link rel="stylesheet" href="/facesix/static/qcom/font/font-awesome/css/font-awesome.min.css"><!-- / template styles -->
+	<link href = "/facesix/static/qubercomm/css/cropper.min.css" type="text/css" rel="stylesheet">
+	<link rel="stylesheet" href="/facesix/static/qubercomm/css/style.css"> <!-- / template styles -->
+	<link rel="stylesheet" href="/facesix/static/qubercomm/css/custom.css"> <!-- / template styles -->
+	
+</head>
+<body>
+	<div class="common-slide postion-f OverscrollFixed">
+		<!-- header -->
+		<section id="header">
+			<!-- Fixed navbar -->
+			{{#block "topnav"}}{{/block}}
+		</section>
+		<!-- end of header -->
+
+		<!-- side bar -->
+		<section id="wrapperone" class="toggled-2">
+			<!-- Sidebar -->
+			{{#block "leftnav"}}{{/block}}
+			<!-- #sidebar-wrapper -->
+		
+			{{#block "page"}}{{/block}}	
+					
+		</section>
+		
+		{{#block "addon"}}{{/block}}
+
+		<script type="text/javascript">
+		// for common left sidebar page only
+		if(!$('#sidebar-wrapper').hasClass("open")){
+		$('.common-slide').removeClass("postion-f OverscrollFixed");
+		}
+		
+		</script>
+		
+		<script type="text/javascript" src="/facesix/static/qubercomm/js/common.js"></script>
+
+</body>
+</html>

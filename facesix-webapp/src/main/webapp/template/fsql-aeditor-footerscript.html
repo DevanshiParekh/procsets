@@ -1,0 +1,39 @@
+{{#partial "footerscript"}}      
+	<script type="text/javascript" language="javascript">
+		$(function() {
+			$('#fsql-submit').click(function() {
+				var query = $('textarea#fsql').val();
+				
+				$('#query_status').html("Running");
+				$.ajax({
+						url: "/facesix/rest/fsql/query/datatable?fsql=" + encodeURI(query),
+						success: function(result) {
+							
+							$('#resultset').empty();
+							if ($('#debug').is(":checked")) {
+								$('#query_status').html("Building....." + JSON.stringify(result));
+							} else {
+								$('#query_status').html("Building.....");
+							} 
+
+							$('#resultset').DataTable( {
+								"destroy": true,
+					        	"data": result.data,
+					        	"columns": result.columns
+					    	});
+
+							if ($('#debug').is(":checked")) {
+								$('#query_status').html("Done....." + JSON.stringify(result));
+							} else {
+								$('#query_status').html("Done");
+							} 
+							
+			    		},
+			    		error : function(result) {
+			    			$('#query_status').html("Error");
+			    		}
+				});
+			});
+		} );
+	</script>    
+ {{/partial}}

@@ -1,0 +1,502 @@
+<section class="content">
+        <div class="container-fluid">
+            <div class="profile-box" ng-class="{'srink':showProfileMenu, 'open':showProfileMenuAll}">
+                <div class="profile-content">
+                    <div class="profile-img">
+                        <img src="/facesix/static/qcom/img/profile-img/17.jpg" alt="profile-img"/>
+                        <label class="overlay">
+                            <i class="fa fa-camera"></i>
+                            <input type="file" class="hidden"/>
+                        </label>
+                    </div>
+                    <h3>Mark William</h3>
+                    <h5>Designation</h5>
+                    <div class="profile-menu">
+                        <a href="" ng-click="showAllProfileMenu()">
+                            <span>My Account</span>
+                            <i class="caret"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="profile-wrapper">
+                        <ul class="navigation">
+                            <li ng-click="myprofiles()" ng-if="showProfileMenu" class="note-hidden"><a href=""><i class="fa fa-chevron-left"></i> <span>Back</span></a></li>
+                            <li ng-class="{'active':myprofile}" ng-click="showmyprofile()"><a href=""><i class="icon-user"></i> <span>My Profile</span></a></li>
+                            <li ng-class="{'active':alluser}" ng-click="showalluser()"><a href=""><i class="fa fa-users"></i> <span>Users</span></a></li>
+                            <li ng-class="{'active':allroles}" ng-click="showallrole()"><a href=""><i class="fa  fa-user-plus"></i> <span>Role</span></a></li>
+                            <li ng-class="{'active':showallnotification}" ng-click="shownotification()"><a href=""><i class="fa fa-bell-o"></i> <span>Notification</span></a></li>
+                            <li ng-class="{'active':showallgp}" ng-click="showgp()"><a href=""><i class="fa fa-user"></i> <span>Guest Pass</span></a></li>
+                            <li ng-class="{'active':showallsupport}" ng-click="showsupport()"><a href=""><i class="icon-support"></i> <span>Support</span></a></li>
+                            <li ng-class="{'active':showalllicense}" ng-click="showlicence()"><a href=""><i class="icon-license"></i> <span>Licence</span></a></li>
+                            <li ng-click="logout()"><a href="/facesix/goodbye" ng-click="Logout()"><i class="icon-power"></i> <span>Logout</span></a></li>
+                        </ul>
+                    </div>
+            </div>
+            <div class="nd2" ng-if="myprofile">
+                <div class="panel fl">
+                <div class="panel-heading"><h6>Profile Info<span class="fr"><i class="icon-user"></i></span></h6></div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div>
+                            <label>User Name</label>
+                            <input type="text" class="form-control" disabled />
+                        </div>
+                        <div>
+                            <label>Email</label>
+                            <input type="text" class="form-control" disabled/>
+                        </div>
+                        <div>
+                            <label>Mobile No</label>
+                            <input type="text" class="form-control" disabled/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="panel fr">
+                <div class="panel-heading"><h6>Professional Info<span class="fr"><i class="fa fa-users"></i></span></h6></div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div>
+                            <label>Designation</label>
+                            <input type="text" class="form-control" disabled />
+                        </div>
+                        <div>
+                            <label>Role</label>
+                            <select class="form-control" disabled>
+                                <option></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="panel fr">
+                <div class="panel-heading"><h6>Reset Password<span class="fr"><i class="fa fa-eye"></i></span></h6></div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div>
+                            <label>Password</label>
+                            <input type="text" class="form-control" />
+                        </div>
+                        <div>
+                            <label>Confirm Password</label>
+                            <input type="text" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+               
+                <div class="panel fl">
+                        <div class="panel-heading">
+                            <h6 class="panel-title">Alert <span class="fr"><i class="fa fa-bell-o"></i></span></h6>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="panel-list">
+                                <li>Email 
+                                    <span class="fr">
+                                        <label class="switch">
+                                            <input type="checkbox">
+                                            <span></span>
+                                        </label>
+                                    </span>
+                                </li>
+                                <li>SMS 
+                                    <span class="fr">
+                                        <label class="switch">
+                                            <input type="checkbox">
+                                            <span></span>
+                                        </label>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    
+                    
+                    </div>
+            </div>
+            <div class="nd2" ng-if="alluser">
+                <div class="form-group search">
+                    <input type="text" class="form-control" />
+                    <label><i class="fa fa-search"></i></label>
+                </div>
+                <div class="card-group">
+                    <div class="card">
+                        <div class="left">
+                            <img src="/facesix/static/qcom/img/profile-img/1.jpg"/>
+                        </div>
+                        <div class="body">
+                            <div class="fl">
+                                <h5>James Alexander</h5>
+                                <p>Designation</p>
+                                <div class="info-list">
+                                    <span><i class="fa fa-envelope"></i></span>
+                                    <span><i class="fa fa-phone"></i></span>
+                                </div>
+                            </div>
+                            <div class="fr tc">
+                                <div>
+                                    <label class="switch">
+                                        <input type="checkbox"/>
+                                        <span></span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <span class="label label-success">Active</span>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="left">
+                            <img src="/facesix/static/qcom/img/profile-img/1.jpg"/>
+                        </div>
+                        <div class="body">
+                            <div class="fl">
+                                <h5>James Alexander</h5>
+                                <p>Designation</p>
+                                <div class="info-list">
+                                    <span><i class="fa fa-envelope"></i></span>
+                                    <span><i class="fa fa-phone"></i></span>
+                                </div>
+                            </div>
+                            <div class="fr tc">
+                                <div>
+                                    <label class="switch">
+                                        <input type="checkbox"/>
+                                        <span></span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <span class="label label-success">Active</span>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="nd2" ng-if="allroles">
+<!--            <div class="">-->
+                <div class="panel fl">
+                    <div class="panel-heading"><h6>Roles<span class="fr"><i class="fa fa-users"></i></span></h6></div>
+                    <div class="panel-body">
+                        <ul class="panel-list bb">
+                            <li>SuperAdmin <span class="fr"><label><i class="fa fa-edit"></i></label></span></li>
+                        </ul>
+                    
+                    </div>
+                </div>
+                <div class="panel fr">
+                    <div class="panel-heading"><h6>Creat Role & Define Access<span class="fr"><i class="fa fa-plus"></i></span></h6></div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control">     
+                        </div>
+                        <ul class="panel-list bb">
+                            <li>User Management
+                                <span class="fr">
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <span></span>
+                                    </label>
+                                </span>
+                            </li>
+                        </ul>
+                        <div class="form-group tc">
+                            <button class="btn"><i class="fa fa-save"></i> Create</button>     
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="nd2" ng-if="showallnotification">
+                <div class="panel w100">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">Email <span class="fr"><i class="fa fa-plus"></i> New</span></h6>
+                    </div>
+                    <div class="panel-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Email</th>
+                                    <th class="tc">Status</th>
+                                    <th class="tc">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Sathishlivebox@gmail.com</td>
+                                    <td class="tc">Active</td>
+                                    <td class="tc"><i class="fa fa-edit"></i> | <i class="fa fa-trash"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    
+                    </div>
+                </div>
+                <div class="panel w100">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">SMS <span class="fr"><i class="fa fa-plus"></i> New</span></h6>
+                    </div>
+                    <div class="panel-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Mobile Number</th>
+                                    <th class="tc">Status</th>
+                                    <th class="tc">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>9962032292</td>
+                                    <td class="tc">Active</td>
+                                    <td class="tc"><i class="fa fa-edit"></i> | <i class="fa fa-trash"></i></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    
+                    </div>
+                </div>
+            </div>
+            <div class="nd2" ng-if="showallsupport">
+                <div class="panel w100">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">Support <span class="fr"><i class="icon-support"></i></span></h6>
+                    </div>
+                    <div class="panel-body">
+                        
+                            <div class="tc">
+                                Allow access to Qubercomm Support 
+                                <div class="tc mt10 support-div">
+                                    <table class="support-table">
+                                        <tbody>
+                                            <tr>
+                                                <td>M A Chidambram Stadium</td>
+                                                <td class="support-label">
+                                                    <label class="switch">
+                                                        <input type="checkbox" ng-model="venue.support1"/>
+                                                        <span></span>
+                                                    </label>
+                                                    <span class="label label-warning" ng-if="!venue.support1">Off</span>
+                                                    <span class="label label-success" ng-if="venue.support1">On</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Regus Enterprise</td>
+                                                <td class="support-label">
+                                                    <label class="switch">
+                                                        <input type="checkbox" ng-model="venue.support2"/>
+                                                        <span></span>
+                                                    </label>
+                                                    <span class="label label-warning" ng-if="!venue.support2">Off</span>
+                                                    <span class="label label-success" ng-if="venue.support2">On</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    
+                                </div>
+                            </div>
+                            <hr>
+                        <ul class="panel-list bb">
+                            <li>Enable this when requested by Qubercomm support team</li>
+                            <li>By enabling this, you are granting Qubercomm support with temporary administrator-level access</li>
+                            <li>This grant for access will be automatically revoked after 7 days.</li>
+                        </ul>
+                    </div>
+                         
+                </div>
+                     
+            </div>
+            <div class="nd2" ng-if="showalllicense">
+                <div class="panel w100">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">Licence <span class="fr"><i class="icon-license"></i></span></h6>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label>Type : trial</label>
+                            <div class="clearfix"></div>
+                            <label class="mt10">
+                                Usage: 
+                            </label>
+                            <barprogress data="progressdata"></barprogress>
+                            <hr>
+                        </div>
+                        <h3>Licence Subscriptions</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Licence for</th>
+                                        <th>Purchased on</th>
+                                        <th>Expires on</th>
+                                        <th>Time Left</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        
+                        </div>
+                    </div>
+                         
+                </div>
+                     
+            </div>
+            <div class="nd2" ng-if="showallgp">
+                <div class="panel w100">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">Guest Pass <span class="fr"><i class="fa fa-user"></i></span></h6>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group tr">
+                            <button class="btn" ng-click="openGP()">Create Pass</button>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Mobile No</th>
+                                        <th>Allowed Network</th>
+                                        <th>Expires on</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Jack</td>
+                                        <td>9765467651</td>
+                                        <td>Qubercomm</td>
+                                        <td>21st Oct 2016</td>
+                                        <td>Expried</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Thomas</td>
+                                        <td>9765367651</td>
+                                        <td>Qubercomm</td>
+                                        <td>1st Nov 2016</td>
+                                        <td>Active</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                         
+                </div>
+            </div>
+        </div>
+    </section>
+<div class="popup">
+        <div class="popup-container">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h6 class="panel-title">Email <span class="fr"><i class="fa fa-envelope-o"></i></span></h6>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" class="form-control" />
+                    </div>
+                    <div class="tr">
+                        <button class="btn w-auto"><i class="fa fa-save"></i> Save</button>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+
+<div class="popup" ng-class="{'open':GPOpen}">
+    <div class="popup-container accountAdd">
+        <div class="card-view bt2">
+            <div class="heading border">
+                <div class="title">
+                    Guest Pass
+                </div>
+                <div class="fr"><button class="btn w-auto fl" ng-click="openGP()"><i class="fa fa-times"></i></button></div>
+            </div>
+            <div class="body">
+                <div>
+                    <div class="w50">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" ng-model="editCus.name">
+                        </div>
+                        <div class="form-group">
+                            <label>Mobile Number</label>
+                            <input type="text" class="form-control" ng-model="editCus.address">
+                        </div> 
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" class="form-control" ng-model="editCus.city">
+                        </div>
+                        <div class="form-group">
+                            <label>Notes</label>
+                            <textarea class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="w50">
+                        <div class="form-group">
+                            <label>Allowed Networks</label>
+                            <select class="form-control" ng-model="editCus.type">
+                                <option>Qubercomm1</option>
+                                <option>Qubercomm2</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Access Expries in</label>
+                            <select class="form-control" ng-model="editCus.package">
+                                <option>Select</option>
+                                <option>7 Days</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>No Of Device</label>
+                            <input type="number" class="form-control" min="0" ng-model="editCus.nofogateway">
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <label class="checkbox">
+                                    <input type="checkbox"/>
+                                    <span></span>
+                                </label>
+                                <span class="checkboxtext"><i class="fa fa-mobile"></i> Send to Mobile</span>
+                            </div>
+                            <div>
+                                <label class="checkbox">
+                                    <input type="checkbox"/>
+                                    <span></span>
+                                </label>
+                                <span class="checkboxtext"><i class="fa fa-envelope"></i> Send By Email</span>
+                            </div>
+                            <div>
+                                <label class="checkbox">
+                                    <input type="checkbox"/>
+                                    <span></span>
+                                </label>
+                                <span class="checkboxtext"><i class="fa fa-print"></i>Print Guest Pass</span>
+                            </div>
+                        </div>
+                        
+                        
+                        
+                        
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="fr tc">
+                        <button class="btn" ng-click="CusStep2()">Create Pass</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

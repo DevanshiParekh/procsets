@@ -1,0 +1,610 @@
+{{#partial "page"}}
+<div id="page-content-wrapper">
+	<div class="container-fluid">
+		<div class="col-md-12 padding-right-0">
+			<div class="row log-table-head dd-log-head">
+				<div class="lth-left mob-nm" style="float: none;">
+				<img src="/facesix/static/qubercomm/images/networkconfig/connected.png" alt="">	
+				
+					{{#if spid}}
+						<span title="{{sitename}}"><div id="sname"></div></span>
+						<i class="fa fa-angle-right" aria-hidden="true"></i>	
+						<span title="{{portionname}}"><div id="flname"></div></span>	
+						<span><i class="fa fa-angle-right" aria-hidden="true"></i> AP-{{alias}}</span>
+					{{else}}		
+						<span>AP <i class="fa fa-angle-right" aria-hidden="true"></i> AP-{{alias}}</span>
+					{{/if}}
+					<div class="GeneratePdf aln-cu">
+					<!-- <button class=" btn btn-sm toggleBtns collapsed up" title="CPU/APP Uptime" style="background: none;" data-toggle="collapse" data-target="#togglePdfGen"><i class="fa fa-eye-slash faa-vertical animated" aria-hidden="true"></i></button> -->
+					<div class="upd">
+					<button class=" btn btn-sm toggleBtns collapsed " title="CPU/APP Uptime" style="background: none;" data-toggle="collapse" data-target="#togglePdfGen"><i class="fa fa-heartbeat heartbeat animate-infinite-heartbeat" aria-hidden="true"></i></button>
+					</div>
+						<div class="downd" style="display: inline-block;">
+							<div class="collapse fade" id="togglePdfGen" >
+								<ul class="deviceUptime" id="deviceUptime">
+									<li><span>CPU Uptime :</span> <i>Days: 0, Hours: 0, Min: 0</i></li><li><span>APP Uptime :</span> <i>Days: 0, Hours: 0, Min: 0</i></li>
+								</ul>
+								<div class="clearfix"></div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="col-md-3 devicecol-3 device-col padding-device padding-right-0">
+			<div class="card-box fd-card">
+				<div class="cb-center">
+					<div class="chart1Section text-center">
+						<div id="dd-chart1" class="chart-style"></div>
+					</div>
+				</div>
+				<div class="cb-caption">
+					<label>Connected Interfaces</label>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3 devicecol-3 device-col padding-device padding-right-0">
+			<div class="card-box fd-card">
+				<div class="cb-center">
+					<div class="chart1Section text-center">
+						<div id="dd-chart2" class="chart-style"></div>
+					</div>
+				</div>
+				<div class="cb-caption">
+					<label>Active vs Blocked</label>
+				</div>	
+				
+			</div>
+		</div>
+		
+		<div class="col-md-3 devicecol-3 device-col padding-device padding-right-0">
+			<div class="card-box">
+				<div class="cb-caption">
+					<label>CPU Utilization</label>
+				</div>
+				<div class="cb-center cbt-center">
+					<div id="downchart"></div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3 devicecol-3 device-col padding-device padding-right-0">
+			<div class="card-box">
+				<div class="cb-caption">
+					<label>Memory Utilization</label>
+				</div>
+				<div class="cb-center cbt-center">
+					<div id="upchart"></div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12 padding-right-0">
+			<div class="recent-Overview">
+				<div class="networkAct display-inline">
+					<label>Network Activity</label>
+				</div>
+				<div class="select-filter-Plan display-inline pull-right mob-na">
+					<select class="form-control display-inline selectTime">
+						<option value="20" selected >20 Minutes </option>
+						<option value="30">30 Minutes </option>
+						<option value="60">60 Minutes </option>
+						<option value="120">120 Minutes </option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6 devicecol-6 device-col padding-device padding-right-0">
+			<div class="chart-box venus-chart1 cb-mb fd-chartbox height-310">
+				<div class="netflowData select-filter-Plan venue-filter">
+					<label>2G Vs 5G Client</label>
+				</div>
+				<div class="cb-section">
+					<div class="chart1">
+						<div class="chart1Section">
+							<div id="twogvsfiveg"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6 devicecol-6 device-col padding-device padding-right-0">
+			<div class="chart-box venus-chart1 fd-chartbox height-310">
+				<div class="cb-section">
+					<div class="chart1">
+					<div class="netflowData select-filter-Plan venue-filter">
+						<label>Network Traffic</label>
+					</div>
+						<!-- <div class="select-filter-Plan venue-filter">
+							<select class="txrxswap">
+								<option selcted>Downlink/Uplink Speed</option>
+								<option value="Tx">Uplink Speed</option>
+								<option value="Rx">Downlink Speed</option>
+							</select>
+						</div> -->
+						<div class="chart1Section">
+							<div id="fd_chart2"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6 devicecol-6 device-col padding-device padding-right-0">
+			<div class="chart-box fd-chartbox height">
+				<div class="device-coon-desc">
+					<label>Clients Connected </label>
+				</div>
+				<div class="chart1Section text-center">
+					<div id="fd_chart4" class="chart-style"></div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6 devicecol-6 device-col padding-device padding-right-0">
+			<div class="chart-box fd-chartbox height">
+				<div class="device-coon-desc">
+					<label>Radio vs Clients</label>
+				</div>
+				<div class="chart1Section text-center">
+					<div id="piechart1" class="chart-style"></div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12 padding-device padding-right-0 tableHide">
+			<div class="chart-box table-chart-box"></div>
+		</div>
+		<div class="col-md-12 padding-device padding-right-0 blTableHide">
+			<div class="chart-box bl-table-chart-box"></div>
+		</div>		
+	</div>
+</div>
+<div class="pad0 col-sm-3 col-md-3 sidebar  LogsSection inactive" id="rightPanel">
+	<div class="network-map-section logMapSection">
+		
+		<div class="network-top-section">
+			<div class="search-opt">
+				<!-- <form id="uidForm"> -->
+					<div class="form-group">
+						<div class="serach-box">
+							<span class="icon">
+								<i class="glyphicon glyphicon-search"></i>
+							</span>
+							<input type="search" class="form-control search-align" placeholder="Search Devices...">
+						</div>
+					</div>
+				<!-- </form> -->
+			</div>
+			<div class="network-heading display-inline hide">
+				<label>Network Tree</label>
+			</div>
+			<div class="filter-opt display-inline pull-right">
+				<ul class="list-unstyled filter-opt-style">
+					<li class="search-mob-hide hide">
+						<img src="/facesix/static/qubercomm/images/networkconfig/search.png" class="search-icon" alt="">
+						Search
+					</li>
+					<li class="dropdown filter-dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+							<img src="/facesix/static/qubercomm/images/networkconfig/filter.png" alt="">
+							Filter
+							<span class="caret"></span></a>
+							<ul class="dropdown-menu filter-style">
+								<li><a href="#">Switch</a></li>
+								<li><a href="#">AP</a></li>
+								<li><a href="#">Sensor</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="device-section">
+				<span>
+					0 Devices
+				</span>
+				<ul class="list-unstyled">
+					<li>
+						<a class="dshbrdLink">
+							<i class="fa fa-bar-chart" style="color:lightgray"></i>
+						</a>
+					</li>
+					{{#if BINARY_WRITE}}
+						<li class="addhide">
+								<a class="binaryLink">
+								 <i class="fa fa-cloud-download" style="color:lightgray"></i>
+								</a>
+							</li>
+							{{/if}}
+					{{#if SYS_WRITE}}
+					<li class="addhide">
+						<a class="devcfgLink">
+						  <i class="fa fa-cog" style="color:lightgray"></i>
+						</a>
+					</li>
+					{{/if}}
+					<li>
+						<a class="scanLink">
+						 <i class="fa fa-rss" style="color:lightgray"></i>			
+						</a>                   				
+					</li>
+					{{#if SYS_WRITE}}
+					<li class="powerBtn" action="reset" btn-type="reset" devtype="AP" uid="{{uid}}">
+						<a href="">
+							<!-- <img src="/facesix/static/qubercomm/images/networkconfig/refresh.png" alt=""> -->
+							<i class="fa fa-undo fa_style"></i>
+						</a>
+					</li>
+					<li class="powerBtn" action="reboot" btn-type="reboot" devtype="AP" uid="{{uid}}">
+						<a href="">
+							<!-- <img src="/facesix/static/qubercomm/images/networkconfig/off.png" alt=""> -->
+							<i class="fa fa-power-off fa_style"></i>
+						</a>
+					</li>
+					{{/if}}
+				</ul>
+			</div>
+			<div class="device-notification">
+				<ul class="unstyled" id="network-tree">
+				
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- Active STA Right click popup -->
+	<ul class='custom-menu'>
+		<li class="handle block">
+			<span><img src="/facesix/static/qubercomm/images/venue/block.png"></span>
+			<label>Block</label>
+		</li>
+	</ul>
+	<!-- Block STA Right click popup -->
+	<ul class='custom-menu-block'>
+		<li class="handle unblock">
+			<span><img src="/facesix/static/qubercomm/images/venue/block.png"></span>
+			<label>Unblock</label>
+		</li>
+	</ul>	
+	
+</div>
+<div class="savearea rebootPopup" style="display:none;position:fixed">
+<div class="savearea_bottom">
+			<div class="left-section">
+				<label>Are you sure you want to?</label>
+			</div>
+			<div class="rightsection">
+				<ul class="list-unstyled">
+					<li id="cancelDelete">
+						<label>
+							
+						</label>
+						<span >
+							Cancel
+						</span>
+					</li>
+					<li id="deleteItem">
+						<label>
+						</label>
+						<span class="color2" >
+							OK
+						</span>
+					</li>
+				</ul>
+			</div>
+			</div>
+</div>
+<!-- js -->
+<script src="/facesix/static/qubercomm/js/jquery-2.1.4.min.js" type="text/javascript"></script>
+<script src="/facesix/static/qubercomm/js/bootstrap.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/jquery.nicescroll.min.js"></script>
+<script src="/facesix/static/qubercomm/js/circularprogress.jquery.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/d3.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/c3.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/handlebars.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/underscore-min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/devicedashboard.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/js/script.js"></script>
+<!--css-->
+<link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/css/circularprogress.css"/>
+<link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/css/c3.css"/>
+<!--css-->
+<script>
+
+ getDev('{{Gateway}}', '{{GeoFinder}}','{{Heatmap}}','{{GatewayFinder}}');
+ 
+	var str = '{{sitename}}';
+	
+	console.log(str);
+	if (str.length > 16) {
+		str = str.substr(0, 16)
+		str += "...";
+	}
+	document.getElementById("sname").innerHTML = str;
+	console.log(str);
+
+	var str = '{{portionname}}';
+	console.log(str);
+	if (str.length > 10) {
+		str = str.substr(0, 10)
+		str += "...";
+	}
+	
+	document.getElementById("flname").innerHTML = str;
+
+	function getParameterByName(name, url) {
+	    if (!url) url = window.location.href;
+	    name = name.replace(/[\[\]]/g, "\\$&");
+	    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+	        results = regex.exec(url);
+	    if (!results) return null;
+	    if (!results[2]) return '';
+	    return decodeURIComponent(results[2].replace(/\+/g, " "));
+	}
+	$(document).ready(function(){
+		var uid = getParameterByName('uid');
+		console.log(uid);
+		$.ajax({
+	        url: '/facesix/rest/site/portion/networkdevice/gw_deviceupstate?uid='+uid,
+	        method: "get",
+	        success: function (result) {  
+	        	console.log("CPU UP DETAILS " +JSON.stringify(result))
+	        	if(result.length > 0){ 
+	        		 var result = result[0];
+	        		 if(result.cpuDays == undefined){
+	        			 result.cpuDays = 0;
+	        		 }
+	        		 if(result.cpuHours == undefined){
+	        			 result.cpuHours = 0;
+	        		 }
+	        		 if(result.cpuMinutes == undefined){
+	        			 result.cpuMinutes = 0;
+	        		 }
+	        		 if(result.appDays == undefined){
+	        			 result.appDays = 0;
+	        		 }
+	        		 if(result.appHours == undefined){
+	        			 result.appHours = 0;
+	        		 }
+	        		 if(result.appMinutes == undefined){
+	        			 result.appMinutes = 0;
+	        		 }
+	                 var data = '<li><span>CPU Uptime :</span> <i>Days: '+result.cpuDays+', Hours: '+result.cpuHours+', Min: '+result.cpuMinutes+'</i></li><li><span>APP Uptime :</span> <i>Days: '+result.appDays+', Hours: '+result.appHours+', Min: '+result.appMinutes+'</i></li>';
+	                  $('#deviceUptime').html(data);
+	        	} 
+	             
+	        },
+	        error: function (data) {
+	            setTimeout(function () {
+	              DeviceDashboard.tables.setTable.activeClientsTable();
+	           }, 10000);                            
+	        },
+	        dataType: "json"
+
+	    });
+	}); 
+	
+
+</script>
+
+<script id="chartbox-template" type="text/x-handlebars-template">
+	<div class="device-coon-desc">
+		<label>Type of Devices</label>
+		<span class="table-page" data-table-name="dashboard-table"><i class="fa fa-refresh refreshTable" aria-hidden="true"></i>\{{#if show_previous_button}}<i class="fa fa-caret-left tablePrevPage"></i>\{{/if}}&nbsp;\{{#if show_next_button}}<i class="fa fa-caret-right tableNextonePage"></i>\{{/if}}</span>
+	</div>
+	<div class="tableSection">
+		<table class="table dashboard-table" id="dashboard-table" data-current-page="\{{current_page}}" data-row-limit="5">
+			<thead>
+				<tr class="sel_tbl1">
+					<th onclick="sort_table('spotid', 0, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(0)" class="width-40"># <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 1, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(1)">OS <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 2, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(2)">Client Name <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 3, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(3)">Client Mac<i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 4, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(4)">IP <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 5, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(5)">AP Name <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 6, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(6)">Connected Time <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 7, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(7)">Radio <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 8, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(8)">Tx <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 9, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(9)">Rx <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('spotid', 10, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl1(10)" class="width-125">RSSI(dBm) <i class="fa fa-arrow-up"></i></th>
+				</tr>
+			</thead>
+			<tbody id="spotid">
+				\{{#each data}}
+				<tr mac-id="\{{mac_address}}" ap="\{{ap}}" uid="{{uid}}" ssid="\{{ssid}}">
+					<td style="color: black;">\{{index}}</td>
+					<td style="color: black;"><img src="/facesix/static/qubercomm/images/\{{client_type}}.png"/> </td>
+					<td class="showPopup" style="color: black;">\{{devtype}}</td>
+					<td class="showPopup" style="color: black;">\{{mac_address}}</td>
+					<td style="color: black;">\{{ip}}</td>
+					<td style="color: black;">\{{location}}</td>
+					<td style="color: black;">\{{conn_time}}</td>
+					<td style="color: black;">\{{radio}}</td>
+					<td style="color: black;">\{{tx}}</td>
+					<td style="color: black;">\{{rx}}</td>					
+					<td style="color: black;">\{{rssi}}</td>
+				</tr>
+				\{{/each}}
+			</tbody>
+		</table>
+	</div>	
+</script>
+
+<script id="chartbox-block-template" type="text/x-handlebars-template">
+	
+	<div class="device-coon-desc">
+		<label>Blocked Clients</label>
+		<span class="table-page" data-table-name="dashboard-btable"><i class="fa fa-refresh bl-refreshTable" aria-hidden="true"></i>\{{#if show_previous_button}}<i class="fa fa-caret-left bl-tablePreviousPage"></i>\{{/if}}&nbsp;\{{#if show_next_button}}<i class="fa fa-caret-right bl-tableNextPage"></i>\{{/if}}</span>
+	</div>
+	<div class="tableSection">
+		<table class="table dashboard-table" id="block" data-current-page="\{{current_page}}" data-row-limit="5">
+			<thead>
+				<tr class="sel_tbl2">
+					<th onclick="sort_table('blockTable', 0, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(0)" class="width-40"># <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('blockTable', 1, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(1)">OS <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('blockTable', 2, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(2)">Client Name<i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('blockTable', 3, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(3)">Client Mac <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('blockTable', 4, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(4)">IP <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('blockTable', 5, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(5)">AP Name <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('blockTable', 6, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(7)">Radio <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('blockTable', 7, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(8)">Tx <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('blockTable', 8, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(9)">Rx <i class="fa fa-arrow-up"></i></th>
+					<th onclick="sort_table('blockTable', 9, asc1); asc1 *= -1; asc2 = 1; asc3 = 1; sel_tbl2(10)" class="width-125">RSSI(dBm) <i class="fa fa-arrow-up"></i></th
+				</tr>
+			</thead>
+			<tbody id="blockTable">
+				\{{#each data}}
+				<tr class="tr_blockrow" id="blockrow" mac-id="\{{mac_address}}" ap="\{{ap}}" uid="{{uid}}" ssid="\{{ssid}}" >
+					<td style="color: black;">\{{index}}</td>
+					<td style="color: black;"><img src="/facesix/static/qubercomm/images/\{{client_type}}.png"/> </td>
+					<td class="blockPopup" style="color: black;">\{{devtype}}</td>
+					<td class="blockPopup" style="color: black;">\{{mac_address}}</td>
+					<td style="color: black;">\{{ip}}</td>
+					<td style="color: black;">\{{location}}</td>
+					<td style="color: black;">\{{radio}}</td>
+					<td style="color: black;">\{{tx}}</td>
+					<td style="color: black;">\{{rx}}</td>					
+					<td style="color: black;">\{{rssi}}</td>
+				</tr>
+				\{{/each}}
+			</tbody>
+
+		</table>
+	</div>	
+	
+</script>
+<style>
+	.selected{ 
+		background-color: rgba(211,211,211,.7);
+		color: black;
+	}
+	table{
+		cursor: default;
+	}
+	.deviceUptime{
+		display: inline-block;
+		margin: 0;
+		padding: 0;
+	}
+	.deviceUptime li{
+		display: inline-block;
+		list-style: none;
+		padding-right: 15px;
+		font-size: 14px;
+	}
+	.deviceUptime li span{
+		font-weight: 600;
+		color: #009bc2;
+	}
+	.deviceUptime li i{
+		font-style: normal;
+	    color: #2a3f54;
+	}
+	.aln-cu{
+		margin-top: -8px;
+		margin-bottom: 10px;
+		float: none;
+	}
+	.upd{
+		margin-top: -7px;
+    	/* float: right; */
+    	order: 1;
+    	float: right;
+	}
+	.downd{
+		/* float: left; */
+		margin-top: 0px;
+		order: 2;
+		float: right;
+	}
+	
+	@media screen and (max-width: 480px){
+	.aln-cu{
+		margin-top: 8px;
+	}
+	.upd{
+		col-md-1;
+		order: 1;
+	}	
+	.downd{
+	col-md-11;
+		margin-top: -10px;
+	}
+	}
+	@media screen and (max-width: 768px){
+		.upd{
+			margin-right: 15px;
+		}
+		.mob-nm{
+			margin-left: 3px;
+		}
+		.padding-device {
+		    padding-right: 20px !important;		   
+		}
+		.mob-na{
+			margin-right: 15px !important;
+		}
+	}
+	
+	@-webkit-keyframes heartbeat {
+	  0% {
+	    -webkit-transform:scale(1)
+	  }
+	  50% {
+	    -webkit-transform:scale(1.4)
+	  }
+	  100% {
+	    -webkit-transform:scale(1)
+	  }
+	}
+
+	@-moz-keyframes heartbeat {
+	  0% {
+	    -moz-transform:scale(1)
+	  }
+	  50% {
+	    -moz-transform:scale(1.4)
+	  }
+	  100% {
+	    -moz-transform:scale(1)
+	  }
+	}
+
+	@-o-keyframes heartbeat {
+	  0% {
+	    -o-transform:scale(1)
+	  }
+	  50% {
+	    -o-transform:scale(1.4)
+	  }
+	  100% {
+	    -o-transform:scale(1)
+	  }
+	}
+
+	@keyframes heartbeat {
+	  0% {
+	    transform:scale(1)
+	  }
+	  50% {
+	    transform:scale(1.4)
+	  }
+	  100% {
+	    transform:scale(1)
+	  }
+	}
+
+	.heartbeat {
+	  -webkit-animation-name: heartbeat;
+	  -moz-animation-name: heartbeat;
+	  -o-animation-name: heartbeat;
+	  animation-name: heartbeat;
+	}
+	
+	.animate-infinite-heartbeat {
+	  -webkit-animation: heartbeat 2s infinite;
+	  animation: heartbeat 2s infinite;
+	}
+</style>
+
+{{/partial}}
+
+{{>qubercomm/nav-top}}
+{{>qubercomm/nav-left}}
+{{>qubercomm/wrapper}}

@@ -1,0 +1,154 @@
+{{#partial "page"}}
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+    <link href="/facesix/static/qubercomm/assets/c3/c3.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/assets/Bootstrap-3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/assets/Bootstrap-3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/css/nmesh.css">
+    <link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/assets/DataTables-1.10.15/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/assets/Buttons-1.4.0/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="/facesix/static/qubercomm/assets/Select-1.2.2/css/select.dataTables.min.css">
+    <link rel="stylesheet" property="stylesheet" href="/facesix/static/qubercomm/assets/font-awesome/css/font-awesome.min.css">
+    <script src="/facesix/static/qubercomm/assets/jQuery-1.12.4/jquery-1.12.4.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <br>
+
+        <div class="panel panel-default" id="tablereport">
+
+            <div class="panel-heading">
+                <div class="btn-group pull-left">
+                        <button  onclick="window.history.back();" class="headingbackbutton btn btn-default btn-sm">Back</button>
+                </div>
+                <div class="panel-title">
+                    <h2 style="text-align: center">Client Summary</h2>
+                </div>
+            </div>
+            <div class="panel-body" id="clientsummarybody">
+                <div class="table-responsive">
+                    <table id="summarytable" class="summary table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
+
+                            <tr>
+                                <th></th>
+                                <th>Name</th>
+                                <th>IP Address</th>
+                                <th>MAC Address / OS Type</th>
+                                <th>Capability</th>
+                                <th>Connected Band</th>
+                                <th>Connected Time</th>
+                                <th>Steering Capability</th>
+                                <th>Traffic</th>
+                                <th>Connected AP</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+
+                        </tbody>
+                    </table>
+                    </br>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<!-- Scripts -->
+<script src="/facesix/static/qubercomm/assets/Bootstrap-3.3.7/js/bootstrap.min.js"></script>
+<script src="/facesix/static/qubercomm/assets/DataTables-1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="/facesix/static/qubercomm/assets/DataTables-1.10.15/js/dataTables.bootstrap.min.js"></script>
+<script src="/facesix/static/qubercomm/assets/Buttons-1.4.0/js/dataTables.buttons.min.js"></script>
+<script src="/facesix/static/qubercomm/assets/Select-1.2.2/js/dataTables.select.min.js"></script>
+<script src="/facesix/static/qubercomm/assets/lodash/lodash.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/assets/JSZip-2.5.0/jszip.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/assets/Buttons-1.4.0/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/assets/Buttons-1.4.0/js/buttons.flash.min.js"></script>
+<script src="/facesix/static/qubercomm/nmesh/util.js"></script>
+<script src="/facesix/static/qubercomm/nmesh/dataservice.js"></script>
+<script type="text/javascript" src="/facesix/static/qubercomm/nmesh/clientsum.js"></script>
+<script>
+    var cid = "";
+    var table = null;
+    var refreshInterval = 5000;
+    function refreshData(){
+        var clientSum = new NMeshClientSummary();
+        var dataservice = new NMeshDataService();
+        
+        
+        dataservice.getClientSummary(cid)
+        .done((result)=>{
+            
+            try{
+                var clientData = clientSum.getTableData(result);
+                if(!table)
+                    updateDataTable(clientData);
+                else{
+                    table.clear().draw()
+                    table.rows.add(clientData)
+                        .draw()
+                }
+            }
+            catch(exp){
+                console.log(exp);
+                console.log('ERROR:Json,'+JSON.stringify(result))
+            }
+        })
+        .fail((error)=>{
+        console.log('ERROR:'+ JSON.stringify(error));
+        //alert('Unable to get client summary data')
+        })
+        .always(()=>{
+            setTimeout(()=>{
+                refreshData();
+            },refreshInterval)
+        })
+    }
+
+    function updateDataTable(clientData){
+        if(clientData.length > 0){
+            table = $('#summarytable').DataTable({
+                "destroy": true,
+                "data": clientData,
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                }, {
+                    "searchable": true,
+                    "orderable": false,
+                    "targets": [1, 2, 3, 4, 5, 6, 7, 8, 9]
+                },
+                {
+                    "className": "dt-center", "targets": "_all"
+                },
+                {
+                    "width": "100px", "targets": [8]
+                },
+                ],
+                "order": [[0, 'asc']],
+                "paging": clientData.length > 10,
+                "info": clientData.length > 10
+            });
+            table.on('order.dt search.dt', function () {
+                table.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+                    cell.innerHTML = i + 1;
+                });
+            }).draw();
+        }
+    }
+    $(document).ready(() => {
+        cid = util.getUrlParameter('cid');
+        refreshData();
+    })
+</script>
+{{/partial}}
+{{>qubercomm/nav-left}}
+{{>qubercomm/nav-top}}
+{{>qubercomm/wrapper}}

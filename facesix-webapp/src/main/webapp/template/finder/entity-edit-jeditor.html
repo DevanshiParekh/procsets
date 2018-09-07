@@ -1,0 +1,43 @@
+{
+	"title": "Definition",
+	"type": "object",
+	"options": {
+		"disable_edit_json": true,
+		"disable_properties": true,
+		"no_additional_properties": true
+	},
+	"properties": {
+		"fsql" : {
+			"title" : "FSQL",
+			"type": "string",
+			"minLength": 1,
+			"format" : "textarea"
+		},
+		"enlinks": {
+			"type": "array",
+			"format": "table",
+			"title": "Enlinks",
+			"uniqueItems": true,
+			"items": {
+				"type": "object",
+				"properties": {
+					"link-name": {
+						"title" : "Link Name",
+						"type": "string",
+						"minLength": 1
+					},
+					"target-entity": {
+						"title" : "Target Entity",
+						"type": "string",
+						"minLength": 1
+					},
+					"target-query": {
+						"title" : "Target Query Params",
+						"type": "string",
+						"minLength": 1
+					}
+				}
+			}
+		}
+	}
+}

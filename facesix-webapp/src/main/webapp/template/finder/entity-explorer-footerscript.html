@@ -1,0 +1,15 @@
+{{#partial "footerscript"}}   
+	<!--  entity explorer -->   
+	<script type="text/javascript" language="javascript" code="{{sortfield}}-{{sortorder}}">
+		$(document).ready(function() {
+			{{#if sortorder}}
+		    	 $('#datatable_entity').DataTable({
+		    		"order": [[ {{sortfield}}, "{{sortorder}}" ]]
+		    	 });
+		    {{else}}
+		   		 $('#datatable_entity').DataTable();
+		    {{/if}}
+		   
+		});
+	</script>    
+{{/partial}}

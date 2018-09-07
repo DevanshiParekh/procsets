@@ -1,0 +1,156 @@
+<section class="content">
+    <div class="container-fluid">
+        <div class="venuedashboard">
+                <div class="">
+                    <div class="card-view">
+                        <div class="heading border">
+                            <div class="title theme">
+                                QuberComm Technologies
+                            </div>
+                            <div class="card-menu fr">
+                                <ul>
+                                    <li><a href="#/editvenue"><i class="fa fa-edit"></i></a></li>
+                                    <li><a href="#/floor"><i class="fa fa-building"></i></a></li>
+                                    <li><a href="#/delvenue"><i class="fa fa-trash"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="body">
+                            <div class="col-md-7">
+                                <div class="card-view bt2" style="height:676px;">
+                                    <div class="heading border">
+                                        <div class="title theme">
+                                            Overview
+                                        </div>
+                                    </div>
+                                    <div class="body">
+                                        <nvd3 options="sboptions" data="sbdata" class="with-3d-shadow with-transitions"></nvd3>
+                                    </div>
+                                                
+                                
+                                </div>
+                                <div class="card-view bt2">
+                                    <div class="heading border">
+                                        <div class="title theme">
+                                            Recent Activity
+                                        </div>
+                                    </div>
+                                    <div class="body h-spl">
+                                        <ul class="card-body-ul">
+                                        <li>
+                                            <label>
+                                                Qubercloud gateway wlan stats upload success
+
+                                            </label>
+                                            <label class="date">2016-09-24 11:29:42.562</label>
+
+                                        </li>
+                                </ul>
+                                    </div>
+                                </div>
+                                <div class="card-view bt2">
+                                    <div class="heading border">
+                                        <div class="title theme">
+                                            Recent Alert
+                                        </div>
+                                    </div>
+                                    <div class="body h-spl">
+                                        <ul class="card-body-ul">
+                                        <li>
+                                            <label>
+                                                Qubercloud gateway wlan stats upload success
+
+                                            </label>
+                                            <label class="date">2016-09-24 11:29:42.562</label>
+
+                                        </li>
+                                </ul>
+                                    </div>
+                                </div>
+                            
+                                
+                                
+                            </div>
+                            <div class="col-md-5">
+                                <div class="card-view bt2">
+                                <div class="heading border">
+                                    <div class="title theme">
+                                        Type Of Device & System Health
+                                    </div>
+                                </div>
+                                    <div class="body">
+                                        <div class="tc w75">
+                                            <canvas id="doughnut" class="chart chart-doughnut"
+                                                    chart-data="data" chart-labels="labels" chart-legend = "true" chart-colours ="dougcolours"></canvas>
+                                        
+                                        </div>
+                                        <div class="tc  w25 full">
+                                        <div class="progress">
+                    <div class="">
+                        <div class="tc">
+                            <canvas class="chart ng-isolate-scope" width="100" height="100" roundprogress="" data="value.data" label="value.label" color="value.color" linewidth="7" total="value.total"></canvas>
+                        </div>
+                    </div>
+                    <div class="mt10">
+                        <div class="tc">
+                            <canvas class="chart ng-isolate-scope" width="100" height="100" roundprogress="" data="value.data" label="health.label" color="health.color" linewidth="7" total="health.total"></canvas>
+                        </div>
+                    </div>
+                    <div class="w50"></div>
+                
+                </div>
+                                        </div>
+                                        
+                                
+                                </div>
+                                    
+                                
+                                     
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="card-view bt2">
+                                <div class="heading border">
+                                    <div class="title theme">
+                                        Netflow
+                                    </div>
+                                </div>
+                                    <div class="body">
+                                        <canvas id="line" class="chart chart-line" chart-data="linedata.data" chart-labels="linedata.label" chart-series="linedata.series" chart-options="options" chart-colours ="linedata.colours" chart-legend = "true"></canvas>
+                                
+                                </div>
+                                    
+                                
+                                     
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="card-view bt2">
+                                <div class="heading border">
+                                    <div class="title theme">
+                                        Venue Tx vs Rx
+                                    </div>
+                                </div>
+                                    <div class="body">
+                                        <canvas id="line" class="chart chart-line" chart-data="linedata.data" chart-labels="linedata.label" chart-series="linedata.series" chart-options="options" chart-colours ="linedata.colours" chart-legend = "true"></canvas>
+                                
+                                </div>
+                                    
+                                
+                                     
+                                </div>
+                                <div class="clearfix"></div>
+                                
+                                
+                                
+                                
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+
+    
+    </div>
+
+</section>

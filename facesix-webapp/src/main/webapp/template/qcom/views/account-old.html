@@ -1,0 +1,576 @@
+<section class="content">
+        <div class="container-fluid">
+            <div class="profile-box" ng-class="{'srink':showProfileMenu, 'open':showProfileMenuAll}">
+                <div class="profile-content">
+                    <div class="profile-img">
+                        <img ng-src="{[{profileData.path}]}" ng-if="!NewProfileImg"/>
+                        <img ng-src="{[{image_source}]}" ng-if="NewProfileImg"/>
+                        <label class="overlay" ng-if="!NewProfileImg">
+                            <i class="fa fa-camera"></i>
+                            <input type="file" class="hidden" onchange="angular.element(this).scope().setFile(this)" />
+                        </label>
+                        <div class="overlay overlay-btn" ng-if="NewProfileImg">
+                            <div class="btn-over error" ng-click="cancelNewProfileImg()"><i class="fa fa-times"></i></div>
+                            <div class="btn-over success"><i class="fa fa-check"></i></div>
+                        </div>
+                    </div>
+                    <h3>{[{profileData.fname}]} {[{profileData.lname}]}</h3>
+                    <h5>{[{profileData.designation}]}</h5>
+                    <div class="profile-menu">
+                        <a href="" ng-click="showAllProfileMenu()">
+                            <span>My Account</span>
+                            <i class="caret"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="profile-wrapper">
+                        <ul class="navigation">
+                            <li ng-click="myprofiles()" ng-if="showProfileMenu" class="note-hidden"><a href=""><i class="fa fa-chevron-left"></i> <span>Back</span></a></li>
+                            <li ng-class="{'active':myprofile}" ng-click="showmyprofile()"><a href=""><i class="icon-user"></i> <span>My Profile</span></a></li>
+                            <li ng-class="{'active':alluser}" ng-click="showalluser()"><a href=""><i class="fa fa-users"></i> <span>Users</span></a></li>
+                            <li ng-class="{'active':allroles}" ng-click="showallrole()"><a href=""><i class="fa  fa-user-plus"></i> <span>Role</span></a></li>
+                            <li ng-class="{'active':showallnotification}" ng-click="shownotification()"><a href=""><i class="fa fa-bell-o"></i> <span>Notification</span></a></li>
+                            <li ng-class="{'active':showallgp}" ng-click="showgp()"><a href=""><i class="fa fa-user"></i> <span>Guest Pass</span></a></li>
+                            <li ng-class="{'active':showallsupport}" ng-click="showsupport()"><a href=""><i class="icon-support"></i> <span>Support</span></a></li>
+                            <li ng-class="{'active':showalllicense}" ng-click="showlicence()"><a href=""><i class="icon-license"></i> <span>Licence</span></a></li>
+                            <li ng-click="logout()"><a href="javascript:void(0);" ng-click="Logout()"><i class="icon-power"></i> <span>Logout</span></a></li>
+                        </ul>
+                    </div>
+            </div>
+            <div class="nd2" ng-if="myprofile">
+                <form novalidate class="form-validate" name="profile"></form>
+                <div class="panel fl" style="padding-bottom:12px;">
+                <div class="panel-heading"><h6>Profile Info<span class="fr"><i class="icon-user"></i></span></h6></div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div>
+                            <label>First Name</label>
+                            <input type="text" class="form-control" ng-model="profileData.fname" required/>
+                        </div>
+                        <div>
+                            <label>Last Name</label>
+                            <input type="text" class="form-control" ng-model="profileData.lname"/>
+                        </div>
+                        <div>
+                            <label>Email</label>
+                            <input type="text" class="form-control" ng-model="profileData.email" ng-pattern="emailValidate" required/>
+                        </div>
+                        <div>
+                            <label>Mobile No</label>
+                            <input type="text" class="form-control" ng-model="profileData.phone" ng-pattern="mobileValidate" string-to-number/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="panel fr">
+                <div class="panel-heading"><h6>Professional Info<span class="fr"><i class="fa fa-users"></i></span></h6></div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div>
+                            <label>Designation</label>
+                            <input type="text" class="form-control" ng-model="profileData.designation"/>
+                        </div>
+                        <div>
+                            <label>Role</label>
+                            <input type="text" class="form-control" ng-model="profileData.role" disabled/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!--
+                <div class="panel fr">
+                <div class="panel-heading"><h6>Reset Password<span class="fr"><i class="fa fa-eye"></i></span></h6></div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div>
+                            <label>Password</label>
+                            <input type="text" class="form-control" />
+                        </div>
+                        <div>
+                            <label>Confirm Password</label>
+                            <input type="text" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+-->
+               
+                <div class="panel fr">
+                        <div class="panel-heading">
+                            <h6 class="panel-title">Alert <span class="fr"><i class="fa fa-bell-o"></i></span></h6>
+                        </div>
+                        <div class="panel-body">
+                            <ul class="panel-list">
+                                <li>Email 
+                                    <span class="fr">
+                                        <label class="switch">
+                                            <input type="checkbox" ng-model="profileData.isMailalert" ng-true-value="'true'" ng-false-value="'false'">
+                                            <span></span>
+                                        </label>
+                                    </span>
+                                </li>
+                                <li>SMS 
+                                    <span class="fr">
+                                        <label class="switch">
+                                            <input type="checkbox" ng-model="profileData.isSmsalert" ng-true-value="'true'" ng-false-value="'false'">
+                                            <span></span>
+                                        </label>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    
+                    
+                    </div>
+                <div class="clearfix"></div>
+                <div class="fr" style="margin-right:8px;">
+                    <button class="btn" ng-click="UpdateProfile(profileData)"><i class="fa fa-save"></i> Update</button>
+                </div>
+            </div>
+            <div class="nd2" ng-if="alluser">
+                <div class="form-group search">
+                    <div class="search-box"><input type="text" class="form-control" />
+                    <label><i class="fa fa-search"></i></label></div>
+                </div>
+                <div class="card-group">
+                    <div class="card" ng-repeat="ud in usersData" ng-click="editOpenUd(ud)">
+                        <div class="left">
+                            <img ng-src="{[{path}]}"/>
+                        </div>
+                        <div class="body">
+                            <div class="fl">
+                                <h5>{[{ud.fname}]} {[{ud.lname}]}</h5>
+                                <p>{[{ud.designation}]}</p>
+                                <div class="info-list">
+                                    <span ng-if="ud.isMailalert == 'true'"><i class="fa fa-envelope"></i></span>
+                                    <span ng-if="ud.isSmsalert == 'true'"><i class="fa fa-phone"></i></span>
+                                </div>
+                            </div>
+                            <!--- <div class="fr tc">
+                                <div>
+                                    <label class="switch">
+                                        <input type="checkbox"/>
+                                        <span></span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <span class="label label-success">Active</span>
+                                </div>
+                                
+                            </div>--->
+                        </div>
+                    </div>
+                    
+                    <div class="card cursor" ng-click="newUser()">
+                        <div class="left">
+                            <img src="/facesix/static/qcom/img/users.png"/>
+                        </div>
+                        <div class="body">
+                            <div class="fl">
+                                <h5>Add New User</h5>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="nd2" ng-if="allroles">
+<!--            <div class="">-->
+                <div class="panel fl">
+                    <div class="panel-heading"><h6>Roles<span class="fr"><i class="fa fa-users"></i></span></h6></div>
+                    <div class="panel-body">
+                        <ul class="panel-list bb">
+                            <li ng-repeat="r in rolesData">{[{r.roleName}]} <span class="fr"><label class="label label-primary cursor" ng-click="editRoles(r)"><i class="fa fa-edit"></i></label></span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel fr">
+                    <div class="panel-heading"><h6>Creat Role & Define Access<span class="fr"><i class="fa fa-plus"></i></span></h6></div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" ng-model="rolesNewData.roleName">     
+                        </div>
+<!--
+                        <ul class="panel-list bb plr15">
+                            <li>User Management
+                                <span class="fr">
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <span></span>
+                                    </label>
+                                </span>
+                            </li>
+                        </ul>
+-->
+                        <div class="form-group tc">
+                            <button class="btn" ng-click="newRoles(rolesNewData)" ng-if="!editRoleBtn"><i class="fa fa-save"></i> Create</button>
+                            <button class="btn" ng-click="updateRoles(rolesNewData)" ng-if="editRoleBtn"><i class="fa fa-save"></i> Update</button>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="nd2" ng-if="showallnotification">
+                <div class="panel w100">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">Email <span class="fr"></h6>
+                    </div>
+                    <div class="panel-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Email</th>
+                                    <th class="tc">Status</th>
+<!--                                    <th class="tc">Action</th>-->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="en in notificationEmail">
+                                    <td>{[{en.email}]}</td>
+                                    <td class="tc">{[{en.status}]}</td>
+<!--                                    <td class="tc"><i class="fa fa-edit"></i> | <i class="fa fa-trash"></i></td>-->
+                                </tr>
+                            </tbody>
+                        </table>
+                    
+                    </div>
+                </div>
+                <div class="panel w100">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">SMS </h6>
+                    </div>
+                    <div class="panel-body">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Mobile Number</th>
+                                    <th class="tc">Status</th>
+<!--                                    <th class="tc">Action</th>-->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="sn in notificationSms">
+                                    <td>{[{sn.mobile}]}</td>
+                                    <td class="tc">{[{sn.status}]}</td>
+<!--                                    <td class="tc"><i class="fa fa-edit"></i> | <i class="fa fa-trash"></i></td>-->
+                                </tr>
+                            </tbody>
+                        </table>
+                    
+                    </div>
+                </div>
+            </div>
+            <div class="nd2" ng-if="showallsupport">
+                <div class="panel w100">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">Support <span class="fr"><i class="icon-support"></i></span></h6>
+                    </div>
+                    <div class="panel-body">
+                        
+                            <div class="tc">
+                                Allow access to Qubercomm Support 
+                                <div class="tc mt10 support-div">
+                                    <table class="support-table">
+                                        <tbody>
+                                            <tr>
+                                                <td>M A Chidambram Stadium</td>
+                                                <td class="support-label">
+                                                    <label class="switch">
+                                                        <input type="checkbox" ng-model="venue.support1"/>
+                                                        <span></span>
+                                                    </label>
+                                                    <span class="label label-warning" ng-if="!venue.support1">Off</span>
+                                                    <span class="label label-success" ng-if="venue.support1">On</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Regus Enterprise</td>
+                                                <td class="support-label">
+                                                    <label class="switch">
+                                                        <input type="checkbox" ng-model="venue.support2"/>
+                                                        <span></span>
+                                                    </label>
+                                                    <span class="label label-warning" ng-if="!venue.support2">Off</span>
+                                                    <span class="label label-success" ng-if="venue.support2">On</span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    
+                                </div>
+                            </div>
+                            <hr>
+                        <ul class="panel-list bb">
+                            <li>Enable this when requested by Qubercomm support team</li>
+                            <li>By enabling this, you are granting Qubercomm support with temporary administrator-level access</li>
+                            <li>This grant for access will be automatically revoked after 7 days.</li>
+                        </ul>
+                    </div>
+                         
+                </div>
+                     
+            </div>
+            <div class="nd2" ng-if="showalllicense">
+                <div class="panel w100">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">Licence <span class="fr"><i class="icon-license"></i></span></h6>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label>Type : {[{licenceData.licence.type}]}</label>
+                            <div class="clearfix"></div>
+                            <label class="mt10">
+                                Usage: 
+                            </label>
+                            <barprogress data="progressdata"></barprogress>
+                            <hr>
+                        </div>
+                        <h3>Licence Subscriptions</h3>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Licence for</th>
+                                         <th>Licence Type</th>
+                                        <th>Purchased on(DD/MM/YYYY)</th>
+                                        <th>Expires on(DD/MM/YYYY)</th>
+                                        <th>Time Left</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="ld in licenceData.licence">
+                                        <td>{[{ld.licenceFor}]}</td>
+                                         <td>{[{ld.type}]}</td>
+                                        <td>{[{ld.purchasedOn | date}]}</td>
+                                        <td>{[{ld.expriesOn | date }]}</td>
+                                        <td>{[{ld.timeLeft}]}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        
+                        </div>
+                    </div>
+                         
+                </div>
+            </div>
+            <div class="nd2" ng-if="showallgp">
+                <div class="panel w100">
+                    <div class="panel-heading">
+                        <h6 class="panel-title">Guest Pass <span class="fr"><i class="fa fa-user"></i></span></h6>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group tr">
+                            <button class="btn" ng-click="openGP()">Create Pass</button>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Mobile No</th>
+                                        <th>Allowed Network</th>
+                                        <th>Expires on</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                       
+                                    </tr>
+                                    <tr ng-repeat="gp in guestPassData">
+                                        <td>{[{gp.passName}]}</td>
+                                        <td>{[{gp.mobileNumber}]}</td>
+                                        <td>{[{gp.allowedNetwork}]}</td>
+                                        <td>{[{gp.expiresonDate}]}</td>
+                                        <td>{[{gp.passStatus}]}</td>
+                                         <td><label class="label label-primary cursor" ng-click="editOpen(gp)"><i class="fa fa-edit"></i></label> | <label class="label label-warning cursor" ng-click="deleteGp(gp)"><i class="fa fa-trash"></i></label></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                         
+                </div>
+            </div>
+        </div>
+    </section>
+<div class="popup">
+        <div class="popup-container">
+            <div class="panel">
+                <div class="panel-heading">
+                    <h6 class="panel-title">Email <span class="fr"><i class="fa fa-envelope-o"></i></span></h6>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" class="form-control" />
+                    </div>
+                    <div class="tr">
+                        <button class="btn w-auto"><i class="fa fa-save"></i> Save</button>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+
+<div class="popup" ng-class="{'open':GPOpen}">
+    <div class="popup-container accountAdd">
+        <div class="card-view bt2">
+            <div class="heading border">
+                <div class="title">
+                    Guest Pass
+                </div>
+                <div class="fr"><button class="btn w-auto fl" ng-click="openGP()"><i class="fa fa-times"></i></button></div>
+            </div>
+            <div class="body">
+                <div>
+                    <div class="w50">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <input type="text" class="form-control" ng-model="gpdata.passName">
+                        </div>
+                        <div class="form-group">
+                            <label>Mobile Number</label>
+                            <input type="text" class="form-control" ng-model="gpdata.mobileNumber">
+                        </div> 
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" class="form-control" ng-model="gpdata.email">
+                        </div>
+                        <div class="form-group">
+                            <label>Notes</label>
+                            <textarea class="form-control" ng-model="gpdata.notes"></textarea>
+                        </div>
+                    </div>
+                    <div class="w50">
+                        <div class="form-group">
+                            <label>Allowed Networks</label>
+                            <select class="form-control" ng-model="gpdata.allowedNetwork">
+                                <option>qubercomm</option>
+                                <option>qubercomm 2G</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Access Expries in</label>
+                            <input type="date" class="form-control" ng-model="gpdata.expiresonDate" dateformat>
+                                
+                        </div>
+                        <div class="form-group">
+                            <label>No Of Device</label>
+                            <input type="number" class="form-control" min="0" ng-model="gpdata.noOfDevices">
+                        </div>
+                        <div class="form-group">
+                            <div>
+                                <label class="checkbox">
+                                    <input type="checkbox" ng-model="gpdata.sendByMobile" ng-true-value="'true'" ng-false-value="'true'"/>
+                                    <span></span>
+                                </label>
+                                <span class="checkboxtext"><i class="fa fa-mobile"></i> Send to Mobile</span>
+                            </div>
+                            <div>
+                                <label class="checkbox">
+                                    <input type="checkbox" ng-model="gpdata.sendByEmail" ng-true-value="'true'" ng-false-value="'true'"/>
+                                    <span></span>
+                                </label>
+                                <span class="checkboxtext"><i class="fa fa-envelope"></i> Send By Email</span>
+                            </div>
+                            <div>
+                                <label class="checkbox">
+                                    <input type="checkbox" ng-model="gpdata.printGuestPass" ng-true-value="'true'" ng-false-value="'true'"/>
+                                    <span></span>
+                                </label>
+                                <span class="checkboxtext"><i class="fa fa-print"></i>Print Guest Pass</span>
+                            </div>
+                        </div>
+                        
+                        
+                        
+                        
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="fr tc">
+                        <button class="btn" ng-click="newGp(gpdata)" ng-if="!updateGpopen">Create Pass</button>
+                        <button class="btn" ng-click="updateGp(gpdata)" ng-if="updateGpopen">Update Pass</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="popup" ng-class="{'open':UserOpen}">
+    <div class="popup-container accountAdd">
+        <div class="card-view bt2">
+            <div class="heading border">
+                <div class="title">
+                    Users
+                </div>
+                <div class="fr"><button class="btn w-auto fl" ng-click="newUser()"><i class="fa fa-times"></i></button></div>
+            </div>
+            <div class="body">
+                <div>
+                    <div class="w50">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" class="form-control" ng-model="udata.fname">
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control" ng-model="udata.lname">
+                        </div> 
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" class="form-control" ng-model="udata.email">
+                        </div>
+                        <div class="form-group">
+                            <label>Mobile No</label>
+                            <input type="text" class="form-control" ng-model="udata.phone">
+                        </div>
+                    </div>
+                    <div class="w50">
+                        <div class="form-group">
+                            <label>Designation</label>
+                            <input type="text" class="form-control" ng-model="udata.designation">
+                        </div>
+                        <div class="form-group">
+                            <label>Role</label>
+                            <select class="form-control" ng-model="udata.role">
+                                <option ng-repeat="x in rolesData" value="{[{x.id}]}">{[{x.roleName}]}</option>
+                            </select>
+                                
+                        </div>
+                        <div class="form-group">
+                            <h4>Alert</h4>
+                            <ul class="panel-list lmb10">
+                                <li>Email 
+                                    <span class="fr">
+                                        <label class="switch">
+                                            <input type="checkbox" ng-model="udata.isMailalert" ng-true-value="'true'" ng-false-value="'false'">
+                                            <span></span>
+                                        </label>
+                                    </span>
+                                </li>
+                                <li>SMS 
+                                    <span class="fr">
+                                        <label class="switch">
+                                            <input type="checkbox" ng-model="udata.isSmsalert" ng-true-value="'true'" ng-false-value="'false'">
+                                            <span></span>
+                                        </label>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="fr tc">
+                        <button class="btn" ng-click="updateUsers(udata)" ng-if="!updateUopen">Create</button>
+                        <button class="btn" ng-click="updateUsers(udata)" ng-if="updateUopen">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

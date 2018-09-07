@@ -1,0 +1,316 @@
+{{#partial "leftnav"}}
+
+
+	<div id="sidebar-wrapper" class="addhide">
+				<ul class="sidebar-nav" id="menu">
+
+						{{#if spid}}
+							<li title = "Network Setup"> 
+								<a href="/facesix/web/site/portion/nwcfg?sid={{sid}}&spid={{spid}}&uid=?&cid={{cid}}" class="disablemenu active">
+									<i class="fa fa-cogs fa-lg" aria-hidden="true" ></i><br />
+									<span>Netconfig</span>
+									<!-- <span class="sb-name"></span> -->
+								</a>
+							</li>
+						{{/if}}		
+						{{#if GeoFinder}}	
+						<li class="addhide text-center" title="Device Configuration"> 
+							<a href="/facesix/web/finder/device/list?sid={{sid}}&spid={{spid}}&cid={{cid}}">
+							<i class="fa fa-bluetooth fa-lg" aria-hidden="false"></i><br />
+							<span >Finder</span> 
+							<!-- <span class="sb-name"></span> -->
+							</a>
+						</li>
+						
+						<li class="addhide" title="Tags">
+							<a href="/facesix/web/beacon/list?sid={{sid}}&spid={{spid}}&cid={{cid}}"> 
+							<i class="fa fa-bullseye fa-lg" aria-hidden="false"></i><br />
+							<span>Tags</span> 
+							<!-- <span class="sb-name"></span> -->
+							</a>
+						</li>
+						
+						{{else}}
+						{{#if Gateway}}
+						<li class=" addhide " title="Device Configuration">
+							<a href="/facesix/spots?cid={{cid}}&sid={{sid}}&spid={{spid}}" >
+							<i class="fa fa-mixcloud"  aria-hidden="false"></i><br />
+							<span> Gateway</span>
+							<!-- <span class="sb-name"></span> -->
+						</a>
+						</li>
+						<li class="addhide" title="Heatmap">
+								<a href="/facesix/web/site/portion/fullheatmap?sid={{sid}}&spid={{spid}}&cid={{cid}}"> 
+								 <i class="fa fa-bolt" aria-hidden="false"></i><br />
+								 <span>Heatmap</span> 
+						</a>
+						</li>
+						{{else}}
+						{{#if GatewayFinder}}						
+						
+						<li class="addhide" title="Device Configuration">
+							<a href="/facesix/web/finder/device/list?sid={{sid}}&spid={{spid}}&cid={{cid}}">  
+							<i class="fa fa-bluetooth fa-lg" aria-hidden="false"></i><br />
+							<span> Finder</span> 
+							<!-- <span class="sb-name"></span> -->
+							</a>
+						</li>
+						
+						<li class="addhide" title="Tags">
+							<a href="/facesix/web/beacon/list?sid={{sid}}&spid={{spid}}&cid={{cid}}">   
+							<i class="fa fa-bullseye fa-lg" aria-hidden="false"></i><br />
+							<span>Tags</span> 
+							<!-- <span class="sb-name"></span> -->
+							</a>
+						</li>
+						
+						
+						
+						<li class="addhide" title="Device Configuration">
+							<a href="/facesix/spots?sid={{sid}}&spid={{spid}}&cid={{cid}}">  
+							<i class="fa fa-mixcloud" aria-hidden="false"></i><br />
+							<span> Gateway</span> 
+							<!-- <span class="sb-name"></span> -->
+							</a>
+						</li>	
+
+						<li class="addhide" title="Heatmap">
+								<a href="/facesix/web/site/portion/fullheatmap?sid={{sid}}&spid={{spid}}&cid={{cid}}"> 
+								 <i class="fa fa-bolt" aria-hidden="false"></i><br />
+								 <span>Heatmap</span> 
+						</a>
+						</li>						
+						{{else}}
+						{{#if Retail}}
+						<li class="addhide" title="Device Configuration">
+							<a href="/facesix/spots?cid={{cid}}">  
+							<i class="fa fa-cog" aria-hidden="false"></i><br />
+							<span>Config</span> 
+							</a>
+						</li>	
+						{{/if}}
+						
+								
+						{{/if}}
+						{{/if}}							
+						{{/if}}
+						{{#if Heatmap}}
+						<li class=" addhide " title="Device Configuration">
+							<a href="/facesix/spots?cid={{cid}}&sid={{sid}}&spid={{spid}}" >
+							<i class="fa fa-mixcloud"  aria-hidden="false"></i><br />
+							<span> Gateway</span>
+							<!-- <span class="sb-name"></span> -->
+						</a>
+						</li>
+						<li class="addhide" title="Heatmap">
+								<a href="/facesix/web/site/portion/fullheatmap?sid={{sid}}&spid={{spid}}&cid={{cid}}"> 
+								 <i class="fa fa-bolt" aria-hidden="false"></i><br />
+								 <span>Heatmap</span> 
+						</a>
+						</li>
+						{{/if}}
+						{{#if GatewayFinder}}
+						{{#if sid}}					
+							<li title = "Venue Dashboard"> 
+							<a href="/facesix/web/site/portion/dashview?sid={{sid}}&spid={{spid}}&cid={{cid}}&dashview=2">
+							 	<i class="fa fa-tachometer"  aria-hidden="true"></i><br />
+							 	<span>Siteview</span> 
+								<!-- <span class="sb-name"></span> -->
+							</a>
+							</li>
+							<!-- <li title = "Load and Band Balance Dashboard"> 
+							<a href="/facesix/web/site/portion/GW_SteerList?sid={{sid}}&cid={{cid}}">
+							 	<i class="fa fa-balance-scale"  aria-hidden="true"></i><br />
+							 	<span>SteerBoard</span> 
+								<span class="sb-name"></span>
+							</a>
+							</li> -->
+						{{/if}}
+						{{else}}
+						{{#if Gateway}}
+						{{#if sid}}					
+							<li title = "Venue Dashboard"> 
+							<a href="/facesix/web/site/portion/dashview?sid={{sid}}&spid={{spid}}&cid={{cid}}&dashview=0">
+							 	<i class="fa fa-tachometer"  aria-hidden="true"></i><br />
+							 	<span>Siteview</span> 
+								<!-- <span class="sb-name"></span> -->
+							</a>
+							</li>
+							<!-- <li title = "Load and Band Balance Dashboard"> 
+							<a href="/facesix/web/site/portion/GW_SteerList?sid={{sid}}&spid={{spid}}&cid={{cid}}"">
+							 	  <img src="/facesix/static/qubercomm/images/load.ico" style="opacity: 100;color: #fff; width: 21px;margin-left: -10px;" alt="">
+									<br />
+							 	<span>SteerBoard</span> 
+								<span class="sb-name"></span>
+							</a>
+							</li> -->
+						{{/if}}
+						{{else}}
+						{{#if GeoFinder}}
+						{{#if sid}}	
+						<li title = "Venue Dashboard"> 
+							<a href="/facesix/web/site/portion/dashview?sid={{sid}}&spid={{spid}}&cid={{cid}}&dashview=0">
+							 	<i class="fa fa-tachometer"  aria-hidden="true"></i><br />
+							 	<span>Siteview</span> 
+								<!-- <span class="sb-name"></span> -->
+							</a>
+							</li>
+						{{/if}}
+						{{/if}}
+						{{/if}}
+						{{/if}}
+						
+						
+						{{#if GeoFinder}}
+						
+						{{#if sid}}		
+						<li title = "Dashboard"> 			
+							<a href="/facesix/web/beacon/venuetag?sid={{sid}}&cid={{cid}}">
+								<i class="fa fa-line-chart" aria-hidden="true"></i><br />
+								<span>Dashboard</span> 
+								<!-- <span class="sb-name"></span> -->
+							</a>
+						</li>	
+						{{/if}}
+						{{else}}
+						{{#if GatewayFinder}}
+						{{#if sid}}		
+						<li title = "Dashboard"> 			
+							<a href="/facesix/web/beacon/venuetag?sid={{sid}}&cid={{cid}}">
+								<i class="fa fa-line-chart" aria-hidden="true"></i><br />
+								<span>Dashboard</span> 
+								<!-- <span class="sb-name"></span> -->
+							</a>
+						</li>	
+						{{/if}}
+						{{/if}}
+						{{/if}}
+						
+						
+						{{#if spid}}
+						{{#if Gateway}}
+						<li title = "Floor Dashboard"> 				
+						<a href="/facesix/web/site/portion/dashboard?sid={{sid}}&spid={{spid}}&cid={{cid}}&param=0">
+						<i class="fa fa-bar-chart" aria-hidden="true"></i><br />
+						<span>Floorview</span> 
+							<!-- <span class="sb-name"></span> -->
+						</a>
+						</li>
+						{{else}}
+						{{#if GeoFinder}}
+						<li title = "Floor Dashboard"> 				
+						<a href="/facesix/web/site/portion/dashboard?sid={{sid}}&spid={{spid}}&cid={{cid}}&param=0">
+						<i class="fa fa-bar-chart" aria-hidden="true"></i><br />
+						<span>Floorview</span> 
+							<!-- <span class="sb-name"></span> -->
+						</a>
+						</li>
+						{{/if}}
+						{{/if}}		
+						{{/if}}
+						
+						{{#if Gateway}} 
+						 
+						{{#if spid}}	
+						<li class="addhide" title = "Topology">				
+							<a href="/facesix/web/site/portion/map?sid={{sid}}&spid={{spid}}&cid={{cid}}">
+							<i class="fa fa-sitemap"></i><br />
+							<span>Topology</span> 
+								<!-- <span class="sb-name"></span> -->
+							</a>
+						</li>
+						{{/if}}
+						{{else}}
+						{{#if Heatmap}}
+						{{#if spid}}
+						<li class="addhide" title = "Topology">				
+							<a href="/facesix/web/site/portion/map?sid={{sid}}&spid={{spid}}&cid={{cid}}">
+							<i class="fa fa-sitemap"></i><br />
+							<span>Topology</span> 
+								<!-- <span class="sb-name"></span> -->
+							</a>
+						</li>
+						{{/if}}
+						{{/if}}
+						{{/if}}
+						
+						{{#if Retail}}
+						<li class="addhide" title="Home">
+							<a
+							href="/facesix/mesh-topology?cid={{cid}}">
+								 <i class="fa fa-home" aria-hidden="true"></i><br />
+								<span>Home</span> 
+							<!-- <span class="sb-name"></span> -->
+						</a>
+						</li> 
+						
+						{{/if}}
+						{{#if BINARY_WRITE}}
+						<li class="addhide" title="Upgrade">
+							<a
+							href="/facesix/web/finder/device/binary?sid={{sid}}&spid={{spid}}&uid=&cid={{cid}}">
+								 <i class="fa fa-cloud-download" aria-hidden="true"></i><br />
+								<span>Upgrade</span> 
+							<!-- <span class="sb-name"></span> -->
+						</a>
+						</li> 
+						
+						
+						{{/if}}
+						
+						{{#unless GeoFinder}}
+						<li class="user-pic mobilehideS" title="Access Control">
+							<a
+							href="/facesix/web/acl/profile?sid={{sid}}&spid={{spid}}&cid={{cid}}"> 
+							  <i class="fa fa-lock fa-lg" aria-hidden="true"></i><br />
+							  <span>ACL</span> 
+								<!-- <span class="sb-name"></span> -->
+						</a>
+						</li> 
+						{{/unless}}
+						
+						{{#if INACTIVE_WRITE}}
+						{{#if Gateway}}
+							<li class="addhide" title="Logs">
+								<a href="/facesix/web/site/portion/logview?sid={{sid}}&spid={{spid}}&cid={{cid}}"> 
+								 <i class="fa fa-history" aria-hidden="false"></i><br />
+								 <span>Logs</span> 
+							<!-- <span class="sb-name"></span> -->
+						</a>
+						</li>	
+						{{else}}
+						{{#if GeoFinder}}
+						<li class="addhide" title="Logs">
+							<a href="/facesix/web/finder/device/logs?sid={{sid}}&spid={{spid}}&cid={{cid}}">   
+							<i class="fa fa-history" aria-hidden="false"></i><br />
+							<span>Logs</span> 
+							<!-- <span class="sb-name"></span> -->
+							</a>
+						</li>
+						{{else}}
+						{{#if GatewayFinder}}
+						<li class="addhide" title="Logs">
+							<a href="/facesix/web/finder/device/logs?sid={{sid}}&spid={{spid}}&cid={{cid}}"> 
+							<i class="fa fa-history" aria-hidden="false"></i><br />
+							<span> Logs</span> 
+							<!-- <span class="sb-name"></span> -->
+						</a>
+						</li>
+						{{else}}
+						{{#if Heatmap}}
+						<li class="addhide" title="Logs">
+								<a href="/facesix/web/site/portion/logview?sid={{sid}}&spid={{spid}}&cid={{cid}}"> 
+								 <i class="fa fa-history" aria-hidden="false"></i><br />
+								 <span>Logs</span> 
+							<!-- <span class="sb-name"></span> -->
+						</a>
+						</li>	
+						{{/if}}
+						{{/if}}
+						{{/if}}
+						{{/if}}
+						{{/if}}
+					</ul>
+			</div>
+			
+{{/partial}}

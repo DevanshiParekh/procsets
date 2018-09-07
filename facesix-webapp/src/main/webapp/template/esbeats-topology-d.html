@@ -1,0 +1,170 @@
+{{#partial "page"}}
+<script src="http://d3js.org/d3.v3.js"></script>
+<style>
+
+path.link {
+  fill: none;
+  stroke-width: 1.5px;
+}
+
+.http {
+  fill: none;
+  stroke: red;
+  stroke-width: 1.5px;
+}
+
+.mongodb {
+  fill: none;
+  stroke: blue;
+  stroke-width: 1.5px;
+}
+
+
+circle {
+  fill: #ccc;
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+text {
+  fill: #000;
+  font: 10px sans-serif;
+  pointer-events: none;
+}
+
+</style>
+
+<div id="packetology"></div>
+
+<script type="text/javascript">
+     
+   // get the data
+   d3.json("/facesix/rest/esbeats/packetology?s=1000", function(error, tree) {
+
+   var width = 960,
+       height = 500;
+
+   var force = d3.layout.force()
+       .nodes(tree.nodes)
+       .links(tree.links)
+       .size([width, height])
+       .linkDistance(100)
+       .charge(-300)
+       .on("tick", tick)
+       .start();
+
+   var svg = d3.select("div#packetology").append("svg")
+       .attr("width", width)
+       .attr("height", height);
+
+   // build the arrow.
+   svg.append("svg:defs").selectAll("marker")
+       .data(["end"])      // Different link/path types can be defined here
+     .enter().append("svg:marker")    // This section adds in the arrows
+       .attr("id", String)
+       .attr("viewBox", "0 -5 10 10")
+       .attr("refX", 15)
+       .attr("refY", -1.5)
+       .attr("markerWidth", 6)
+       .attr("markerHeight", 6)
+       .attr("orient", "auto")
+     .append("svg:path")
+       .attr("d", "M0,-5L10,0L0,5");
+
+   // add the links and the arrows
+   var path = svg.append("svg:g").selectAll("path")
+       .data(force.links())
+     .enter().append("svg:path")
+		.attr("class", function(d) { return "link " + d.type; })
+       //.attr("class", "link")
+       .attr("marker-end", "url(#end)");
+
+   // define the nodes
+   var node = svg.selectAll(".node")
+       .data(force.nodes())
+     .enter().append("g")
+       .attr("class", "node")
+       .call(force.drag);
+
+   // add the nodes
+   node.append("circle")
+       .attr("r", 5)
+       .on("mouseover", mouseOverFunction)
+       .on("mouseout", mouseOutFunction);
+
+   // add the text 
+   node.append("text")
+       .attr("x", 12)
+       .attr("dy", ".35em")
+       .text(function(d) { return d._sid; });
+   
+   
+   var tooltip = d3.select("div#packetology").append("div")
+   .attr("class", "tooltip")
+   .style("opacity", 0);
+   
+   /**
+    * Event - mouseover for network nodes
+    * @param tree
+    */
+   function mouseOverFunction(d, i) {
+       if (d3.event.defaultPrevented) return;
+       tooltip.transition().duration(200).style("opacity", 1);
+
+       var obj = tree.nodes[i];
+
+       var html = "<B>Properties</B>";
+       var skipAttrs = ["x", "y", "px", "py", "index", "weight"];
+       for(var key in obj) {
+     	  if (skipAttrs.indexOf(key) < 0) {
+     	    if(obj.hasOwnProperty(key) && typeof obj[key] !== 'function') {
+     	        html += "<BR/><b>" + key + ": </b>" + obj[key];
+     	    }
+     	  }
+     	}
+
+       tooltip.html(html).style({
+               "left": (d3.event.pageX + 5) + "px",
+               "top": (d3.event.pageY + 5) + "px",
+               "display" : "block",
+               "width" : "300px",
+               "font-weight" : "lighter",
+               "background" : "#008CBA",
+               "border-radius" : "20px"
+           });
+   }
+   /**
+    * Event-mouseout for network nodes
+    */
+   function mouseOutFunction() {
+       if (d3.event.defaultPrevented) return;
+       tooltip.transition().duration(500).style("opacity", 0);
+   }
+
+   // add the curvy lines
+   function tick() {
+       path.attr("d", function(d) {
+           var dx = d.target.x - d.source.x,
+               dy = d.target.y - d.source.y,
+               dr = Math.sqrt(dx * dx + dy * dy);
+           return "M" + 
+               d.source.x + "," + 
+               d.source.y + "A" + 
+               dr + "," + dr + " 0 0,1 " + 
+               d.target.x + "," + 
+               d.target.y;
+       });
+
+       node.attr("transform", function(d) { 
+     	    	return "translate(" + d.x + "," + d.y + ")"; 
+     	    });
+   }
+
+   });
+
+   </script>  
+
+{{/partial}}
+ {{>message}}
+ {{>device-leftnav}}
+ {{>wrapper}}

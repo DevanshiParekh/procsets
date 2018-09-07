@@ -1,0 +1,175 @@
+{{#partial "page"}}
+<div id="page-wrapper-noleftnav" style="margin-left: 6px;margin-top: 9px;">
+
+	<!-- /.row -->
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-heading"> Patients and Room Time statistics </div>
+			</div>
+		</div>
+	</div>
+	<!-- /.row -->
+
+
+	<!-- /.row -->
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default">
+						<div class="panel-heading"> Please input "From:" and "To:" date </div>
+					</div>
+				</div>
+				<div class="panel-body">
+						<div class="dataTable_wrapper">
+								<table class="table table-striped table-bordered table-hover"
+									id="datatable_entity">
+									<tbody>
+										<form method="post" action="/facesix/web/beacon/location/stats?cid={{cid}}">
+										<tr class="odd gradeX">
+											<td><input name="from" class="form-control" placeholder="From date [YYYY-MM-DD] ex: 2017-01-31" value="{{from}}"></td>
+											<td><input name="to" class="form-control" placeholder="To date [YYYY-MM-DD] ex: 2017-02-31" value="{{to}}"></td>
+											<td><button type="submit" value="Query"> Submit </button></td>
+										</tr>
+										</form>
+									</tbody>
+								</table>
+							</div>
+						</div>			
+				</div>
+		</div>
+	</div>
+	<!-- /.row -->
+	<div class="row">
+		<div id="entabbody" class="tab-content">
+			<div id="home" class="tab-pane fade in active">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<!-- /.panel-heading -->
+						<div class="row">
+								<div class="col-lg-12">
+									<div class="panel panel-default">
+										<div class="panel-heading"> Patient Time at Hospital (In Minutes)</div>
+									</div>
+								</div>
+						</div>
+						<div class="panel-body">
+							<div class="dataTable_wrapper">
+								<table class="table table-striped table-bordered table-hover"
+									id="datatable_entity">
+										<col>
+										<col>
+										<colgroup span="2"></colgroup>
+										<colgroup span="2"></colgroup>
+										<thead>
+											<tr>
+												<th>Total No. of Patients </td>
+												<th>Avg Time per Patient</td>
+												<th>Min Patient Time</th>
+												<th>Max Patient Time</th>
+											</tr>
+										</thead>
+									<tbody>
+									{{#if hospitalStats}}
+										{{#each hospitalStats}}
+											<tr class="odd gradeX">
+												<td>{{totalPatients}}</td>
+												<td>{{millis2mins avgInTime}}</td>
+												<td>{{millis2mins minInTime}}</td>
+												<td>{{millis2mins maxInTime}}</td>
+											</tr>
+										{{/each}}
+									{{else}}
+										<tr><td colspan=4> No data found </td> </tr>
+									{{/if}}
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!-- /.panel-body -->
+					</div>
+					<!-- /.panel -->
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div id="entabbody" class="tab-content">
+			<div id="home" class="tab-pane fade in active">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<!-- /.panel-heading -->
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="panel panel-default">
+								<div class="panel-heading"> Location-wise Time split (In Minutes)</div>
+							</div>
+						</div>
+						</div>
+						<div class="panel-body">
+							<div class="dataTable_wrapper">
+								<table class="table table-striped table-bordered table-hover"
+									id="datatable_entity">
+										<col>
+										<col>
+										<colgroup span="2"></colgroup>
+										<colgroup span="2"></colgroup>
+										<thead>
+											<tr>
+												<th rowspan="2">Location</td>
+												<th rowspan="2">Patient Count</td>
+												<th colspan="3" scope="colgroup">Time Spent (Minutes)</th>
+												<th colspan="3" scope="colgroup">Wait Time before Entering (Minutes)</th>
+											</tr>
+											<tr>
+												<th scope="col">Avg</th>
+												<th scope="col">Min</th>
+												<th scope="col">Max</th>
+												<!--<th scope="col">Total</th>  -->
+												<th scope="col">Avg</th>
+												<th scope="col">Min</th>
+												<th scope="col">Max</th>
+												<!--<th scope="col">Total</th> -->
+											 </tr>
+										</thead>
+									<tbody>
+									{{#if locationStats}}
+										{{#each locationStats}}
+										<tr class="odd gradeX">
+											<td>{{location}}</td>
+											<td>{{visitCount}}</td>
+											<td>{{millis2mins avgElapsedTime}}</td>
+											<td>{{millis2mins minElapsedTime}}</td>
+											<td>{{millis2mins maxElapsedTime}}</td>
+											<!--  <td>{{millis2mins totalElapsedTime}}</td> -->
+											<td>{{millis2mins avgWaitTime}}</td>
+											<td>{{millis2mins minWaitTime}}</td>
+											<td>{{millis2mins maxWaitTime}}</td>
+											<!--  <td>{{millis2mins totalWaitTime}}</td> -->
+											<!-- <td>{{totalPatients}}</td> -->
+										</tr>
+										{{/each}}
+									{{else}}
+										<tr><td colspan=8> No data found </td> </tr>
+									{{/if}}
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!-- /.panel-body -->
+					</div>
+					<!-- /.panel -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /.row -->
+
+</div>
+{{/partial}} 
+{{>qubercomm/nav-top}}
+{{>qubercomm/nav-left}}
+{{>qubercomm/wrapperfinder}}

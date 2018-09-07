@@ -1,0 +1,532 @@
+<style>
+@media only screen
+	and (min-device-width: 768px)
+	and (-webkit-min-device-pixel-ratio: 1){
+	.w50{
+		width: 50%;
+		float: left;
+	}
+	}
+</style>
+<div class="captive_portal">
+	<div class="loader_boxtwo loaders" ng-class="{active:loaderEnabled == 'active'}">	
+		<div class="loadertwo"></div>
+		<h4 class="text-center">Saving...</h4>
+	</div> 
+	<div class="captive_portal_inner">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-ui-6 ">
+					<h2>Library</h2>
+				</div>
+				<div class="col-ui-6 text-right" > 
+					<a id="previewPortals" href ng-click="uiCancel = 'true'" ng-show="uiCancel != 'true'">Cancel</a>
+					<a id="previewPortals" ng-href="#!/captiveportal" ng-show="uiCancel == 'true'" style="background: #f00">Sure</a>
+					<a id="previewPortals" href ng-click="uiCancel = 'false'" ng-show="uiCancel == 'true'" >No</a>
+					
+					<a id="savePortals" href ng-click="savePortals()" ng-show="portalName != undefined && preferedUrl != undefined && errorSave == false && cid != '' && cid != undefined && builderForm.$valid == true" >Save</a>
+					<a id="savePortals" href="javascript:void(0)" ng-click="setTab(1)"  ng-show="portalName == undefined || preferedUrl == undefined || errorSave == true || cid == '' || cid == undefined || builderForm.$valid == false" class="disabled"  >Save</a>
+					<a id="previewPortals" href ng-click="previewPortals()" >Preview</a>
+					
+				</div>
+				
+			 
+			</div>
+		 	<div class="errorMessage message" ng-show="errorMessage1 == true">Please remove duplicate fields or change the Placeholder Text of duplicate field. <span ng-if="errorplaceholder != ''"><b>Example field is - {[{errorplaceholder}]}</b></span><a href="javascript:void(0);" ng-click="errorMessage1 = false" >x</a></div>
+		 	<div class="errorMessage message" ng-show="errorMessage == true">Please select minimum two fields for registration form.<a href="javascript:void(0);" ng-click="errorMessage = false" >x</a></div>
+		 	<div class="fixedActions" ng-if="previewMode == 'active'">
+		 		<div class="previewClose" ng-click="previewClose()" ><i class="fa fa-times"></i></div>
+		 		<ul>
+		 			<li ng-class="{active:previewModeClass == 'desktop'}"><a href ng-click="setPreviewClass('desktop')"><i class="fa fa-desktop" aria-hidden="true"></i></a></li>
+		 			<li ng-class="{active:previewModeClass == 'tablet'}"><a href ng-click="setPreviewClass('tablet')"><i class="fa fa-tablet" aria-hidden="true"></i></a></li>
+		 			<li ng-class="{active:previewModeClass == 'mobile'}"><a href ng-click="setPreviewClass('mobile')"><i class="fa fa-mobile" aria-hidden="true"></i></a></li>
+		 		</ul>
+		 	</div>
+		 	<div id="sortable-container">
+		 	
+				<div class="row" >
+				
+					<div class="col-ui-6">
+						<div class="builderInner">
+							<div class="builderHeader">
+								<ul>
+									<li><div class="portalTitle"><input type="text" disabled name="portalName" ng-model="portalName" placeholder="Template Name"  /></div></li>
+									
+								</ul>
+							</div>
+							 
+							
+							<div class="column"> 
+								 <div ng-include="template"></div>  
+				            </div>
+			         
+						</div>
+						
+			            
+					</div>
+				 
+					<div class="col-ui-6"  >
+						 <form name="builderForm">
+						 	<div class="builderInner">
+							<div class="builderHeader">
+								<ul class="extraTabs">
+								    <li ng-class="{ active: isSet(1), error: portalName == undefined || preferedUrl == undefined || errorSave == true || cid == '' || cid == undefined}"><a href ng-click="setTab(1)" >Settings</a></li>
+									<li ng-class="{ active: isSet(2) }"><a href ng-click="setTab(2)" >Theme</a></li> 
+									<li ng-class="{ active: isSet(3) }"><a href ng-click="setTab(3)" >Content</a></li>
+									<li ng-class="{ active: isSet(5) }"><a href ng-click="setTab(5)" >Background</a></li>
+									<li ng-show="isSet(4)" ng-class="{ active: isSet(4) }"><a href ng-click="setTab(4)" >Edit</a></li>
+								</ul>
+							</div>
+							<div class="column"> 
+								<div class="builderTabs">
+								
+									<div ng-show="isSet(2)">
+										<div class="color-palate">
+											<ul>
+												<li ng-click="colorPalate(0, '#ffffff','#f0f0f0')" ng-class="{ active: activeSkin == '0' }">
+													<div class="extra-theme-table">
+														<div style="background-color: #ffffff;"></div>
+														<div style="background-color: #f0f0f0;"></div>
+													</div>
+												</li>
+												<li ng-click="colorPalate(1, '#363636','#464646')" ng-class="{ active: activeSkin == '1' }">
+													<div class="extra-theme-table">
+														<div style="background-color: #363636;"></div>
+														<div style="background-color: #464646;"></div>
+													</div>
+												</li>
+												<li ng-click="colorPalate(2, '#2277cc','#61a9f0')" ng-class="{ active: activeSkin == '2' }">
+													<div class="extra-theme-table">
+														<div style="background-color: #2277cc;"></div>
+														<div style="background-color: #61a9f0;"></div>
+													</div>
+												</li>
+												<li ng-click="colorPalate(3, '#b40610','#e10e1a')" ng-class="{ active: activeSkin == '3' }">
+													<div class="extra-theme-table">
+														<div style="background-color: #b40610;"></div>
+														<div style="background-color: #e10e1a;"></div>
+													</div>
+												</li>
+												<li ng-click="colorPalate(4, '#efa900','#f8c218')" ng-class="{ active: activeSkin == '4' }">
+													<div class="extra-theme-table">
+														<div style="background-color: #efa900;"></div>
+														<div style="background-color: #f8c218;"></div>
+													</div>
+												</li>
+												<li ng-click="colorPalate(5, '#5f9018','#89b923')" ng-class="{ active: activeSkin == '5' }">
+													<div class="extra-theme-table">
+														<div style="background-color: #5f9018;"></div>
+														<div style="background-color: #89b923;"></div>
+													</div>
+												</li>
+											</ul>
+										</div>
+										
+										
+									</div>
+									
+									<div ng-show="isSet(1) ">
+										<div class="page-settings">
+											<div ng-if="cids == undefined || cids == ''">
+										 	 
+											 	<label>Select Customer</label><br />  
+											 	<select class="select-control" ng-model="cid" ng-change="changeCid(cid)" ng-class="{error:cid == ''}" style="max-width: 400px; height: 45px; font-size: 16px" required >
+											 		<option value="" selected="selected" disabled>Select</option>
+											 		<option ng-repeat="x in cusList" value="{[{x.id}]}">{[{x.custName}]}</option>
+											 	</select> 
+											 </div>
+											<label>Preferred Url:</label>
+											<input type="text" class="form-control" portal-available required name="preferedUrl" ng-model="preferedUrl" placeholder="Preferred Url" ng-pattern="/^[a-zA-Z _]+$/" style="text-indent: 7px;"/>
+											<br /><label>Page Title:</label>
+											<input type="text" class="form-control" required name="portalName" ng-model="portalName" placeholder="Page Name" style="text-indent: 7px;" />
+											<div class="w50" style="margin-top: 13px;">
+											<div class="form-group disp-inline yeah" style="margin-left: -15px">
+											
+											<label>Association Template:</label>
+											<select class="select-control" ng-model="associationTemp" ng-change="changeTemp()" style="height: 40px;font-size: 14px">											  	
+											  	<option value="cid" selected>ALL VENUES</option>
+											  	<option value="sid">VENUE</option>
+											  	<option value="spid">FLOOR</option>
+											</select>
+											</div>
+											</div>
+											
+											<div class="w50" style="margin-top: 13px;">
+											<div class="form-group disp-inline yeah" style="margin-right: -15px">
+												<span for="" class="fontwe"> Select Association:</span><br /> 
+ 												<select ng-disabled="dButton"  ng-model="selected" ng-options="c.uid for c in choose" class="select-control" style="height: 40px;font-size: 14px; margin-top: 3px;">
+ 												<option value="" selected disabled>Select</option>
+ 												</select>  
+										 	</div>
+										 	</div>
+										 	
+										</div>
+										
+										
+									</div>
+									
+									
+									<div ng-show="isSet(3)">
+										<div class="components_wrp">
+											
+											<div class="sortable-row row" as-sortable="sortableCloneOptions" data-ng-model="itemsList.components">
+							                    <div class="components col-ui-2" ng-repeat="item in itemsList.components" as-sortable-item ng-class="{disabledField:item.disabled == true}" >
+							                        <div as-sortable-item-handle><i class="fa fa-{[{item.field_icon}]}" aria-hidden="true"></i><br />{[{item.label}]}</div>
+							                    </div>
+							                </div>
+							                
+							                <h2>Advanced Elements</h2>
+							                <div class="sortable-row row" as-sortable="sortableCloneOptions" data-ng-model="itemsList.advancedcomponents">
+							                    <div class="components col-ui-4" ng-repeat="item in itemsList.advancedcomponents" as-sortable-item ng-class="{disabledField:item.disabled == true}" >
+							                        <div as-sortable-item-handle><i class="fa fa-{[{item.field_icon}]}" aria-hidden="true"></i><br />{[{item.label}]}</div>
+							                    </div>
+							                </div> 
+							                
+										</div>
+										
+									</div>
+									
+									<div ng-show="isSet(5)">
+										<div class="background-options"> 
+											<div class="wrapperbox" >
+												 <label>Background Image</label><br />
+												 <div class="upload-btn-wrapper" ng-click="chooseFile('image', 'background')"> 
+											 	 	<span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path></svg></span>
+											 	 	<i>Choose Background</i>
+											 	 	<!-- <input type="file" ng-model="backgroundImg" name="backgroundImg"  onchange="angular.element(this).scope().setThemeBg(this)"  file-upload="" accept="image/x-png,image/gif,image/jpeg" />  -->
+												 </div>
+												 <input type="hidden" ng-model="backgroundImg" name="backgroundImg" />
+											 </div> 
+										</div>
+									</div> 
+									
+									<div ng-show="isSet(4)">
+										
+										<div class="styleUPdate">
+											<div><h4>Update Style</h4></div>
+											
+										    <h2 ng-class="{ active: isSets(0) }" ng-if="singleField.type == 'social'" ng-click="setAcc(0)"><i class="fa fa-plus" aria-hidden="true"></i><i class="fa fa-minus" aria-hidden="true"></i>Social Media Links</h2>
+											<div class="styleUPdateInner" ng-show="isSets(0)" ng-if="singleField.type == 'social'">
+												<div ng-repeat="fields in singleField.socialMedias">
+													<div>
+														
+														<h3>
+															<div class="check_alter"> 
+																<input type="checkbox" ng-model="fields.status" ng-true-value="true" ng-false-value="false" ng-checked="fields.status == true" >  
+																<i></i>
+															</div> 
+															{[{fields.name}]}
+														</h3>
+													  
+													</div>
+													
+												</div> 
+											</div> 
+											
+											<h2 ng-class="{ active: isSets(0) }" ng-if="singleField.type == 'registration'" ng-click="setAcc(0)"><i class="fa fa-plus" aria-hidden="true"></i><i class="fa fa-minus" aria-hidden="true"></i>Registration Fields</h2>
+											<div class="styleUPdateInner" ng-show="isSets(0)" ng-if="singleField.type == 'registration'">
+												
+												<div ng-repeat="fields in singleField.registration_fields">  
+													<div ng-if="fields.name != 'gender'">
+														
+														<h3>
+															<div class="check_alter"> 
+																<input type="checkbox" ng-model="fields.status" ng-true-value="true" ng-false-value="false" ng-checked="fields.status == true" disabled>  
+																<i></i>
+															</div>
+															{[{fields.name}]}
+														</h3>
+														<input style="border: none; text-indent: 5px; text-align: left; width: 100%; line-height: 26px; border: 2px solid #eee; font-size: 16px;" type="text" ng-model="fields.placeholder" name="{[{fields.name}]}_placeholder" placeholder="Placeholder text"> 
+														 
+													</div>
+													
+													<h3 ng-if="fields.name == 'gender'">
+														<div class="check_alter"> 
+															<input type="checkbox" ng-model="fields.status" ng-true-value="true" ng-false-value="false" ng-checked="true" >  
+															<i></i>
+														</div>
+														{[{fields.name}]}
+													</h3>  
+												</div> 
+												
+											</div>
+											
+											<h2 ng-class="{ active: isSets(0) }" ng-if="singleField.type == 'login'" ng-click="setAcc(0)"><i class="fa fa-plus" aria-hidden="true"></i><i class="fa fa-minus" aria-hidden="true"></i>Login Fields</h2>
+											<div class="styleUPdateInner" ng-show="isSets(0)" ng-if="singleField.type == 'login'">
+												
+												<div ng-repeat="fields in singleField.login_fields">  
+													<div ng-if="fields.name != 'gender'">
+														
+														<h3>
+															<div class="check_alter"> 
+																<input type="checkbox" ng-model="fields.status" ng-true-value="true" ng-false-value="false" ng-checked="true" disabled >  
+																<i></i>
+															</div>
+															{[{fields.name}]}
+														</h3>
+														<input style="border: none; text-indent: 5px; text-align: left; width: 100%; line-height: 26px; border: 2px solid #eee; font-size: 16px;" type="text" ng-model="fields.placeholder" name="{[{fields.name}]}_placeholder" placeholder="Placeholder text"> 
+														 
+													</div>
+													   
+												</div> 
+												
+											</div>
+											
+											
+											
+											<h2 ng-class="{ active: isSets(1) }" ng-click="setAcc(1)"><i class="fa fa-plus" aria-hidden="true"></i><i class="fa fa-minus" aria-hidden="true"></i>Content</h2>
+											<div class="styleUPdateInner" ng-show="isSets(1)">
+												
+												<div ng-if="singleField.type == 'input'">
+													<ul class="inlinestyles"> 
+														<li>
+															<span>Input Type</span>
+															<div>
+																<select name="inputType" ng-model="singleField.inputType">
+																	<option value="text">text</option>
+																	<option value="password">password</option>
+																	<option value="number">number</option> 
+																</select>
+															</div>
+														</li>
+													</ul>
+												</div>
+												
+												<div ng-if="singleField.type == 'text'">
+													<ul class="inlinestyles"> 
+														<li>
+															<span>Text Type</span>
+															<div>
+																<select ng-change="txtTypeChange(singleField.inputType)" name="inputType" ng-model="singleField.inputType">
+																	<option value="h1">h1</option>
+																	<option value="h2">h2</option>
+																	<option value="h3">h3</option>
+																	<option value="h4">h4</option>
+																	<option value="h5">h5</option>
+																	<option value="h6">h6</option>
+																	<option value="div">div</option>
+																	<option value="p">p</option>
+																	<option value="span">span</option>
+																	<option value="label">label</option>
+																	<option value="i">i</option> 
+																</select>
+															</div>
+														</li>
+													</ul>
+												</div> 
+												 
+												
+												<div ng-if="singleField.type == 'add'">
+													<br /><label style="display: block;">Add Content </label>
+													<textarea ng-model="singleField.content" name="content" placeholder="Enter advertisement information here..">{[{singleField.content}]}</textarea>
+												</div>
+												
+												<div ng-if="singleField.type == 'offer'">
+													<br /><label style="display: block;">Offer Information </label>
+													<textarea ng-model="singleField.content" name="content" placeholder="Enter offer information here..">{[{singleField.content}]}</textarea>
+												</div>
+												
+												<div ng-if="singleField.type == 'terms'">
+													<br /><label style="display: block;">Terms Information </label>
+													<textarea ng-model="singleField.content" name="content" placeholder="Enter terms information here..">{[{singleField.content}]}</textarea>
+												</div>
+												
+												<div ng-if="singleField.type == 'video'">
+													<div class="wrapperbox">
+													 	 <label>Upload Video</label><br />
+														 <div class="upload-btn-wrapper" ng-click="chooseFile('video', 'video', singleField)"> 
+													 	 	 <span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path></svg></span>
+													 	 	 <i>Choose Video File</i>
+													 	 	 <!-- <input type="file" ng-model="videoPaths" name="videoPaths" onchange="angular.element(this).scope().setSingleVideoFile(this)"  file-upload="" accept="video/mp4,video/x-m4v,video/*" /> -->
+															 <input type="hidden" ng-model="singleField.videoPath" name="videoPath" />
+														 </div>  
+													 </div> 
+												</div>
+												
+												<div ng-if="singleField.type == 'text'">
+													<br /><label style="display: block;">Content</label>
+													<textarea ng-model="singleField.content" name="content" placeholder="Content">{[{singleField.content}]}</textarea>
+												</div>
+												<div ng-if="singleField.inputType =='submit'">
+													<br /><label style="display: block;">Submit Text</label>
+													<textarea  ng-model="singleField.content" name="content" placeholder="Content">{[{singleField.content}]}</textarea>
+												</div>
+												 
+												
+												
+										 		<div ng-if="singleField.type == 'input' || singleField.type == 'textarea'">
+										 			<br />
+										 			<label style="display: block;">Placeholder Text</label>
+										 			<textarea ng-model="singleField.placeholder" name="placeholder" placeholder="Placeholder Text">{[{singleField.placeholder}]}</textarea>
+										 		</div>
+												
+												<div class="imageUpload" ng-if="singleField.type == 'image'"> 
+													 <div class="wrapperbox">
+													 	 <label>Upload Image</label><br />
+														 <div class="upload-btn-wrapper" ng-click="chooseFile('image', 'image', singleField)"> 
+													 	 	 <span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path></svg></span>
+													 	 	 <i>Choose Image</i> 
+															 <input type="hidden" ng-model="singleField.imagePath" name="imagePath" />
+														 </div>  
+													 </div>
+														  
+													
+												</div>
+												
+												<div class="imageUpload" ng-if="singleField.type == 'add'">  
+												
+												    <div class="wrapperbox">
+													 	 <label>Upload Image</label><br />
+														 <div class="upload-btn-wrapper" ng-click="chooseFile('image', 'image', singleField)"> 
+													 	 	 <span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path></svg></span>
+													 	 	 <i>Choose Advertisement Image</i>
+													 	 	<!-- <input type="file" ng-model="imagePaths" name="imagePaths"  onchange="angular.element(this).scope().setSingleImageFile(this)"  file-upload="" accept="image/x-png,image/gif,image/jpeg" /> --> 
+															 <input type="hidden" ng-model="singleField.imagePath" name="imagePath" />
+														 </div>  
+													 </div>
+													 
+													
+												</div>
+												
+												<div class="imageUpload" ng-if="singleField.type == 'add' || singleField.type == 'offer' || singleField.type == 'voucher'">  
+													<div class="wrapperbox">
+														<div class="row">
+															<div class="col-ui-6">
+																<label>Valid From</label><br />  
+																<input required autocomplete="off" style="width: auto;" type="text" class="form-control" data-min-date="today" ng-model="singleField.validFrom" datetime-picker  autoclose="true"  name="validFrom"  date-format="MM-dd-yyyy HH:mm:ss" >
+															</div>
+															<div class="col-ui-6">
+																<label>Valid To</label><br />
+																<input required date-range mindate="{[{singleField.validFrom}]}" ng-disabled="singleField.validFrom == '' || singleField.validFrom == 'undefined'" autocomplete="off" style="width: auto;" type="text" class="form-control" ng-model="singleField.validTo"  datetime-picker autoclose="true" name="validTo" date-format="MM-dd-yyyy HH:mm:ss" >
+															</div>
+														</div>
+														
+													</div> 
+												</div>
+												
+												<h3>Padding</h3>
+												<ul class="inlinestyles">
+													<li><span>Top:</span><div><input type="number" name="paddingTop" ng-model="singleField.paddingTop" placeholder="0" min="0" max="200" /><i>px</i></div></li> 
+													<li><span>Right:</span><div><input type="number" name="paddingRight" ng-model="singleField.paddingRight" placeholder="0" min="0" max="200" /><i>px</i></div></li> 
+													<li><span>Bottom:</span><div><input type="number" name="paddingBottom" ng-model="singleField.paddingBottom" placeholder="0" min="0" max="200" /><i>px</i></div></li> 
+													<li><span>Left:</span><div><input type="number" name="paddingLeft" ng-model="singleField.paddingLeft" placeholder="0" min="0" max="200" /><i>px</i></div></li> 
+												</ul>
+												<h3>Margin</h3>
+												<ul class="inlinestyles">
+													<li><span>Top:</span><div><input type="number" name="marginTop" ng-model="singleField.marginTop" placeholder="0" min="0" max="200" /><i>px</i></div></li> 
+													<li><span>Right:</span><div><input type="number" name="marginRight" ng-model="singleField.marginRight" placeholder="0" min="0" max="200" /><i>px</i></div></li> 
+													<li><span>Bottom:</span><div><input type="number" name="marginBottom" ng-model="singleField.marginBottom" placeholder="0" min="0" max="200" /><i>px</i></div></li> 
+													<li><span>Left:</span><div><input type="number" name="marginLeft" ng-model="singleField.marginLeft" placeholder="0" min="0" max="200" /><i>px</i></div></li> 
+												</ul>
+												<h3>Border</h3>
+												<ul class="inlinestyles">
+													<li><span>Width:</span><div><input type="number" name="borderWidth" ng-model="singleField.borderWidth" placeholder="0" min="0" max="200" /><i>px</i></div></li> 
+													<li><span>Radius:</span><div><input type="number" name="borderRadius" ng-model="singleField.borderRadius" placeholder="0" min="0" max="200" /><i>px</i></div></li> 
+													<li><span>Color:</span><div><input type="color" name="borderColor" ng-model="singleField.borderColor" placeholder="0" /></div></li>
+													<li>
+														<span>Style:</span>
+														<div>
+															<select name="borderStyle" ng-model="singleField.borderStyle">
+																<option value="dashed">Dashed</option>
+																<option value="solid">Solid</option>
+																<option value="dotted">Dotted</option>
+															</select>
+														</div>
+													</li>
+												</ul>
+												<h3>Fonts</h3>
+												<ul class="inlinestyles"> 
+													<li><span>Font Size:</span><div><input type="number" name="font_size" ng-model="singleField.font_size" placeholder="14" /></div></li>
+													<li><span>Text Color:</span><div><input type="color" name="textColor" ng-model="singleField.textColor" placeholder="0" /></div></li>
+													<li ng-if="singleField.type == 'terms'"><span>Link Color:</span><div><input type="color" name="linkColor" ng-model="singleField.linkColor" placeholder="0" /></div></li> 
+													 
+												</ul>
+												
+												
+												<h3>Others</h3>
+												<ul class="inlinestyles"> 
+													<li ng-if="singleField.type != 'social'"><span>Background Color:</span><div><input type="color" name="bgColor" ng-model="singleField.bgColor" placeholder="0" /></div></li> 
+													<li><span>Width:</span><div><input type="number" name="field_width" ng-model="singleField.field_width" placeholder="auto" /><i>px</i></div></li>
+													<li><span>Height:</span><div><input type="number" name="field_height" ng-model="singleField.field_height" placeholder="auto" /><i>px</i></div></li>
+													<li ng-if="singleField.type != 'social'">
+														<span>Align:</span>
+														<div>
+															<select name="align" ng-model="singleField.align">
+																<option value="center">Center</option>
+																<option value="left">Left</option>
+																<option value="right">Right</option>
+															</select>
+														</div>
+													</li>  
+												</ul>
+												
+												
+											</div>
+											
+											
+											<h2 ng-class="{ active: isSets(2) }"  ng-click="setAcc(2)"><i class="fa fa-plus" aria-hidden="true"></i><i class="fa fa-minus" aria-hidden="true"></i>Padding</h2>
+											<div class="styleUPdateInner" ng-show="isSets(2)">
+												<ul class="inlinestyles">
+													<li><span>Top:</span><div><input type="number" name="w_paddingTop" ng-model="singleField.w_paddingTop" placeholder="0" min="0" max="200" /><i>px</i></div></li> 
+													<li><span>Right:</span><div><input type="number" name="w_paddingRight" ng-model="singleField.w_paddingRight" placeholder="0" min="0" max="200" /><i>px</i></div></li> 
+													<li><span>Bottom:</span><div><input type="number" name="w_paddingBottom" ng-model="singleField.w_paddingBottom" placeholder="0" min="0" max="200" /><i>px</i></div></li> 
+													<li><span>Left:</span><div><input type="number" name="w_paddingLeft" ng-model="singleField.w_paddingLeft" placeholder="0" min="0" max="200" /><i>px</i></div></li> 
+												</ul>
+											</div>
+											<h2 ng-class="{ active: isSets(3) }"  ng-click="setAcc(3)"><i class="fa fa-plus" aria-hidden="true"></i><i class="fa fa-minus" aria-hidden="true"></i>Margin</h2>
+											<div class="styleUPdateInner" ng-show="isSets(3)">
+												<ul class="inlinestyles">
+													<li><span>Top:</span><div><input type="number" name="w_marginTop" ng-model="singleField.w_marginTop" placeholder="0" min="0" max="200" /><i>px</i></div></li> 
+													<li><span>Right:</span><div><input type="number" name="w_marginRight" ng-model="singleField.w_marginRight" placeholder="0" min="0" max="200" /><i>px</i></div></li> 
+													<li><span>Bottom:</span><div><input type="number" name="w_marginBottom" ng-model="singleField.w_marginBottom" placeholder="0" min="0" max="200" /><i>px</i></div></li> 
+													<li><span>Left:</span><div><input type="number" name="w_marginLeft" ng-model="singleField.w_marginLeft" placeholder="0" min="0" max="200" /><i>px</i></div></li> 
+												</ul>
+											</div>
+											<h2 ng-class="{ active: isSets(4) }"  ng-click="setAcc(4)"><i class="fa fa-plus" aria-hidden="true"></i><i class="fa fa-minus" aria-hidden="true"></i>Border</h2>
+											<div class="styleUPdateInner" ng-show="isSets(4)">
+												<ul class="inlinestyles">
+													<li><span>Width:</span><div><input type="number" name="w_borderWidth" ng-model="singleField.w_borderWidth" placeholder="0" min="0" max="200" /><i>px</i></div></li> 
+													<li><span>Radius:</span><div><input type="number" name="w_borderRadius" ng-model="singleField.w_borderRadius" placeholder="0" min="0" max="200" /><i>px</i></div></li> 
+													<li><span>Color:</span><div><input type="color" name="w_borderColor" ng-model="singleField.w_borderColor" placeholder="0" /></div></li>
+													<li>
+														<span>Style:</span>
+														<div>
+															<select name="w_borderStyle" ng-model="singleField.w_borderStyle">
+																<option value="dashed">Dashed</option>
+																<option value="solid">Solid</option>
+																<option value="dotted">Dotted</option>
+															</select>
+														</div>
+													</li>
+												</ul>
+											</div>
+											
+											<h2 ng-class="{ active: isSets(5) }"  ng-click="setAcc(5)"><i class="fa fa-plus" aria-hidden="true"></i><i class="fa fa-minus" aria-hidden="true"></i>Background</h2>
+											<div class="styleUPdateInner" ng-show="isSets(5)">
+												<ul class="inlinestyles"> 
+													<li><span>Background Color:</span><div><input type="color" name="w_bgColor" ng-model="singleField.w_bgColor" placeholder="0" /></div></li>
+													 
+												</ul>
+											</div>
+											
+											
+										</div>
+									</div>
+									
+								</div>
+				                
+				            </div>
+				            
+				           </div>
+						</form>
+					</div>
+					
+					
+				</div>
+			
+			</div>
+			
+		</div> 
+		
+	</div>
+</div>

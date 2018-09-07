@@ -1,0 +1,125 @@
+{{#partial "topnav"}}
+            <div class="topNavMobile navbar-fixed-top mobileShow"/>
+             <a class="" href="/facesix/qubercloud/cloud/home">
+                <img src="/facesix/static/qubercomm/images/header/logo.png" alt="Qubercomm">
+             </a>
+           </div>
+			<nav class="navbar navbar-default navbar-fixed-top">
+				<div class="container-fluid pad-left-0">
+					<div class="navbar-header">
+						<button type="button" class="toggle-align navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a href="#" class="sideToggle-icon" class="navbar-toggle collapse in" data-toggle="collapse" id="menu-toggle">
+							<span class="fa fa-bars pull-left"> 
+							</span>
+						</a>
+						{{#if BINARY_WRITE}}
+						<a class="navbar-brand logo-sec mobilehideS" href="/facesix/qubercloud/cloud/home">
+							<img src="/facesix/static/qubercomm/images/header/logo.png">
+						</a>
+						{{else}}
+						<a class="navbar-brand logo-sec mobilehideS" href="/facesix/web/site/list?cid={{cid}}">
+							<img src="/facesix/static/qubercomm/images/header/logo.png">
+						</a>
+						{{/if}}
+
+ 
+                    {{#if uid}}                 
+                    <span class="sidebaricon right_panel_icon mobileShow pull-right">
+                            <img src="/facesix/static/qubercomm/images/sidebaricon.png" alt="" data-orig="/facesix/static/qubercomm/images/sidebaricon.png">
+                    </span>
+                    {{/if}} 
+					</div> 
+					<div id="navbar" class="navbar-collapse collapse">
+						<div class="nav navbar-nav nav-left header-dd sub-category1">
+							<ul class="list-unstyled list-catg">
+								
+								<li class="dropdown list-d">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+									Venue 
+									{{#if suid}}
+										: {{suid}}
+									{{/if}}
+									<span class="caret"></span></a>
+									<ul class="dropdown-menu list-catg-dropdown">
+										<li><a href="/facesix/web/site/list">View all Venues</a></li>
+										<li><a href="/facesix/web/site/open">Add new Venue</a></li>
+									</ul>
+								</li>
+								{{#if sid}}
+								<li class="dropdown list-d">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+									
+									Floor
+									{{#if spuid}}
+										: {{spuid}}
+									{{/if}}
+									<span class="caret"></span></a>
+									<ul class="dropdown-menu list-catg-dropdown">
+										<li><a href="/facesix/web/site/portion/list?sid={{sid}}">View all FloorPlans</a></li>
+										<li><a href="/facesix/web/site/portion/new?sid={{sid}}">Add new Floorplan</a></li>
+									</ul>
+								</li>
+								{{/if}}
+							</ul>
+						</div>
+						<ul class="nav navbar-nav navbar-right mobilehideS">
+						<!--  
+						{{#if uid}}
+						    <li class="margintop10 rightBarSec sideba"src/main/webapp/static/qubercomm/css/custom.css"ricon right_panel_icon">
+                                 <img src="/facesix/static/qubercomm/images/sidebaricon-hover.png" alt="" data-orig="/facesix/static/qubercomm/images/sidebaricon-hover.png">
+                        	</li>
+                        {{/if}}
+							<li class="pdf-Option">
+								<a href="/facesix/static/qubercomm/images/header/pdf-hover.png" class="pdfOption">
+									<img src="/facesix/static/qubercomm/images/header/pdf.png" alt="" data-orig="/facesix/static/qubercomm/images/header/pdf.png">
+								</a>
+							</li>
+							
+							<li class="dropdown profile-dash">
+								<a href="#" class="pad0 dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+									<img src="/facesix/web/account/profilepic" class="profile-circle"/>
+									<span class="caret"></span>
+								</a>
+								<ul class="dropdown-menu profile-dash-menu profile-dropDown">
+									<li><a href="/facesix/web/account/profile">Account</a></li>
+									<li><a href="/facesix/goodbye">Logout</a></li>
+								</ul>
+							</li>
+							-->
+							<!-- 
+                            <li><a href="/facesix/qubercloud/welcome#!/client"><img src="/facesix/static/qcom/img/office.png"/><span>Clients</span></a></li>
+                           -->
+                          
+                       
+                           {{#if sid}}
+                            	<li><a href="/facesix/web/site/list?cid={{cid}}"><i class="fa fa-map-marker"></i><span>Venue</span></a></li>
+                           {{/if}}
+                            
+                            
+                            <!--<li><a href="/facesix/web/site/portion/list?sid={{sid}}"><i class="fa fa-map"></i><span>Floors</span></a></li>
+                             -->
+                            {{#if uid}}
+                            <li class="right_panel_icon"><a><img src="/facesix/static/qcom/img/network.png"/><span>Clients</span></a></li>
+                            {{else qcastId}}
+                            <li class="right_panel_icon"><a><img src="/facesix/static/qcom/img/network.png"/><span>Clients</span></a></li>                            
+                            {{/if}}                            
+                            {{#if CUST_WRITE}}
+                            <li><a href="/facesix/qubercloud/welcome#!/usermanagement"><div><i class="fa fa-users"></i><span>User Management</span></div></a></li>
+                            {{/if}}
+                            
+                            <li><a href="/facesix/qubercloud/welcome#!/myaccount"><i class="fa fa-user"></i><span>My Account</span></a></li>
+                            
+		                     
+                            <li class="addhide"><a href="" class="pdfOption"><i class="fa fa-file-pdf-o"></i><span>PDF</span></a></li>
+                            
+                            <li><a href="/facesix/goodbye"><i class="fa fa-power-off"></i><span>Logout</span></a></li>
+						</ul>
+					</div><!--/.nav-collapse -->
+				</div>
+			</nav>
+{{/partial}}

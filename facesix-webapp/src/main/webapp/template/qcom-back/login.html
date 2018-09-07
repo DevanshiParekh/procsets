@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Qubercomm</title>
+    <link href="https://fonts.googleapis.com/css?family=Droid+Sans|Lato" rel="stylesheet">
+    <link type='text/css' rel='stylesheet' href="/facesix/static/qcom/css/style.css" />
+    <link type='text/css' rel='stylesheet' href="/facesix/static/qcom/css/login.css" />
+    <script src="/facesix/static/qcom/js/angular.min.js"></script>
+    
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('loginCtrl', function($scope){
+            $scope.resetShow = function(){
+                $scope.showReset = true;
+            }
+            $scope.resetHide = function(){
+                $scope.showReset = false;
+                $scope.resetTrue = false;
+            }
+            $scope.resetPassword = function(){
+                $scope.resetTrue = true;
+            }
+            
+        });
+    </script>   
+</head>
+
+<body class="login-screen" ng-controller="loginCtrl">
+    
+    <div class="login-background img-bottom">
+        <div class="panel-1">
+            <div class="circle-image bottom">
+            <img class="top" src="/facesix/static/qcom/img/login/circle-top.png"/>
+            <img class="bottom" src="/facesix/static/qcom/img/login/circle-bottom.png"/>
+            <img class="left" src="/facesix/static/qcom/img/login/circle-left.png"/>
+        </div>
+        </div>
+        <div class="panel-2" ng-if="!showReset">
+            <form role="form" id="loginForm" action="/facesix/qubercloud/welcome" method="post">
+            <div class="panel-inner">
+                <div class="panel-brand">
+                     <img src="/facesix/static/qcom/img/logo.png"/>
+                </div>
+                <div class="clearfix"></div>
+                <div class="panel-input">
+                    <div class="form-group">
+                        <label><img src="/facesix/static/qcom/img/login/user.png"/></label>
+                        <input type="text" class="form-control" placeholder="Username" name="u"/>
+                    </div>
+                    <div class="form-group">
+                        <label><img src="/facesix/static/qcom/img/login/password.png"/></label>
+                        <input type="password" class="form-control" placeholder="Password" name="p"/>
+                    </div>
+                    <div class="form-group-1">
+                        <label class="checkbox"> 
+                            <input type="checkbox"/>
+                            <span></span>
+                           
+                        </label>
+                        <span><small>Remember Me</small></span>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group tc">
+                        <button class="login-btn">LOGIN</button>
+
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group tc">
+                        <a href="/facesix/forgot" name="fgt" >Forgot Password?</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+        </div>
+        <div class="panel-2" ng-if="showReset">
+            <div class="panel-inner" ng-if="!resetTrue">
+                <div class="panel-brand">
+                    <img src="/facesix/static/qcom/img/logo.png"/>
+                </div>
+                <div class="clearfix"></div>
+                <div class="panel-input">
+                    <div class="form-group">
+                        <label><img src="/facesix/static/qcom/img/login/user.png"/></label>
+                        <input type="text" class="form-control" placeholder="Username"/>
+                    </div>
+                    
+                    <div class="clearfix"></div>
+                    <div class="form-group tc">
+                        <button class="login-btn w100" ng-click="resetPassword()">Reset Password</button>
+                        <button class="login-btn w100" ng-click="resetHide()">cancel</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="panel-inner" ng-if="resetTrue">
+                <div class="panel-brand">
+                     <img src="/facesix/static/qcom/img/logo.png"/>
+                </div>
+                <div class="clearfix"></div>
+                <div class="panel-input">
+                    <div class="form-group">
+                        <p class="f1">Password reset link send to your email.</p>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="form-group tc">
+                        <button class="login-btn" ng-click="resetHide()">Back to login</button>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            
+            <p>Copyright © 2016 Qubercomm.com All rights reserved.</p><a href="#/contactus.html">Contact Us</a>
+            
+    </div>
+    </div>
+    
+</body>
+</html>

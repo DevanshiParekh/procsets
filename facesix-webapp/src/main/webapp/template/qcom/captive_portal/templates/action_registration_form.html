@@ -1,0 +1,441 @@
+<div id="loginFormContainer" class="{[{previewMode}]}">
+
+ 
+<form id="form_builder" novalidate class="previewModeScreen {[{previewModeClass}]}" name="form" ng-submit="form.$valid && submitForm()" > 
+<style>
+	img{
+		max-width: 100%;
+	}
+	.radio_alter{
+		padding: 15px;
+		background: #f6f6f6;
+		border-top: 1px solid #dddddd;
+		
+	}
+	.radio_alter label{
+		position: relative;
+		width: 18px;
+		height: 18px;
+		border-radius: 100%; 
+		border: 2px solid {[{activeSkinColor.color1}]}; 
+		vertical-align: middle;
+		margin: 0;
+	} 
+	.radio_alter label input{
+		display: block;
+	    position: absolute;
+	    margin: 0;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    z-index: 99;
+	    cursor: pointer;
+	    opacity: 0;
+	}
+	.radio_alter label input ~ i{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		border-radius: 100%;
+		background: {[{activeSkinColor.color2}]};
+		border: 2px solid #fff;
+		opacity: 0;
+	}
+	.radio_alter label input:checked ~ i{
+		opacity: 1;
+	}
+	.radio_alter span{
+		vertical-align: middle;
+		margin-left: 10px;
+	}
+	.termsconditions{
+		display: table;
+		width: 100%;
+	}
+	.termsconditions > div{
+		display: table-cell;
+		vertical-align: middle;
+	}
+	.termsconditions p{ 
+	}
+	.single-ui-field:hover{
+	    box-shadow: none;
+	}
+	body{
+		padding-top: 0;
+	}
+	.has-error .ng-invalid{
+		border: 1px solid #f00 !important;
+	}
+	.form-group{
+		padding: 0;
+		position: relative;
+	}
+	.form-group p.help-block{
+		position: absolute;
+		top: -5px;
+		background: #f00;
+		border-radius: 5px;
+		right: -5px;
+		color: #fff;
+		padding: 1px 10px;
+	}
+	.ng-invalid{
+		border: none;
+	}
+	.has-error.check_alter{
+		border-color: #f00;
+	}
+	input[type="submit"]{
+		cursor: pointer;
+	}
+	.single-ui-field.disabled{
+		display: none;
+	}
+	.single-ui-field:before,single-ui-field:after, .single-ui-field:before,.single-ui-field:after{
+		display: table;
+  		content: " ";
+	}
+</style>
+  
+<div id="login-form-wrapper" class=""  > 
+	<div id="login-form-wrapper-inner">
+	<style ng-if="backgroundImg != ''">
+		#login-form-wrapper{
+			background-image: url({[{backgroundImg}]});
+			background-repeat: no-repeat;
+			background-size: cover;
+			background-position: center center;
+		}
+	</style>
+	<div class="login-form-center">
+		<div class="login-form-wrp">
+			<div class="sortable-row" as-sortable="sortableOptions" data-ng-model="formValues"> 
+				    
+				    
+                   <div ng-repeat="item in formValues"  class="themeMode"  > 
+                  		
+                   	<div> 
+                   		<style> 
+                   			#field-{[{item.id}]}{
+                   				padding-top: {[{item.w_paddingTop}]}px;
+                    			padding-bottom: {[{item.w_paddingBottom}]}px;
+                    			padding-left: {[{item.w_paddingLeft}]}px;
+                    			padding-right: {[{item.w_paddingRight}]}px;
+                    			margin-top: {[{item.w_marginTop}]}px;
+                    			margin-bottom: {[{item.w_marginBottom}]}px;
+                    			margin-left: {[{item.w_marginLeft}]}px;
+                    			margin-right: {[{item.w_marginRight}]}px;
+                    			border-width: {[{item.w_borderWidth}]}px;
+                    			border-radius: {[{item.w_borderRadius}]}px;
+                    			border-color: {[{item.w_borderColor}]};
+                    			border-style: {[{item.w_borderStyle}]}; 
+                    			background-color: {[{item.w_bgColor}]}; 
+                    			text-align: {[{item.align}]}; 
+                   			}
+                   			#fieldInner-{[{item.id}]}{
+                    			padding-top: {[{item.paddingTop}]}px;
+                    			padding-bottom: {[{item.paddingBottom}]}px;
+                    			padding-left: {[{item.paddingLeft}]}px;
+                    			padding-right: {[{item.paddingRight}]}px;
+                    			margin-top: {[{item.marginTop}]}px;
+                    			margin-bottom: {[{item.marginBottom}]}px;
+                    			margin-left: {[{item.marginLeft}]}px;
+                    			margin-right: {[{item.marginRight}]}px;
+                    			border-width: {[{item.borderWidth}]}px;
+                    			border-radius: {[{item.borderRadius}]}px;
+                    			border-color: {[{item.borderColor}]};
+                    			border-style: {[{item.borderStyle}]}; 
+                    			background-color: {[{item.bgColor}]};
+                    			color: {[{item.textColor}]};  
+                    			font-size: {[{item.font_size}]}px;
+                    			text-align: {[{item.align}]}; 
+                   			}
+                   		</style> 
+                   		<style ng-if="item.field_width != ''">
+                   			#fieldInner-{[{item.id}]}{
+                   				width: {[{item.field_width}]}px; 
+                   			}
+                   		</style>
+                   		<style ng-if="item.field_height != ''">
+                   			#fieldInner-{[{item.id}]}{
+                   				height: {[{item.field_height}]}px; 
+                   			}
+                   		</style>
+                   	 
+                  			 
+                   		<div class="{[{item.wrapperClass}]} single-ui-field" id="field-{[{item.id}]}" ng-click="setEditOptions(4, item)" ng-class="{disabled: otpSend == true && (item.type == 'input' || item.type == 'textarea' || item.type == 'terms')}" > 
+                   			<a class="removeField" ng-click="setRemove($index)" ng-if="item.isDefault !='1' && isEditingMode == true"><i class="fa fa-times"></i></a>
+                   			<a class="editField" href="javascript:void(0)" ng-if="isEditingMode == true"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                   			<div class="removeConfirm"  ng-show="isRemove($index)" ng-if="isEditingMode == true">
+                   				<div class="ab-center">
+                  					<a class="" href ng-click="removeField(item)">Confirm</a>
+                   					<a class="" href ng-click="setRemove(100000)">Cancel</a>
+                 				</div>
+                   			</div>
+	                    	<div ng-if="item.type == 'input' && otpSend == false"> 
+	                    		<!--  User Name -->
+	                    		 
+                    			 <div {[{name = item.placeholder}]} class="form-group" ng-class="{ 'has-error': form.$submitted && form.name.$invalid }" >   
+						            <!-- <label>{[{item.placeholder}]}</label>  -->  
+						            <input type="text" name="name" class="form-control" ng-model="register.customField[item.placeholder]" required placeholder="{[{item.placeholder}]}" id="fieldInner-{[{item.id}]}" >
+						            
+						           <!-- <p ng-show="form.$submitted && form.{[{item.placeholder}]}.$invalid" class="help-block">You name is required.</p>  --> 
+						        </div> 
+	                    	</div> 
+	                    	<div ng-if="item.type == 'video'">   
+	                    		<video controls ng-if="item.videoPath != ''" id="fieldInner-{[{item.id}]}">
+									<source ng-src="{[{item.videoPath | trustUrl}]}" type="video/mp4"> 
+									Your browser does not support the video tag.
+								</video> 
+	                    		<div style="text-align: center; color: #acacac; font-size: 16px;" ng-if="item.videoPath == ''" >Please upload the video</div> 
+	                    	</div> 
+	                    	
+	                    	<div ng-if="item.type == 'submit' && otpSend == false"> 
+	                    		<input type="submit" value="{[{item.content}]}" id="fieldInner-{[{item.id}]}"  /> 
+	                    		<!--  ng-disabled="userForm.$invalid" -->
+	                    	</div>
+	                    	<div ng-if="item.type == 'submit' && otpSend == true"> 
+	                    		<input type="submit" value="Verify OTP" id="fieldInner-{[{item.id}]}"  /> 
+	                    		<!--  ng-disabled="userForm.$invalid" -->
+	                    	</div>
+	                    	<div ng-if="item.type == 'textarea' && otpSend == false">  
+	                    		<!--  <label ng-if="item.label != ''">{[{item.label}]}</label><br />  -->
+	                    		<div {[{name = item.placeholder}]} class="form-group" ng-class="{ 'has-error': form.$submitted && form.name.$invalid }" >   
+						            <!-- <label>{[{item.placeholder}]}</label>  --> 
+						            <textarea name="name" ng-model="register.customField[item.placeholder]" placeholder="{[{item.placeholder}]}" id="fieldInner-{[{item.id}]}"></textarea>
+						            
+						           <!-- <p ng-show="form.$submitted && form.{[{item.placeholder}]}.$invalid" class="help-block">You name is required.</p>  --> 
+						        </div> 
+						        
+	                    	</div> 
+	                    	<div ng-if="item.type == 'youtube'"> 
+	                    		<iframe ng-src="{[{item.content | trustUrl}]}" ng-if="item.content != ''" id="fieldInner-{[{item.id}]}"></iframe>   
+	                    		<div style="text-align: center; color: #acacac; font-size: 16px;" ng-if="item.content == ''" >Please enter the youtube video url</div> 
+	                    	</div> 
+	                    	
+	                    	
+	                    	<div ng-if="item.type == 'image'">
+                    			<img ng-src="{[{item.imagePath}]}" alt="" ng-if="item.imagePath != ''" id="fieldInner-{[{item.id}]}" />
+                    			<div style="text-align: center; color: #acacac; font-size: 16px;" ng-if="item.imagePath == ''" >Logo or Image</div> 
+	                    	</div>
+                    	
+                    		<div ng-if="item.type == 'text'"  > 
+                    			<p ng-if="item.inputType == 'p'" id="fieldInner-{[{item.id}]}">{[{item.content}]}</p>
+                    			<h1 ng-if="item.inputType == 'h1'" id="fieldInner-{[{item.id}]}">{[{item.content}]}</h1>
+                    			<h2 ng-if="item.inputType == 'h2'" id="fieldInner-{[{item.id}]}">{[{item.content}]}</h2>
+                    			<h3 ng-if="item.inputType == 'h3'" id="fieldInner-{[{item.id}]}">{[{item.content}]}</h3>
+                    			<h4 ng-if="item.inputType == 'h4'" id="fieldInner-{[{item.id}]}">{[{item.content}]}</h4>
+                    			<h5 ng-if="item.inputType == 'h5'" id="fieldInner-{[{item.id}]}">{[{item.content}]}</h5>
+                    			<h6 ng-if="item.inputType == 'h6'" id="fieldInner-{[{item.id}]}">{[{item.content}]}</h6>
+                    			<span ng-if="item.inputType == 'span'" id="fieldInner-{[{item.id}]}">{[{item.content}]}</span>
+                    			<label ng-if="item.inputType == 'label'" id="fieldInner-{[{item.id}]}">{[{item.content}]}</label>
+                    			<div ng-if="item.inputType == 'div'" id="fieldInner-{[{item.id}]}">{[{item.content}]}</div>
+                    			<i ng-if="item.inputType == 'i'" id="fieldInner-{[{item.id}]}">{[{item.content}]}</i>
+	                    	</div>
+	                    	
+	                    	<div ng-if="item.type == 'terms' && otpSend == false"> 
+	                    		<!-- <p ng-show="form.$submitted && form.terms.$invalid" class="help-block">Accept our terms and condition before continue.</p> -->
+                    			<div class="termsconditions">
+	                    			<div>
+	                    				 <!-- Terms & conditions -->
+		                    			   
+							            <!-- <label>{[{fields.placeholder}]}</label>  --> 
+							          
+		                    			<div class="check_alter form_check_alter" ng-class="{ 'has-error': form.$submitted && form.terms.$invalid }"> 
+											<input type="checkbox" name="terms" ng-model="register.terms" ng-true-value="true" required ng-false-value="false" ng-checked="false" id="fieldInner-{[{item.id}]}" >  
+											<i></i>
+									    </div>
+									     
+								    </div>
+								    <div>
+								   		<p for="#fieldInner-{[{item.id}]}" ng-bind-html="item.content | trustContent" id="fieldInner-{[{item.id}]}"></p>
+								    </div>
+								    <style>
+								    	#fieldInner-{[{item.id}]} a{
+								    		color: {[{item.linkColor}]};
+								    	}
+								    </style> 
+							    </div>
+	                    	</div>
+	                    	
+	                    	<div ng-if="item.type == 'voucher'"> 
+                    			 <input name="{[{item.name}]}" ng-model="voucher" type="text" value="" placeholder="{[{item.placeholder}]}"  id="fieldInner-{[{item.id}]}"  />
+	                    	</div>
+	                    	<div ng-if="item.type == 'registration' && otpSend == true"> 
+	                    		<style>
+	                    			#field-{[{item.id}]} input[type="text"],#field-{[{item.id}]} input[type="email"],#field-{[{item.id}]} input[type="password"] ,#field-{[{item.id}]} input[type="phone"]  {
+		                    			padding-top: {[{item.paddingTop}]}px;
+		                    			padding-bottom: {[{item.paddingBottom}]}px;
+		                    			padding-left: {[{item.paddingLeft}]}px;
+		                    			padding-right: {[{item.paddingRight}]}px;
+		                    			margin-top: {[{item.marginTop}]}px;
+		                    			margin-bottom: {[{item.marginBottom}]}px;
+		                    			margin-left: {[{item.marginLeft}]}px;
+		                    			margin-right: {[{item.marginRight}]}px;
+		                    			border-width: {[{item.borderWidth}]}px;
+		                    			border-radius: {[{item.borderRadius}]}px;
+		                    			border-color: {[{item.borderColor}]};
+		                    			border-style: {[{item.borderStyle}]}; 
+		                    			background-color: {[{item.bgColor}]};
+		                    			color: {[{item.textColor}]};  
+		                    			font-size: {[{item.font_size}]}px;
+		                    			text-align: {[{item.align}]}; 
+		                   			}
+		                   			#field-{[{item.id}]} .checkboxGroup{
+		                   				border-radius: {[{item.borderRadius}]}px;
+		                   				background-color: {[{item.bgColor}]}; 
+		                   				overflow: hidden;
+		                   			}
+	                    		</style>
+	                    		<!--  User Name -->
+	                   			<div class="form-group" ng-class="{ 'has-error': form.$submitted && form.username.$invalid}"  >
+						            <!-- <label>{[{fields.placeholder}]}</label>  --> 
+						            <input type="text" name="otp" class="form-control" ng-model="register.otp" required placeholder="Enter Otp"  >
+						            <p ng-show="form.$submitted && form.otp.$invalid" class="help-block">OTP invalid.</p>
+						        </div>
+						         
+	                    		
+	                    	</div>
+	                    	<div ng-if="item.type == 'registration' && otpSend == false"> 
+	                    		<style>
+	                    			#field-{[{item.id}]} input[type="text"],#field-{[{item.id}]} input[type="email"],#field-{[{item.id}]} input[type="password"] ,#field-{[{item.id}]} input[type="phone"]  {
+		                    			padding-top: {[{item.paddingTop}]}px;
+		                    			padding-bottom: {[{item.paddingBottom}]}px;
+		                    			padding-left: {[{item.paddingLeft}]}px;
+		                    			padding-right: {[{item.paddingRight}]}px;
+		                    			margin-top: {[{item.marginTop}]}px;
+		                    			margin-bottom: {[{item.marginBottom}]}px;
+		                    			margin-left: {[{item.marginLeft}]}px;
+		                    			margin-right: {[{item.marginRight}]}px;
+		                    			border-width: {[{item.borderWidth}]}px;
+		                    			border-radius: {[{item.borderRadius}]}px;
+		                    			border-color: {[{item.borderColor}]};
+		                    			border-style: {[{item.borderStyle}]}; 
+		                    			background-color: {[{item.bgColor}]};
+		                    			color: {[{item.textColor}]};  
+		                    			font-size: {[{item.font_size}]}px;
+		                    			text-align: {[{item.align}]}; 
+		                   			}
+		                   			#field-{[{item.id}]} .checkboxGroup{
+		                   				border-radius: {[{item.borderRadius}]}px;
+		                   				background-color: {[{item.bgColor}]}; 
+		                   				overflow: hidden;
+		                   			}
+	                    		</style>
+	                    		<style ng-if="item.field_width != ''">
+		                   			#field-{[{item.id}]} input[type="text"],#field-{[{item.id}]} input[type="email"],#field-{[{item.id}]} input[type="password"] ,#field-{[{item.id}]} input[type="phone"]  {
+		                   				width: {[{item.field_width}]}px; 
+		                   			}
+		                   		</style>
+		                   		<style ng-if="item.field_height != ''">
+		                   			#field-{[{item.id}]} input[type="text"],#field-{[{item.id}]} input[type="email"],#field-{[{item.id}]} input[type="password"] ,#field-{[{item.id}]} input[type="phone"]  {
+		                   				height: {[{item.field_height}]}px; 
+		                   			}
+		                   		</style>
+		                   		
+	                    		<div ng-repeat="fields in item.registration_fields">  
+	                    			 
+	                    			 <!--  User Name -->
+	                    			 <div class="form-group" ng-class="{ 'has-error': form.$submitted && form.username.$invalid}" ng-if="fields.name == 'username' && fields.status == true">
+							            <!-- <label>{[{fields.placeholder}]}</label>  --> 
+							            <input type="text" name="username" class="form-control" ng-model="register.username"  required placeholder="{[{fields.placeholder}]}"  ng-pattern="/^[a-zA-Z ]+$/" >
+							            <p ng-show="form.$submitted && form.username.$invalid" class="help-block">You name is required.</p>
+							         </div>
+							         
+							         <!--  Email -->
+	                    			 <div class="form-group" ng-class="{ 'has-error': form.$submitted && form.email.$invalid }" ng-if="fields.name == 'email' && fields.status == true">
+							            <!-- <label>{[{fields.placeholder}]}</label>  -->
+							            <input type="email" name="email" class="form-control" ng-model="register.email" required placeholder="{[{fields.placeholder}]}" ng-pattern="/^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/">
+							            <p ng-show="form.$submitted && form.email.$invalid" class="help-block">Enter valid email address.</p>
+							         </div>
+						 
+						 		     <!--  Phone -->
+	                    			 <div class="form-group" ng-class="{ 'has-error': form.$submitted && form.phone.$invalid }" ng-if="fields.name == 'phone' && fields.status == true">
+							            <!-- <label>{[{fields.placeholder}]}</label>  -->
+							            <input type="text" name="phone" class="form-control" ng-model="register.phone" required placeholder="{[{fields.placeholder}]}"  ng-pattern="/^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/" >
+							            <p ng-show="form.$submitted && form.phone.$invalid" class="help-block">Enter Valid Phone number.</p>
+							         </div>
+	                    			   
+                    			  	 <!--   
+	                    			 <div ng-if="fields.name == 'gender' && fields.status == true" class="checkboxGroup">
+	                    			 	<div class="radio_alter"> 
+	                    			 		<label ng-if="fields.value == 'male'"><input type="radio" value="male" name="gender" ng-checked="true" /><i></i></label>
+	                    			 		<label ng-if="fields.value != 'male'"><input type="radio" value="male" name="gender"  /><i></i></label>
+	                    			 		<span>Male</span>
+	                    			 	</div> 
+	                    			 	<div class="radio_alter">
+	                    			 		<label ng-if="fields.value == 'female'"><input type="radio" value="male" name="gender" ng-checked="true" /><i></i></label>
+	                    			 		<label ng-if="fields.value != 'female'"><input type="radio" value="male" name="gender" /><i></i></label>
+	                    			 		<span>Female</span>
+	                    			 	</div>
+	                    			 	
+	                    			 </div>
+	                    			 -->
+	                    			 
+	                    		</div>
+                    			  
+	                    	</div>
+	                    	
+	                    	 
+	                    	
+	                    	<div ng-if="item.type == 'offer'"> 
+	                    		<div id="fieldInner-{[{item.id}]}" ng-bind-html="item.content | trustContent"></div> 
+	                    	</div>
+	                    	
+	                    	<div ng-if="item.type == 'add'"> 
+	                    		<div class="advertisement" ng-if="isEditingMode == true">
+	                    			 
+                    				<div id="fieldInner-{[{item.id}]}" ><div ng-bind-html="item.content | trustContent"></div></div> 
+	                    			 
+	                    		</div> 
+	                    		
+	                    		<div class="advertisement" ng-if="isEditingMode != true">
+	                    			 
+	                    				<div id="fieldInner-{[{item.id}]}" ><div ng-bind-html="item.content | trustContent"></div></div> 
+	                    			</a>
+	                    		 
+	                    		</div> 
+	                    		
+	                    		<style ng-if="item.imagePath != ''">
+	                    			#field-{[{item.id}]}{
+	                    				background-image: url({[{item.imagePath}]});
+	                    				background-size: cover;
+	                    				background-position: center center;
+	                    				background-repeat: no-repeat;
+	                    			}
+	                    			#field-{[{item.id}]} div{
+	                    				background: transparent;
+	                    			}
+	                    		</style>
+	                    		<style ng-if="item.field_height != ''">
+		                   			#fieldInner-{[{item.id}]}{
+		                   				min-height: {[{item.field_height}]}px; 
+		                   				height: auto;
+	                   				    display: table;
+									    width: 100%;
+									    vertical-align: middle;
+		                   			}
+		                   			#fieldInner-{[{item.id}]} > div{
+		                   				display: table-cell;
+		                   				vertical-align: middle;
+		                   			}
+		                   		</style>
+		                   		
+	                    	</div>
+	                    	
+	                    	
+                    	</div>
+                       </div>
+                       
+                   </div>
+               </div>
+		</div>
+	</div>
+</div>
+</div>
+</form>
+</div>

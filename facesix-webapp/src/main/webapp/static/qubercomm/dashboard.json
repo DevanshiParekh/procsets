@@ -1,0 +1,33 @@
+{
+	"typeOfDevices": [
+		["IOS", 7],
+		["Mac", 12],
+		["Win", 83],
+		["Android", 83],
+		["Others", 83]
+	],
+	"netFlow": {
+		"timings": ["4:00", "4:15", "4:20", "4:25", "4:30", "4:35", "4:40"],
+		"data": [
+			["Downtime", 13000, 14500, 13500, 15000, 1550, 1765, 19500],
+			["Total", 8400, 9800, 11800, 14400, 18800, 24800, 3080],
+			["Web", 1000, 12500, 15800, 18400, 20800, 30800, 40800],
+			["Chat", 2400, 1900, 15800, 19400, 24800, 26800, 47800]
+		]
+
+	},
+	"devicesConnected": [
+		["2G", 7],
+		["5G", 12]
+	],
+	"activeConnections": {
+		"totalDevice": 20,
+		"activeDevice": 3
+	},
+	"connectedInterfaces": [
+		{"device":"WLAN","status":"enabled"},
+		{"device":"XBEE","status":"disabled"},
+		{"device":"PLC","status":"enabled"},
+		{"device":"BLE","status":"disabled"}
+	]
+}

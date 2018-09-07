@@ -1,0 +1,131 @@
+<div class="topology">
+    <div class="top-icons">
+        <h3 ng-bind="head.title"></h3>
+        
+        <ul>
+            <li click="server">
+                <a href="" ng-click="serveropen()">
+                	<label class="server"></label> <span>Server1</span>
+                </a>
+                <div class="top-dropdown" ng-if="serveropened">
+                    <div class="form-group">
+                        <label>Name <span class="errMsg" ng-if="errorName">Required</span></label>
+                        <input type="text" class="form-control" ng-model="dataserver.devname"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Device Id <span class="errMsg" ng-if="errorid">Required</span></label>
+                        <input type="text" class="form-control" ng-model="dataserver.devuid"  maxlength="17" ng-change="macServer(dataserver)"/>
+                    </div>
+                    <div class="form-group tr">
+                        <button class="btn" ng-click="newServer(dataserver)">Submit</button>
+                    </div>
+                </div>
+            </li>
+            <li click="switch">
+                <a href="" ng-click="switchopen()">
+                	<label class="switch"></label> <span>Switch</span>
+                </a>
+                <div class="top-dropdown" ng-if="switchopened">
+                    <div ng-if="!showSwitch" class="tc top-noServer">
+                        <p>No Server Found</p>
+                        <button class="btn w-auto" ng-click="serveropen()">Add Server</button>
+                    </div>
+                    <div ng-if="showSwitch">
+                        <div class="form-group" ng-show="needServer">
+                            <label>Server <span class="errMsg" ng-if="errorServer">Required</span></label>
+                            <select class="form-control" ng-model="dataswitch.parent">
+                                <option value="">Select Server</option>
+                                <option ng-repeat="x in servers" value="{[{x.uid}]}">
+                                    SVR - {[{x.uid}]}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Name <span class="errMsg" ng-if="errorName">Required</span></label>
+                            <input type="text" class="form-control" ng-model="dataswitch.devname"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Device Id <span class="errMsg" ng-if="errorid">Required</span></label>
+                            <input type="text" class="form-control" maxlength="17" ng-model="dataswitch.devuid" ng-change="macSwitch(dataswitch)"/>
+                        </div>
+                        <div class="form-group tr">
+                            <button class="btn" ng-click="newSwitch(dataswitch)">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li click="ap">
+                <a href="" ng-click="apopen()">
+                	 <label class="ap"></label> <span>AP</span>
+                </a>
+                <div class="top-dropdown" ng-if="apopened">
+                    <div ng-if="!showAp" class="tc top-noServer">
+                        <p>No Server Found</p>
+                        <button class="btn w-auto" ng-click="serveropen()">Add Server</button>
+                    </div>
+                    <div ng-if="showAp">
+                        <div class="form-group" ng-show="needSwitch">
+                            <label>Switch <span class="errMsg" ng-if="errorServer">Required</span></label>
+                            <select class="form-control" ng-model="dataap.parent">
+                                <option value="">Select Switch</option>
+                                <option ng-repeat="x in switchs" value="{[{x.uid}]}">
+                                    SW - {[{x.uid}]}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Name <span class="errMsg" ng-if="errorName">Required</span></label>
+                            <input type="text" class="form-control" ng-model="dataap.devname"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Device Id <span class="errMsg" ng-if="errorid">Required</span></label>
+                            <input type="text" class="form-control"  maxlength="17" ng-model="dataap.devuid" ng-change="macAp(dataap)"/>
+                        </div>
+                        <div class="form-group tr">
+                            <button class="btn" ng-click="newAp(dataap)">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li click="device">
+                <a href="" ng-click="deviceopen()">
+                	<label class="device"></label> <span>Sensor</span>
+                </a>
+                <div class="top-dropdown" ng-if="deviceopened">
+                    <div ng-if="!showDevice" class="tc top-noServer">
+                        <p>No Server Found</p>
+                        <button class="btn w-auto" ng-click="serveropen()">Add Server</button>
+                    </div>
+                    <div ng-if="showDevice">
+                        <div class="form-group" ng-show="needAp">
+                            <label>Server <span class="errMsg" ng-if="errorServer">Required</span></label>
+                            <select class="form-control" ng-model="datadevice.parent">
+                                <option value="">Select AP</option>
+                                <option ng-repeat="x in aps" value="{[{x.uid}]}">
+                                    AP - {[{x.uid}]}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Name <span class="errMsg" ng-if="errorName">Required</span></label>
+                            <input type="text" class="form-control" ng-model="datadevice.devname"/>
+                        </div>
+                        <div class="form-group">
+                            <label>Device Id <span class="errMsg" ng-if="errorid">Required</span></label>
+                            <input type="text" class="form-control" maxlength="17" ng-model="datadevice.devuid" ng-change="macDevice(datadevice)"/>
+                        </div>
+                        <div class="form-group tr">
+                            <button class="btn" ng-click="newDevice(datadevice)">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <canvas class="absolute"></canvas>
+        <canvas></canvas>
+    <ul id="ctm" class="canvas-context">
+        <li ng-click='shapeMove()'><a><i class='fa fa-eye'></i>Move</a></li>
+    </ul>
+  
+</div>

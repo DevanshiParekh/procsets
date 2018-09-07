@@ -1,0 +1,159 @@
+th{
+    text-align: center;
+}
+
+.summarytable table.dataTable thead .sorting, 
+.summarytable table.dataTable thead .sorting_asc::after, 
+.summarytable table.dataTable thead .sorting_desc {
+    content:'';
+}
+th.dt-center, td.dt-center { text-align: center; }
+
+
+    div.tooltip {
+      position: absolute;
+      text-align: center;
+      width: 200px;
+      height: 28px;
+      padding: 2px;
+      font: 12px sans-serif;
+      background: #d0e3ed;
+      border: 0px;
+      border-radius: 8px;
+    }
+
+    .topotrafficdiv {
+      border-radius: 25px;
+      background: #d0e3ed;
+      padding: 20px;
+      float: right;
+      text-align: center
+    }
+
+    .cellmac img {
+      padding-left: 10px;
+      width: 25%;
+    }
+
+    rect {
+      background-color:white;
+      stroke: none;
+    }
+
+    .headerlist {
+      color: gray;
+      font-size: 10px;
+    }
+
+    .titletopology {
+      text-align: center;
+    }
+
+    .networkname {
+      font-weight: 700;
+      font-size: 30px;
+    }
+
+    .securityicon{
+      position: absolute;
+      top: -0px;
+      right: -15px;
+      width:15px;
+      height:15px;
+    }
+    .securityname{
+      margin-top:-10px;
+      font-size: 30px;
+    }
+
+    .posrelative{
+      position: relative;
+    }
+
+    .topotrafficdiv{
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+    .svg-container {
+      display: inline-block;
+      position: relative;
+      width: 100%;
+      padding-bottom: 100%; /* aspect ratio */
+      vertical-align: top;
+      overflow: hidden;
+  }
+  .svg-content-responsive {
+      display: inline-block;
+      position: absolute;
+      top: 10px;
+      left: 0;
+  }
+
+  div#DevicesummaryChart{
+    margin-top: 30px;
+    background: aliceblue
+  }
+  
+  div#HealthChart, div#BandRatioChart, div#CPUUsageChart, div#MemUsageChart, div#NetworkUsageChart{
+    background: aliceblue
+  }
+  .headingbackbutton{
+    font-size: 20px;
+    margin-top: 10px;
+  } 
+
+  div#panneltopo, div#clientsummarybody,div.devsummary {
+    background-color: #eef2f6!important;
+  }
+
+  table.inettraffictable tr td:first-child{
+     text-align: right
+   }
+ 
+  
+
+  div#paneltopo.panel-default>.panel-heading , div#paneldevsummary.panel-default>.panel-heading ,
+  div#tablereport.panel-default>.panel-heading {
+    background-image:none;
+    color: #333;
+    background-color: white;
+    border-color: #ddd;
+}
+
+table#summarytable thead tr{
+  background-color: #cee2f7!important;
+}
+
+div#tablereport .fa-long-arrow-up{
+  color:blue;
+}
+
+div#tablereport  .fa-long-arrow-down{
+  color:brown;
+}
+
+div#paneldevsummary .nav-tabs{
+  background-color:#008ad0;
+}
+div#paneldevsummary .nav-tabs > li > a{
+  border: medium none;
+}
+div#paneldevsummary .nav-tabs > li > a:hover{
+  background-color: #00a1f1 !important;
+    border: medium none;
+    border-radius: 0;
+    color:#fff;
+}
+
+div#paneldevsummary  li.active > a{
+  background-color: #00a1f1 !important;
+    border: medium none;
+    border-radius: 0;
+    color:#fff;
+}
+
+div#paneldevsummary  li>a {
+  color: #f9f9f9;
+}

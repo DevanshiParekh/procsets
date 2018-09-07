@@ -1,0 +1,152 @@
+<section class="content">
+    <div class="container-fluid">
+        <div class="venuedashboard">
+                <div class="">
+                    <div class="card-view">
+                        <div class="heading border">
+                            <div class="title theme">
+                                QuberComm Technologies
+                            </div>
+                            <div class="card-menu fr">
+                                <ul>
+                                    <li><a href="#/editvenue"><i class="fa fa-edit"></i></a></li>
+                                    <li><a href="#/floor"><i class="fa fa-building"></i></a></li>
+                                    <li><a href="#/delvenue"><i class="fa fa-trash"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="body" ng-if="!sunburstfullview">
+                            <div class="col-md-7">
+                                <div class="card-view bt2 sunBurstC">
+                                    <div class="heading border">
+                                        <div class="title theme">
+                                            Overview
+                                        </div>
+                                        <span class="fr cursor" ng-click="openSunburst()"><i class="fa fa-arrows-alt"></i></span>
+                                    </div>
+                                    <div class="body">
+                                        <sunburst data="sunburstData"></sunburst>
+                                        <div class="sunBledgend">
+                                            <ul>
+                                                <li><span class="lbox active"></span> <span>Active</span></li>
+                                                <li><span class="lbox idle"></span> <span>Idle</span></li>
+                                                <li><span class="lbox inactive"></span> <span>Inactive</span></li>
+                                                <li><span class="lbox floor"></span> <span>Floor</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                                
+                                
+                                </div>
+                                <div class="card-view bt2 doughnut">
+                                    <div class="heading border">
+                                        <div class="title theme">
+                                            Recent Activity
+                                        </div>
+                                    </div>
+                                    <div class="body h-spl">
+                                        <ul class="card-body-ul">
+                                        <li>
+                                            <label>
+                                                Qubercloud gateway wlan stats upload success
+
+                                            </label>
+                                            <label class="date">2016-09-24 11:29:42.562</label>
+
+                                        </li>
+                                </ul>
+                                    </div>
+                                </div>
+                               
+                            
+                                
+                                
+                            </div>
+                            <div class="col-md-5">
+                                <div class="card-view bt2 line">
+                                <div class="heading border">
+                                    <div class="title theme">
+                                        Floor vs Traffic
+                                    </div>
+                                </div>
+                                    <div class="body">
+                                        <hchart data="dataVenueAgg.value" labels="dataVenueAgg.name"></hchart>
+                                        
+                                
+                                </div>
+                                    
+                                
+                                     
+                                </div>
+                                <div class="clearfix"></div>
+                                
+                                <div class="card-view bt2 line">
+                                <div class="heading border">
+                                    <div class="title theme">
+                                        Venue Tx vs Rx
+                                    </div>
+                                </div>
+                                    <div class="body">
+                                        <canvas id="line" class="chart chart-line" chart-data="dataRxTx.value" chart-labels="dataRxTx.name" chart-series="dataRxTx.series" chart-options="options" chart-colours="linedata.colours" chart-legend="true"></canvas>
+                             
+                                </div>
+                                    
+                                
+                                     
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="card-view half bt2 doughnut">
+                                <div class="heading border">
+                                    <div class="title theme">
+                                       Floor Vs Device
+                                    </div>
+                                </div>
+                                <div class="body">
+                                    <canvas id="doughnut" class="chart chart-doughnut" chart-data="dataVM.value" chart-labels="dataVM.name" chart-legend="true" chart-colours="dougcolours"></canvas>
+                                </div>
+                            </div>
+                            <div class="card-view half bt2 doughnut cfr">
+                                <div class="heading border">
+                                    <div class="title theme">
+                                       Active VAP Chart
+                                    </div>
+                                </div>
+                                <div class="body">
+                                    <canvas id="doughnut" class="chart chart-doughnut" chart-data="dataVaps.value" chart-labels="dataVaps.name" chart-legend="true" chart-colours="dougcolours"></canvas>
+                                </div>
+
+
+
+                            </div>
+                            <div class="clearfix"></div>
+                                
+                                
+                                
+                            
+                            </div>
+                        </div>
+                        <div class="body" ng-if="sunburstfullview">
+                            <div class="card-view bt2">
+                                    <div class="heading border">
+                                        <div class="title theme">
+                                            Overview
+                                            
+                                        </div>
+                                        <span class="fr cursor" ng-click="openSunburst()"><i class="fa fa-arrows-alt"></i></span>
+                                    </div>
+                                    <div class="body">
+                                        <sunburst data="sunburstData"></sunburst>
+                                    </div>
+                                                
+                                
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            
+            </div>
+
+    
+    </div>
+
+</section>
